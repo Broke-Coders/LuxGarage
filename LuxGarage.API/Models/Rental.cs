@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+namespace LuxGarage.API.Models;
 public class Rental
 {
-    [Key]
     public int Id { get; set; }
 
-    public int CarId { get; set; }
+    public int VehicleId { get; set; }
+
+    public Vehicle Vehicle {get; set;} = null!;
 
     public DateTime StartingTime { get; set; }
 
@@ -18,8 +20,7 @@ public class Rental
 
     public int BorrowerId { get; set; }
 
-    [ForeignKey(nameof(BorrowerId))]
-    public Borrower Borrower { get; set; }
+    public Borrower Borrower { get; set; } = null!;
 
-    public ICollection<RentalInsurance> RentalInsurances { get; set; } = new List<RentalInsurance>();
+    public ICollection<RentalInsurance> RentalInsurances { get; } = new List<RentalInsurance>();
 }
