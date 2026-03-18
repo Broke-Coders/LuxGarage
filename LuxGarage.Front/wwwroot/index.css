@@ -1,4 +1,4 @@
-/* GLOBAL RESET */
+
 *,
 ::before,
 ::after {
@@ -10,9 +10,20 @@
 body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden; 
 }
 
 img {
+  display: block; 
   width: 200px;
   height: 200px;
+  object-fit: cover;
+  max-width: 100%;
+}
+
+.screen-section { 
+  width: 100%;
+  min-height: 100vh;
+  display: flex; 
+  align-items: center;     
 }
