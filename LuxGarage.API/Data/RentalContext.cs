@@ -17,4 +17,11 @@ public class RentalContext(DbContextOptions<RentalContext> options)
     public DbSet<VehicleColor> VehicleColors => Set<VehicleColor>();
     public DbSet<Worker> Workers => Set<Worker>();
     public DbSet<Workplace> Workplaces => Set<Workplace>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(RentalContext).Assembly);
+    }
 }
