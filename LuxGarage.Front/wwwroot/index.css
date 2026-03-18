@@ -1,4 +1,4 @@
-/* GLOBAL RESET */
+
 *,
 ::before,
 ::after {
@@ -10,38 +10,20 @@
 body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden; 
 }
 
 img {
+  display: block; 
   width: 200px;
   height: 200px;
+  object-fit: cover;
+  max-width: 100%;
 }
 
-#empty-page {
-  height: 2000px;
-  width: 100vw;
-}
-
-#FirstPage {
-  width: 100vw;
-  height: 100vh;
-}
-
-.navbar {
-  display: flex;
-  background-color: black;
-  justify-content: center;
-  align-items: center;
-  gap: 128px;
-}
-.logo {
-  width: 260px;
-  height: 96px;
-}
-.nav-text {
-  font-family: "Montserrat", sans-serif;
-  color: #ebe6ce;
-  font-size: 28px;
-  font-weight: medium;
-  letter-spacing: 10%;
+.screen-section { 
+  width: 100%;
+  min-height: 100vh;
+  display: flex; 
+  align-items: center;     
 }
