@@ -1,20 +1,22 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using LuxGarage.API.Models;
-
-namespace LuxGarage.API.Data.Configurations;
 
 public class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
 {
     public void Configure(EntityTypeBuilder<Vehicle> builder)
     {
+        builder.ToTable("Vehicles");
+
         builder.HasKey(v => v.Id);
 
         builder.Property(v => v.Id)
             .ValueGeneratedOnAdd();
 
-        builder.Property(v => v.Horsepower)
+        builder.Property(v => v.licensePlate)
             .IsRequired();
+
+        builder.Property(v => v.Horsepower)
+            .IsRequired()
 
         builder.Property(v => v.Mileage)
             .IsRequired();
