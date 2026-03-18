@@ -1,18 +1,18 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+namespace LuxGarage.API.Models;
+
 public class Worker
 {
-    [Key]
     public int Id { get; set; }
 
-    [Required]
-    public string Password { get; set; }
+    public required string Password { get; set; }
 
     public int WorkplaceId { get; set; }
+    public Workplace Workplace { get; set; } = null!;
 
     public int PermissionId { get; set; }
 
-    [ForeignKey(nameof(WorkplaceId))]
-    public Workplace Workplace { get; set; }
+    public Permission Permission {get; set;} = null!;
 }

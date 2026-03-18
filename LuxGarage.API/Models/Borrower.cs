@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+namespace LuxGarage.API.Models;
 public class Borrower
 {
-    [Key]
     public int Id { get; set; }
 
-    [Required]
-    public string Email { get; set; }
+    public required string Email { get; set; }
 
     public int BorrowCounter { get; set; }
 
-    public ICollection<Rental> Rentals { get; set; } = new List<Rental>();
+    public ICollection<Rental> Rentals { get; } = new List<Rental>();
 }
