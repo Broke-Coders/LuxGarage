@@ -14,8 +14,7 @@ public class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
             .ValueGeneratedOnAdd();
 
         builder.Property(v => v.Horsepower)
-            .IsRequired()
-            .HasColumnType("decimal(18,2)");
+            .IsRequired();
 
         builder.Property(v => v.Mileage)
             .IsRequired();
