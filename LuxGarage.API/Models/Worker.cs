@@ -2,7 +2,7 @@ using System;
 
 namespace LuxGarage.API.Models;
 
-public class Car
+public class Worker
 {
     public int Id {get;set;}
     
