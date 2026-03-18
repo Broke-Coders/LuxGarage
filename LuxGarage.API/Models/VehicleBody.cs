@@ -1,10 +1,15 @@
-using System;
-
-namespace LuxGarage.API.Models;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 public class VehicleBody
 {
-    public int Id {get;set;}
-    
-        
+    [Key]
+    public int Id { get; set; }
+
+    [Required]
+    [MaxLength(50)]
+    public string Name { get; set; }
+
+    // Właściwość nawigacyjna
+    public ICollection<Vehicle> Vehicles { get; set; } = new List<Vehicle>();
 }
