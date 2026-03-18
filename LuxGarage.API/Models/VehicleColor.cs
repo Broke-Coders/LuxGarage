@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+namespace LuxGarage.API.Models;
 public class VehicleColor
 {
-    [Key]
     public int Id { get; set; }
 
-    [Required]
-    public string Name { get; set; }
+    public required string Name { get; set; }
 
-    public string HtmlColor { get; set; }
+    public required string HtmlColor { get; set; }
 
-    public ICollection<Vehicle> Vehicles { get; set; } = new List<Vehicle>();
+    public ICollection<Vehicle> Vehicles { get; } = new List<Vehicle>();
 }
