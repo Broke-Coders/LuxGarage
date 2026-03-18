@@ -1,10 +1,17 @@
 using System;
-
-namespace LuxGarage.API.Models;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 public class Borrower
 {
-    public int Id {get;set;}
-    
-        
+    [Key]
+    public int Id { get; set; }
+
+    [Required]
+    public string Email { get; set; }
+
+    public int BorrowCounter { get; set; }
+
+    public ICollection<Rental> Rentals { get; set; } = new List<Rental>();
 }
