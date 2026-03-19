@@ -1,3 +1,4 @@
+using LuxGarage.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,27 +13,27 @@ public class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
         builder.Property(v => v.Id)
             .ValueGeneratedOnAdd();
 
-        builder.Property(v => v.licensePlate)
+        builder.Property(v => v.LicensePlate)
             .IsRequired();
 
         builder.Property(v => v.Horsepower)
-            .IsRequired()
+            .IsRequired();
 
         builder.Property(v => v.Mileage)
             .IsRequired();
 
         builder.HasOne(v => v.VehicleBrand)
-            .WithMany()
+            .WithMany(b => b.Vehicles)
             .HasForeignKey(v => v.VehicleBrandId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(v => v.VehicleBody)
-            .WithMany()
+            .WithMany(b => b.Vehicles)
             .HasForeignKey(v => v.VehicleBodyId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(v => v.VehicleColor)
-            .WithMany()
+            .WithMany(c => c.Vehicles)
             .HasForeignKey(v => v.VehicleColorId)
             .OnDelete(DeleteBehavior.Restrict);
     }

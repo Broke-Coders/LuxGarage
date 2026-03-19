@@ -1,8 +1,8 @@
 
 using LuxGarage.API.Data;
-using LuxGarage.API.Models;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore;
+using LuxGarage.API.Models;
 
 public class VehicleRepository : IVehicleRepository
 {
@@ -13,9 +13,23 @@ public class VehicleRepository : IVehicleRepository
         this._context = context;
     }
 
-    public async Task<IEnumerable<Vehicle>> GetAllAsync()
+    public async Task<IEnumerable<Task>> GetAllAsync()
         => await _context.Vehicles.AsNoTracking().ToListAsync();
 
     public async Task<Vehicle?> GetByIdAsync(int id)
         => await _context.Vehicles.FindAsync(id);
+
+    public async Task AddAsync(Vehicle vehicle)
+    {
+        await _context.Vehicles.AddAsync(vehicle);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task DeleteAsync(int id)
+    {
+        var vehicle = await GetByIdAsync(id);
+        if (vehicle is null) return;
+        _context.Vehicles.Remove(vehicle);
+        await _context.SaveChangesAsync();
+    }
 }
