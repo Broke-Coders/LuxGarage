@@ -4,8 +4,8 @@ services:
     image: postgres:16
     container_name: LuxGarageDB
     environment:
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=luxgarage
       - POSTGRES_DB=LuxGarageDB
     ports:
       - "5432:5432"
