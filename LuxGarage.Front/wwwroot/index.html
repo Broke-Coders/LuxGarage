@@ -12,17 +12,24 @@
          rel="stylesheet"
       />
    </head>
+
    <body>
       <nav id="navbar">
          <div class="navbar-logo-title">
             <img id="logo" src="images/logo.png" alt="LuxGarage Logo" />
             <span id="logo-title">LuxGarage</span>
          </div>
-         <div class="navbar-links">
-            <a href="" id="cars-nav" class="navbar-text">Cars</a>
-            <a href="" id="why-us-nav" class="navbar-text">Why Us</a>
-            <a href="" id="vouchers-nav" class="navbar-text">Vouchers</a>
-         </div>
+         <ul class="navbar-links">
+            <li>
+               <a href="" id="cars-nav" class="navbar-text">Cars</a>
+            </li>
+            <li>
+               <a href="" id="why-us-nav" class="navbar-text">Why Us</a>
+            </li>
+            <li>
+               <a href="" id="vouchers-nav" class="navbar-text">Vouchers</a>
+            </li>
+         </ul>
 
          <div class="navbar-profile">
             <a href="" id="account-nav" class="navbar-image"
@@ -170,7 +177,7 @@
                            &mdash; Maciej Porempski
                         </p>
                      </figure>
-                     <!-- 
+
                      <figure>
                         <img
                            src="images/testimonial/klaszcz_demo.jpg"
@@ -200,8 +207,8 @@
                            machine made the night unforgettable. The reservation
                            fee was a small price to pay for such an experience.
                         </blockquote>
-                        <p class="testimonial-author">&mdash; Dawid Jasper</p>
-                     </figure> -->
+                        <p class="testimonial-author">&mdash; David Jasper</p>
+                     </figure>
                   </div>
                </div>
 
@@ -245,10 +252,32 @@
                </div>
             </section>
          </div>
-         <footer>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Temporibus
-            quia officia possimus. Quo repellendus dignissimos sit.
-         </footer>
       </main>
+
+      <footer class="footer">
+         <div class="container grid grid--5-cols">
+            <div class="logo-col">
+               <a href="#" class="footer-logo">
+                  <img src="images/logo.png" alt="LuxGarage Logo" />
+               </a>
+               <p class="copyright">Copyright&copy;</p>
+            </div>
+            <div class="address-col">
+               <p class="footer-heading">Contact us</p>
+               <address class="contacts">
+                  <p>Address</p>
+                  <p>
+                     <a href="tel:123-456-789">123-456-789</a><br />
+                     <a href="mailto:luxgarage@gmail.com"
+                        >luxgarage@gmail.com</a
+                     >
+                  </p>
+               </address>
+            </div>
+            <nav class="nav-col">Nav1</nav>
+            <nav class="nav-col">Nav2</nav>
+            <nav class="nav-col">Nav3</nav>
+         </div>
+      </footer>
    </body>
 </html>
