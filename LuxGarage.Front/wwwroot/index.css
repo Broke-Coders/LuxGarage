@@ -20,12 +20,22 @@ img {
    max-width: 100%;
 }
 
-/* .screen-section {
+.screen-section {
    width: 100%;
    min-height: 100vh;
    display: flex;
    align-items: center;
-} */
+}
+
+/**************************/
+/* GENRAL REUSABLE COMPONENTS */
+/**************************/
+
+.container {
+   width: 120rem;
+   padding: 0 3.2rem;
+   margin: 0 auto;
+}
 
 .grid {
    display: grid;
@@ -36,7 +46,13 @@ img {
    grid-template-columns: repeat(2, 1fr);
 }
 
+.grid--5-cols {
+   grid-template-columns: repeat(5, 1fr);
+}
+
+/**************************/
 /* TESTIMONIALS SECTION */
+/**************************/
 .section-testimonials {
    padding: 9.6rem 0;
    background-color: antiquewhite;
@@ -91,4 +107,10 @@ img {
 
 .testimonials-gallery img:hover {
    transform: scale(1.1);
+}
+
+/**************************/
+/*        FOOTER          */
+/**************************/
+.footer {
 }
