@@ -4,8 +4,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddStoreDb();
 var app = builder.Build();
-//app.MigrateDb();
+app.MigrateDb();
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.Run();

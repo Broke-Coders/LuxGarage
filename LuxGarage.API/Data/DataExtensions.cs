@@ -15,8 +15,18 @@ public static class DataExtensions
 
 
         dbContext.Database.EnsureDeleted(); // Reseting database
-
+        dbContext.Database.CloseConnection();
         dbContext.Database.Migrate();
+
+    if (!dbContext.Set<Permission>().Any())
+    {
+        dbContext.Set<Permission>().AddRange(
+        new Permission { Name = "Admin" },
+        new Permission { Name = "Worker" }
+        );
+        dbContext.SaveChanges();
+    }
+
 
         if(!dbContext.Set<Workplace>().Any())
         {
@@ -36,15 +46,18 @@ public static class DataExtensions
 
         if(!dbContext.Set<Worker>().Any())
         {
+            int permId = dbContext.Set<Permission>().First(p => p.Name == "Admin").Id;
+            int WorkId = dbContext.Set<Workplace>().First(p => p.City == "Krakow").Id;
+
            dbContext.Set<Worker>().AddRange( 
                 new Worker {Password = "pass", 
-                WorkplaceId = 1, PermissionId = 1},
+                WorkplaceId = WorkId, PermissionId = permId},
 
                 new Worker {Password = "haslo", 
-                WorkplaceId = 2, PermissionId = 2},
+                WorkplaceId = WorkId, PermissionId = permId},
 
                 new Worker {Password = "1234", 
-                WorkplaceId = 2, PermissionId = 3}
+                WorkplaceId = WorkId, PermissionId = permId}
            );
            dbContext.SaveChanges();
         }
@@ -73,11 +86,11 @@ public static class DataExtensions
         {
             dbContext.Set<VehicleColor>().AddRange(
                 new VehicleColor{Name = "WHITE", 
-                HtmlColor = "#FFF"},
+                HtmlColor = "#FFFFFF"},
                 new VehicleColor{Name = "BLACK", 
-                HtmlColor = "#000"},
+                HtmlColor = "#000000"},
                 new VehicleColor{Name = "RED", 
-                HtmlColor = "#F00"}
+                HtmlColor = "#F00000"}
             );
             dbContext.SaveChanges();
         }
