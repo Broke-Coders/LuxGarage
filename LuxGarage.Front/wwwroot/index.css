@@ -1,29 +1,116 @@
-
 *,
 ::before,
 ::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden; 
+   margin: 0;
+   padding: 0;
+   overflow-x: hidden;
 }
 
 img {
-  display: block; 
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  max-width: 100%;
+   display: block;
+   /* width: 200px;
+   height: 200px; */
+   object-fit: cover;
+   max-width: 100%;
 }
 
-.screen-section { 
-  width: 100%;
-  min-height: 100vh;
-  display: flex; 
-  align-items: center;     
+.screen-section {
+   width: 100%;
+   min-height: 100vh;
+   display: flex;
+   align-items: center;
+}
+
+/**************************/
+/* GENRAL REUSABLE COMPONENTS */
+/**************************/
+
+.container {
+   width: 120rem;
+   padding: 0 3.2rem;
+   margin: 0 auto;
+}
+
+.grid {
+   display: grid;
+   gap: 5rem;
+}
+
+.grid--2-cols {
+   grid-template-columns: repeat(2, 1fr);
+}
+
+.grid--5-cols {
+   grid-template-columns: repeat(5, 1fr);
+}
+
+/**************************/
+/* TESTIMONIALS SECTION */
+/**************************/
+.section-testimonials {
+   padding: 9.6rem 0;
+   background-color: antiquewhite;
+   display: grid;
+   grid-template-columns: 60fr 40fr;
+   align-items: center;
+}
+
+.testimonials-container {
+   padding: 9.6rem;
+}
+
+.testimonials {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   row-gap: 4.8rem;
+   column-gap: 8rem;
+}
+
+.testimonial-img {
+   width: 50px;
+   height: 50px;
+   border-radius: 50%;
+}
+
+.testimonial-text {
+   /* font-size: 1.8rem; */
+   line-height: 1.8;
+   margin-bottom: 1.6rem;
+}
+
+.testimonial-author {
+   font-size: 1.6rem;
+}
+
+.testimonials-gallery {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 1.6rem;
+   padding: 1.6rem;
+}
+
+.testimonials-gallery-item {
+   overflow: hidden;
+}
+
+.testimonials-gallery img {
+   display: block;
+   width: 100%;
+   transition: all 0.4s;
+}
+
+.testimonials-gallery img:hover {
+   transform: scale(1.1);
+}
+
+/**************************/
+/*        FOOTER          */
+/**************************/
+.footer {
 }

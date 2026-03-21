@@ -7,7 +7,6 @@ public class Vehicle
     public int Id { get; set; }
 
     public int VehicleBrandId { get; set; }
-    
     public VehicleBrand VehicleBrand { get; set; } = null!;
     public decimal Horsepower { get; set; }
 
@@ -16,6 +15,7 @@ public class Vehicle
 
     public int VehicleBodyId { get; set; }
     public VehicleBody VehicleBody { get; set; } = null!;
+
     public int VehicleColorId { get; set; }
     public VehicleColor VehicleColor { get; set; } = null!;
 

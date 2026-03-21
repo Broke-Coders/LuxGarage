@@ -24,7 +24,7 @@ public class RentalConfiguration : IEntityTypeConfiguration<Rental>
             .IsRequired(false);
 
         builder.HasOne(r => r.Vehicle)
-            .WithMany()
+            .WithMany(v => v.Rentals)
             .HasForeignKey(r => r.VehicleId)
             .OnDelete(DeleteBehavior.Restrict);
 
