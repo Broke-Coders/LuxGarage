@@ -37,7 +37,7 @@ public class PermissionRepository : IPermissionRepository
         
         if (permission == null)
         {
-            Console.WriteLine("Vehicle permission with given id not found");
+            Console.WriteLine("permission with given id not found");
             return;
         }
 

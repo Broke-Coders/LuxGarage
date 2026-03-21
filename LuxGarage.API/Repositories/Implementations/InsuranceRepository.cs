@@ -37,7 +37,7 @@ public class InsuranceRepository : IInsuranceRepository
         
         if (insurance == null)
         {
-            Console.WriteLine("Vehicle insurance with given id not found");
+            Console.WriteLine("insurance with given id not found");
             return;
         }
 

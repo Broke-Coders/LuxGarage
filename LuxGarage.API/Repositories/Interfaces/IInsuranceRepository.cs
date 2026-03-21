@@ -5,7 +5,7 @@ namespace LuxGarage.API.Repositories.Interfaces;
 public interface IInsuranceRepository
 {
     Task<Insurance?> GetByIdAsync(int id);
-    Task AddAsync(Insurance borrower);
-    Task UpdateAsync(Insurance borrower);
+    Task AddAsync(Insurance insurance);
+    Task UpdateAsync(Insurance insurance, int id);
     Task DeleteAsync(int id);
 }
