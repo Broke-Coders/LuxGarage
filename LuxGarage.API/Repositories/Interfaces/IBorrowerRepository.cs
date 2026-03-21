@@ -1,0 +1,11 @@
+using LuxGarage.API.Models;
+
+namespace LuxGarage.API.Repositories.Interfaces;
+
+public interface IBorrowerRepository
+{
+    Task<Borrower?> GetByIdAsync(int id);
+    Task AddAsync(Borrower borrower);
+    Task UpdateAsync(Borrower borrower, int id);
+    Task DeleteAsync(int id);
+}

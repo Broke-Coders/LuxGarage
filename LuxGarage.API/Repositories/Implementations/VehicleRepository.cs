@@ -1,10 +1,10 @@
 
 using LuxGarage.API.Data;
-using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore;
 using LuxGarage.API.Models;
 using System.Collections.Immutable;
 
+namespace LuxGarage.API.Repositories.Implementations;
 public class VehicleRepository : IVehicleRepository
 {
     private readonly RentalContext _context;
