@@ -25,14 +25,7 @@
   <Folder Include="Services\" />
   <Folder Include="Services\Implementations\" />
   <Folder Include="Services\Interfaces\" />
-<<<<<<< HEAD
-<<<<<<< HEAD
   <Folder Include="Controllers\" />
-=======
->>>>>>> f268a20 (Add DTO and service for vehicle)
-=======
-  <Folder Include="Controllers\" />
->>>>>>> 7fe9d58 (Add controller for vehicle)
 </ItemGroup>
 
 </Project>
