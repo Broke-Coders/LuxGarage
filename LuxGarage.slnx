@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="LuxGarage.API/LuxGarage.API.csproj" />
   <Project Path="LuxGarage.Front/LuxGarage.Front.csproj" />
+  <Project Path="LuxGarage.Tests/LuxGarage.Tests.csproj" />
 </Solution>
