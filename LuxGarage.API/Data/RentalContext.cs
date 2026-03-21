@@ -9,6 +9,7 @@ public class RentalContext(DbContextOptions<RentalContext> options)
 {
     public DbSet<Borrower> Borrowers => Set<Borrower>();
     public DbSet<Insurance> Insurances => Set<Insurance>();
+    public DbSet<Permission> Permissions => Set<Permission>();
     public DbSet<Rental> Rentals => Set<Rental>();
     public DbSet<RentalInsurance> RentalInsurances => Set<RentalInsurance>();
     public DbSet<Vehicle> Vehicles => Set<Vehicle>();
