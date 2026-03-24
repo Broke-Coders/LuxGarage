@@ -163,7 +163,7 @@ img {
    padding-left: 13vw;
    justify-content: start;
    margin-top: 23vh;
-   gap: 6rem;
+   gap: 4.2rem;
 }
 
 #first-page-h1 {
@@ -248,6 +248,13 @@ img {
 /**************************/
 /* SECTION WHY*/
 /**************************/
+.section-why {
+   padding: 9.6rem 0;
+}
+
+.why-image {
+   width: 50%;
+}
 
 /**************************/
 /* TESTIMONIALS SECTION */
