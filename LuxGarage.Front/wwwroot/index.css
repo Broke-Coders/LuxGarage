@@ -256,6 +256,24 @@ img {
    width: 50%;
 }
 
+.heading-secondary {
+   font-size: 3rem;
+   font-weight: 700;
+   letter-spacing: -0.5px;
+   color: #ebe6ce;
+   margin-bottom: 9.6rem;
+}
+
+.subheading {
+   display: block;
+   font-size: 1.6rem;
+   font-weight: 500;
+   color: #8d8a7c;
+   text-transform: uppercase;
+   margin-bottom: 1.6rem;
+   letter-spacing: 0.75px;
+}
+
 /**************************/
 /* TESTIMONIALS SECTION */
 /**************************/
