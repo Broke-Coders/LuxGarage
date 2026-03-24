@@ -163,7 +163,7 @@ img {
    padding-left: 13vw;
    justify-content: start;
    margin-top: 23vh;
-   gap: 6rem;
+   gap: 4.2rem;
 }
 
 #first-page-h1{
@@ -214,7 +214,47 @@ img {
    box-shadow: inset 0 0 0 3px #EBE6CE;
    color: #EBE6CE;
    transform: scale(103%);
+}
 
+.trusted-clients {
+   /* margin-top: 4.8rem; */
+   display: flex;
+   gap: 1.2rem;
+   align-self: flex-start;
+   justify-self: center;
+}
+
+.trusted-imgs {
+   display: flex;
+   align-self: center;
+}
+
+.trusted-imgs .trusted-img {
+   height: 42px;
+   width: 42px;
+   border-radius: 50%;
+   margin-right: -0.6rem;
+   border: 2px solid #ebe6ce;
+}
+
+.trusted-img:last-child {
+   margin-right: 0;
+}
+
+.trusted-text {
+   font-size: 1.2rem;
+   color: #ebe6ce;
+   align-self: center;
+}
+/**************************/
+/* SECTION WHY*/
+/**************************/
+.section-why {
+   padding: 9.6rem 0;
+}
+
+.why-image {
+   width: 50%;
 }
 
 /**************************/
