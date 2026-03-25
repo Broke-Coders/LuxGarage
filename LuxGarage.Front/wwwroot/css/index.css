@@ -1,3 +1,155 @@
+*,
+::before,
+::after {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+html {
+   font-size: 62.5%;
+   scrollbar-width: none;
+   -ms-overflow-style: none;
+}
+
+html:-webkit-scrollbar {
+   display: none;
+   width: 0;
+   height: 0;
+}
+
+body {
+   margin: 0;
+   padding: 0;
+   overflow-x: hidden;
+   font-family: "Montserrat", sans-serif;
+}
+body::-webkit-scrollbar {
+   display: none;
+}
+
+img {
+   display: block;
+   /* width: 200px;
+   height: 200px; */
+   object-fit: cover;
+   max-width: 100%;
+   image-rendering: optimizeQuality;
+}
+
+.screen-section {
+   width: 100%;
+   min-height: 100vh;
+   display: flex;
+}
+
+/**************************/
+/* GENERAL REUSABLE COMPONENTS */
+/**************************/
+
+.container {
+   width: 120rem;
+   padding: 0 3.2rem;
+   margin: 0 auto;
+}
+
+.grid {
+   display: grid;
+   gap: 5rem;
+}
+
+.grid--2-cols {
+   grid-template-columns: repeat(2, 1fr);
+}
+
+.grid--3-cols {
+   grid-template-columns: repeat(3, 1fr);
+}
+
+.grid--5-cols {
+   grid-template-columns: repeat(5, 1fr);
+}
+/**************************/
+/* NAVBAR */
+/**************************/
+
+#navbar {
+   display: flex;
+   width: 100%;
+   height: 6.25rem;
+   background-color: #000000;
+   opacity: 80%;
+   backdrop-filter: blur(30px);
+   color: #ebe6ce;
+   align-items: center;
+   justify-content: start;
+   gap: 125px;
+   position: fixed;
+   z-index: 999;
+}
+#logo {
+   width: 100%;
+   height: 50px;
+   transition: 0.3s ease;
+}
+#logo:hover {
+   transform: scale(105%);
+}
+
+.navbar-image {
+   transition: 0.3s ease;
+}
+.navbar-image:hover {
+   transform: scale(110%);
+}
+.navbar-logo-title {
+   display: flex;
+   gap: 30px;
+   align-items: center;
+   margin-left: 75px;
+   margin-right: 230px;
+}
+#logo-title {
+   font-size: 2.81rem;
+   letter-spacing: 10%;
+   line-height: auto;
+   font-family: "Playfair";
+}
+
+.navbar-links {
+   display: flex;
+   gap: 125px;
+   margin-right: 130px;
+   align-items: center;
+}
+.navbar-text {
+   position: relative;
+   text-decoration: none;
+   color: inherit;
+   font-family: "Montserrat";
+   font-size: 1.8rem;
+   letter-spacing: 10%;
+}
+
+.navbar-text::after {
+   content: "";
+   position: absolute;
+   bottom: -7px;
+   width: 100%;
+   left: 0;
+   height: 2px;
+   background-color: #ebe6ce;
+   transform: scaleX(0);
+   transform-origin: left;
+   transition: 0.3s ease;
+}
+.navbar-text:hover::after {
+   transform: scaleX(1);
+}
+
+.navbar-profile {
+   display: flex;
+}
 /**************************/
 /* FIRST PAGE SECTION */
 /**************************/
