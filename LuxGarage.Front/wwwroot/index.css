@@ -62,6 +62,10 @@ img {
    grid-template-columns: repeat(2, 1fr);
 }
 
+.grid--3-cols {
+   grid-template-columns: repeat(3, 1fr);
+}
+
 .grid--5-cols {
    grid-template-columns: repeat(5, 1fr);
 }
@@ -315,6 +319,27 @@ img {
    justify-content: center;
 }
 
+/**************************/
+/* CARS SECTION */
+/**************************/
+
+.section-cars {
+   padding: 4.8rem 0;
+}
+
+.car-title {
+   font-size: 1.8rem;
+   color: #333;
+   font-weight: 600;
+   margin-bottom: 1.2rem;
+}
+
+.car-attributes {
+   list-style: none;
+   display: flex;
+   flex-direction: column;
+   gap: 2rem;
+}
 /**************************/
 /* TESTIMONIALS SECTION */
 /**************************/
