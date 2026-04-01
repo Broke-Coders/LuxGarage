@@ -11,6 +11,14 @@
          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap"
          rel="stylesheet"
       />
+      <script
+         type="module"
+         src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+      ></script>
+      <script
+         nomodule
+         src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+      ></script>
    </head>
 
    <body>
@@ -219,7 +227,7 @@
             <section class="section-testimonials">
                <div class="testimonials-container">
                   <span class="subheading">Testimonials</span>
-                  <h3 class="testimonials-header">What Our Clients Say</h3>
+                  <h2 class="testimonials-heading">What Our Clients Say</h2>
                   <div class="testimonials">
                      <figure class="testimonial">
                         <img
@@ -260,7 +268,7 @@
 
                      <figure>
                         <img
-                           src="images/testimonial/klu.jpg"
+                           src="images/testimonial/kszyk.jpg"
                            alt="Photo of customer Igor Kszyk"
                            class="testimonial-img"
                            loading="lazy"
@@ -333,84 +341,84 @@
                <div class="testimonials-gallery">
                   <figure class="testimonials-gallery-item">
                      <img
-                        src="images/performance.jpg"
+                        src="images/gallery/gallery1.jpg"
                         alt="temp"
                         loading="lazy"
                      />
                   </figure>
                   <figure class="testimonials-gallery-item">
                      <img
-                        src="images/performance.jpg"
+                        src="images/gallery/gallery2.jpg"
                         alt="temp"
                         loading="lazy"
                      />
                   </figure>
                   <figure class="testimonials-gallery-item">
                      <img
-                        src="images/performance.jpg"
+                        src="images/gallery/gallery3.jpg"
                         alt="temp"
                         loading="lazy"
                      />
                   </figure>
                   <figure class="testimonials-gallery-item">
                      <img
-                        src="images/performance.jpg"
+                        src="images/gallery/gallery4.jpg"
                         alt="temp"
                         loading="lazy"
                      />
                   </figure>
                   <figure class="testimonials-gallery-item">
                      <img
-                        src="images/performance.jpg"
+                        src="images/gallery/gallery5.jpg"
                         alt="temp"
                         loading="lazy"
                      />
                   </figure>
                   <figure class="testimonials-gallery-item">
                      <img
-                        src="images/performance.jpg"
+                        src="images/gallery/gallery6.jpg"
                         alt="temp"
                         loading="lazy"
                      />
                   </figure>
                   <figure class="testimonials-gallery-item">
                      <img
-                        src="images/performance.jpg"
+                        src="images/gallery/gallery7.jpg"
                         alt="temp"
                         loading="lazy"
                      />
                   </figure>
                   <figure class="testimonials-gallery-item">
                      <img
-                        src="images/performance.jpg"
+                        src="images/gallery/gallery8.jpg"
                         alt="temp"
                         loading="lazy"
                      />
                   </figure>
                   <figure class="testimonials-gallery-item">
                      <img
-                        src="images/performance.jpg"
+                        src="images/gallery/gallery9.jpg"
                         alt="temp"
                         loading="lazy"
                      />
                   </figure>
                   <figure class="testimonials-gallery-item">
                      <img
-                        src="images/performance.jpg"
+                        src="images/gallery/gallery10.jpg"
                         alt="temp"
                         loading="lazy"
                      />
                   </figure>
                   <figure class="testimonials-gallery-item">
                      <img
-                        src="images/performance.jpg"
+                        src="images/gallery/gallery11.jpg"
                         alt="temp"
                         loading="lazy"
                      />
                   </figure>
                   <figure class="testimonials-gallery-item">
                      <img
-                        src="images/performance.jpg"
+                        src="images/gallery/gallery12.jpg"
                         alt="temp"
                         loading="lazy"
                      />
@@ -425,17 +433,41 @@
             <div class="logo-col">
                <a href="#" class="footer-logo">
                   <img
+                     class="lux-logo-footer"
                      src="images/logo.png"
                      alt="LuxGarage Logo"
                      loading="lazy"
                   />
                </a>
-               <p class="copyright">Copyright&copy;</p>
+               <div class="footer-icons">
+                  <a class="footer-icon-link" href="#"
+                     ><ion-icon
+                        class="footer-icon"
+                        name="logo-github"
+                     ></ion-icon
+                  ></a>
+                  <a class="footer-icon-link" href="#"
+                     ><ion-icon
+                        class="footer-icon"
+                        name="logo-facebook"
+                     ></ion-icon
+                  ></a>
+                  <aclass ="footer-icon-link" href="#"
+                     ><ion-icon
+                        class="footer-icon"
+                        name="logo-instagram"
+                     ></ion-icon
+                  ></aclass>
+               </div>
+
+               <p class="copyright">
+                  Copyright &copy; by LuxGarage, Inc. All rights reserved.
+               </p>
             </div>
             <div class="address-col">
                <p class="footer-heading">Contact us</p>
                <address class="contacts">
-                  <p>Address</p>
+                  <p>ul. Akademicka 16 44-100 Gliwice</p>
                   <p>
                      <a href="tel:123-456-789">123-456-789</a><br />
                      <a href="mailto:luxgarage@gmail.com"
@@ -444,9 +476,35 @@
                   </p>
                </address>
             </div>
-            <nav class="nav-col">Nav1</nav>
-            <nav class="nav-col">Nav2</nav>
-            <nav class="nav-col">Nav3</nav>
+            <nav class="contact-col">
+               <p class="footer-heading">Company</p>
+               <ul class="footer-links">
+                  <li><a class="footer-link" href="">About LuxGarage</a></li>
+                  <li><a class="footer-link" href="">Why us</a></li>
+                  <li><a class="footer-link" href="">Partners</a></li>
+                  <li><a class="footer-link" href="">Career</a></li>
+               </ul>
+            </nav>
+
+            <nav class="rentals-col">
+               <p class="footer-heading">Rentals</p>
+               <ul class="footer-links">
+                  <li><a class="footer-link" href="">Our fleet</a></li>
+                  <li><a class="footer-link" href="">Luxury Sedans</a></li>
+                  <li><a class="footer-link" href="">Sports Cars</a></li>
+                  <li><a class="footer-link" href="">SUVs & 4x4</a></li>
+               </ul>
+            </nav>
+
+            <nav class="restources-col">
+               <p class="footer-heading">Resources</p>
+               <ul class="footer-links">
+                  <li><a class="footer-link" href="">Insurance Policy</a></li>
+                  <li><a class="footer-link" href="">Rental Terms</a></li>
+                  <li><a class="footer-link" href="">Gift Vouchers</a></li>
+                  <li><a class="footer-link" href="">Privacy & terms</a></li>
+               </ul>
+            </nav>
          </div>
       </footer>
    </body>
