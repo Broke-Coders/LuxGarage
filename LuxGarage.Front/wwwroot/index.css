@@ -362,10 +362,11 @@ img {
 #TestimonialPage {
    content-visibility: auto;
    contain-intrinsic-size: 100vh;
+   border-bottom: 0.4rem solid #8d8a7c;
 }
 
 .section-testimonials {
-   padding: 9.6rem 0;
+   /* padding: 9.6rem 0; */
    background-color: antiquewhite;
    display: grid;
    grid-template-columns: 60fr 40fr;
@@ -374,6 +375,11 @@ img {
 
 .testimonials-container {
    padding: 9.6rem;
+}
+
+.testimonials-heading {
+   font-size: 4.2rem;
+   margin-bottom: 3.2rem;
 }
 
 .testimonials {
@@ -390,7 +396,7 @@ img {
 }
 
 .testimonial-text {
-   /* font-size: 1.8rem; */
+   font-size: 1.4rem;
    line-height: 1.8;
    margin-bottom: 1.6rem;
 }
@@ -411,6 +417,7 @@ img {
 }
 
 .testimonials-gallery img {
+   border-radius: 9px;
    display: block;
    width: 100%;
    transition: all 0.4s;
@@ -423,4 +430,83 @@ img {
 /**************************/
 /*        FOOTER          */
 /**************************/
-.footer {}
+.footer {
+   padding: 9.6rem 0;
+   background-color: #47453e;
+   color: #ebe6ce;
+}
+
+.logo-col {
+   display: flex;
+   flex-direction: column;
+   gap: 1.2rem;
+}
+
+.footer-logo {
+   display: block;
+   margin-bottom: 3.2rem;
+}
+
+.footer-icons {
+   display: flex;
+   gap: 2.4rem;
+}
+
+.lux-logo-footer {
+   height: 5rem;
+}
+
+.footer-icon {
+   height: 2.4rem;
+   width: 2.4rem;
+   color: #ebe6ce;
+}
+
+.footer-icon:hover {
+   height: 2.4rem;
+   width: 2.4rem;
+   color: #8d8a7c;
+}
+
+.copyright {
+   font-size: 1.4rem;
+   margin-top: auto;
+}
+
+.footer-heading {
+   font-size: 2.4rem;
+   margin-bottom: 4rem;
+}
+
+.contacts p a:link,
+.contacts p a:visited {
+   text-decoration: none;
+   color: #ebe6ce;
+}
+
+.contacts p a:hover,
+.contacts p a:active {
+   text-decoration: none;
+   color: #8d8a7c;
+}
+
+.footer-links,
+.contacts {
+   font-size: 1.4rem;
+   display: flex;
+   flex-direction: column;
+   gap: 1.6rem;
+   list-style: none;
+}
+
+.footer-link:link,
+.footer-link:visited {
+   text-decoration: none;
+   color: #ebe6ce;
+}
+
+.footer-link:hover,
+.footer-link:active {
+   text-decoration: none;
+   color: #8d8a7c;
+}
