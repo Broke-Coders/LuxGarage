@@ -15,7 +15,7 @@ public static class DataExtensions
 
 
         dbContext.Database.EnsureDeleted(); // Reseting database
-        dbContext.Database.CloseConnection();
+        //dbContext.Database.CloseConnection();
         dbContext.Database.Migrate();
 
     if (!dbContext.Set<Permission>().Any())
@@ -44,19 +44,19 @@ public static class DataExtensions
             dbContext.SaveChanges();
         }
 
-        if(!dbContext.Set<Worker>().Any())
+        if(!dbContext.Set<Employee>().Any())
         {
             int permId = dbContext.Set<Permission>().First(p => p.Name == "Admin").Id;
             int WorkId = dbContext.Set<Workplace>().First(p => p.City == "Krakow").Id;
 
-           dbContext.Set<Worker>().AddRange( 
-                new Worker {Password = "pass", 
+           dbContext.Set<Employee>().AddRange( 
+                new Employee {Password = "pass", Login = "login1",
                 WorkplaceId = WorkId, PermissionId = permId},
 
-                new Worker {Password = "haslo", 
+                new Employee {Password = "haslo", Login = "login555",
                 WorkplaceId = WorkId, PermissionId = permId},
 
-                new Worker {Password = "1234", 
+                new Employee {Password = "1234", Login = "login67",
                 WorkplaceId = WorkId, PermissionId = permId}
            );
            dbContext.SaveChanges();
@@ -108,14 +108,14 @@ public static class DataExtensions
             dbContext.SaveChanges();
         }
 
-        if(!dbContext.Set<Borrower>().Any())
+        if(!dbContext.Set<Customer>().Any())
         {
-            dbContext.Set<Borrower>().AddRange(
-                new Borrower{Email = "wuj@gmail.com",
+            dbContext.Set<Customer>().AddRange(
+                new Customer{Email = "wuj@gmail.com",
                 BorrowCounter = 1},
-                new Borrower{Email = "ziutek@outlook.com",
+                new Customer{Email = "ziutek@outlook.com",
                 BorrowCounter = 5},
-                new Borrower{Email = "hop@maupa.net",
+                new Customer{Email = "hop@maupa.net",
                 BorrowCounter = 3}
             );
             dbContext.SaveChanges();

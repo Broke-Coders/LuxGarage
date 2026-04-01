@@ -4,13 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LuxGarage.API.Models;
-public class Borrower
+public class VehicleStatus
 {
     public int Id { get; set; }
 
-    public required string Email { get; set; }
+    public string Description { get; set; } = "UNKNOWN";
 
-    public int BorrowCounter { get; set; }
-
-    public ICollection<Rental> Rentals { get; } = new List<Rental>();
+    public required DateTime StartingDate { get; set; }
+    public DateTime? DateToEnd { get; set; }
 }

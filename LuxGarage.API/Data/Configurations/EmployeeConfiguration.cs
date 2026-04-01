@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LuxGarage.API.Configurations;
 
-public class WorkerConfiguration : IEntityTypeConfiguration<Worker>
+public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
 {
-    public void Configure(EntityTypeBuilder<Worker> builder)
+    public void Configure(EntityTypeBuilder<Employee> builder)
     {
         builder.ToTable("Workers");
 
@@ -19,12 +19,12 @@ public class WorkerConfiguration : IEntityTypeConfiguration<Worker>
             .IsRequired();
 
         builder.HasOne(w => w.Workplace)
-            .WithMany(wp => wp.Workers)
+            .WithMany(wp => wp.Employees)
             .HasForeignKey(w => w.WorkplaceId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(w => w.Permission)
-            .WithMany(p => p.Workers)
+            .WithMany(p => p.Employees)
             .HasForeignKey(w => w.PermissionId)
             .OnDelete(DeleteBehavior.Restrict);
     }
