@@ -17,8 +17,12 @@ public class Rental
 
     public DateTime? RealReturnTime { get; set; }
 
-    public int BorrowerId { get; set; }
-    public Borrower Borrower { get; set; } = null!;
+    public int CustomerId { get; set; }
+    public Customer Customer { get; set; } = null!;
 
     public ICollection<RentalInsurance> RentalInsurances { get; } = new List<RentalInsurance>();
+
+    public int EmployeeId { get; set; }
+
+    public Employee Employee { get; set; } = null!;
 }
