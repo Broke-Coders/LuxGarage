@@ -8,11 +8,34 @@
       <title>LuxGarage &mdash; Login</title>
    </head>
    <body>
+      <a href="index.html">
+         <img id="logo" src="images/logo.png" alt="LuxGarage Logo" />
+      </a>
       <div class="container">
          <div class="login">
             <div class="login-text-box">
-               TEXT
+               <h2 class="login-heading">Concierge Dashboard</h2>
+               <p class="login-text">
+                  Welcome back. Please enter your credentials to manage fleet
+                  availability, client requests, and premium reservations.
+               </p>
+               <form class="login-form" action="">
+                  <div>
+                     <label for="login">Login</label>
+                     <input id="login" type="login" required />
+                  </div>
+
+                  <div>
+                     <label for="password">Password</label>
+                     <input id="password" type="password" required />
+                  </div>
+
+                  <button class="btn btn--form">Access System</button>
+               </form>
                <!-- <form action="" class="login-form"></form> -->
+            </div>
+            <div type="img" class="login-img-box" aria-label="Login Imgage">
+               IMG
             </div>
          </div>
       </div>
