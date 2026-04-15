@@ -4,7 +4,9 @@
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="./css/general.css" />
-      <link rel="stylesheet" href="./css/login.css" />
+      <link rel="stylesheet" href="./css/auth.css" />
+      <link rel="icon" href="./images/favicon.png" />
+
       <title>LuxGarage &mdash; Login</title>
    </head>
    <body>
@@ -12,31 +14,50 @@
          <img id="logo" src="images/logo.png" alt="LuxGarage Logo" />
       </a>
       <div class="container">
-         <div class="login">
-            <div class="login-text-box">
-               <h2 class="login-heading">Concierge Dashboard</h2>
-               <p class="login-text">
+         <div class="auth">
+            <div class="auth-text-box">
+               <h2 class="auth-heading">Concierge Dashboard</h2>
+               <p class="auth-text">
                   Welcome back. Please enter your credentials to manage fleet
                   availability, client requests, and premium reservations.
                </p>
-               <form class="login-form" action="">
+               <form class="auth-form" action="">
                   <div>
                      <label for="login">Login</label>
-                     <input id="login" type="login" required />
+                     <input
+                        id="login"
+                        type="login"
+                        placeholder="johnDoe123"
+                        required
+                     />
                   </div>
 
                   <div>
                      <label for="password">Password</label>
-                     <input id="password" type="password" required />
+                     <input
+                        id="password"
+                        type="password"
+                        placeholder="••••••••"
+                        required
+                     />
                   </div>
 
                   <button class="btn btn--form">Access System</button>
+
+                  <span
+                     >Are you a new team member?
+                     <a class="auth-link register-link" href="register.html"
+                        >Register</a
+                     ></span
+                  >
                </form>
                <!-- <form action="" class="login-form"></form> -->
             </div>
-            <div type="img" class="login-img-box" aria-label="Login Imgage">
-               IMG
-            </div>
+            <div
+               type="img"
+               class="auth-img-box"
+               aria-label="Login Imgage"
+            ></div>
          </div>
       </div>
    </body>
