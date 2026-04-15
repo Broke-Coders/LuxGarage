@@ -1,0 +1,108 @@
+body {
+   height: 100vh;
+   display: grid;
+   grid-template-rows: auto 1fr;
+   row-gap: 4.2rem;
+   background-image: url(/LuxGarage.Front/wwwroot/images/why.jpg);
+   background-position: center;
+}
+
+.logo-link {
+   justify-self: end;
+}
+
+#logo {
+   margin-left: 7.5rem;
+}
+
+.logo-link {
+   justify-self: start;
+}
+
+.auth {
+   display: grid;
+   grid-template-columns: 60fr 40fr;
+   min-height: 50rem;
+   background-image: linear-gradient(to right bottom, #47453e, #ebe6ce);
+   border-radius: 9px;
+   overflow: hidden;
+   box-shadow: 0 2rem 100rem 0.5rem #ebe6ce;
+}
+
+.auth-text-box {
+   padding: 3.2rem 4.2rem;
+   gap: 1.2rem;
+}
+
+.auth-heading {
+   text-align: center;
+   font-size: 3rem;
+   font-weight: 700;
+   letter-spacing: -0.05rem;
+   color: #ebe6ce;
+   margin-bottom: 2.4rem;
+}
+
+.auth-text {
+   text-align: center;
+   font-size: 1.6rem;
+   font-weight: 500;
+   line-height: 1.8;
+   margin-bottom: 2.4rem;
+}
+
+.auth-form {
+   display: grid;
+   align-items: center;
+   justify-content: center;
+   grid-template-columns: repeat(2, 1fr);
+   column-gap: 4.2rem;
+   row-gap: 2.4rem;
+}
+
+.auth-form label {
+   font-size: 1.4rem;
+   font-weight: 500;
+   display: block;
+   margin-bottom: 1.2rem;
+}
+
+.auth-form input,
+.auth-form select {
+   width: 100%;
+   padding: 1.2rem;
+   font-size: 1.8rem;
+   border: none;
+   border-radius: 4px;
+   background-color: #f5f3e7;
+   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form span {
+   font-size: 1.6rem;
+   grid-column: 1/-1;
+}
+
+.auth-link:link,
+.auth-link:visited {
+   font-size: 1.6rem;
+   text-decoration: none;
+   color: #ebe6ce;
+}
+
+.auth-link:hover,
+.auth-link:active {
+   color: #8d8a7c;
+}
+
+.auth-img-box {
+   background-image:
+      linear-gradient(
+         to right bottom,
+         rgba(235, 230, 206, 0.2),
+         rgba(71, 69, 62, 0.2)
+      ),
+      url(/LuxGarage.Front/wwwroot/images/cta.jpg);
+   background-position: center;
+   background-size: cover;
+}

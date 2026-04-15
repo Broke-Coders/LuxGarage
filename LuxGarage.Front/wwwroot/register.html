@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="./css/general.css" />
+      <link rel="stylesheet" href="./css/auth.css" />
+      <link rel="icon" href="./images/favicon.png" />
+
+      <title>LuxGarage &mdash; Register</title>
+   </head>
+   <body>
+      <header>
+         <a href="index.html" class="logo-link">
+            <img id="logo" src="images/logo.png" alt="LuxGarage Logo" />
+         </a>
+      </header>
+      <div class="container">
+         <div class="auth">
+            <div class="auth-text-box">
+               <h2 class="auth-heading">Join the Concierge Team</h2>
+               <p class="auth-text">
+                  Create your professional account to manage our premium fleet
+                  and deliver exceptional service to our elite clientele.
+               </p>
+               <form class="auth-form" action="">
+                  <div>
+                     <label for="full-name">Full Name</label>
+                     <input
+                        id="full-name"
+                        type="text"
+                        placeholder="John Doe"
+                        required
+                     />
+                  </div>
+
+                  <div>
+                     <label for="login">Login</label>
+                     <input
+                        id="login"
+                        type="text"
+                        placeholder="johnDoe123"
+                        required
+                     />
+                  </div>
+
+                  <div>
+                     <label for="password">Password</label>
+                     <input
+                        id="password"
+                        type="password"
+                        placeholder="••••••••"
+                        required
+                     />
+                  </div>
+
+                  <div>
+                     <label for="confirm-password">Confirm Password</label>
+                     <input
+                        id="confirm-password"
+                        type="password"
+                        placeholder="••••••••"
+                        required
+                     />
+                  </div>
+
+                  <button class="btn btn--form">Register Account</button>
+
+                  <span>
+                     Already a team member?
+                     <a class="auth-link login-link" href="login.html">Login</a>
+                  </span>
+               </form>
+            </div>
+            <div
+               type="img"
+               class="auth-img-box"
+               aria-label="Registration Image"
+            ></div>
+         </div>
+      </div>
+   </body>
+</html>
