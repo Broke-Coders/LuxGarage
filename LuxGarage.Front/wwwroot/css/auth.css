@@ -19,6 +19,22 @@ body {
    padding: 0;
 }
 
+.logo-link {
+   justify-self: end;
+}
+
+#logo {
+   margin-left: 7.5rem;
+}
+.container-auth{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 120rem;
+   margin: 0;
+   padding: 0;
+}
+
 .auth {
    display: grid;
    grid-template-columns: 60fr 40fr;
