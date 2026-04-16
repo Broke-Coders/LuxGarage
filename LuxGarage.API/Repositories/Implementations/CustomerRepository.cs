@@ -4,27 +4,27 @@ using LuxGarage.API.Repositories.Interfaces;
 
 namespace LuxGarage.API.Repositories.Implementations;
 
-public class BorrowerRepository : IBorrowerRepository
+public class CustomerRepository : ICustomerRepository
 {
     private readonly RentalContext _context;
 
-    public BorrowerRepository(RentalContext context)
+    public CustomerRepository(RentalContext context)
     {
         this._context = context;
     }
 
-    public async Task<Borrower?> GetByIdAsync(int id) 
-        => await _context.Borrowers.FindAsync(id);
+    public async Task<Customer?> GetByIdAsync(int id) 
+        => await _context.Customers.FindAsync(id);
     
-    public async Task AddAsync(Borrower borrower)
+    public async Task AddAsync(Customer borrower)
     {
-        await _context.Borrowers.AddAsync(borrower);
+        await _context.Customers.AddAsync(borrower);
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(Borrower borrower, int id)
+    public async Task UpdateAsync(Customer borrower, int id)
     {
-        Borrower? oldBorrower = await _context.Borrowers.FindAsync(id);
+        Customer? oldBorrower = await _context.Customers.FindAsync(id);
 
         oldBorrower = borrower;
         await _context.SaveChangesAsync();
@@ -32,7 +32,7 @@ public class BorrowerRepository : IBorrowerRepository
 
     public async Task DeleteAsync(int id)
     {
-        var borrower = await _context.Borrowers.FindAsync(id);
+        var borrower = await _context.Customers.FindAsync(id);
         
         if (borrower == null)
         {
@@ -40,7 +40,7 @@ public class BorrowerRepository : IBorrowerRepository
             return;
         }
 
-        _context.Borrowers.Remove(borrower);
+        _context.Customers.Remove(borrower);
         await _context.SaveChangesAsync();
     }
 }

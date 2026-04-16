@@ -7,7 +7,7 @@ namespace LuxGarage.API.Data;
 public class RentalContext(DbContextOptions<RentalContext> options)
 : DbContext(options)
 {
-    public DbSet<Borrower> Borrowers => Set<Borrower>();
+    public DbSet<Customer> Customers => Set<Customer>();
     public DbSet<Insurance> Insurances => Set<Insurance>();
     public DbSet<Permission> Permissions => Set<Permission>();
     public DbSet<Rental> Rentals => Set<Rental>();
@@ -16,7 +16,7 @@ public class RentalContext(DbContextOptions<RentalContext> options)
     public DbSet<VehicleBody> VehicleBodies => Set<VehicleBody>();
     public DbSet<VehicleBrand> VehicleBrands => Set<VehicleBrand>();
     public DbSet<VehicleColor> VehicleColors => Set<VehicleColor>();
-    public DbSet<Worker> Workers => Set<Worker>();
+    public DbSet<Employee> Employees => Set<Employee>();
     public DbSet<Workplace> Workplaces => Set<Workplace>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

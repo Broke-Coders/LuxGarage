@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LuxGarage.API.Configurations;
 
-public class BorrowerConfiguration : IEntityTypeConfiguration<Borrower>
+public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 {
-    public void Configure(EntityTypeBuilder<Borrower> builder)
+    public void Configure(EntityTypeBuilder<Customer> builder)
     {
         builder.HasKey(b => b.Id);
 
@@ -24,8 +24,8 @@ public class BorrowerConfiguration : IEntityTypeConfiguration<Borrower>
             .HasDefaultValue(0);
 
         builder.HasMany(b => b.Rentals)
-            .WithOne(r => r.Borrower)
-            .HasForeignKey(r => r.BorrowerId)
+            .WithOne(r => r.Customer)
+            .HasForeignKey(r => r.CustomerId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }
