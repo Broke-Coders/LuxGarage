@@ -1,15 +1,133 @@
 <!doctype html>
 <html lang="en">
-   <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-      <link rel="stylesheet" href="./css/general.css" />
-      <link rel="icon" href="./images/favicon.png" />
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-      <title>LuxGarage &mdash; Dashboard</title>
-   </head>
-   <body>
-      Dashboard
-   </body>
+   <link rel="stylesheet" href="./css/general.css" />
+   <link rel="stylesheet" href="./css/dashboard.css">
+   <link rel="icon" href="./images/favicon.png" />
+
+   <title>LuxGarage &mdash; Dashboard</title>
+</head>
+
+<body>
+   <nav id="navbar">
+      <div class="navbar-logo-title">
+         <img id="logo" src="images/logo.png" alt="LuxGarage Logo" />
+         <a href="index.html" id="logo-title">LuxGarage</a>
+      </div>
+
+      <div class="navbar-links">
+         <a href="" id="cars-nav" class="navbar-text">Cars</a>
+         <a href="index.html#TestimonialPage" id="why-us-nav" class="navbar-text">Why Us</a>
+         <a href="" id="vouchers-nav" class="navbar-text">Vouchers</a>
+      </div>
+
+      <div class="navbar-profile">
+         <a href="login.html" id="account-nav" class="navbar-image">
+            <img src="images/profile.png" alt="Profile image. Click to see your log in status." />
+         </a>
+      </div>
+   </nav>
+
+   <main>
+      <section id="cars-section" class="screen-section">
+         <div class="general-se">
+            <button class="general-se-btn" id="all-btn">All</button>
+            <button class="general-se-btn" id="sport-btn">Sport</button>
+            <button class="general-se-btn" id="luxury-btn">Luxury</button>
+
+         </div>
+         <div class="cars-search-container">
+            <div class="advanced-se">
+
+            </div>
+            <div class="cars-container">
+               <div class="car-card">
+                  <img src="images/sport-car.jpg" alt="Sport Car" class="car-img" />
+                  <h3 class="car-title">Sport Car</h3>
+                  <p class="car-description">A powerful sport car with amazing acceleration and handling.</p>
+                  <p class="car-price">$150/day</p>
+               </div>
+               <div class="car-card">
+                  <img src="images/luxury-sedan.jpg" alt="Luxury Sedan" class="car-img" />
+                  <h3 class="car-title">Luxury Sedan</h3>
+                  <p class="car-description">A luxurious sedan with all the comfort and style you need.</p>
+                  <p class="car-price">$200/day</p>
+               </div>
+               <div class="car-card">
+                  <img src="images/suv.jpg" alt="SUV" class="car-img" />
+                  <h3 class="car-title">SUV</h3>
+                  <p class="car-description">An all-terrain vehicle perfect for any adventure.</p>
+                  <p class="car-price">$180/day</p>
+                  
+            </div>
+
+         </div>
+
+
+
+      </section>
+   </main>
+   <footer class="footer">
+      <div class="container grid grid--5-cols">
+         <div class="logo-col">
+            <a href="#" class="footer-logo">
+               <img class="lux-logo-footer" src="images/logo.png" alt="LuxGarage Logo" loading="lazy" />
+            </a>
+            <div class="footer-icons">
+               <a class="footer-icon-link" href="#"><ion-icon class="footer-icon" name="logo-github"></ion-icon></a>
+               <a class="footer-icon-link" href="#"><ion-icon class="footer-icon" name="logo-facebook"></ion-icon></a>
+               <a class="footer-icon-link" href="#"><ion-icon class="footer-icon" name="logo-instagram"></ion-icon></a>
+            </div>
+
+            <p class="copyright">
+               Copyright &copy; by LuxGarage, Inc. All rights reserved.
+            </p>
+         </div>
+         <div class="address-col">
+            <p class="footer-heading">Contact us</p>
+            <address class="contacts">
+               <p>ul. Akademicka 16 44-100 Gliwice</p>
+               <p>
+                  <a href="tel: +48 123 456 789">+48 123 456 789</a><br />
+                  <a href="mailto:luxgarage@gmail.com">luxgarage@gmail.com</a>
+               </p>
+            </address>
+         </div>
+         <nav class="contact-col">
+            <p class="footer-heading">Company</p>
+            <ul class="footer-links">
+               <li><a class="footer-link" href="">About LuxGarage</a></li>
+               <li><a class="footer-link" href="">Why us</a></li>
+               <li><a class="footer-link" href="">Partners</a></li>
+               <li><a class="footer-link" href="">Career</a></li>
+            </ul>
+         </nav>
+
+         <nav class="rentals-col">
+            <p class="footer-heading">Rentals</p>
+            <ul class="footer-links">
+               <li><a class="footer-link" href="">Our fleet</a></li>
+               <li><a class="footer-link" href="">Luxury Sedans</a></li>
+               <li><a class="footer-link" href="">Sports Cars</a></li>
+               <li><a class="footer-link" href="">SUVs & 4x4</a></li>
+            </ul>
+         </nav>
+
+         <nav class="restources-col">
+            <p class="footer-heading">Resources</p>
+            <ul class="footer-links">
+               <li><a class="footer-link" href="">Insurance Policy</a></li>
+               <li><a class="footer-link" href="">Rental Terms</a></li>
+               <li><a class="footer-link" href="">Gift Vouchers</a></li>
+               <li><a class="footer-link" href="">Privacy & terms</a></li>
+            </ul>
+         </nav>
+      </div>
+   </footer>
+</body>
+
 </html>
