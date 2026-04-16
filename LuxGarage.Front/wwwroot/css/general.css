@@ -110,6 +110,10 @@ img {
    z-index: 999;
 }
 
+#logo-title{
+   text-decoration: none;
+   color: inherit;
+}
 #logo {
    height: 5rem;
    transition: 0.3s ease;
