@@ -10,7 +10,7 @@ public class WorkplaceRepository : IWorkplaceRepository
 
     public WorkplaceRepository(RentalContext context)
     {
-        this._context = context;
+        _context = context;
     }
 
     public async Task<Workplace?> GetByIdAsync(int id) 
