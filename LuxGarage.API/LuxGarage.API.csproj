@@ -17,14 +17,18 @@
   </ItemGroup>
 
 <ItemGroup>
+  <Folder Include="DTOs\Requests\" />
+  <Folder Include="DTOs\Responses\" />
   <Folder Include="Endpoints\" />
-  <Folder Include="DTOs\" />
   <Folder Include="Extensions\" />
   <Folder Include="Models\" />
   <Folder Include="Services\" />
   <Folder Include="Services\Implementations\" />
   <Folder Include="Services\Interfaces\" />
+<<<<<<< HEAD
   <Folder Include="Controllers\" />
+=======
+>>>>>>> f268a20 (Add DTO and service for vehicle)
 </ItemGroup>
 
 </Project>

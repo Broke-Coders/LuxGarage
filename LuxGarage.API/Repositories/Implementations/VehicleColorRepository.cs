@@ -10,7 +10,7 @@ public class VehicleColorRepository : IVehicleColorRepository
 
     public VehicleColorRepository(RentalContext context)
     {
-        this._context = context;
+        _context = context;
     }
 
     public async Task<VehicleColor?> GetByIdAsync(int id) 

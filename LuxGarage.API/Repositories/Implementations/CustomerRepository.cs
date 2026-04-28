@@ -10,7 +10,7 @@ public class CustomerRepository : ICustomerRepository
 
     public CustomerRepository(RentalContext context)
     {
-        this._context = context;
+        _context = context;
     }
 
     public async Task<Customer?> GetByIdAsync(int id) 
