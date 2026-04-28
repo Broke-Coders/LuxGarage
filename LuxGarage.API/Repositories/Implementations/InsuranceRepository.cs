@@ -11,7 +11,7 @@ public class InsuranceRepository : IInsuranceRepository
 
     public InsuranceRepository(RentalContext context)
     {
-        this._context = context;
+        _context = context;
     }
 
     public async Task<Insurance?> GetByIdAsync(int id) 

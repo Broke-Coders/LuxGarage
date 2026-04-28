@@ -12,7 +12,7 @@ public class RentalRepository : IRentalRepository
 
     public RentalRepository(RentalContext context)
     {
-        this._context = context;
+        _context = context;
     }
 
     public async Task<Rental?> GetByIdAsync(int id) 

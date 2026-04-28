@@ -10,7 +10,7 @@ public class BorrowerRepository : IBorrowerRepository
 
     public BorrowerRepository(RentalContext context)
     {
-        this._context = context;
+        _context = context;
     }
 
     public async Task<Borrower?> GetByIdAsync(int id) 
