@@ -27,7 +27,7 @@ public class WorkplaceConfiguration : IEntityTypeConfiguration<Workplace>
         builder.Property(wp => wp.BuildingNumber)
             .IsRequired();
 
-        builder.HasMany(wp => wp.Workers)
+        builder.HasMany(wp => wp.Employees)
             .WithOne(w => w.Workplace)
             .HasForeignKey(w => w.WorkplaceId)
             .OnDelete(DeleteBehavior.Restrict);

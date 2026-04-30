@@ -9,5 +9,5 @@ public class Permission
 
     public string? Name {get; set;}
 
-    public ICollection<Worker> Workers {get;} = new List<Worker>();
+    public ICollection<Employee> Employees {get;} = new List<Employee>();
 }

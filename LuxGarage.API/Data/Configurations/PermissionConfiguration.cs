@@ -17,7 +17,7 @@ public class PermissionConfiguration : IEntityTypeConfiguration<Permission>
         builder.Property(p => p.Name)
             .IsRequired(false);
 
-        builder.HasMany(p => p.Workers)
+        builder.HasMany(p => p.Employees)
             .WithOne(w => w.Permission)
             .HasForeignKey(w => w.PermissionId)
             .OnDelete(DeleteBehavior.Restrict);
