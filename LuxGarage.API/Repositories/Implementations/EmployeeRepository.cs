@@ -1,6 +1,7 @@
 using LuxGarage.API.Data;
 using LuxGarage.API.Models;
 using LuxGarage.API.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace LuxGarage.API.Repositories.Implementations;
 
@@ -15,7 +16,15 @@ public class EmployeeRepository : IEmployeeRepository
 
     public async Task<Employee?> GetByIdAsync(int id) 
         => await _context.Employees.FindAsync(id);
-    
+
+    public async Task<Employee?> GetByLoginAsync(string login)
+    {
+        return await _context.Employees
+            .Include(e => e.Permission)
+            .Include(e => e.Workplace)
+            .FirstOrDefaultAsync(e => e.Login == login);
+    }
+
     public async Task AddAsync(Employee worker)
     {
         await _context.Employees.AddAsync(worker);
