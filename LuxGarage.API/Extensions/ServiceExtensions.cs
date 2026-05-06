@@ -13,12 +13,12 @@ public static class ServiceExtensions
         services.AddScoped<IVehicleBrandRepository, VehicleBrandRepository>();
         services.AddScoped<IVehicleBodyRepository, VehicleBodyRepository>();
         services.AddScoped<IVehicleColorRepository, VehicleColorRepository>();
-        services.AddScoped<IBorrowerRepository, BorrowerRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IInsuranceRepository, InsuranceRepository>();
         services.AddScoped<IPermissionRepository, PermissionRepository>();
         services.AddScoped<IRentalInsuranceRepository, RentalInsuranceRepository>();
         services.AddScoped<IRentalRepository, RentalRepository>();
-        services.AddScoped<IWorkerRepository, WorkerRepository>();
+        services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         services.AddScoped<IWorkplaceRepository, WorkplaceRepository>();
 
         return services;
