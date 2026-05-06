@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using LuxGarage.API.Data;
 using LuxGarage.API.Models;
+using LuxGarage.API.Repositories.Implementations;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.EntityFrameworkCore;
 

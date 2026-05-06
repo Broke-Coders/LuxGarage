@@ -2,6 +2,7 @@ using LuxGarage.API.DTOs.Requests.Vehicle;
 using LuxGarage.API.DTOs.Responses.Vehicle;
 using LuxGarage.API.Models;
 using LuxGarage.API.Repositories;
+using LuxGarage.API.Repositories.Interfaces;
 
 namespace LuxGarage.API.Services.Interfaces;
 
