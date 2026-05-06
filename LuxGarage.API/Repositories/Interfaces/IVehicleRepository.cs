@@ -1,5 +1,7 @@
 using LuxGarage.API.Models;
 
+namespace LuxGarage.API.Repositories.Interfaces;
+
 public interface IVehicleRepository
 {
     Task<List<Vehicle>> GetAllAsync();
