@@ -11,7 +11,7 @@ public class PermissionRepository : IPermissionRepository
 
     public PermissionRepository(RentalContext context)
     {
-        this._context = context;
+        _context = context;
     }
 
     public async Task<Permission?> GetByIdAsync(int id) 

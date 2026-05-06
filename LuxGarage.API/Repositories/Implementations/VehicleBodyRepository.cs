@@ -10,7 +10,7 @@ public class VehicleBodyRepository : IVehicleBodyRepository
 
     public VehicleBodyRepository(RentalContext context)
     {
-        this._context = context;
+        _context = context;
     }
 
     public async Task<VehicleBody?> GetByIdAsync(int id) 

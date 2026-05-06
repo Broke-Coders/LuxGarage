@@ -10,7 +10,7 @@ public class RentalInsuranceRepository : IRentalInsuranceRepository
 
     public RentalInsuranceRepository(RentalContext context)
     {
-        this._context = context;
+        _context = context;
     }
 
     public async Task<RentalInsurance?> GetByIdAsync(int id) 
