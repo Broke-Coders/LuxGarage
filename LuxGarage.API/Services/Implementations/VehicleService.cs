@@ -1,3 +1,4 @@
+using AutoMapper;
 using LuxGarage.API.DTOs.Requests.Vehicle;
 using LuxGarage.API.DTOs.Responses.Vehicle;
 using LuxGarage.API.Models;
@@ -9,10 +10,12 @@ namespace LuxGarage.API.Services.Interfaces;
 public class VehicleService : IVehicleService
 {
     private readonly IVehicleRepository _vehicleRepository;
+    private readonly IMapper _mapper;
 
-    public VehicleService(IVehicleRepository vehicleRepository)
+    public VehicleService(IVehicleRepository vehicleRepository, IMapper mapper)
     {
         _vehicleRepository = vehicleRepository;
+        _mapper = mapper;
     }
 
     public async Task<List<VehicleListItemResponse>> GetAllAsync(GetVehiclesRequest request)
@@ -21,9 +24,7 @@ public class VehicleService : IVehicleService
 
         vehicles = ApplySorting(vehicles, request);
 
-        return vehicles
-            .Select(MapToVehicleListItemResponse)
-            .ToList();
+        return _mapper.Map<List<VehicleListItemResponse>>(vehicles);
     }
 
     public async Task<VehicleDetailsResponse?> GetByIdAsync(int id)
@@ -33,7 +34,7 @@ public class VehicleService : IVehicleService
         if (vehicle is null)
             return null;
 
-        return MapToVehicleDetailsResponse(vehicle);
+        return _mapper.Map<VehicleDetailsResponse>(vehicle);
     }
 
     public async Task<VehicleDetailsResponse> CreateAsync(CreateVehicleRequest request)
@@ -43,16 +44,7 @@ public class VehicleService : IVehicleService
         if (existingVehicle is not null)
             throw new InvalidOperationException("Vehicle with this license plate already exists.");
 
-        var vehicle = new Vehicle
-        {
-            VehicleBrandId = request.VehicleBrandId,
-            VehicleModelId = request.VehicleModelId,
-            VehicleBodyId = request.VehicleBodyId,
-            VehicleColorId = request.VehicleColorId,
-            Horsepower = request.Horsepower,
-            LicensePlate = request.LicensePlate,
-            Mileage = request.Mileage
-        };
+        var vehicle = _mapper.Map<Vehicle>(request);
 
         await _vehicleRepository.AddAsync(vehicle);
 
@@ -61,7 +53,8 @@ public class VehicleService : IVehicleService
         if (createdVehicle is null)
             throw new InvalidOperationException("Created vehicle could not be loaded.");
 
-        return MapToVehicleDetailsResponse(createdVehicle);
+        return _mapper.Map<VehicleDetailsResponse>(createdVehicle);
+        
     }
 
     private static List<Vehicle> ApplySorting(List<Vehicle> vehicles, GetVehiclesRequest request)
@@ -97,37 +90,4 @@ public class VehicleService : IVehicleService
         };
     }
 
-    private static VehicleListItemResponse MapToVehicleListItemResponse(Vehicle vehicle)
-    {
-        return new VehicleListItemResponse
-        {
-            Id = vehicle.Id,
-            BrandName = vehicle.VehicleBrand.Name,
-            ModelName = vehicle.VehicleModel.Name,
-            BodyName = vehicle.VehicleBody.Name,
-            ColorName = vehicle.VehicleColor.Name,
-            Horsepower = vehicle.Horsepower,
-            Mileage = vehicle.Mileage,
-            LicensePlate = vehicle.LicensePlate
-        };
-    }
-
-    private static VehicleDetailsResponse MapToVehicleDetailsResponse(Vehicle vehicle)
-    {
-        return new VehicleDetailsResponse
-        {
-            Id = vehicle.Id,
-            VehicleBrandId = vehicle.VehicleBrandId,
-            BrandName = vehicle.VehicleBrand.Name,
-            VehicleModelId = vehicle.VehicleModelId,
-            ModelName = vehicle.VehicleModel.Name,
-            VehicleBodyId = vehicle.VehicleBodyId,
-            BodyName = vehicle.VehicleBody.Name,
-            VehicleColorId = vehicle.VehicleColorId,
-            ColorName = vehicle.VehicleColor.Name,
-            Horsepower = vehicle.Horsepower,
-            Mileage = vehicle.Mileage,
-            LicensePlate = vehicle.LicensePlate
-        };
-    }
 }
