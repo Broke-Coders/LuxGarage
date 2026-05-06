@@ -22,6 +22,10 @@
 <ItemGroup>
   <Folder Include="Endpoints\" />
   <Folder Include="Extensions\" />
+  <Folder Include="Services\" />
+  <Folder Include="Services\Implementations\" />
+  <Folder Include="Services\Interfaces\" />
+  <Folder Include="Controllers\" />
 </ItemGroup>
 
 </Project>
