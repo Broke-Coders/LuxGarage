@@ -7,5 +7,7 @@
         public int VehicleBrandId { get; set; }
         public VehicleBrand VehicleBrand { get; set; } = null!;
         public ICollection<Vehicle> Vehicles { get; set; } = new List<Vehicle>();
+
+        public ICollection<VehiclePrice> VehiclePrices { get; set; } = new List<VehiclePrice>();
     }
 }
