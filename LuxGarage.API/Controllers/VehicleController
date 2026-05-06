@@ -28,6 +28,7 @@ public class VehiclesController : ControllerBase
         return await _vehicleService.GetByIdAsync(id);
     }
 
+
     [HttpPost]
     public async Task<VehicleDetailsResponse> Create([FromBody] CreateVehicleRequest request)
     {
