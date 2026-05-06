@@ -1,6 +1,7 @@
 using LuxGarage.API.Data;
 using Microsoft.EntityFrameworkCore;
 using LuxGarage.API.Models;
+using LuxGarage.API.Repositories.Interfaces;
 
 namespace LuxGarage.API.Repositories.Implementations;
 public class VehicleRepository : IVehicleRepository
