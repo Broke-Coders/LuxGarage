@@ -25,4 +25,6 @@ public class Rental
     public int EmployeeId { get; set; }
 
     public Employee Employee { get; set; } = null!;
+
+    public decimal TotalPrice { get; set; }
 }
