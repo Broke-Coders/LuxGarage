@@ -18,6 +18,7 @@ public class VehicleRepository : IVehicleRepository
     {
         return await _context.Vehicles
             .Include(v => v.VehicleBrand)
+            .Include(v => v.VehicleModel)
             .Include(v => v.VehicleBody)
             .Include(v => v.VehicleColor).AsNoTracking().ToListAsync();
     }
@@ -28,6 +29,7 @@ public class VehicleRepository : IVehicleRepository
     {
         return await _context.Vehicles
             .Include(v => v.VehicleBrand)
+            .Include(v => v.VehicleModel)
             .Include(v => v.VehicleBody)
             .Include(v => v.VehicleColor).FirstOrDefaultAsync(v => v.Id == id);
     } //=> await _context.Vehicles.FindAsync(id);
@@ -36,6 +38,7 @@ public class VehicleRepository : IVehicleRepository
     {
         return await _context.Vehicles
             .Include(v => v.VehicleBrand)
+            .Include(v => v.VehicleModel)
             .Include(v => v.VehicleBody)
             .Include(v => v.VehicleColor).FirstOrDefaultAsync(v => v.LicensePlate == licensePlate);
     }

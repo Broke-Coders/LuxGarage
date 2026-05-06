@@ -6,8 +6,11 @@ public class Vehicle
 {
     public int Id { get; set; }
 
-    public int VehicleBrandId { get; set; }
-    public VehicleBrand VehicleBrand { get; set; } = null!;
+    public int VehicleBrandId { get; set; } //brand moze do usuniecia??
+    public VehicleBrand VehicleBrand{ get; set; } = null!;
+
+    public int VehicleModelId { get; set; }
+    public VehicleModel VehicleModel { get; set; } = null!;
     public decimal Horsepower { get; set; }
 
     public string LicensePlate { get; set; } = null!;
