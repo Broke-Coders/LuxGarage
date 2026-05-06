@@ -9,4 +9,5 @@ public class VehicleBrand
     public required string Name { get; set; }
 
     public ICollection<Vehicle> Vehicles { get; } = new List<Vehicle>();
+    public ICollection<VehicleModel> VehicleModels { get; } = new List<VehicleModel>();
 }
