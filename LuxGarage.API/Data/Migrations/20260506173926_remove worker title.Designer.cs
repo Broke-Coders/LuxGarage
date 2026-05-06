@@ -3,6 +3,7 @@ using System;
 using LuxGarage.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LuxGarage.API.Data.Migrations
 {
     [DbContext(typeof(RentalContext))]
-    partial class RentalContextModelSnapshot : ModelSnapshot
+    [Migration("20260506173926_remove worker title")]
+    partial class removeworkertitle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,9 +139,6 @@ namespace LuxGarage.API.Data.Migrations
 
                     b.Property<DateTime>("StartingTime")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("numeric");
 
                     b.Property<int>("VehicleId")
                         .HasColumnType("integer");
@@ -304,33 +304,6 @@ namespace LuxGarage.API.Data.Migrations
                     b.ToTable("VehicleModels");
                 });
 
-            modelBuilder.Entity("LuxGarage.API.Models.VehiclePrice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("PricePerDay")
-                        .HasColumnType("numeric");
-
-                    b.Property<DateTime>("ValidFrom")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("ValidTo")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("VehicleModelId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VehicleModelId");
-
-                    b.ToTable("VehiclePrices");
-                });
-
             modelBuilder.Entity("LuxGarage.API.Models.Workplace", b =>
                 {
                     b.Property<int>("Id")
@@ -468,17 +441,6 @@ namespace LuxGarage.API.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("VehicleBrand");
-                });
-
-            modelBuilder.Entity("LuxGarage.API.Models.VehiclePrice", b =>
-                {
-                    b.HasOne("LuxGarage.API.Models.VehicleModel", "VehicleModel")
-                        .WithMany()
-                        .HasForeignKey("VehicleModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("VehicleModel");
                 });
 
             modelBuilder.Entity("LuxGarage.API.Models.Customer", b =>
