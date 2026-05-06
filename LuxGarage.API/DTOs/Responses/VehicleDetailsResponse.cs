@@ -5,6 +5,10 @@ public class VehicleDetailsResponse
     public int Id { get; set; }
     public int VehicleBrandId { get; set; }
     public string BrandName { get; set; } = null!;
+
+    public int VehicleModelId { get; set; }
+    public string ModelName { get; set; } = null!;
+
     public int VehicleBodyId { get; set; }
     public string BodyName { get; set; } = null!;
     public int VehicleColorId { get; set; }

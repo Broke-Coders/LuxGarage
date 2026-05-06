@@ -15,6 +15,7 @@ public class RentalContext(DbContextOptions<RentalContext> options)
     public DbSet<Vehicle> Vehicles => Set<Vehicle>();
     public DbSet<VehicleBody> VehicleBodies => Set<VehicleBody>();
     public DbSet<VehicleBrand> VehicleBrands => Set<VehicleBrand>();
+    public DbSet<VehicleModel> VehicleModels => Set<VehicleModel>();
     public DbSet<VehicleColor> VehicleColors => Set<VehicleColor>();
     public DbSet<Employee> Employees => Set<Employee>();
     public DbSet<Workplace> Workplaces => Set<Workplace>();

@@ -73,10 +73,38 @@ public static class DataExtensions
             dbContext.SaveChanges();
         }
 
-        if(!dbContext.Set<VehicleBody>().Any())
+        if (!dbContext.Set<VehicleModel>().Any())
+        {
+            dbContext.Set<VehicleModel>().AddRange(
+                new VehicleModel
+                {
+                    Name = "M5 Competition",
+                    VehicleBrandId = dbContext.Set<VehicleBrand>().First(b => b.Name == "BMW").Id
+                },
+                new VehicleModel
+                {
+                    Name = "RS5",
+                    VehicleBrandId = dbContext.Set<VehicleBrand>().First(b => b.Name == "Audi").Id
+                },
+                new VehicleModel
+                {
+                    Name = "Golf R",
+                    VehicleBrandId = dbContext.Set<VehicleBrand>().First(b => b.Name == "Volkswagen").Id
+                }
+            );
+            dbContext.SaveChanges();
+        }
+
+        if (!dbContext.Set<VehicleBody>().Any())
         {
             dbContext.Set<VehicleBody>().AddRange(
                 new VehicleBody {Name = "Sedan"},
+                new VehicleBody { Name = "Hatchback" },
+                new VehicleBody { Name = "Coupe" },
+                new VehicleBody { Name = "Wagon" },
+                new VehicleBody { Name = "Cabriolet" },
+                new VehicleBody { Name = "Roadster" },
+                new VehicleBody { Name = "Pickup" },
                 new VehicleBody {Name = "Van"},
                 new VehicleBody {Name = "Pickup"}
             );
@@ -100,12 +128,14 @@ public static class DataExtensions
         {
 
             int brandId = dbContext.Set<VehicleBrand>().First(b => b.Name == "BMW").Id;
+            int modelId = dbContext.Set<VehicleModel>().First(m => m.Name == "M5 Competition").Id;
             int bodyId = dbContext.Set<VehicleBody>().First(b => b.Name == "Sedan").Id;
             int colorId = dbContext.Set<VehicleColor>().First(c => c.Name == "WHITE").Id;
             dbContext.Set<Vehicle>().AddRange(
                 new Vehicle
                 {
                     VehicleBrandId = brandId,
+                    VehicleModelId = modelId,
                     Horsepower = 440,
                     LicensePlate = "SBI 12345",
                     Mileage = 50000,
@@ -115,6 +145,7 @@ public static class DataExtensions
                 new Vehicle
                 {
                     VehicleBrandId = dbContext.Set<VehicleBrand>().First(b => b.Name == "Audi").Id,
+                    VehicleModelId = dbContext.Set<VehicleModel>().First(m => m.Name == "RS5").Id,
                     Horsepower = 500,
                     LicensePlate = "WPR 12345",
                     Mileage = 30000,
@@ -124,10 +155,11 @@ public static class DataExtensions
                 new Vehicle
                 {
                     VehicleBrandId = dbContext.Set<VehicleBrand>().First(b => b.Name == "Volkswagen").Id,
+                    VehicleModelId = dbContext.Set<VehicleModel>().First(m => m.Name == "Golf R").Id,
                     Horsepower = 280,
                     LicensePlate = "SZY 12345",
                     Mileage = 44444,
-                    VehicleBodyId = dbContext.Set<VehicleBody>().First(b => b.Name == "Van").Id,
+                    VehicleBodyId = dbContext.Set<VehicleBody>().First(b => b.Name == "Hatchback").Id,
                     VehicleColorId = dbContext.Set<VehicleColor>().First(c => c.Name == "RED").Id
                 }
                 );
