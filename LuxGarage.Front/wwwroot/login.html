@@ -1,64 +1,136 @@
 <!doctype html>
 <html lang="en">
-   <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="stylesheet" href="./css/general.css" />
-      <link rel="stylesheet" href="./css/auth.css" />
-      <link rel="icon" href="./images/favicon.png" />
 
-      <title>LuxGarage &mdash; Login</title>
-   </head>
-   <body>
-      <a href="index.html">
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link rel="stylesheet" href="./css/general.css" />
+   <link rel="stylesheet" href="./css/auth.css" />
+   <link rel="icon" href="./images/favicon.png" />
+
+   <title>LuxGarage &mdash; Login</title>
+</head>
+
+
+
+<body>
+   <nav id="navbar">
+      <div class="navbar-logo-title">
          <img id="logo" src="images/logo.png" alt="LuxGarage Logo" />
-      </a>
-      <div class="container">
-         <div class="auth">
-            <div class="auth-text-box">
-               <h2 class="auth-heading">Concierge Dashboard</h2>
-               <p class="auth-text">
-                  Welcome back. Please enter your credentials to manage fleet
-                  availability, client requests, and premium reservations.
-               </p>
-               <form class="auth-form" action="">
-                  <div>
-                     <label for="login">Login</label>
-                     <input
-                        id="login"
-                        type="login"
-                        placeholder="johnDoe123"
-                        required
-                     />
-                  </div>
-
-                  <div>
-                     <label for="password">Password</label>
-                     <input
-                        id="password"
-                        type="password"
-                        placeholder="••••••••"
-                        required
-                     />
-                  </div>
-
-                  <button class="btn btn--form">Access System</button>
-
-                  <span
-                     >Are you a new team member?
-                     <a class="auth-link register-link" href="register.html"
-                        >Register</a
-                     ></span
-                  >
-               </form>
-               <!-- <form action="" class="login-form"></form> -->
-            </div>
-            <div
-               type="img"
-               class="auth-img-box"
-               aria-label="Login Imgage"
-            ></div>
-         </div>
+         <a href="index.html" id ="logo-title">LuxGarage</a>
       </div>
-   </body>
+
+      <div class="navbar-links">
+         <a href="" id="cars-nav" class="navbar-text">Cars</a>
+         <a href="index.html#TestimonialPage" id="why-us-nav" class="navbar-text">Why Us</a>
+         <a href="" id="vouchers-nav" class="navbar-text">Vouchers</a>
+      </div>
+
+      <div class="navbar-profile">
+         <a href="login.html" id="account-nav" class="navbar-image">
+            <img src="images/profile.png" alt="Profile image. Click to see your log in status." />
+         </a>
+      </div>
+   </nav>
+
+   <main>
+      <section class="screen-section">
+         <div class="container">
+            <div class="auth">
+               <div class="auth-text-box">
+                  <div class="text-cont">
+                     <h2 class="auth-heading">Concierge Dashboard</h2>
+                     <p class="auth-text">
+                        Welcome back. Please enter your credentials to manage fleet
+                        availability, client requests, and premium reservations.
+                     </p>
+                  </div>
+                  <form class="auth-form" action="">
+                     <div>
+                        <label for="login">Login</label>
+                        <input id="login" type="login" placeholder="johnDoe123" required />
+                     </div>
+
+                     <div>
+                        <label for="password">Password</label>
+                        <input id="password" type="password" placeholder="••••••••" required />
+                     </div>
+
+                     <button class="btn btn--form">Access System</button>
+
+                     <span>Are you a new team member?
+                        <a class="auth-link register-link" href="register.html">Register</a></span>
+                  </form>
+                  <!-- <form action="" class="login-form"></form> -->
+               </div>
+               <div type="img" class="auth-img-box" aria-label="Login Imgage"></div>
+            </div>
+         </div>
+      </section>
+
+   </main>
+
+
+
+   <footer class="footer">
+      <div class="container grid grid--5-cols">
+         <div class="logo-col">
+            <a href="#" class="footer-logo">
+               <img class="lux-logo-footer" src="images/logo.png" alt="LuxGarage Logo" loading="lazy" />
+            </a>
+            <div class="footer-icons">
+               <a class="footer-icon-link" href="#"><ion-icon class="footer-icon" name="logo-github"></ion-icon></a>
+               <a class="footer-icon-link" href="#"><ion-icon class="footer-icon" name="logo-facebook"></ion-icon></a>
+               <a class="footer-icon-link" href="#"><ion-icon class="footer-icon" name="logo-instagram"></ion-icon></a>
+            </div>
+
+            <p class="copyright">
+               Copyright &copy; by LuxGarage, Inc. All rights reserved.
+            </p>
+         </div>
+         <div class="address-col">
+            <p class="footer-heading">Contact us</p>
+            <address class="contacts">
+               <p>ul. Akademicka 16 44-100 Gliwice</p>
+               <p>
+                  <a href="tel: +48 123 456 789">+48 123 456 789</a><br />
+                  <a href="mailto:luxgarage@gmail.com">luxgarage@gmail.com</a>
+               </p>
+            </address>
+         </div>
+         <nav class="contact-col">
+            <p class="footer-heading">Company</p>
+            <ul class="footer-links">
+               <li><a class="footer-link" href="">About LuxGarage</a></li>
+               <li><a class="footer-link" href="">Why us</a></li>
+               <li><a class="footer-link" href="">Partners</a></li>
+               <li><a class="footer-link" href="">Career</a></li>
+            </ul>
+         </nav>
+
+         <nav class="rentals-col">
+            <p class="footer-heading">Rentals</p>
+            <ul class="footer-links">
+               <li><a class="footer-link" href="">Our fleet</a></li>
+               <li><a class="footer-link" href="">Luxury Sedans</a></li>
+               <li><a class="footer-link" href="">Sports Cars</a></li>
+               <li><a class="footer-link" href="">SUVs & 4x4</a></li>
+            </ul>
+         </nav>
+
+         <nav class="restources-col">
+            <p class="footer-heading">Resources</p>
+            <ul class="footer-links">
+               <li><a class="footer-link" href="">Insurance Policy</a></li>
+               <li><a class="footer-link" href="">Rental Terms</a></li>
+               <li><a class="footer-link" href="">Gift Vouchers</a></li>
+               <li><a class="footer-link" href="">Privacy & terms</a></li>
+            </ul>
+         </nav>
+      </div>
+   </footer>
+</body>
+
+
+
 </html>
