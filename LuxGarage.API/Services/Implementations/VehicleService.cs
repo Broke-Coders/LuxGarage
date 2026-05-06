@@ -46,6 +46,7 @@ public class VehicleService : IVehicleService
         var vehicle = new Vehicle
         {
             VehicleBrandId = request.VehicleBrandId,
+            VehicleModelId = request.VehicleModelId,
             VehicleBodyId = request.VehicleBodyId,
             VehicleColorId = request.VehicleColorId,
             Horsepower = request.Horsepower,
@@ -71,6 +72,9 @@ public class VehicleService : IVehicleService
         {
             ("brand", false) => vehicles.OrderBy(v => v.VehicleBrand.Name).ToList(),
             ("brand", true) => vehicles.OrderByDescending(v => v.VehicleBrand.Name).ToList(),
+
+            ("model", false) => vehicles.OrderBy(v => v.VehicleModel.Name).ToList(),
+            ("model", true) => vehicles.OrderByDescending(v => v.VehicleModel.Name).ToList(),
 
             ("body", false) => vehicles.OrderBy(v => v.VehicleBody.Name).ToList(),
             ("body", true) => vehicles.OrderByDescending(v => v.VehicleBody.Name).ToList(),
@@ -99,6 +103,7 @@ public class VehicleService : IVehicleService
         {
             Id = vehicle.Id,
             BrandName = vehicle.VehicleBrand.Name,
+            ModelName = vehicle.VehicleModel.Name,
             BodyName = vehicle.VehicleBody.Name,
             ColorName = vehicle.VehicleColor.Name,
             Horsepower = vehicle.Horsepower,
@@ -114,6 +119,8 @@ public class VehicleService : IVehicleService
             Id = vehicle.Id,
             VehicleBrandId = vehicle.VehicleBrandId,
             BrandName = vehicle.VehicleBrand.Name,
+            VehicleModelId = vehicle.VehicleModelId,
+            ModelName = vehicle.VehicleModel.Name,
             VehicleBodyId = vehicle.VehicleBodyId,
             BodyName = vehicle.VehicleBody.Name,
             VehicleColorId = vehicle.VehicleColorId,
