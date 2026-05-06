@@ -12,6 +12,7 @@ public static class ServiceExtensions
     {
         services.AddScoped<IVehicleRepository, VehicleRepository>();
         services.AddScoped<IVehicleBrandRepository, VehicleBrandRepository>();
+        services.AddScoped<IVehicleModelRepository, VehicleModelRepository>();
         services.AddScoped<IVehicleBodyRepository, VehicleBodyRepository>();
         services.AddScoped<IVehicleColorRepository, VehicleColorRepository>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();
