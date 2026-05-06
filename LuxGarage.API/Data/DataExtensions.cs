@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
 using LuxGarage.API.Models;
 
@@ -93,6 +94,43 @@ public static class DataExtensions
                 HtmlColor = "#F00000"}
             );
             dbContext.SaveChanges();
+        }
+
+        if (!dbContext.Set<Vehicle>().Any())
+        {
+
+            int brandId = dbContext.Set<VehicleBrand>().First(b => b.Name == "BMW").Id;
+            int bodyId = dbContext.Set<VehicleBody>().First(b => b.Name == "Sedan").Id;
+            int colorId = dbContext.Set<VehicleColor>().First(c => c.Name == "WHITE").Id;
+            dbContext.Set<Vehicle>().AddRange(
+                new Vehicle
+                {
+                    VehicleBrandId = brandId,
+                    Horsepower = 440,
+                    LicensePlate = "SBI 12345",
+                    Mileage = 50000,
+                    VehicleBodyId = bodyId,
+                    VehicleColorId = colorId,
+                },
+                new Vehicle
+                {
+                    VehicleBrandId = dbContext.Set<VehicleBrand>().First(b => b.Name == "Audi").Id,
+                    Horsepower = 500,
+                    LicensePlate = "WPR 12345",
+                    Mileage = 30000,
+                    VehicleBodyId = dbContext.Set<VehicleBody>().First(b => b.Name == "Sedan").Id,
+                    VehicleColorId = dbContext.Set<VehicleColor>().First(c => c.Name == "BLACK").Id
+                },
+                new Vehicle
+                {
+                    VehicleBrandId = dbContext.Set<VehicleBrand>().First(b => b.Name == "Volkswagen").Id,
+                    Horsepower = 280,
+                    LicensePlate = "SZY 12345",
+                    Mileage = 44444,
+                    VehicleBodyId = dbContext.Set<VehicleBody>().First(b => b.Name == "Van").Id,
+                    VehicleColorId = dbContext.Set<VehicleColor>().First(c => c.Name == "RED").Id
+                }
+                );
         }
 
         if(!dbContext.Set<Insurance>().Any())

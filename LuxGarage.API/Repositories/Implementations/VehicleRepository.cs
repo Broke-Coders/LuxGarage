@@ -4,6 +4,7 @@ using LuxGarage.API.Models;
 using LuxGarage.API.Repositories.Interfaces;
 
 namespace LuxGarage.API.Repositories.Implementations;
+
 public class VehicleRepository : IVehicleRepository
 {
     private readonly RentalContext _context;
@@ -14,13 +15,31 @@ public class VehicleRepository : IVehicleRepository
     }
 
     public async Task<List<Vehicle>> GetAllAsync()
-        => await _context.Vehicles.AsNoTracking().ToListAsync();
+    {
+        return await _context.Vehicles
+            .Include(v => v.VehicleBrand)
+            .Include(v => v.VehicleBody)
+            .Include(v => v.VehicleColor).AsNoTracking().ToListAsync();
+    }
+    //=> await _context.Vehicles.AsNoTracking().ToListAsync();
+
 
     public async Task<Vehicle?> GetByIdAsync(int id)
-        => await _context.Vehicles.FindAsync(id);
+    {
+        return await _context.Vehicles
+            .Include(v => v.VehicleBrand)
+            .Include(v => v.VehicleBody)
+            .Include(v => v.VehicleColor).FirstOrDefaultAsync(v => v.Id == id);
+    } //=> await _context.Vehicles.FindAsync(id);
 
     public async Task<Vehicle?> GetByLicensePlateAsync(string licensePlate)
-        => await _context.Vehicles.FirstOrDefaultAsync(v => v.LicensePlate == licensePlate);
+    {
+        return await _context.Vehicles
+            .Include(v => v.VehicleBrand)
+            .Include(v => v.VehicleBody)
+            .Include(v => v.VehicleColor).FirstOrDefaultAsync(v => v.LicensePlate == licensePlate);
+    }
+    //=> await _context.Vehicles.FirstOrDefaultAsync(v => v.LicensePlate == licensePlate);
 
     public async Task AddAsync(Vehicle vehicle)
     {
