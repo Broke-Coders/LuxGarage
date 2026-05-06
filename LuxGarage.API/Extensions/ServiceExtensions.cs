@@ -2,6 +2,7 @@ using System;
 using LuxGarage.API.Models;
 using LuxGarage.API.Repositories.Implementations;
 using LuxGarage.API.Repositories.Interfaces;
+using LuxGarage.API.Services.Implementations;
 using LuxGarage.API.Services.Interfaces;
 
 namespace LuxGarage.API.Extensions;
@@ -30,6 +31,7 @@ public static class ServiceExtensions
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
         services.AddScoped<IVehicleService, VehicleService>();
+        services.AddScoped<IAuthService, AuthService>();
 
         return services;
     }
