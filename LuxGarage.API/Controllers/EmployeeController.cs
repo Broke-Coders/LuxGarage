@@ -31,6 +31,11 @@ namespace LuxGarage.API.Controllers
         [HttpGet("{id:int}")]
         public async Task<ActionResult<ApiResponse<EmployeeResponse>>> GetById(int id)
         {
+            if (id <= 0)
+            {
+                return BadRequest(ApiResponse<object>.BadRequest("Employee ID must be greater than 0."));
+            }
+
             var employee = await _employeeService.GetByIdAsync(id);
             if (employee == null)
             {
@@ -43,13 +48,29 @@ namespace LuxGarage.API.Controllers
         [HttpPut("{id:int}")]
         public async Task<ActionResult<ApiResponse<EmployeeResponse>>> Update(int id, UpdateEmployeeRequest request)
         {
-            var employee = await _employeeService.UpdateAsync(id, request);
-            if (employee == null)
+            try
             {
-                return NotFound(ApiResponse<object>.NotFound($"Employee with ID {id} was not found."));
-            }
+                if (request == null)
+                {
+                    return BadRequest(ApiResponse<object>.BadRequest("Data is required."));
+                }
 
-            return Ok(ApiResponse<EmployeeResponse>.Ok(employee, "Employee updated successfully."));
+                var employee = await _employeeService.UpdateAsync(id, request);
+                if (employee == null)
+                {
+                    return NotFound(ApiResponse<object>.NotFound($"Employee with ID {id} was not found."));
+                }
+
+                return Ok(ApiResponse<EmployeeResponse>.Ok(employee, "Employee updated successfully."));
+            }
+            catch (KeyNotFoundException e)
+            {
+                return NotFound(ApiResponse<object>.NotFound(e.Message));
+            }
+            catch (InvalidOperationException e)
+            {
+                return BadRequest(ApiResponse<object>.BadRequest(e.Message));
+            }
         }
 
 
@@ -66,5 +87,19 @@ namespace LuxGarage.API.Controllers
         }
 
 
-}
+        [HttpPatch("{id:int}/change-password")]
+        public async Task<ActionResult<ApiResponse<object>>> ChangePassword(int id, [FromBody] ChangePasswordRequest request)
+        {
+            var success = await _employeeService.ChangePasswordAsync(id, request);
+            if (!success)
+            {
+                return NotFound(
+                    ApiResponse<object>.NotFound($"Cannot change password. Employee with ID {id} was not found."));
+            }
+
+            return Ok(ApiResponse<object>.NoContent("Password changed successfully"));
+        }
+
+
+    }
 }

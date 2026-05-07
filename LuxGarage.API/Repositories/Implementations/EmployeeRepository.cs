@@ -46,15 +46,18 @@ public class EmployeeRepository : IEmployeeRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(Employee worker, int id)
+    public async Task UpdateAsync(int id, Employee worker)
     {
         Employee? oldWorker = await _context.Employees.FindAsync(id);
 
-        oldWorker.Login = worker.Login;
-        oldWorker.WorkplaceId = worker.WorkplaceId;
-        oldWorker.PermissionId = worker.PermissionId;
+        if (oldWorker != null)
+        {
+            oldWorker.Login = worker.Login;
+            oldWorker.WorkplaceId = worker.WorkplaceId;
+            oldWorker.PermissionId = worker.PermissionId;
 
-        await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+        }
     }
 
     public async Task DeleteAsync(int id)
