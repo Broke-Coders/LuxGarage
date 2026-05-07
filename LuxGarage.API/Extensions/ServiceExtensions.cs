@@ -33,6 +33,7 @@ public static class ServiceExtensions
         services.AddScoped<IVehicleService, VehicleService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IEmployeeService, EmployeeService>();
+        services.AddScoped<IWorkplaceService, WorkplaceService>();
 
         return services;
     }
