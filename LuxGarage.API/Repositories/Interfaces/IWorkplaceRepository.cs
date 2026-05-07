@@ -4,6 +4,7 @@ namespace LuxGarage.API.Repositories.Interfaces;
 
 public interface IWorkplaceRepository
 {
+    Task<IEnumerable<Workplace>> GetAllAsync();
     Task<Workplace?> GetByIdAsync(int id);
     Task AddAsync(Workplace workplace);
     Task UpdateAsync(Workplace workplace, int id);
