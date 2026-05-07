@@ -41,6 +41,9 @@ namespace LuxGarage.API.Profiles
                     opt => opt.MapFrom(src => src.VehicleColor.Name));
 
             CreateMap<CreateVehicleRequest, Vehicle>();
+
+            CreateMap<Workplace, WorkplaceResponse>();
+            CreateMap<ChangeWorkplaceRequest, Workplace>();
         }
     }
 }

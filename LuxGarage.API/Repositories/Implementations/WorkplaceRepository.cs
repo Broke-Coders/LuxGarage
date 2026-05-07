@@ -1,6 +1,7 @@
 using LuxGarage.API.Data;
 using LuxGarage.API.Models;
 using LuxGarage.API.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace LuxGarage.API.Repositories.Implementations;
 
@@ -13,9 +14,11 @@ public class WorkplaceRepository : IWorkplaceRepository
         _context = context;
     }
 
+    public async Task<IEnumerable<Workplace>> GetAllAsync()
+        => await _context.Workplaces.ToListAsync();
+
     public async Task<Workplace?> GetByIdAsync(int id) 
         => await _context.Workplaces.FindAsync(id);
-    
     public async Task AddAsync(Workplace workplace)
     {
         await _context.Workplaces.AddAsync(workplace);
@@ -26,21 +29,18 @@ public class WorkplaceRepository : IWorkplaceRepository
     {
         Workplace? oldWorkplace = await _context.Workplaces.FindAsync(id);
 
-        oldWorkplace = workplace;
+        if (oldWorkplace != null) _context.Entry(oldWorkplace).CurrentValues.SetValues(workplace);
         await _context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(int id)
     {
         var workplace = await _context.Workplaces.FindAsync(id);
-        
-        if (workplace == null)
+        if (workplace != null)
         {
-            Console.WriteLine("workplace with given id not found");
-            return;
+            _context.Workplaces.Remove(workplace);
+            await _context.SaveChangesAsync();
         }
-
-        _context.Workplaces.Remove(workplace);
-        await _context.SaveChangesAsync();
+        
     }
 }
