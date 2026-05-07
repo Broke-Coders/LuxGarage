@@ -15,7 +15,7 @@ public static class DataExtensions
             .GetRequiredService<RentalContext>();
 
 
-        //dbContext.Database.EnsureDeleted(); // Reseting database
+        //dbContext.Database.EnsureDeleted(); // Reseting database  
         //dbContext.Database.CloseConnection();
         dbContext.Database.Migrate();
 

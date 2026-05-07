@@ -62,7 +62,9 @@ namespace LuxGarage.API.Services.Implementations
 
         private string GenerateJwtToken(Employee employee)
         {
-            var key = Encoding.ASCII.GetBytes(_configuration.GetSection("JwtSettings")["Key"]);
+            var keyString = _configuration["JwtSettings:Key"] 
+                            ?? throw new InvalidOperationException("JWT Key is missing in configuration.");
+            var key = Encoding.ASCII.GetBytes(keyString);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]

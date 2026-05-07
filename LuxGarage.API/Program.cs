@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddStoreDb();
 builder.Services.AddRepositories();
+builder.Services.AddCorsPolicy();
 builder.Services.AddServices();
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(typeof(MapperProfile));
@@ -22,8 +23,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// app.UseHttpsRedirection();
-
+app.UseCors("AllowAll");
+app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();

@@ -1,7 +1,6 @@
-﻿using LuxGarage.API.DTOs.Requests;
+using LuxGarage.API.DTOs.Requests;
 using LuxGarage.API.DTOs.Responses;
 using LuxGarage.API.Services.Interfaces;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LuxGarage.API.Controllers
@@ -54,13 +53,20 @@ namespace LuxGarage.API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<ApiResponse<LoginResponse>>> Login([FromBody] LoginRequest request)
         {
-            var result = await _authService.LoginAsync(request);
-            if (result == null)
+            try
             {
-                return Unauthorized(ApiResponse<object>.Error(401, "Invalid login or password."));
-            }
+                var result = await _authService.LoginAsync(request);
+                if (result == null)
+                {
+                    return Unauthorized(ApiResponse<object>.Error(401, "Invalid login or password."));
+                }
 
-            return Ok(ApiResponse<LoginResponse>.Ok(result, "Login successful."));
+                return Ok(ApiResponse<LoginResponse>.Ok(result, "Login successful."));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, ApiResponse<object>.Error(500, "An error occurred during login.", e.Message));
+            }
         }
     }
 }
