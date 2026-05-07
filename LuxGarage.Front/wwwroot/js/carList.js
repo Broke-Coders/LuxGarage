@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             carCard.className = "car-card";
         carCard.innerHTML = `
                 <h2>${car.brandName} ${car.modelName} ${car.horsepower}</h2>
-                <p>Rok: ${car.year}</p>
+                <p>Year: ${car.year}</p>
             `;
         container.appendChild(carCard);
         });
