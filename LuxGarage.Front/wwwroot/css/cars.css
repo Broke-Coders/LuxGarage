@@ -1,21 +1,28 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    padding: 20px;
+    margin: 0px;
+    padding-top: 80px;
+    background-color: #8a5428;
 }
 
 /* Ustawienie kontenera, aby elementy były pod sobą */
 #cars-container {
     display: flex;
     flex-direction: column; 
-    gap: 15px; 
+    gap: 5px; 
     max-width: 600px; 
     margin: 20px auto; 
 }
 
 /* Styl pojedynczego samochodu */
 .car-card {
-    background-color: white;
+    background-color: #1b1d1e;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
@@ -23,5 +30,10 @@ body {
 
 .car-card h2 {
     margin-top: 0;
-    color: #333;
+    color: #c8c3bc;
+}
+
+.car-card p {
+    margin-top: 0;
+    color: #c8c3bc; 
 }
