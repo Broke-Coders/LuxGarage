@@ -1,7 +1,12 @@
 ﻿using LuxGarage.API.Models;
 
+
 namespace LuxGarage.API.DTOs.Responses
 {
+    /// <summary>
+    /// DTO for employee response, containing the employee's ID, login, workplace ID and city, 
+    /// permission ID and name to be returned in API responses when retrieving employee information.
+    /// </summary>
     public class EmployeeResponse
     {
         public int Id { get; set; }

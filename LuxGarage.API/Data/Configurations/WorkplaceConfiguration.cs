@@ -4,8 +4,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LuxGarage.API.Configurations;
 
+/// <summary>
+/// Configuration for the Workplace entity, defining the database schema and relationships.
+/// </summary>
 public class WorkplaceConfiguration : IEntityTypeConfiguration<Workplace>
 {
+    /// <summary>
+    /// Configures the Workplace entity's properties and relationships.
+    /// </summary>
+    /// <param name="builder">The builder used to configure the entity.</param>
     public void Configure(EntityTypeBuilder<Workplace> builder)
     {
         builder.ToTable("Workplaces");

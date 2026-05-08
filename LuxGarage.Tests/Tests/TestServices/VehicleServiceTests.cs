@@ -9,7 +9,7 @@ using LuxGarage.API.Services.Interfaces;
 using Moq;
 using Xunit;
 
-namespace LuxGarage.Tests;
+namespace LuxGarage.Tests.TestServices;
 
 /// <summary>
 /// Tests for the VehicleService class, which provides business logic for managing Vehicle entities.

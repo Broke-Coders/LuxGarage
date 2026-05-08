@@ -4,8 +4,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LuxGarage.API.Configurations;
 
+/// <summary>
+/// Configuration for the VehicleImage entity, defining the database schema and relationships.
+/// </summary>
 public class VehicleImageConfiguration : IEntityTypeConfiguration<VehicleImage>
 {
+    /// <summary>
+    /// Configures the VehicleImage entity's properties and relationships.
+    /// </summary>
+    /// <param name="builder">The builder used to configure the entity.</param>
     public void Configure(EntityTypeBuilder<VehicleImage> builder)
     {
         builder.ToTable("VehicleImages");

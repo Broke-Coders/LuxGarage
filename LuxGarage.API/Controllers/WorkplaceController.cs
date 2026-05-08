@@ -6,17 +6,35 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LuxGarage.API.Controllers
 {
+    /// <summary>
+    /// Controller responsible for handling workplace-related endpoints, including retrieving all workplaces,
+    /// retrieving a workplace by ID, creating a new workplace, updating an existing workplace, and deleting a workplace.
+    /// </summary>
+    /// <remarks>
+    /// The WorkplaceController provides endpoints for managing workplaces, utilizing the IWorkplaceService to perform the
+    /// necessary business logic. The controller uses DTOs (Data Transfer Objects) to facilitate data serialization and deserialization
+    /// between the service layer and the client, ensuring that the data is properly structured.
+    /// </remarks>
     [ApiController]
     [Route("api/[controller]")]
     public class WorkplaceController : ControllerBase
     {
         private readonly IWorkplaceService _workplaceService;
 
+        /// <summary>
+        /// Initializes a new instance of the WorkplaceController class, 
+        /// injecting the IWorkplaceService to handle business logic related to workplaces.
+        /// </summary>
+        /// <param name="workplaceService">The IWorkplaceService instance to use for workplace-related operations.</param>
         public WorkplaceController(IWorkplaceService workplaceService)
         {
             _workplaceService = workplaceService;
         }
 
+        /// <summary>
+        /// Retrieves a list of all workplaces.
+        /// </summary>
+        /// <returns>A list of all workplaces.</returns>
         [HttpGet]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<WorkplaceResponse>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status500InternalServerError)]
@@ -36,6 +54,11 @@ namespace LuxGarage.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Retrieves a specific workplace by its unique identifier.
+        /// </summary>
+        /// <param name="id">The unique identifier of the workplace to retrieve.</param>
+        /// <returns>The workplace details if found, otherwise null.</returns>
         [HttpGet("{id:int}")]
         [ProducesResponseType(typeof(ApiResponse<WorkplaceResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
@@ -65,7 +88,11 @@ namespace LuxGarage.API.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Creates a new workplace based on the provided request data.
+        /// </summary>
+        /// <param name="request">The request DTO containing the data for the new workplace.</param>
+        /// <returns>The details of the newly created workplace.</returns>
         [HttpPost]
         [ProducesResponseType(typeof(ApiResponse<WorkplaceResponse>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
@@ -91,6 +118,12 @@ namespace LuxGarage.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Updates an existing workplace based on the provided request data.
+        /// </summary>
+        /// <param name="request">The request DTO containing the updated data for the workplace.</param>
+        /// <param name="id">The unique identifier of the workplace to update.</param>
+        /// <returns>The details of the updated workplace.</returns>
         [HttpPut("{id:int}")]
         [ProducesResponseType(typeof(ApiResponse<WorkplaceResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
@@ -126,7 +159,11 @@ namespace LuxGarage.API.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Deletes a workplace by its unique identifier.
+        /// </summary>
+        /// <param name="id">The unique identifier of the workplace to delete.</param>
+        /// <returns>A response indicating the outcome of the delete operation.</returns>
         [HttpDelete("{id:int}")]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]

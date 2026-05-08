@@ -4,6 +4,11 @@ using LuxGarage.API.Models;
 
 namespace LuxGarage.API.Data;
 
+/// <summary>
+/// The RentalContext class represents the Entity Framework Core database context for the LuxGarage application,
+/// providing access to the database and defining the DbSet properties for each entity in the application.
+/// </summary>
+/// <param name="options">options for configuring the database context.</param>
 public class RentalContext(DbContextOptions<RentalContext> options)
 : DbContext(options)
 {
@@ -23,6 +28,10 @@ public class RentalContext(DbContextOptions<RentalContext> options)
     public DbSet<Employee> Employees => Set<Employee>();
     public DbSet<Workplace> Workplaces => Set<Workplace>();
 
+    /// <summary>
+    /// Configures the entity mappings and relationships for the database context using the Fluent API.
+    /// </summary>
+    /// <param name="modelBuilder">The model builder.</param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

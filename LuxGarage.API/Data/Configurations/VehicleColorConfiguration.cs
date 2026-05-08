@@ -4,8 +4,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LuxGarage.API.Configurations;
 
+/// <summary>
+/// Configuration for the VehicleColor entity, defining the database schema and relationships.
+/// </summary>
 public class VehicleColorConfiguration : IEntityTypeConfiguration<VehicleColor>
 {
+    /// <summary>
+    /// Configures the VehicleColor entity's properties and relationships.
+    /// </summary>
+    /// <param name="builder">The builder used to configure the entity.</param>
     public void Configure(EntityTypeBuilder<VehicleColor> builder)
     {
         builder.ToTable("VehicleColors");

@@ -4,8 +4,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LuxGarage.API.Configurations;
 
+/// <summary>
+/// Configuration for the Permission entity, defining the database schema and relationships.
+/// </summary>
 public class PermissionConfiguration : IEntityTypeConfiguration<Permission>
 {
+    /// <summary>
+    /// Configures the Permission entity's properties and relationships.
+    /// </summary>
+    /// <param name="builder">The builder used to configure the entity.</param>
     public void Configure(EntityTypeBuilder<Permission> builder)
     {
 

@@ -11,7 +11,7 @@ using LuxGarage.API.Services.Interfaces;
 using Moq;
 using Xunit;
 
-namespace LuxGarage.Tests;
+namespace LuxGarage.Tests.TestServices;
 
 /// <summary>
 /// Unit tests for AuthService

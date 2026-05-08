@@ -1,5 +1,10 @@
 namespace LuxGarage.API.DTOs.Responses.Vehicle;
 
+/// <summary>
+/// DTO for vehicle list item response, containing the vehicle's ID, brand, model, body type, color, horsepower, 
+/// mileage, and license plate to be returned in API responses when retrieving a list of vehicles, providing a summary of 
+/// each vehicle's information for display in lists or overviews.
+/// </summary>
 public class VehicleListItemResponse
 {
     public int Id { get; set; }

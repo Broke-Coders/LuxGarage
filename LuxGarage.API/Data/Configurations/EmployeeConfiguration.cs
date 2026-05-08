@@ -3,9 +3,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LuxGarage.API.Configurations;
-
+/// <summary>
+/// Configuration for the Employee entity, defining the database schema and relationships.
+/// </summary>
+/// <remarks>
+/// This configuration ensures that the Employee entity is properly mapped to the database, including
+/// primary key, unique constraints, default values, and relationships with the Workplace and Permission entities.
+/// </remarks>
 public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
 {
+        /// <summary>
+        /// Configures the Employee entity's properties and relationships.
+        /// </summary>
+        /// <param name="builder">The builder used to configure the entity.</param>
     public void Configure(EntityTypeBuilder<Employee> builder)
     {
 

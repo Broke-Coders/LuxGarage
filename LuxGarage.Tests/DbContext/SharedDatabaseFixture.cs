@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using LuxGarage.API.Data; 
 using Xunit;
 
-namespace LuxGarage.Tests;
+namespace LuxGarage.Tests.DbContext;
 
 /// <summary>
 /// Shared database fixture for integration tests. 

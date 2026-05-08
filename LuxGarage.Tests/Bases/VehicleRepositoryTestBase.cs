@@ -4,8 +4,9 @@ using LuxGarage.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Testcontainers.PostgreSql;
+using LuxGarage.Tests.DbContext;
 
-namespace LuxGarage.Tests;
+namespace LuxGarage.Tests.Bases;
 
 /// <summary>
 /// Base class for VehicleRepository tests, providing a shared database context and transaction management for each test.

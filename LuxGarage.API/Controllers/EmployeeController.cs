@@ -8,17 +8,36 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LuxGarage.API.Controllers
 {
+    /// <summary>
+    /// Controller responsible for handling employee-related endpoints, including CRUD operations and password changes.
+    /// </summary>
+    /// <remarks>
+    /// The EmployeeController provides endpoints for managing employees, utilizing the IEmployeeService to perform the necessary business logic.
+    /// The controller includes proper error handling and returns appropriate HTTP status codes based on the outcome of the operations, 
+    /// such as 200 OK for successful retrieval and updates, 400 Bad Request for invalid input, 
+    /// 404 Not Found for non-existent resources, and 500 Internal Server Error for unexpected exceptions.
+    /// Additionally, it handles specific exceptions like KeyNotFoundException and InvalidOperationException 
+    /// to provide more informative responses to clients in case of errors.
+    /// </remarks>
     [ApiController]
     [Route("api/[controller]")]
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
 
+        /// <summary>
+        /// Initializes a new instance of the EmployeeController class with the specified employee service.
+        /// </summary>
+        /// <param name="employeeService">The employee service to be used for handling employee-related operations.</param>
         public EmployeeController(IEmployeeService employeeService)
         {
             _employeeService = employeeService;
         }
 
+        /// <summary>
+        /// Retrieves a list of all employees.
+        /// </summary>
+        /// <returns>A list of employee responses wrapped in an ApiResponse object.</returns>
         [HttpGet]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<EmployeeResponse>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status500InternalServerError)]
@@ -38,7 +57,12 @@ namespace LuxGarage.API.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Retrieves a specific employee by their ID. Returns 200 OK if found, 400 Bad Request for invalid ID,
+        /// and 404 Not Found if no employee exists with the provided ID.
+        /// </summary>
+        /// <param name="id">The ID of the employee to retrieve.</param>
+        /// <returns>The employee response wrapped in an ApiResponse object.</returns>
         [HttpGet("{id:int}")]
         [ProducesResponseType(typeof(ApiResponse<EmployeeResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
@@ -69,6 +93,12 @@ namespace LuxGarage.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Updates an existing employee with the provided data.
+        /// </summary>
+        /// <param name="id">The ID of the employee to update.</param>
+        /// <param name="request">The update request containing the new employee data.</param>
+        /// <returns>The updated employee response wrapped in an ApiResponse object.</returns>
         [HttpPut("{id:int}")]
         [ProducesResponseType(typeof(ApiResponse<EmployeeResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
@@ -112,7 +142,12 @@ namespace LuxGarage.API.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Deletes an employee by their ID. Returns 200 OK if deletion is successful, 400 Bad Request for invalid ID,
+        /// and 404 Not Found if no employee exists with the provided ID.
+        /// </summary>
+        /// <param name="id">The ID of the employee to delete.</param>
+        /// <returns>A response indicating the result of the deletion operation.</returns>
         [HttpDelete("{id:int}")]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
@@ -144,6 +179,13 @@ namespace LuxGarage.API.Controllers
         }
 
 
+        /// <summary>
+        /// Changes the password of an employee with the provided ID and new password data. Returns 200 OK if successful,
+        /// 400 Bad Request for invalid input, and 404 Not Found if no employee exists with the provided ID.
+        /// </summary>
+        /// <param name="id">The ID of the employee whose password to change.</param>
+        /// <param name="request">The request containing the new password.</param>
+        /// <returns>A response indicating the result of the password change operation.</returns>
         [HttpPatch("{id:int}/change-password")]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]

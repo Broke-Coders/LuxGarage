@@ -4,8 +4,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LuxGarage.API.Configurations;
 
+/// <summary>
+/// Configuration for the VehiclePrice entity, defining the database schema and relationships.
+/// </summary>
 public class VehiclePriceConfiguration : IEntityTypeConfiguration<VehiclePrice>
 {
+    /// <summary>
+    /// Configures the VehiclePrice entity's properties and relationships.
+    /// </summary>
+    /// <param name="builder">The builder used to configure the entity.</param>
     public void Configure(EntityTypeBuilder<VehiclePrice> builder)
     {
         builder.HasKey(vp => vp.Id);
