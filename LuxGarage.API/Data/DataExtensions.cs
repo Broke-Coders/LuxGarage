@@ -4,9 +4,20 @@ using Microsoft.EntityFrameworkCore;
 using LuxGarage.API.Models;
 
 namespace LuxGarage.API.Data;
-
+/// <summary>
+/// Extension methods for database initialization and migration, providing a way to set up the database schema and seed initial data.
+/// </summary>
 public static class DataExtensions
 {
+    /// <summary>
+    /// Initializes the database schema and seeds initial data if necessary. 
+    /// </summary>
+    /// <remarks>
+    /// This method ensures that the database is created and up to date with the latest migrations, 
+    /// and it populates the database with default values for permissions, workplaces, employees, vehicle brands, models, bodies, colors, 
+    /// vehicles, insurances, and customers.
+    /// </remarks>
+    /// <param name="app">The web application instance.</param>
     public static void MigrateDb(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
@@ -192,6 +203,11 @@ public static class DataExtensions
         }
     }
 
+    /// <summary>
+    /// Adds the RentalContext to the service collection, 
+    /// configuring it to use a PostgreSQL database with the connection string specified in the configuration.
+    /// </summary>
+    /// <param name="builder">The web application builder.</param>
     public static void AddStoreDb(this WebApplicationBuilder builder)
     {
         builder.Services.AddDbContext<RentalContext>((sp, options) =>
