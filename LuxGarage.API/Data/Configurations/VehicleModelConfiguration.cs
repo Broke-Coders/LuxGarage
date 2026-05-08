@@ -18,10 +18,6 @@ namespace LuxGarage.API.Data.Configurations
                 .WithMany(b => b.VehicleModels)
                 .HasForeignKey(m => m.VehicleBrandId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasMany(vm => vm.VehiclePrices)
-            .WithOne(vp => vp.VehicleModel)
-            .HasForeignKey(vp => vp.VehicleModelId);
         }
     }
 }
