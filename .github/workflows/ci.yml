@@ -1,0 +1,37 @@
+name: CI - Build and Test
+
+# every push and pull request to main will trigger this workflow
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest # use linux environment
+
+    steps:
+    # 1. Checkout code
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # 2. Setup .NET
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.x' 
+
+    # 3. Restore dependencies
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    # 4. Build application (optional, as tests will also build it, but good practice)
+    - name: Build
+      run: dotnet build --no-restore
+
+    # 5. Run tests
+    # Hint: Command to run tests. The --no-build flag is used to skip the build step since we already built the application in the previous step. 
+    # Adjust verbosity as needed.
+    - name: Test
+      run: dotnet test --no-build --verbosity normal

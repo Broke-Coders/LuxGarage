@@ -1,0 +1,648 @@
+### YamlMime:ManagedReference
+items:
+- uid: LuxGarage.Tests.AuthServiceTest
+  commentId: T:LuxGarage.Tests.AuthServiceTest
+  id: AuthServiceTest
+  parent: LuxGarage.Tests
+  children:
+  - LuxGarage.Tests.AuthServiceTest.#ctor
+  - LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnLoginResponse_WhenCredentialsAreValid
+  - LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnNull_WhenPasswordIsInvalid
+  - LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnNull_WhenUserNotFound
+  - LuxGarage.Tests.AuthServiceTest.RegisterAsync_ShouldReturnRegisteredEmployeeId
+  - LuxGarage.Tests.AuthServiceTest.RegisterAsync_ShouldThrowException_WhenUserAlreadyExists
+  langs:
+  - csharp
+  - vb
+  name: AuthServiceTest
+  nameWithType: AuthServiceTest
+  fullName: LuxGarage.Tests.AuthServiceTest
+  type: Class
+  source:
+    remote:
+      path: LuxGarage.Tests/Tests/TestServices/AuthServiceTest.cs
+      branch: tests-create-new-tests
+      repo: https://github.com/Broke-Coders/LuxGarage.git
+    id: AuthServiceTest
+    path: LuxGarage.Tests/Tests/TestServices/AuthServiceTest.cs
+    startLine: 26
+  assemblies:
+  - LuxGarage.Tests
+  namespace: LuxGarage.Tests
+  summary: Unit tests for AuthService
+  remarks: >-
+    This class contains unit tests for the AuthService, which handles user registration and authentication.
+
+    The tests cover covering both RegisterAsync and LoginAsync methods, 
+
+    ensuring proper handling of user registration and authentication scenarios, 
+
+    including edge cases such as existing users and invalid credentials.
+
+    The tests utilize Moq to mock the IEmployeeRepository and FluentAssertions for expressive assertions.
+
+    The configuration for JWT token generation is also set up in-memory for testing purposes.
+  example: []
+  syntax:
+    content: public class AuthServiceTest
+    content.vb: Public Class AuthServiceTest
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: LuxGarage.Tests.AuthServiceTest.#ctor
+  commentId: M:LuxGarage.Tests.AuthServiceTest.#ctor
+  id: '#ctor'
+  parent: LuxGarage.Tests.AuthServiceTest
+  langs:
+  - csharp
+  - vb
+  name: AuthServiceTest()
+  nameWithType: AuthServiceTest.AuthServiceTest()
+  fullName: LuxGarage.Tests.AuthServiceTest.AuthServiceTest()
+  type: Constructor
+  source:
+    remote:
+      path: LuxGarage.Tests/Tests/TestServices/AuthServiceTest.cs
+      branch: tests-create-new-tests
+      repo: https://github.com/Broke-Coders/LuxGarage.git
+    id: .ctor
+    path: LuxGarage.Tests/Tests/TestServices/AuthServiceTest.cs
+    startLine: 36
+  assemblies:
+  - LuxGarage.Tests
+  namespace: LuxGarage.Tests
+  summary: >-
+    Initializes a new instance of the AuthServiceTest class, 
+
+    setting up the necessary mocks and configuration for testing.
+  example: []
+  syntax:
+    content: public AuthServiceTest()
+    content.vb: Public Sub New()
+  overload: LuxGarage.Tests.AuthServiceTest.#ctor*
+  nameWithType.vb: AuthServiceTest.New()
+  fullName.vb: LuxGarage.Tests.AuthServiceTest.New()
+  name.vb: New()
+- uid: LuxGarage.Tests.AuthServiceTest.RegisterAsync_ShouldThrowException_WhenUserAlreadyExists
+  commentId: M:LuxGarage.Tests.AuthServiceTest.RegisterAsync_ShouldThrowException_WhenUserAlreadyExists
+  id: RegisterAsync_ShouldThrowException_WhenUserAlreadyExists
+  parent: LuxGarage.Tests.AuthServiceTest
+  langs:
+  - csharp
+  - vb
+  name: RegisterAsync_ShouldThrowException_WhenUserAlreadyExists()
+  nameWithType: AuthServiceTest.RegisterAsync_ShouldThrowException_WhenUserAlreadyExists()
+  fullName: LuxGarage.Tests.AuthServiceTest.RegisterAsync_ShouldThrowException_WhenUserAlreadyExists()
+  type: Method
+  source:
+    remote:
+      path: LuxGarage.Tests/Tests/TestServices/AuthServiceTest.cs
+      branch: tests-create-new-tests
+      repo: https://github.com/Broke-Coders/LuxGarage.git
+    id: RegisterAsync_ShouldThrowException_WhenUserAlreadyExists
+    path: LuxGarage.Tests/Tests/TestServices/AuthServiceTest.cs
+    startLine: 58
+  assemblies:
+  - LuxGarage.Tests
+  namespace: LuxGarage.Tests
+  summary: Tests the RegisterAsync method to ensure that it throws an InvalidOperationException
+  example: []
+  syntax:
+    content: >-
+      [Fact]
+
+      public Task RegisterAsync_ShouldThrowException_WhenUserAlreadyExists()
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: >-
+      <Fact>
+
+      Public Function RegisterAsync_ShouldThrowException_WhenUserAlreadyExists() As Task
+  overload: LuxGarage.Tests.AuthServiceTest.RegisterAsync_ShouldThrowException_WhenUserAlreadyExists*
+  attributes:
+  - type: Xunit.FactAttribute
+    ctor: Xunit.FactAttribute.#ctor
+    arguments: []
+- uid: LuxGarage.Tests.AuthServiceTest.RegisterAsync_ShouldReturnRegisteredEmployeeId
+  commentId: M:LuxGarage.Tests.AuthServiceTest.RegisterAsync_ShouldReturnRegisteredEmployeeId
+  id: RegisterAsync_ShouldReturnRegisteredEmployeeId
+  parent: LuxGarage.Tests.AuthServiceTest
+  langs:
+  - csharp
+  - vb
+  name: RegisterAsync_ShouldReturnRegisteredEmployeeId()
+  nameWithType: AuthServiceTest.RegisterAsync_ShouldReturnRegisteredEmployeeId()
+  fullName: LuxGarage.Tests.AuthServiceTest.RegisterAsync_ShouldReturnRegisteredEmployeeId()
+  type: Method
+  source:
+    remote:
+      path: LuxGarage.Tests/Tests/TestServices/AuthServiceTest.cs
+      branch: tests-create-new-tests
+      repo: https://github.com/Broke-Coders/LuxGarage.git
+    id: RegisterAsync_ShouldReturnRegisteredEmployeeId
+    path: LuxGarage.Tests/Tests/TestServices/AuthServiceTest.cs
+    startLine: 85
+  assemblies:
+  - LuxGarage.Tests
+  namespace: LuxGarage.Tests
+  summary: >-
+    Tests the RegisterAsync method to ensure that it successfully registers a new user 
+
+    and returns the correct details.
+  example: []
+  syntax:
+    content: >-
+      [Fact]
+
+      public Task RegisterAsync_ShouldReturnRegisteredEmployeeId()
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: >-
+      <Fact>
+
+      Public Function RegisterAsync_ShouldReturnRegisteredEmployeeId() As Task
+  overload: LuxGarage.Tests.AuthServiceTest.RegisterAsync_ShouldReturnRegisteredEmployeeId*
+  attributes:
+  - type: Xunit.FactAttribute
+    ctor: Xunit.FactAttribute.#ctor
+    arguments: []
+- uid: LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnNull_WhenUserNotFound
+  commentId: M:LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnNull_WhenUserNotFound
+  id: LoginAsync_ShouldReturnNull_WhenUserNotFound
+  parent: LuxGarage.Tests.AuthServiceTest
+  langs:
+  - csharp
+  - vb
+  name: LoginAsync_ShouldReturnNull_WhenUserNotFound()
+  nameWithType: AuthServiceTest.LoginAsync_ShouldReturnNull_WhenUserNotFound()
+  fullName: LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnNull_WhenUserNotFound()
+  type: Method
+  source:
+    remote:
+      path: LuxGarage.Tests/Tests/TestServices/AuthServiceTest.cs
+      branch: tests-create-new-tests
+      repo: https://github.com/Broke-Coders/LuxGarage.git
+    id: LoginAsync_ShouldReturnNull_WhenUserNotFound
+    path: LuxGarage.Tests/Tests/TestServices/AuthServiceTest.cs
+    startLine: 113
+  assemblies:
+  - LuxGarage.Tests
+  namespace: LuxGarage.Tests
+  summary: >-
+    Tests that the LoginAsync method returns null 
+
+    when a user with the provided login does not exist in the repository.
+  example: []
+  syntax:
+    content: >-
+      [Fact]
+
+      public Task LoginAsync_ShouldReturnNull_WhenUserNotFound()
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: >-
+      <Fact>
+
+      Public Function LoginAsync_ShouldReturnNull_WhenUserNotFound() As Task
+  overload: LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnNull_WhenUserNotFound*
+  attributes:
+  - type: Xunit.FactAttribute
+    ctor: Xunit.FactAttribute.#ctor
+    arguments: []
+- uid: LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnNull_WhenPasswordIsInvalid
+  commentId: M:LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnNull_WhenPasswordIsInvalid
+  id: LoginAsync_ShouldReturnNull_WhenPasswordIsInvalid
+  parent: LuxGarage.Tests.AuthServiceTest
+  langs:
+  - csharp
+  - vb
+  name: LoginAsync_ShouldReturnNull_WhenPasswordIsInvalid()
+  nameWithType: AuthServiceTest.LoginAsync_ShouldReturnNull_WhenPasswordIsInvalid()
+  fullName: LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnNull_WhenPasswordIsInvalid()
+  type: Method
+  source:
+    remote:
+      path: LuxGarage.Tests/Tests/TestServices/AuthServiceTest.cs
+      branch: tests-create-new-tests
+      repo: https://github.com/Broke-Coders/LuxGarage.git
+    id: LoginAsync_ShouldReturnNull_WhenPasswordIsInvalid
+    path: LuxGarage.Tests/Tests/TestServices/AuthServiceTest.cs
+    startLine: 132
+  assemblies:
+  - LuxGarage.Tests
+  namespace: LuxGarage.Tests
+  summary: >-
+    Tests that the LoginAsync method returns null when the provided password is 
+
+    invalid for an existing user.
+  example: []
+  syntax:
+    content: >-
+      [Fact]
+
+      public Task LoginAsync_ShouldReturnNull_WhenPasswordIsInvalid()
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: >-
+      <Fact>
+
+      Public Function LoginAsync_ShouldReturnNull_WhenPasswordIsInvalid() As Task
+  overload: LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnNull_WhenPasswordIsInvalid*
+  attributes:
+  - type: Xunit.FactAttribute
+    ctor: Xunit.FactAttribute.#ctor
+    arguments: []
+- uid: LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnLoginResponse_WhenCredentialsAreValid
+  commentId: M:LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnLoginResponse_WhenCredentialsAreValid
+  id: LoginAsync_ShouldReturnLoginResponse_WhenCredentialsAreValid
+  parent: LuxGarage.Tests.AuthServiceTest
+  langs:
+  - csharp
+  - vb
+  name: LoginAsync_ShouldReturnLoginResponse_WhenCredentialsAreValid()
+  nameWithType: AuthServiceTest.LoginAsync_ShouldReturnLoginResponse_WhenCredentialsAreValid()
+  fullName: LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnLoginResponse_WhenCredentialsAreValid()
+  type: Method
+  source:
+    remote:
+      path: LuxGarage.Tests/Tests/TestServices/AuthServiceTest.cs
+      branch: tests-create-new-tests
+      repo: https://github.com/Broke-Coders/LuxGarage.git
+    id: LoginAsync_ShouldReturnLoginResponse_WhenCredentialsAreValid
+    path: LuxGarage.Tests/Tests/TestServices/AuthServiceTest.cs
+    startLine: 152
+  assemblies:
+  - LuxGarage.Tests
+  namespace: LuxGarage.Tests
+  summary: >-
+    Tests that the LoginAsync method returns a valid login response when 
+
+    the provided credentials are correct.
+  example: []
+  syntax:
+    content: >-
+      [Fact]
+
+      public Task LoginAsync_ShouldReturnLoginResponse_WhenCredentialsAreValid()
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: >-
+      <Fact>
+
+      Public Function LoginAsync_ShouldReturnLoginResponse_WhenCredentialsAreValid() As Task
+  overload: LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnLoginResponse_WhenCredentialsAreValid*
+  attributes:
+  - type: Xunit.FactAttribute
+    ctor: Xunit.FactAttribute.#ctor
+    arguments: []
+references:
+- uid: LuxGarage.Tests
+  commentId: N:LuxGarage.Tests
+  href: LuxGarage.html
+  name: LuxGarage.Tests
+  nameWithType: LuxGarage.Tests
+  fullName: LuxGarage.Tests
+  spec.csharp:
+  - uid: LuxGarage
+    name: LuxGarage
+    href: LuxGarage.html
+  - name: .
+  - uid: LuxGarage.Tests
+    name: Tests
+    href: LuxGarage.Tests.html
+  spec.vb:
+  - uid: LuxGarage
+    name: LuxGarage
+    href: LuxGarage.html
+  - name: .
+  - uid: LuxGarage.Tests
+    name: Tests
+    href: LuxGarage.Tests.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: LuxGarage.Tests.AuthServiceTest.#ctor*
+  commentId: Overload:LuxGarage.Tests.AuthServiceTest.#ctor
+  href: LuxGarage.Tests.AuthServiceTest.html#LuxGarage_Tests_AuthServiceTest__ctor
+  name: AuthServiceTest
+  nameWithType: AuthServiceTest.AuthServiceTest
+  fullName: LuxGarage.Tests.AuthServiceTest.AuthServiceTest
+  nameWithType.vb: AuthServiceTest.New
+  fullName.vb: LuxGarage.Tests.AuthServiceTest.New
+  name.vb: New
+- uid: LuxGarage.Tests.AuthServiceTest.RegisterAsync_ShouldThrowException_WhenUserAlreadyExists*
+  commentId: Overload:LuxGarage.Tests.AuthServiceTest.RegisterAsync_ShouldThrowException_WhenUserAlreadyExists
+  href: LuxGarage.Tests.AuthServiceTest.html#LuxGarage_Tests_AuthServiceTest_RegisterAsync_ShouldThrowException_WhenUserAlreadyExists
+  name: RegisterAsync_ShouldThrowException_WhenUserAlreadyExists
+  nameWithType: AuthServiceTest.RegisterAsync_ShouldThrowException_WhenUserAlreadyExists
+  fullName: LuxGarage.Tests.AuthServiceTest.RegisterAsync_ShouldThrowException_WhenUserAlreadyExists
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: LuxGarage.Tests.AuthServiceTest.RegisterAsync_ShouldReturnRegisteredEmployeeId*
+  commentId: Overload:LuxGarage.Tests.AuthServiceTest.RegisterAsync_ShouldReturnRegisteredEmployeeId
+  href: LuxGarage.Tests.AuthServiceTest.html#LuxGarage_Tests_AuthServiceTest_RegisterAsync_ShouldReturnRegisteredEmployeeId
+  name: RegisterAsync_ShouldReturnRegisteredEmployeeId
+  nameWithType: AuthServiceTest.RegisterAsync_ShouldReturnRegisteredEmployeeId
+  fullName: LuxGarage.Tests.AuthServiceTest.RegisterAsync_ShouldReturnRegisteredEmployeeId
+- uid: LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnNull_WhenUserNotFound*
+  commentId: Overload:LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnNull_WhenUserNotFound
+  href: LuxGarage.Tests.AuthServiceTest.html#LuxGarage_Tests_AuthServiceTest_LoginAsync_ShouldReturnNull_WhenUserNotFound
+  name: LoginAsync_ShouldReturnNull_WhenUserNotFound
+  nameWithType: AuthServiceTest.LoginAsync_ShouldReturnNull_WhenUserNotFound
+  fullName: LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnNull_WhenUserNotFound
+- uid: LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnNull_WhenPasswordIsInvalid*
+  commentId: Overload:LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnNull_WhenPasswordIsInvalid
+  href: LuxGarage.Tests.AuthServiceTest.html#LuxGarage_Tests_AuthServiceTest_LoginAsync_ShouldReturnNull_WhenPasswordIsInvalid
+  name: LoginAsync_ShouldReturnNull_WhenPasswordIsInvalid
+  nameWithType: AuthServiceTest.LoginAsync_ShouldReturnNull_WhenPasswordIsInvalid
+  fullName: LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnNull_WhenPasswordIsInvalid
+- uid: LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnLoginResponse_WhenCredentialsAreValid*
+  commentId: Overload:LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnLoginResponse_WhenCredentialsAreValid
+  href: LuxGarage.Tests.AuthServiceTest.html#LuxGarage_Tests_AuthServiceTest_LoginAsync_ShouldReturnLoginResponse_WhenCredentialsAreValid
+  name: LoginAsync_ShouldReturnLoginResponse_WhenCredentialsAreValid
+  nameWithType: AuthServiceTest.LoginAsync_ShouldReturnLoginResponse_WhenCredentialsAreValid
+  fullName: LuxGarage.Tests.AuthServiceTest.LoginAsync_ShouldReturnLoginResponse_WhenCredentialsAreValid
