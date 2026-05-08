@@ -3,6 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LuxGarage.API.Repositories.Interfaces
 {
+    /// <summary>
+    /// Defines the contract for a repository that manages vehicle model data in the LuxGarage API,
+    /// providing methods for retrieving, adding, updating, and deleting vehicle model information from the database.
+    /// </summary>
     public interface IVehicleModelRepository
     {
 
