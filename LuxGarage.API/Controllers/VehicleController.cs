@@ -15,6 +15,18 @@ namespace LuxGarage.API.Controllers;
 /// such as 200 OK for successful retrievals, 201 Created for successful creation, and 400 Bad Request for invalid input. 
 /// </remarks>
 
+/// <summary>
+/// Controller responsible for handling vehicle-related endpoints, including retrieving all vehicles, 
+/// retrieving a vehicle by ID, and creating a new vehicle.
+/// </summary> 
+/// <remarks>
+/// The VehiclesController provides endpoints for managing vehicles, utilizing the IVehicleService to perform the
+/// necessary business logic. The controller uses DTOs (Data Transfer Objects) to facilitate data serialization and deserialization 
+/// between the service layer and the client, ensuring that the data is properly structured. 
+/// The controller includes proper error handling and returns appropriate HTTP status codes based on the outcome of the operations, 
+/// such as 200 OK for successful retrievals, 201 Created for successful creation, and 400 Bad Request for invalid input. 
+/// </remarks>
+
 [ApiController]
 [Route("api/[controller]")]
 public class VehiclesController : ControllerBase
@@ -36,6 +48,12 @@ public class VehiclesController : ControllerBase
     /// </summary>
     /// <param name="request">The request DTO containing query parameters for filtering, sorting, and pagination.</param>
     /// <returns>A list of vehicles matching the criteria.</returns>
+    /// <summary>
+    /// Retrieves a list of all vehicles based on the provided query parameters. 
+    /// The endpoint supports filtering, sorting, and pagination through the GetVehiclesRequest DTO.
+    /// </summary>
+    /// <param name="request">The request DTO containing query parameters for filtering, sorting, and pagination.</param>
+    /// <returns>A list of vehicles matching the criteria.</returns>
     [HttpGet]
     public async Task<ActionResult<ApiResponse<List<VehicleResponse>>>> GetAll([FromQuery] GetVehiclesRequest request)
     {
@@ -43,6 +61,11 @@ public class VehiclesController : ControllerBase
         return Ok(vehicles);
     }
 
+    /// <summary>
+    /// Retrieves a specific vehicle by its unique identifier.
+    /// </summary>
+    /// <param name="id">The unique identifier of the vehicle to retrieve.</param>
+    /// <returns>The vehicle details if found, otherwise null.</returns>
     /// <summary>
     /// Retrieves a specific vehicle by its unique identifier.
     /// </summary>

@@ -1,6 +1,7 @@
 using LuxGarage.API.Features.Auth;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace LuxGarage.API.Controllers;
 
 /// <summary>
