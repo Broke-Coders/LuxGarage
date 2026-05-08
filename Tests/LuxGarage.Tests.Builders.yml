@@ -1,0 +1,54 @@
+### YamlMime:ManagedReference
+items:
+- uid: LuxGarage.Tests.Builders
+  commentId: N:LuxGarage.Tests.Builders
+  id: LuxGarage.Tests.Builders
+  children:
+  - LuxGarage.Tests.Builders.VehicleBuilder
+  langs:
+  - csharp
+  - vb
+  name: LuxGarage.Tests.Builders
+  nameWithType: LuxGarage.Tests.Builders
+  fullName: LuxGarage.Tests.Builders
+  type: Namespace
+  assemblies:
+  - LuxGarage.Tests
+references:
+- uid: LuxGarage.Tests.Builders.VehicleBuilder
+  commentId: T:LuxGarage.Tests.Builders.VehicleBuilder
+  parent: LuxGarage.Tests.Builders
+  href: LuxGarage.Tests.Builders.VehicleBuilder.html
+  name: VehicleBuilder
+  nameWithType: VehicleBuilder
+  fullName: LuxGarage.Tests.Builders.VehicleBuilder
+- uid: LuxGarage.Tests.Builders
+  commentId: N:LuxGarage.Tests.Builders
+  href: LuxGarage.html
+  name: LuxGarage.Tests.Builders
+  nameWithType: LuxGarage.Tests.Builders
+  fullName: LuxGarage.Tests.Builders
+  spec.csharp:
+  - uid: LuxGarage
+    name: LuxGarage
+    href: LuxGarage.html
+  - name: .
+  - uid: LuxGarage.Tests
+    name: Tests
+    href: LuxGarage.Tests.html
+  - name: .
+  - uid: LuxGarage.Tests.Builders
+    name: Builders
+    href: LuxGarage.Tests.Builders.html
+  spec.vb:
+  - uid: LuxGarage
+    name: LuxGarage
+    href: LuxGarage.html
+  - name: .
+  - uid: LuxGarage.Tests
+    name: Tests
+    href: LuxGarage.Tests.html
+  - name: .
+  - uid: LuxGarage.Tests.Builders
+    name: Builders
+    href: LuxGarage.Tests.Builders.html

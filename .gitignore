@@ -482,3 +482,7 @@ $RECYCLE.BIN/
 *.swp
 
 .vscode/
+
+# DocFX
+_site/
+api/

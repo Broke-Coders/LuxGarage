@@ -1,0 +1,840 @@
+### YamlMime:ManagedReference
+items:
+- uid: LuxGarage.Tests.Builders.VehicleBuilder
+  commentId: T:LuxGarage.Tests.Builders.VehicleBuilder
+  id: VehicleBuilder
+  parent: LuxGarage.Tests.Builders
+  children:
+  - LuxGarage.Tests.Builders.VehicleBuilder.BuildAndSaveAsync(LuxGarage.API.Data.RentalContext)
+  - LuxGarage.Tests.Builders.VehicleBuilder.BuildUnsavedAsync(LuxGarage.API.Data.RentalContext)
+  - LuxGarage.Tests.Builders.VehicleBuilder.WithBody(System.String)
+  - LuxGarage.Tests.Builders.VehicleBuilder.WithBrandAndModel(System.String,System.String)
+  - LuxGarage.Tests.Builders.VehicleBuilder.WithColor(System.String,System.String)
+  - LuxGarage.Tests.Builders.VehicleBuilder.WithHorsepower(System.Decimal)
+  - LuxGarage.Tests.Builders.VehicleBuilder.WithLicensePlate(System.String)
+  - LuxGarage.Tests.Builders.VehicleBuilder.WithMileage(System.Int32)
+  langs:
+  - csharp
+  - vb
+  name: VehicleBuilder
+  nameWithType: VehicleBuilder
+  fullName: LuxGarage.Tests.Builders.VehicleBuilder
+  type: Class
+  source:
+    remote:
+      path: LuxGarage.Tests/Builders/VehicleBuilder.cs
+      branch: tests-create-new-tests
+      repo: https://github.com/Broke-Coders/LuxGarage.git
+    id: VehicleBuilder
+    path: LuxGarage.Tests/Builders/VehicleBuilder.cs
+    startLine: 21
+  assemblies:
+  - LuxGarage.Tests
+  namespace: LuxGarage.Tests.Builders
+  summary: Builder for creating Vehicle instances with related entities (Brand, Model, Body, Color).
+  remarks: >-
+    This builder simplifies the creation of Vehicle objects for testing by providing default values and allowing customization through fluent methods.
+
+    It also handles the creation and saving of related entities to ensure that the Vehicle can be properly
+
+    constructed with valid foreign key references.
+
+    The BuildAsync method requires a RentalContext to save the related entities and retrieve their IDs for the Vehicle.
+
+    Example usage:
+
+    var vehicle = await new VehicleBuilder()
+        .WithLicensePlate("TEST 123")
+        .WithMileage(5000)
+       .BuildAsync(context);
+  example: []
+  syntax:
+    content: public class VehicleBuilder
+    content.vb: Public Class VehicleBuilder
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: LuxGarage.Tests.Builders.VehicleBuilder.WithLicensePlate(System.String)
+  commentId: M:LuxGarage.Tests.Builders.VehicleBuilder.WithLicensePlate(System.String)
+  id: WithLicensePlate(System.String)
+  parent: LuxGarage.Tests.Builders.VehicleBuilder
+  langs:
+  - csharp
+  - vb
+  name: WithLicensePlate(string)
+  nameWithType: VehicleBuilder.WithLicensePlate(string)
+  fullName: LuxGarage.Tests.Builders.VehicleBuilder.WithLicensePlate(string)
+  type: Method
+  source:
+    remote:
+      path: LuxGarage.Tests/Builders/VehicleBuilder.cs
+      branch: tests-create-new-tests
+      repo: https://github.com/Broke-Coders/LuxGarage.git
+    id: WithLicensePlate
+    path: LuxGarage.Tests/Builders/VehicleBuilder.cs
+    startLine: 38
+  assemblies:
+  - LuxGarage.Tests
+  namespace: LuxGarage.Tests.Builders
+  summary: Fluent method to set the license plate of the vehicle.
+  example: []
+  syntax:
+    content: public VehicleBuilder WithLicensePlate(string licensePlate)
+    parameters:
+    - id: licensePlate
+      type: System.String
+      description: The license plate to set.
+    return:
+      type: LuxGarage.Tests.Builders.VehicleBuilder
+      description: The builder instance for chaining.
+    content.vb: Public Function WithLicensePlate(licensePlate As String) As VehicleBuilder
+  overload: LuxGarage.Tests.Builders.VehicleBuilder.WithLicensePlate*
+  nameWithType.vb: VehicleBuilder.WithLicensePlate(String)
+  fullName.vb: LuxGarage.Tests.Builders.VehicleBuilder.WithLicensePlate(String)
+  name.vb: WithLicensePlate(String)
+- uid: LuxGarage.Tests.Builders.VehicleBuilder.WithMileage(System.Int32)
+  commentId: M:LuxGarage.Tests.Builders.VehicleBuilder.WithMileage(System.Int32)
+  id: WithMileage(System.Int32)
+  parent: LuxGarage.Tests.Builders.VehicleBuilder
+  langs:
+  - csharp
+  - vb
+  name: WithMileage(int)
+  nameWithType: VehicleBuilder.WithMileage(int)
+  fullName: LuxGarage.Tests.Builders.VehicleBuilder.WithMileage(int)
+  type: Method
+  source:
+    remote:
+      path: LuxGarage.Tests/Builders/VehicleBuilder.cs
+      branch: tests-create-new-tests
+      repo: https://github.com/Broke-Coders/LuxGarage.git
+    id: WithMileage
+    path: LuxGarage.Tests/Builders/VehicleBuilder.cs
+    startLine: 49
+  assemblies:
+  - LuxGarage.Tests
+  namespace: LuxGarage.Tests.Builders
+  summary: Fluent method to set the mileage of the vehicle.
+  example: []
+  syntax:
+    content: public VehicleBuilder WithMileage(int mileage)
+    parameters:
+    - id: mileage
+      type: System.Int32
+      description: The mileage to set.
+    return:
+      type: LuxGarage.Tests.Builders.VehicleBuilder
+      description: The builder instance for chaining.
+    content.vb: Public Function WithMileage(mileage As Integer) As VehicleBuilder
+  overload: LuxGarage.Tests.Builders.VehicleBuilder.WithMileage*
+  nameWithType.vb: VehicleBuilder.WithMileage(Integer)
+  fullName.vb: LuxGarage.Tests.Builders.VehicleBuilder.WithMileage(Integer)
+  name.vb: WithMileage(Integer)
+- uid: LuxGarage.Tests.Builders.VehicleBuilder.WithBrandAndModel(System.String,System.String)
+  commentId: M:LuxGarage.Tests.Builders.VehicleBuilder.WithBrandAndModel(System.String,System.String)
+  id: WithBrandAndModel(System.String,System.String)
+  parent: LuxGarage.Tests.Builders.VehicleBuilder
+  langs:
+  - csharp
+  - vb
+  name: WithBrandAndModel(string, string)
+  nameWithType: VehicleBuilder.WithBrandAndModel(string, string)
+  fullName: LuxGarage.Tests.Builders.VehicleBuilder.WithBrandAndModel(string, string)
+  type: Method
+  source:
+    remote:
+      path: LuxGarage.Tests/Builders/VehicleBuilder.cs
+      branch: tests-create-new-tests
+      repo: https://github.com/Broke-Coders/LuxGarage.git
+    id: WithBrandAndModel
+    path: LuxGarage.Tests/Builders/VehicleBuilder.cs
+    startLine: 64
+  assemblies:
+  - LuxGarage.Tests
+  namespace: LuxGarage.Tests.Builders
+  summary: Fluent method to set the brand and model of the vehicle.
+  remarks: This will create new VehicleBrand and VehicleModel entities with the specified names when building the Vehicle. The model will be associated with the brand.
+  example: []
+  syntax:
+    content: public VehicleBuilder WithBrandAndModel(string brandName, string modelName)
+    parameters:
+    - id: brandName
+      type: System.String
+      description: The brand name to set.
+    - id: modelName
+      type: System.String
+      description: The model name to set.
+    return:
+      type: LuxGarage.Tests.Builders.VehicleBuilder
+      description: The builder instance for chaining.
+    content.vb: Public Function WithBrandAndModel(brandName As String, modelName As String) As VehicleBuilder
+  overload: LuxGarage.Tests.Builders.VehicleBuilder.WithBrandAndModel*
+  nameWithType.vb: VehicleBuilder.WithBrandAndModel(String, String)
+  fullName.vb: LuxGarage.Tests.Builders.VehicleBuilder.WithBrandAndModel(String, String)
+  name.vb: WithBrandAndModel(String, String)
+- uid: LuxGarage.Tests.Builders.VehicleBuilder.WithBody(System.String)
+  commentId: M:LuxGarage.Tests.Builders.VehicleBuilder.WithBody(System.String)
+  id: WithBody(System.String)
+  parent: LuxGarage.Tests.Builders.VehicleBuilder
+  langs:
+  - csharp
+  - vb
+  name: WithBody(string)
+  nameWithType: VehicleBuilder.WithBody(string)
+  fullName: LuxGarage.Tests.Builders.VehicleBuilder.WithBody(string)
+  type: Method
+  source:
+    remote:
+      path: LuxGarage.Tests/Builders/VehicleBuilder.cs
+      branch: tests-create-new-tests
+      repo: https://github.com/Broke-Coders/LuxGarage.git
+    id: WithBody
+    path: LuxGarage.Tests/Builders/VehicleBuilder.cs
+    startLine: 76
+  assemblies:
+  - LuxGarage.Tests
+  namespace: LuxGarage.Tests.Builders
+  summary: Fluent method to set the body name of the vehicle. This will create a new VehicleBody entity with the specified name when building the Vehicle.
+  example: []
+  syntax:
+    content: public VehicleBuilder WithBody(string bodyName)
+    parameters:
+    - id: bodyName
+      type: System.String
+    return:
+      type: LuxGarage.Tests.Builders.VehicleBuilder
+      description: The builder instance for chaining.
+    content.vb: Public Function WithBody(bodyName As String) As VehicleBuilder
+  overload: LuxGarage.Tests.Builders.VehicleBuilder.WithBody*
+  nameWithType.vb: VehicleBuilder.WithBody(String)
+  fullName.vb: LuxGarage.Tests.Builders.VehicleBuilder.WithBody(String)
+  name.vb: WithBody(String)
+- uid: LuxGarage.Tests.Builders.VehicleBuilder.WithColor(System.String,System.String)
+  commentId: M:LuxGarage.Tests.Builders.VehicleBuilder.WithColor(System.String,System.String)
+  id: WithColor(System.String,System.String)
+  parent: LuxGarage.Tests.Builders.VehicleBuilder
+  langs:
+  - csharp
+  - vb
+  name: WithColor(string, string)
+  nameWithType: VehicleBuilder.WithColor(string, string)
+  fullName: LuxGarage.Tests.Builders.VehicleBuilder.WithColor(string, string)
+  type: Method
+  source:
+    remote:
+      path: LuxGarage.Tests/Builders/VehicleBuilder.cs
+      branch: tests-create-new-tests
+      repo: https://github.com/Broke-Coders/LuxGarage.git
+    id: WithColor
+    path: LuxGarage.Tests/Builders/VehicleBuilder.cs
+    startLine: 88
+  assemblies:
+  - LuxGarage.Tests
+  namespace: LuxGarage.Tests.Builders
+  summary: Fluent method to set the color name of the vehicle. This will create a new VehicleColor entity with the specified name when building the Vehicle.
+  example: []
+  syntax:
+    content: public VehicleBuilder WithColor(string colorName, string colorHtml = "#000000")
+    parameters:
+    - id: colorName
+      type: System.String
+      description: The color name to set.
+    - id: colorHtml
+      type: System.String
+      description: The HTML color code to set for the color. This is optional and defaults to black (#000000) if not provided.
+    return:
+      type: LuxGarage.Tests.Builders.VehicleBuilder
+      description: The builder instance for chaining.
+    content.vb: Public Function WithColor(colorName As String, colorHtml As String = "#000000") As VehicleBuilder
+  overload: LuxGarage.Tests.Builders.VehicleBuilder.WithColor*
+  nameWithType.vb: VehicleBuilder.WithColor(String, String)
+  fullName.vb: LuxGarage.Tests.Builders.VehicleBuilder.WithColor(String, String)
+  name.vb: WithColor(String, String)
+- uid: LuxGarage.Tests.Builders.VehicleBuilder.WithHorsepower(System.Decimal)
+  commentId: M:LuxGarage.Tests.Builders.VehicleBuilder.WithHorsepower(System.Decimal)
+  id: WithHorsepower(System.Decimal)
+  parent: LuxGarage.Tests.Builders.VehicleBuilder
+  langs:
+  - csharp
+  - vb
+  name: WithHorsepower(decimal)
+  nameWithType: VehicleBuilder.WithHorsepower(decimal)
+  fullName: LuxGarage.Tests.Builders.VehicleBuilder.WithHorsepower(decimal)
+  type: Method
+  source:
+    remote:
+      path: LuxGarage.Tests/Builders/VehicleBuilder.cs
+      branch: tests-create-new-tests
+      repo: https://github.com/Broke-Coders/LuxGarage.git
+    id: WithHorsepower
+    path: LuxGarage.Tests/Builders/VehicleBuilder.cs
+    startLine: 100
+  assemblies:
+  - LuxGarage.Tests
+  namespace: LuxGarage.Tests.Builders
+  summary: Fluent method to set the horsepower of the vehicle. This will set the Horsepower property of the Vehicle when building it.
+  example: []
+  syntax:
+    content: public VehicleBuilder WithHorsepower(decimal horsepower)
+    parameters:
+    - id: horsepower
+      type: System.Decimal
+      description: The horsepower to set.
+    return:
+      type: LuxGarage.Tests.Builders.VehicleBuilder
+      description: The builder instance for chaining.
+    content.vb: Public Function WithHorsepower(horsepower As Decimal) As VehicleBuilder
+  overload: LuxGarage.Tests.Builders.VehicleBuilder.WithHorsepower*
+  nameWithType.vb: VehicleBuilder.WithHorsepower(Decimal)
+  fullName.vb: LuxGarage.Tests.Builders.VehicleBuilder.WithHorsepower(Decimal)
+  name.vb: WithHorsepower(Decimal)
+- uid: LuxGarage.Tests.Builders.VehicleBuilder.BuildAndSaveAsync(LuxGarage.API.Data.RentalContext)
+  commentId: M:LuxGarage.Tests.Builders.VehicleBuilder.BuildAndSaveAsync(LuxGarage.API.Data.RentalContext)
+  id: BuildAndSaveAsync(LuxGarage.API.Data.RentalContext)
+  parent: LuxGarage.Tests.Builders.VehicleBuilder
+  langs:
+  - csharp
+  - vb
+  name: BuildAndSaveAsync(RentalContext)
+  nameWithType: VehicleBuilder.BuildAndSaveAsync(RentalContext)
+  fullName: LuxGarage.Tests.Builders.VehicleBuilder.BuildAndSaveAsync(LuxGarage.API.Data.RentalContext)
+  type: Method
+  source:
+    remote:
+      path: LuxGarage.Tests/Builders/VehicleBuilder.cs
+      branch: tests-create-new-tests
+      repo: https://github.com/Broke-Coders/LuxGarage.git
+    id: BuildAndSaveAsync
+    path: LuxGarage.Tests/Builders/VehicleBuilder.cs
+    startLine: 114
+  assemblies:
+  - LuxGarage.Tests
+  namespace: LuxGarage.Tests.Builders
+  syntax:
+    content: public Task<Vehicle> BuildAndSaveAsync(RentalContext context)
+    parameters:
+    - id: context
+      type: LuxGarage.API.Data.RentalContext
+    return:
+      type: System.Threading.Tasks.Task{LuxGarage.API.Models.Vehicle}
+    content.vb: Public Function BuildAndSaveAsync(context As RentalContext) As Task(Of Vehicle)
+  overload: LuxGarage.Tests.Builders.VehicleBuilder.BuildAndSaveAsync*
+- uid: LuxGarage.Tests.Builders.VehicleBuilder.BuildUnsavedAsync(LuxGarage.API.Data.RentalContext)
+  commentId: M:LuxGarage.Tests.Builders.VehicleBuilder.BuildUnsavedAsync(LuxGarage.API.Data.RentalContext)
+  id: BuildUnsavedAsync(LuxGarage.API.Data.RentalContext)
+  parent: LuxGarage.Tests.Builders.VehicleBuilder
+  langs:
+  - csharp
+  - vb
+  name: BuildUnsavedAsync(RentalContext)
+  nameWithType: VehicleBuilder.BuildUnsavedAsync(RentalContext)
+  fullName: LuxGarage.Tests.Builders.VehicleBuilder.BuildUnsavedAsync(LuxGarage.API.Data.RentalContext)
+  type: Method
+  source:
+    remote:
+      path: LuxGarage.Tests/Builders/VehicleBuilder.cs
+      branch: tests-create-new-tests
+      repo: https://github.com/Broke-Coders/LuxGarage.git
+    id: BuildUnsavedAsync
+    path: LuxGarage.Tests/Builders/VehicleBuilder.cs
+    startLine: 129
+  assemblies:
+  - LuxGarage.Tests
+  namespace: LuxGarage.Tests.Builders
+  syntax:
+    content: public Task<Vehicle> BuildUnsavedAsync(RentalContext context)
+    parameters:
+    - id: context
+      type: LuxGarage.API.Data.RentalContext
+    return:
+      type: System.Threading.Tasks.Task{LuxGarage.API.Models.Vehicle}
+    content.vb: Public Function BuildUnsavedAsync(context As RentalContext) As Task(Of Vehicle)
+  overload: LuxGarage.Tests.Builders.VehicleBuilder.BuildUnsavedAsync*
+references:
+- uid: LuxGarage.Tests.Builders
+  commentId: N:LuxGarage.Tests.Builders
+  href: LuxGarage.html
+  name: LuxGarage.Tests.Builders
+  nameWithType: LuxGarage.Tests.Builders
+  fullName: LuxGarage.Tests.Builders
+  spec.csharp:
+  - uid: LuxGarage
+    name: LuxGarage
+    href: LuxGarage.html
+  - name: .
+  - uid: LuxGarage.Tests
+    name: Tests
+    href: LuxGarage.Tests.html
+  - name: .
+  - uid: LuxGarage.Tests.Builders
+    name: Builders
+    href: LuxGarage.Tests.Builders.html
+  spec.vb:
+  - uid: LuxGarage
+    name: LuxGarage
+    href: LuxGarage.html
+  - name: .
+  - uid: LuxGarage.Tests
+    name: Tests
+    href: LuxGarage.Tests.html
+  - name: .
+  - uid: LuxGarage.Tests.Builders
+    name: Builders
+    href: LuxGarage.Tests.Builders.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: LuxGarage.Tests.Builders.VehicleBuilder.WithLicensePlate*
+  commentId: Overload:LuxGarage.Tests.Builders.VehicleBuilder.WithLicensePlate
+  href: LuxGarage.Tests.Builders.VehicleBuilder.html#LuxGarage_Tests_Builders_VehicleBuilder_WithLicensePlate_System_String_
+  name: WithLicensePlate
+  nameWithType: VehicleBuilder.WithLicensePlate
+  fullName: LuxGarage.Tests.Builders.VehicleBuilder.WithLicensePlate
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: LuxGarage.Tests.Builders.VehicleBuilder
+  commentId: T:LuxGarage.Tests.Builders.VehicleBuilder
+  parent: LuxGarage.Tests.Builders
+  href: LuxGarage.Tests.Builders.VehicleBuilder.html
+  name: VehicleBuilder
+  nameWithType: VehicleBuilder
+  fullName: LuxGarage.Tests.Builders.VehicleBuilder
+- uid: LuxGarage.Tests.Builders.VehicleBuilder.WithMileage*
+  commentId: Overload:LuxGarage.Tests.Builders.VehicleBuilder.WithMileage
+  href: LuxGarage.Tests.Builders.VehicleBuilder.html#LuxGarage_Tests_Builders_VehicleBuilder_WithMileage_System_Int32_
+  name: WithMileage
+  nameWithType: VehicleBuilder.WithMileage
+  fullName: LuxGarage.Tests.Builders.VehicleBuilder.WithMileage
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: LuxGarage.Tests.Builders.VehicleBuilder.WithBrandAndModel*
+  commentId: Overload:LuxGarage.Tests.Builders.VehicleBuilder.WithBrandAndModel
+  href: LuxGarage.Tests.Builders.VehicleBuilder.html#LuxGarage_Tests_Builders_VehicleBuilder_WithBrandAndModel_System_String_System_String_
+  name: WithBrandAndModel
+  nameWithType: VehicleBuilder.WithBrandAndModel
+  fullName: LuxGarage.Tests.Builders.VehicleBuilder.WithBrandAndModel
+- uid: LuxGarage.Tests.Builders.VehicleBuilder.WithBody*
+  commentId: Overload:LuxGarage.Tests.Builders.VehicleBuilder.WithBody
+  href: LuxGarage.Tests.Builders.VehicleBuilder.html#LuxGarage_Tests_Builders_VehicleBuilder_WithBody_System_String_
+  name: WithBody
+  nameWithType: VehicleBuilder.WithBody
+  fullName: LuxGarage.Tests.Builders.VehicleBuilder.WithBody
+- uid: LuxGarage.Tests.Builders.VehicleBuilder.WithColor*
+  commentId: Overload:LuxGarage.Tests.Builders.VehicleBuilder.WithColor
+  href: LuxGarage.Tests.Builders.VehicleBuilder.html#LuxGarage_Tests_Builders_VehicleBuilder_WithColor_System_String_System_String_
+  name: WithColor
+  nameWithType: VehicleBuilder.WithColor
+  fullName: LuxGarage.Tests.Builders.VehicleBuilder.WithColor
+- uid: LuxGarage.Tests.Builders.VehicleBuilder.WithHorsepower*
+  commentId: Overload:LuxGarage.Tests.Builders.VehicleBuilder.WithHorsepower
+  href: LuxGarage.Tests.Builders.VehicleBuilder.html#LuxGarage_Tests_Builders_VehicleBuilder_WithHorsepower_System_Decimal_
+  name: WithHorsepower
+  nameWithType: VehicleBuilder.WithHorsepower
+  fullName: LuxGarage.Tests.Builders.VehicleBuilder.WithHorsepower
+- uid: System.Decimal
+  commentId: T:System.Decimal
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.decimal
+  name: decimal
+  nameWithType: decimal
+  fullName: decimal
+  nameWithType.vb: Decimal
+  fullName.vb: Decimal
+  name.vb: Decimal
+- uid: LuxGarage.Tests.Builders.VehicleBuilder.BuildAndSaveAsync*
+  commentId: Overload:LuxGarage.Tests.Builders.VehicleBuilder.BuildAndSaveAsync
+  href: LuxGarage.Tests.Builders.VehicleBuilder.html#LuxGarage_Tests_Builders_VehicleBuilder_BuildAndSaveAsync_LuxGarage_API_Data_RentalContext_
+  name: BuildAndSaveAsync
+  nameWithType: VehicleBuilder.BuildAndSaveAsync
+  fullName: LuxGarage.Tests.Builders.VehicleBuilder.BuildAndSaveAsync
+- uid: LuxGarage.API.Data.RentalContext
+  commentId: T:LuxGarage.API.Data.RentalContext
+  parent: LuxGarage.API.Data
+  name: RentalContext
+  nameWithType: RentalContext
+  fullName: LuxGarage.API.Data.RentalContext
+- uid: System.Threading.Tasks.Task{LuxGarage.API.Models.Vehicle}
+  commentId: T:System.Threading.Tasks.Task{LuxGarage.API.Models.Vehicle}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<Vehicle>
+  nameWithType: Task<Vehicle>
+  fullName: System.Threading.Tasks.Task<LuxGarage.API.Models.Vehicle>
+  nameWithType.vb: Task(Of Vehicle)
+  fullName.vb: System.Threading.Tasks.Task(Of LuxGarage.API.Models.Vehicle)
+  name.vb: Task(Of Vehicle)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: LuxGarage.API.Models.Vehicle
+    name: Vehicle
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: LuxGarage.API.Models.Vehicle
+    name: Vehicle
+  - name: )
+- uid: LuxGarage.API.Data
+  commentId: N:LuxGarage.API.Data
+  name: LuxGarage.API.Data
+  nameWithType: LuxGarage.API.Data
+  fullName: LuxGarage.API.Data
+  spec.csharp:
+  - uid: LuxGarage
+    name: LuxGarage
+  - name: .
+  - uid: LuxGarage.API
+    name: API
+  - name: .
+  - uid: LuxGarage.API.Data
+    name: Data
+  spec.vb:
+  - uid: LuxGarage
+    name: LuxGarage
+  - name: .
+  - uid: LuxGarage.API
+    name: API
+  - name: .
+  - uid: LuxGarage.API.Data
+    name: Data
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: LuxGarage.Tests.Builders.VehicleBuilder.BuildUnsavedAsync*
+  commentId: Overload:LuxGarage.Tests.Builders.VehicleBuilder.BuildUnsavedAsync
+  href: LuxGarage.Tests.Builders.VehicleBuilder.html#LuxGarage_Tests_Builders_VehicleBuilder_BuildUnsavedAsync_LuxGarage_API_Data_RentalContext_
+  name: BuildUnsavedAsync
+  nameWithType: VehicleBuilder.BuildUnsavedAsync
+  fullName: LuxGarage.Tests.Builders.VehicleBuilder.BuildUnsavedAsync
