@@ -209,6 +209,9 @@ namespace LuxGarage.API.Data.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("integer");
 
+                    b.Property<int>("year")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
@@ -483,6 +486,8 @@ namespace LuxGarage.API.Data.Migrations
 
             modelBuilder.Entity("LuxGarage.API.Models.Vehicle", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("Images");
 
                     b.Navigation("Rentals");
