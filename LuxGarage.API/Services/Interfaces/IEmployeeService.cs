@@ -12,5 +12,7 @@ namespace LuxGarage.API.Services.Interfaces
         Task<EmployeeResponse?> UpdateAsync(int id, UpdateEmployeeRequest request);
 
         Task<bool> DeleteAsync(int id);
+
+        Task<bool> ChangePasswordAsync(int id, ChangePasswordRequest request);
     }
 }
