@@ -3,6 +3,8 @@ name: Generate and Deploy Docs
 on:
   push:
     branches: ["main"] # docs are updated only when we push to main branch
+  pull_request:
+    branches: ["main"] # docs are updated when we create a pull request to main branch
 
 permissions:
   contents: read
@@ -20,6 +22,50 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+# add steps to generate documentation for JavaScript
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Generate JavaScript Docs
+      run: |
+        # create a folder for the generated docs
+        mkdir -p frontend_docs
+        
+        # use npx jsdoc-to-markdown to generate markdown documentation from JavaScript files
+        npx jsdoc-to-markdown LuxGarage.Front/wwwroot/js/*.js > frontend_docs/index.md
+        
+        # generate a navigation file for JavaScript docs
+        echo "- name: JavaScript methods" > frontend_docs/toc.yml
+        echo "  href: index.md" >> frontend_docs/toc.yml
+
+    # Generate Python docs (for later, when we add Python tests)
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        
+    - name: Generate Python Docs
+      run: |
+        # install pydoc-markdown to generate markdown documentation from Python files
+        pip install pydoc-markdown
+        
+        # create a folder for the generated Python docs
+        mkdir -p python_docs
+        
+        # generate markdown documentation from Python test files (leave this commented out for now, until we add Python tests)
+        # pydoc-markdown -I python_tests -m load_tests > python_docs/index.md
+        
+        # temporary placeholder for Python docs until we add actual tests
+        echo "# Python Tests" > python_docs/index.md
+        echo "Documentation will be here when we add python tests" >> python_docs/index.md
+        
+        # generate a navigation file for Python docs
+        echo "- name: Python Tests" > python_docs/toc.yml
+        echo "  href: index.md" >> python_docs/toc.yml
+
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
@@ -31,7 +77,7 @@ jobs:
 
     # Build documentation
     - name: Build documentation
-      run: docfx ./docfx.json # dostosuj ścieżkę do pliku konfiguracyjnego
+      run: docfx ./docfx.json
 
     # setup github pages
     - name: Setup Pages
