@@ -26,6 +26,7 @@
 <ItemGroup>
   <Folder Include="Endpoints\" />
   <Folder Include="Extensions\" />
+  <Folder Include="Models\" />
 </ItemGroup>
 
 </Project>

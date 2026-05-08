@@ -1,3 +1,4 @@
+using LuxGarage.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
