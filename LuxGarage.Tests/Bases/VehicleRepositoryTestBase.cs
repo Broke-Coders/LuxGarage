@@ -16,9 +16,6 @@ public class VehicleRepositoryTestBase : IAsyncLifetime
     protected RentalContext context { get; private set; } = null!;
 
     private IDbContextTransaction _transaction = null!;
-    protected int SeedBodyId { get; private set; }
-    protected int SeedBrandId { get; private set; }
-    protected int SeedColorId { get; private set; }
 
     public VehicleRepositoryTestBase(SharedDatabaseFixture fixture)
     {
@@ -36,26 +33,9 @@ public class VehicleRepositoryTestBase : IAsyncLifetime
 
         _transaction = await context.Database.BeginTransactionAsync();
 
-        await SeedDataBase();
 
     }
 
-    private async Task SeedDataBase()
-    {
-        var brand = new VehicleBrand { Id = 1, Name = "Mazda"};
-        var body = new VehicleBody {Id = 1, Name = "Sedan"};
-        var color = new VehicleColor { Id = 1, HtmlColor = "#FFFFFF", Name = "White" };
-
-        context.VehicleBrands.Add(brand);
-        context.VehicleBodies.Add(body);
-        context.VehicleColors.Add(color);
-
-        SeedBodyId = body.Id;
-        SeedBrandId = brand.Id;
-        SeedColorId = color.Id;
-        await context.SaveChangesAsync();
-
-    }
 
 
     public async Task DisposeAsync()
