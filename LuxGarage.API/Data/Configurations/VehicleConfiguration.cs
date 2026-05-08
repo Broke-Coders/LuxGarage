@@ -2,8 +2,15 @@ using LuxGarage.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+/// <summary>
+/// Configuration for the Vehicle entity, defining the database schema and relationships.
+/// </summary>
 public class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
 {
+    /// <summary>
+    /// Configures the Vehicle entity's properties and relationships.
+    /// </summary>
+    /// <param name="builder">The builder used to configure the entity.</param>
     public void Configure(EntityTypeBuilder<Vehicle> builder)
     {
         builder.ToTable("Vehicles");

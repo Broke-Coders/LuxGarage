@@ -5,8 +5,11 @@ using LuxGarage.API.Repositories.Implementations;
 using LuxGarage.Tests.Builders;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.EntityFrameworkCore;
+using LuxGarage.Tests.Bases;
+using LuxGarage.Tests.DbContext;
 
-namespace LuxGarage.Tests;
+namespace LuxGarage.Tests.TestRepositories;
+
 /// <summary>
 ///  Tests for the VehicleRepository class, which handles CRUD operations for Vehicle entities in the database.
 /// </summary>
