@@ -46,14 +46,7 @@ public class VehicleService : IVehicleService
 
         var vehicle = _mapper.Map<Vehicle>(request);
 
-        await _vehicleRepository.AddAsync(vehicle);
-
-        var createdVehicle = await _vehicleRepository.GetByLicensePlateAsync(vehicle.LicensePlate);
-
-        if (createdVehicle is null)
-            throw new InvalidOperationException("Created vehicle could not be loaded.");
-
-        return _mapper.Map<VehicleDetailsResponse>(createdVehicle);
+        return _mapper.Map<VehicleDetailsResponse>(vehicle);
         
     }
 

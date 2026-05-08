@@ -1,7 +1,6 @@
-﻿using LuxGarage.API.DTOs.Requests;
+using LuxGarage.API.DTOs.Requests;
 using LuxGarage.API.DTOs.Responses;
 using LuxGarage.API.Services.Interfaces;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LuxGarage.API.Controllers
@@ -19,6 +18,10 @@ namespace LuxGarage.API.Controllers
 
 
         [HttpPost("register")]
+        [ProducesResponseType(typeof(ApiResponse<RegisterResponse>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status409Conflict)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ApiResponse<RegisterResponse>>> Register([FromBody] RegisterRequest request)
         {
             try
@@ -52,15 +55,31 @@ namespace LuxGarage.API.Controllers
         }
 
         [HttpPost("login")]
+        [ProducesResponseType(typeof(ApiResponse<LoginResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ApiResponse<LoginResponse>>> Login([FromBody] LoginRequest request)
         {
-            var result = await _authService.LoginAsync(request);
-            if (result == null)
+            try
             {
-                return Unauthorized(ApiResponse<object>.Error(401, "Invalid login or password."));
-            }
+                if (request == null)
+                {
+                    return BadRequest(ApiResponse<object>.BadRequest("Login data is required."));
+                }
 
-            return Ok(ApiResponse<LoginResponse>.Ok(result, "Login successful."));
+                var result = await _authService.LoginAsync(request);
+                if (result == null)
+                {
+                    return Unauthorized(ApiResponse<object>.Error(401, "Invalid login or password."));
+                }
+
+                return Ok(ApiResponse<LoginResponse>.Ok(result, "Login successful."));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, ApiResponse<object>.Error(500, "An error occurred during login.", e.Message));
+            }
         }
     }
 }

@@ -2,5 +2,6 @@
 {
     public class ChangePasswordRequest
     {
+        public required string  NewPassword { get; set; }
     }
 }
