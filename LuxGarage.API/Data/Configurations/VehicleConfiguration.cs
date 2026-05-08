@@ -41,5 +41,10 @@ public class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
             .WithMany(c => c.Vehicles)
             .HasForeignKey(v => v.VehicleColorId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(v => v.Images)
+            .WithOne(vi => vi.Vehicle)
+            .HasForeignKey(vi => vi.VehicleId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
