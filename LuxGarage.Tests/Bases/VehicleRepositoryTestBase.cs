@@ -21,11 +21,19 @@ public class VehicleRepositoryTestBase : IAsyncLifetime
 
     private IDbContextTransaction _transaction = null!;
 
+    /// <summary>
+    /// Initializes a new instance of the VehicleRepositoryTestBase class with the provided shared database fixture.
+    /// </summary>
+    /// <param name="fixture">The shared database fixture.</param>
     public VehicleRepositoryTestBase(SharedDatabaseFixture fixture)
     {
         _fixture = fixture;
     }
 
+    /// <summary>
+    /// Initializes the database context and begins a new transaction for each test. 
+    /// This ensures that each test runs in isolation and can be rolled back after completion.
+    /// </summary>
     public async Task InitializeAsync()
     {
 
@@ -40,8 +48,10 @@ public class VehicleRepositoryTestBase : IAsyncLifetime
 
     }
 
-
-
+    /// <summary>
+    /// Rolls back the transaction and disposes of the database context after each test, 
+    /// ensuring that any changes made during the test are not persisted to the database.
+    /// </summary>
     public async Task DisposeAsync()
     {
         // clean everything up by rolling back the transaction and disposing the context

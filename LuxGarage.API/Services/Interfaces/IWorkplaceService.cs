@@ -3,6 +3,11 @@ using LuxGarage.API.DTOs.Responses;
 
 namespace LuxGarage.API.Services.Interfaces
 {
+    /// <summary>
+    /// Defines the interface for the workplace service in the LuxGarage API, providing methods for managing workplace data,
+    /// including retrieval, creation, updating, and deletion of workplaces, while ensuring proper validation
+    /// for workplace data and returning appropriate responses for each action.
+    /// </summary>
     public interface IWorkplaceService
     {
         Task<IEnumerable<WorkplaceResponse>> GetAllAsync();
