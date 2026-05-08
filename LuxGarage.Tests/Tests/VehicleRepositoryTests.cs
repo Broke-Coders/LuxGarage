@@ -9,6 +9,10 @@ namespace LuxGarage.Tests;
 
 public class VehicleRepositoryTests : VehicleRepositoryTestBase 
 {
+
+    public VehicleRepositoryTests(SharedDatabaseFixture fixture) : base(fixture)
+    {
+    }
     private VehicleRepository createRepository() 
         => new VehicleRepository(context);
         
