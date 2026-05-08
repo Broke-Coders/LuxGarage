@@ -3,9 +3,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LuxGarage.API.Configurations;
-
+/// <summary>
+/// Configuration for the RentalInsurance entity, defining the database schema and relationships.
+/// </summary>
 public class RentalInsuranceConfiguration : IEntityTypeConfiguration<RentalInsurance>
 {
+    /// <summary>
+    /// Configures the RentalInsurance entity's properties and relationships.
+    /// </summary>
+    /// <param name="builder">The builder used to configure the entity.</param>
     public void Configure(EntityTypeBuilder<RentalInsurance> builder)
     {
 

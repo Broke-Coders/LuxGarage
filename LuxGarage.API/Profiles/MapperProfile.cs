@@ -7,8 +7,21 @@ using LuxGarage.API.Models;
 
 namespace LuxGarage.API.Profiles
 {
+    /// <summary>
+    /// Represents a mapping profile for AutoMapper in the LuxGarage API, 
+    /// defining the mappings between domain models and data transfer objects (DTOs) used in the application.
+    /// This class serves as a central configuration for AutoMapper, allowing for the mapping of properties
+    /// </summary>
     public class MapperProfile : Profile
     {
+        /// <summary>
+        /// Initializes a new instance of the MapperProfile class, defining the mappings between domain models and DTOs used in the LuxGarage API.
+        /// </summary>
+        /// <remarks>
+        /// This constructor sets up the mapping configurations for various entities in the application, including employees, vehicles, and workplaces, allowing for the seamless conversion between domain models and DTOs throughout the application.
+        /// The mappings defined in this constructor enable the application to manage and display data effectively, ensuring that the appropriate information is transferred between different layers of the application while maintaining a clear separation of concerns.
+        /// The mappings include configurations for mapping properties from domain models to response DTOs, as well as from request DTOs to domain models, facilitating the handling of data in both directions within the application.
+        /// </remarks>
         public MapperProfile()
         {
             CreateMap<Employee, EmployeeResponse>()
