@@ -16,7 +16,7 @@ namespace LuxGarage.Tests;
 /// The tests use a shared database fixture to manage the database connection and ensure isolation between tests by rolling back transactions after each test.
 /// Example tests include:
 /// - AddAsync_ShouldPersistVehicle: Verifies that a new Vehicle can be added and persisted
-/// - GetById_ShouldReturnCorrectVehicle: Checks that a Vehicle can be retrieved by its ID and that the correct data is returned
+/// - GetByIdAsync_ShouldReturnCorrectVehicle: Checks that a Vehicle can be retrieved by its ID and that the correct data is returned
 /// - GetByIdAsync_ShouldReturnNull_WhenNoExists: Ensures that attempting to retrieve a non-existent Vehicle returns null
 /// - DeleteAsync_ShouldCorrectlyDelete: Confirms that a Vehicle can be deleted and is no longer present in the database
 /// - UpdateAsync_ShouldCorrectlyUpdate: Validates that a Vehicle's properties can be updated and that the changes are saved to the database
@@ -80,7 +80,7 @@ public class VehicleRepositoryTests : VehicleRepositoryTestBase
     /// matches the expected value, confirming that the correct Vehicle was returned from the repository.
     /// </remarks>
     [Fact]
-    public async Task GetById_ShouldReturnCorrectVehicle()
+    public async Task GetByIdAsync_ShouldReturnCorrectVehicle()
     {
         var repo = createRepository();
         var vehicle = await new VehicleBuilder()
