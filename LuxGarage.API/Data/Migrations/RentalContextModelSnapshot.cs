@@ -98,6 +98,35 @@ namespace LuxGarage.API.Data.Migrations
                     b.ToTable("Insurances");
                 });
 
+            modelBuilder.Entity("LuxGarage.API.Models.Offer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("PublicationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("VehicleId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("VehicleStatusId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VehicleId");
+
+                    b.HasIndex("VehicleStatusId");
+
+                    b.ToTable("Offers", (string)null);
+                });
+
             modelBuilder.Entity("LuxGarage.API.Models.Permission", b =>
                 {
                     b.Property<int>("Id")
@@ -204,7 +233,13 @@ namespace LuxGarage.API.Data.Migrations
                     b.Property<int>("VehicleColorId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("VehicleImageId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("VehicleModelId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("year")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -281,6 +316,52 @@ namespace LuxGarage.API.Data.Migrations
                     b.ToTable("VehicleColors", (string)null);
                 });
 
+            modelBuilder.Entity("LuxGarage.API.Models.VehicleImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("FileSize")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsPrimary")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("OriginalFileName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("SortOrder")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0);
+
+                    b.Property<string>("StorageKey")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("VehicleId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StorageKey")
+                        .IsUnique();
+
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("VehicleImages", (string)null);
+                });
+
             modelBuilder.Entity("LuxGarage.API.Models.VehicleModel", b =>
                 {
                     b.Property<int>("Id")
@@ -312,6 +393,9 @@ namespace LuxGarage.API.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("OfferId")
+                        .HasColumnType("integer");
+
                     b.Property<decimal>("PricePerDay")
                         .HasColumnType("numeric");
 
@@ -321,14 +405,34 @@ namespace LuxGarage.API.Data.Migrations
                     b.Property<DateTime?>("ValidTo")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("VehicleModelId")
+                    b.HasKey("Id");
+
+                    b.HasIndex("OfferId");
+
+                    b.ToTable("VehiclePrices");
+                });
+
+            modelBuilder.Entity("LuxGarage.API.Models.VehicleStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("DateToEnd")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("StartingDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("VehicleModelId");
-
-                    b.ToTable("VehiclePrices");
+                    b.ToTable("VehicleStatus");
                 });
 
             modelBuilder.Entity("LuxGarage.API.Models.Workplace", b =>
@@ -376,6 +480,25 @@ namespace LuxGarage.API.Data.Migrations
                     b.Navigation("Permission");
 
                     b.Navigation("Workplace");
+                });
+
+            modelBuilder.Entity("LuxGarage.API.Models.Offer", b =>
+                {
+                    b.HasOne("LuxGarage.API.Models.Vehicle", "Vehicle")
+                        .WithMany()
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("LuxGarage.API.Models.VehicleStatus", "Status")
+                        .WithMany()
+                        .HasForeignKey("VehicleStatusId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Status");
+
+                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("LuxGarage.API.Models.Rental", b =>
@@ -459,6 +582,17 @@ namespace LuxGarage.API.Data.Migrations
                     b.Navigation("VehicleModel");
                 });
 
+            modelBuilder.Entity("LuxGarage.API.Models.VehicleImage", b =>
+                {
+                    b.HasOne("LuxGarage.API.Models.Vehicle", "Vehicle")
+                        .WithMany("Images")
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vehicle");
+                });
+
             modelBuilder.Entity("LuxGarage.API.Models.VehicleModel", b =>
                 {
                     b.HasOne("LuxGarage.API.Models.VehicleBrand", "VehicleBrand")
@@ -472,13 +606,13 @@ namespace LuxGarage.API.Data.Migrations
 
             modelBuilder.Entity("LuxGarage.API.Models.VehiclePrice", b =>
                 {
-                    b.HasOne("LuxGarage.API.Models.VehicleModel", "VehicleModel")
-                        .WithMany()
-                        .HasForeignKey("VehicleModelId")
+                    b.HasOne("LuxGarage.API.Models.Offer", "Offer")
+                        .WithMany("Prices")
+                        .HasForeignKey("OfferId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("VehicleModel");
+                    b.Navigation("Offer");
                 });
 
             modelBuilder.Entity("LuxGarage.API.Models.Customer", b =>
@@ -489,6 +623,11 @@ namespace LuxGarage.API.Data.Migrations
             modelBuilder.Entity("LuxGarage.API.Models.Insurance", b =>
                 {
                     b.Navigation("RentalInsurances");
+                });
+
+            modelBuilder.Entity("LuxGarage.API.Models.Offer", b =>
+                {
+                    b.Navigation("Prices");
                 });
 
             modelBuilder.Entity("LuxGarage.API.Models.Permission", b =>
@@ -503,6 +642,8 @@ namespace LuxGarage.API.Data.Migrations
 
             modelBuilder.Entity("LuxGarage.API.Models.Vehicle", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("Rentals");
                 });
 
