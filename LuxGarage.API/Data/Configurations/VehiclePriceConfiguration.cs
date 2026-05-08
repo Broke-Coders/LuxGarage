@@ -13,8 +13,18 @@ public class VehiclePriceConfiguration : IEntityTypeConfiguration<VehiclePrice>
         builder.Property(vp => vp.Id)
             .ValueGeneratedOnAdd();
 
+        builder.Property(vp => vp.ValidFrom)
+            .IsRequired();
+
+        builder.Property(vp => vp.ValidTo)
+            .IsRequired(false);
+    
         builder.Property(vp => vp.PricePerDay)
             .IsRequired();
-            
+        
+        builder.HasOne(vp => vp.Offer)
+            .WithMany(o => o.Prices)
+            .HasForeignKey(vp => vp.OfferId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
