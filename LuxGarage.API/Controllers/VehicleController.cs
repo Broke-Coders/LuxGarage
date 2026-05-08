@@ -17,12 +17,14 @@ public class VehiclesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<VehicleListItemResponse>> GetAll([FromQuery] GetVehiclesRequest request)
+    public async Task<ActionResult<ApiResponse<List<VehicleListItemResponse>>>> GetAll([FromQuery] GetVehiclesRequest request)
     {
-        return await _vehicleService.GetAllAsync(request);
+        var vehicles = await _vehicleService.GetAllAsync(request);
+        return Ok(ApiResponse<List<VehicleListItemResponse>>.Ok(vehicles,
+        "All employees retrieved successfully."));
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id:int}")]
     public async Task<VehicleDetailsResponse?> GetById(int id)
     {
         return await _vehicleService.GetByIdAsync(id);
