@@ -1,0 +1,82 @@
+### YamlMime:ManagedReference
+items:
+- uid: LuxGarage.Tests
+  commentId: N:LuxGarage.Tests
+  id: LuxGarage.Tests
+  children:
+  - LuxGarage.Tests.AuthServiceTest
+  - LuxGarage.Tests.SharedDatabaseCollection
+  - LuxGarage.Tests.SharedDatabaseFixture
+  - LuxGarage.Tests.VehicleRepositoryTestBase
+  - LuxGarage.Tests.VehicleRepositoryTests
+  - LuxGarage.Tests.VehicleServiceTests
+  langs:
+  - csharp
+  - vb
+  name: LuxGarage.Tests
+  nameWithType: LuxGarage.Tests
+  fullName: LuxGarage.Tests
+  type: Namespace
+  assemblies:
+  - LuxGarage.Tests
+references:
+- uid: LuxGarage.Tests.VehicleRepositoryTestBase
+  commentId: T:LuxGarage.Tests.VehicleRepositoryTestBase
+  parent: LuxGarage.Tests
+  href: LuxGarage.Tests.VehicleRepositoryTestBase.html
+  name: VehicleRepositoryTestBase
+  nameWithType: VehicleRepositoryTestBase
+  fullName: LuxGarage.Tests.VehicleRepositoryTestBase
+- uid: LuxGarage.Tests.SharedDatabaseCollection
+  commentId: T:LuxGarage.Tests.SharedDatabaseCollection
+  href: LuxGarage.Tests.SharedDatabaseCollection.html
+  name: SharedDatabaseCollection
+  nameWithType: SharedDatabaseCollection
+  fullName: LuxGarage.Tests.SharedDatabaseCollection
+- uid: LuxGarage.Tests.SharedDatabaseFixture
+  commentId: T:LuxGarage.Tests.SharedDatabaseFixture
+  parent: LuxGarage.Tests
+  href: LuxGarage.Tests.SharedDatabaseFixture.html
+  name: SharedDatabaseFixture
+  nameWithType: SharedDatabaseFixture
+  fullName: LuxGarage.Tests.SharedDatabaseFixture
+- uid: LuxGarage.Tests.VehicleRepositoryTests
+  commentId: T:LuxGarage.Tests.VehicleRepositoryTests
+  href: LuxGarage.Tests.VehicleRepositoryTests.html
+  name: VehicleRepositoryTests
+  nameWithType: VehicleRepositoryTests
+  fullName: LuxGarage.Tests.VehicleRepositoryTests
+- uid: LuxGarage.Tests.AuthServiceTest
+  commentId: T:LuxGarage.Tests.AuthServiceTest
+  href: LuxGarage.Tests.AuthServiceTest.html
+  name: AuthServiceTest
+  nameWithType: AuthServiceTest
+  fullName: LuxGarage.Tests.AuthServiceTest
+- uid: LuxGarage.Tests.VehicleServiceTests
+  commentId: T:LuxGarage.Tests.VehicleServiceTests
+  href: LuxGarage.Tests.VehicleServiceTests.html
+  name: VehicleServiceTests
+  nameWithType: VehicleServiceTests
+  fullName: LuxGarage.Tests.VehicleServiceTests
+- uid: LuxGarage.Tests
+  commentId: N:LuxGarage.Tests
+  href: LuxGarage.html
+  name: LuxGarage.Tests
+  nameWithType: LuxGarage.Tests
+  fullName: LuxGarage.Tests
+  spec.csharp:
+  - uid: LuxGarage
+    name: LuxGarage
+    href: LuxGarage.html
+  - name: .
+  - uid: LuxGarage.Tests
+    name: Tests
+    href: LuxGarage.Tests.html
+  spec.vb:
+  - uid: LuxGarage
+    name: LuxGarage
+    href: LuxGarage.html
+  - name: .
+  - uid: LuxGarage.Tests
+    name: Tests
+    href: LuxGarage.Tests.html

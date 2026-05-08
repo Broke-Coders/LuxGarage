@@ -6,6 +6,9 @@ using Xunit;
 
 namespace LuxGarage.Tests;
 
+/// <summary>
+/// Collection fixture for shared database context across tests
+/// </summary>
 [CollectionDefinition("SharedDB")]
 public class SharedDatabaseCollection : ICollectionFixture<SharedDatabaseFixture>
 {

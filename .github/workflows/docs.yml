@@ -1,0 +1,47 @@
+name: Generate and Deploy Docs
+
+on:
+  push:
+    branches: ["main"] # docs are updated only when we push to main branch
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy-docs:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.x'
+
+    # Install docfx as a global tool
+    - name: Install DocFX
+      run: dotnet tool install -g docfx
+
+    # Build documentation
+    - name: Build documentation
+      run: docfx ./docfx.json # dostosuj ścieżkę do pliku konfiguracyjnego
+
+    # setup github pages
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: '_site' # default folder where docfx outputs the generated site
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
