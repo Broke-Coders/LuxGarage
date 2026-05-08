@@ -6,7 +6,7 @@
         {
           "src": ".",
           "files": [
-            "LuxGarage.API/**/*.csproj",
+            "LuxGarage.API/**/*.csproj"
           ]
         }
       ],
@@ -38,18 +38,22 @@
     "resource": [
       {
         "files": [
-          "images/**"
+          "images/**",
+		  "docs_resources/**"
         ]
       }
     ],
     "output": "_site",
     "template": [
       "default",
-      "modern"
+      "modern",
+      "docs_resources"
     ],
     "globalMetadata": {
-      "_appName": "mysite",
-      "_appTitle": "mysite",
+      "_appName": "LuxGarage - Documentation",
+      "_appTitle": "LuxGarage",
+	  "_appLogoPath": "docs_resources/logo.png",
+      "_appFaviconPath": "docs_resources/favicon.png",
       "_enableSearch": true
     }
   }
