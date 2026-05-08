@@ -2,10 +2,4 @@
 _layout: landing
 ---
 
-# This is the **HOMEPAGE**.
-
-Refer to [Markdown](http://daringfireball.net/projects/markdown/) for how to write markdown files.
-
-## Quick Start Notes:
-
-1. Add images to the *images* folder if the file is referencing an image.
+# This is the Documentation of LuxGarage API and Tests. You can find more information about code using Bookmarks on top of the site
