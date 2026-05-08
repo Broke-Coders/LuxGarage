@@ -5,18 +5,18 @@
 namespace LuxGarage.API.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class removeworkertitle : Migration
+    public partial class UpdateVehicle : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            // Migracja zdezaktualizowana — zmiany już zawarte w changeNames
+
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            // Brak operacji do cofnięcia
+
         }
     }
 }
