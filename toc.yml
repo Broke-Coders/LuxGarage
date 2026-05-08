@@ -4,3 +4,7 @@
   href: API/
 - name: Tests
   href: Tests/
+- name: Frontend (JS)
+  href: frontend_docs/
+- name: Python Tests
+  href: python_docs/

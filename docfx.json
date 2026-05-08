@@ -30,7 +30,9 @@
     "content": [
       {
         "files": [
-          "**/*.{md,yml}"
+          "**/*.{md,yml}",
+          "frontend_docs/**",
+          "python_docs/**"
         ],
         "exclude": [
           "_site/**"
@@ -41,7 +43,7 @@
       {
         "files": [
           "images/**",
-		  "docs_resources/**"
+		      "docs_resources/**"
         ]
       }
     ],
