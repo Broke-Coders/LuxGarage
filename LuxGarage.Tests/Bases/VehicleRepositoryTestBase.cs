@@ -7,6 +7,9 @@ using Testcontainers.PostgreSql;
 
 namespace LuxGarage.Tests;
 
+/// <summary>
+/// Base class for VehicleRepository tests, providing a shared database context and transaction management for each test.
+/// </summary>
 [Collection("SharedDB")]
 public class VehicleRepositoryTestBase : IAsyncLifetime
 {
