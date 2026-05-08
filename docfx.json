@@ -10,7 +10,8 @@
           ]
         }
       ],
-      "dest": "API"
+      "dest": "API",
+      "namespaceLayout": "nested"
     },
 	 {
       "src": [
@@ -21,7 +22,8 @@
           ]
         }
       ],
-      "dest": "Tests"
+      "dest": "Tests",
+      "namespaceLayout": "nested"
     }
   ],
   "build": {
