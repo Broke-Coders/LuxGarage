@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace LuxGarage.API.Models;
+
 /// <summary>
 /// Represents a customer in the LuxGarage system, containing properties for the customer's ID, email, borrow counter, 
 /// and a collection of rentals associated with the customer. This class serves as a data model for customers in
