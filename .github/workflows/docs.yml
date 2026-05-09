@@ -29,6 +29,7 @@ jobs:
         node-version: '20'
         
     - name: Generate JavaScript Docs
+      shell: bash
       run: |
         # create a folder for the generated docs
         mkdir -p frontend_docs
@@ -52,6 +53,7 @@ jobs:
         python-version: '3.12'
         
     - name: Generate Python Docs
+      shell: bash
       run: |
         # install pydoc-markdown to generate markdown documentation from Python files
         pip install pydoc-markdown
