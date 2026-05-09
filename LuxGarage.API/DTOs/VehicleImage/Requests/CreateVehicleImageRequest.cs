@@ -9,6 +9,4 @@ public class CreateVehicleImageRequest
 
     [Required]
     public IFormFile Image { get; set; } = default!;
-
-    public bool IsPrimary { get; set; }
 }

@@ -10,7 +10,6 @@ public class VehicleImageResponse
     public string ContentType { get; set; } = default!;
     public long FileSize { get; set; }
     public int SortOrder { get; set; }
-    public bool IsPrimary { get; set; }
     public string StorageKey { get; set; } = default!;
     public string? Url { get; set; }
 }
