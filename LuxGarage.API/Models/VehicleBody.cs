@@ -1,7 +1,5 @@
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
 namespace LuxGarage.API.Models;
+
 /// <summary>
 /// Represents a vehicle body type in the LuxGarage system, containing properties for the vehicle body's ID, name, 
 /// and a collection of vehicles associated with the body type. This class serves as a data model for vehicle body types in the application, 

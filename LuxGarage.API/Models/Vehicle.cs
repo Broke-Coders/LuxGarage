@@ -1,7 +1,5 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace LuxGarage.API.Models;
+
 /// <summary>
 /// Represents a vehicle in the LuxGarage system, containing properties for the vehicle's ID, associated brand, model, image, horsepower, 
 /// license plate, mileage, year, body type, color, and collections of rentals and images. 
