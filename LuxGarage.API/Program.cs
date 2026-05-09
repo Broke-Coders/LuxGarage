@@ -10,19 +10,10 @@ builder.Services.AddRepositories();
 builder.Services.AddCorsPolicy();
 builder.Services.AddServices();
 builder.Services.AddControllers();
-<<<<<<< HEAD
 builder.Services.AddAutoMapper(config =>
 {
     config.AddProfile<MapperProfile>();
-    config.Internal().ForAllMaps((typeMap, mappingExpression) =>
-    {
-        mappingExpression.MaxDepth(2);
-    });
 });
-=======
-builder.Services.AddAutoMapper(config => config.AddProfile<MapperProfile>());
->>>>>>> bugfix/automapper
-
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
