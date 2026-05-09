@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace LuxGarage.API.Models;
+
 /// <summary>
 /// Represents a rental in the LuxGarage system, containing properties for the rental's ID, associated vehicle, 
 /// starting time, appointed return time, real return time, associated customer, a collection of rental insurances, 

@@ -1,4 +1,5 @@
 namespace LuxGarage.API.Models;
+
 /// <summary>
 /// Represents a vehicle image in the LuxGarage system, containing properties for the image's ID, associated vehicle, storage key, 
 /// original file name, content type, file size, sort order, and whether it is the primary image. 
