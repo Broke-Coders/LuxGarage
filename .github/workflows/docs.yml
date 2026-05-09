@@ -37,9 +37,8 @@ jobs:
         echo "# JavaScript Files" > frontend_docs/index.md
         echo "This section contains documentation generated from the JavaScript files." >> frontend_docs/index.md
         
-        echo "- name: JS Homepage" > frontend_docs/toc.yml
+        echo "- name: Main Menu" > frontend_docs/toc.yml
         echo "  href: index.md" >> frontend_docs/toc.yml
-        echo "  homepage: index.md" >> frontend_docs/toc.yml
 
         # create empty navigation file
         echo "" > frontend_docs/toc.yml
