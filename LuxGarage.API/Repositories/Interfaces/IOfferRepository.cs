@@ -2,6 +2,9 @@ using LuxGarage.API.Models;
 
 namespace LuxGarage.API.Repositories.Interfaces;
 
+/// <summary>
+/// Defines the contract for a repository that manages offer data in the LuxGarage API.
+/// </summary>
 public interface IOfferRepository
 {
     Task<List<Offer>> GetAllAsync();
