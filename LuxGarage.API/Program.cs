@@ -10,7 +10,8 @@ builder.Services.AddRepositories();
 builder.Services.AddCorsPolicy();
 builder.Services.AddServices();
 builder.Services.AddControllers();
-builder.Services.AddAutoMapper(typeof(MapperProfile));
+builder.Services.AddAutoMapper(config => config.AddProfile<MapperProfile>());
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -69,7 +69,7 @@ namespace LuxGarage.API.Controllers
             }
             catch (Exception e)
             {
-                var errorResponse = ApiResponse<object>.Error(500, "An unexpected error occured while registration.");
+                var errorResponse = ApiResponse<object>.Error(500, $"An unexpected error occured while registration: {e}");
                 return StatusCode(500, errorResponse);
             }
 

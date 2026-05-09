@@ -28,7 +28,7 @@
         /// <param name="data">The data contained in the response.</param>
         /// <param name="errors">Any errors associated with the response.</param>
         /// <returns>A new instance of the ApiResponse class.</returns>
-        public static ApiResponse<TData> Create(bool success, int statusCode, string message, TData data = default,
+        public static ApiResponse<TData> Create(bool success, int statusCode, string message, TData? data = default,
             object? errors = null)
         {
             return new ApiResponse<TData>
