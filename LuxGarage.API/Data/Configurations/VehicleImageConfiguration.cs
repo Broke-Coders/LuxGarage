@@ -41,10 +41,6 @@ public class VehicleImageConfiguration : IEntityTypeConfiguration<VehicleImage>
             .IsRequired()
             .HasDefaultValue(0);
 
-        builder.Property(vi => vi.IsPrimary)
-            .IsRequired()
-            .HasDefaultValue(false);
-
         builder.HasOne(vi => vi.Vehicle)
             .WithMany()
             .HasForeignKey(vi => vi.VehicleId)
