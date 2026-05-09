@@ -31,7 +31,7 @@ public class VehicleImageRepository : IVehicleImageRepository
 
     public async Task<VehicleImage?> GetPrimaryByVehicleIdAsync(int vehicleId)
         => await context.VehicleImages
-                        .FirstOrDefaultAsync(i => i.IsPrimary == true && i.VehicleId == vehicleId); 
+                        .FirstOrDefaultAsync(i => i.SortOrder == 0 && i.VehicleId == vehicleId); 
     public async Task<VehicleImage?> GetByStorageKeyAsync(string key)
         => await context.VehicleImages
                         .FirstOrDefaultAsync(i => i.StorageKey == key);
@@ -43,7 +43,7 @@ public class VehicleImageRepository : IVehicleImageRepository
 
     public async Task<bool> AnyPrimaryForVehicleAsync(int vehicleId)
         => await context.VehicleImages
-                        .AnyAsync(i => i.VehicleId == vehicleId && i.IsPrimary);
+                        .AnyAsync(i => i.VehicleId == vehicleId && i.SortOrder == 0);
 
     public async Task AddAsync(VehicleImage vehicleImage)
     {
@@ -67,7 +67,7 @@ public class VehicleImageRepository : IVehicleImageRepository
 
        if (image is null) return;
        
-       image.IsPrimary = true;
+       image.SortOrder = 0;
     }
 
     public async Task UpdateSortOrderAsync(int imageId, int sortOrder)
