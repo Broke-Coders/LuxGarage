@@ -50,3 +50,12 @@ main{
     flex-direction: column;
     flex: 1;
 }
+
+.search-buttons{
+    display: flex;
+    justify-content: space-around;
+}
+
+.search-button:active{
+    size: 125%;
+}

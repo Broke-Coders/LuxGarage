@@ -16,12 +16,17 @@ export const CarService = {
      * @throws {Error} - If the API request fails, an error is thrown.
      */
     async getAllCars() {
-        const response = await fetch(`${API_BASE_URL}/Vehicles`);
-        if (!response.ok) {
-            throw new Error("Failed getting list of cars");
+        try {
+            const response = await fetch(`${API_BASE_URL}/Vehicles`);
+            if (!response.ok) {
+                throw new Error("Failed getting list of cars");
+            }
+            const dto = await response.json();
+            return dto.data;
+        } catch (error) {
+            console.error("Error fetching cars:", error);
+            throw error;
         }
-        const dto = await response.json();
-        return dto.data;
     },
 
         /**
@@ -33,11 +38,43 @@ export const CarService = {
          * @throws {Error} - If the API request fails, an error is thrown.
          */
     async getCarById(id) {
-        const response = await fetch(`${API_BASE_URL}/Vehicle/${id}`);
-        if (!response.ok) {
-            throw new Error("Cannot find car with id ${id}");
+        try {
+            const response = await fetch(`${API_BASE_URL}/Vehicle/${id}`);
+            if (!response.ok) {
+                throw new Error(`Cannot find car with id ${id}`);
+            }
+            const dto = await response.json();
+            return dto.data;
+        } catch (error) {
+            console.error("Error fetching car:", error);
+            throw error;
         }
-        const dto = response.json();
-        return dto.data;
     },
+
+    /**
+     * Fetches cars filtered by one or more body types from the API.
+     * Sends a GET request with query parameters for each body type ID.
+     * @async
+     * @memberof CarService
+     * @param {Array<number>} bodyTypeIds - Array of vehicle body type IDs to filter by (e.g., [1, 2, 3])
+     * @returns {Promise<Array>} - An array of car objects matching the provided body type IDs
+     * @throws {Error} - If the API request fails, an error is thrown with a descriptive message
+     * @example
+     * const sedans = await CarService.getCarsByBodyTypes([1]);
+     * const sedansAndHatchbacks = await CarService.getCarsByBodyTypes([1, 2]);
+     */
+    async getCarsByBodyTypes(bodyTypeIds) {
+        try {
+            const queryString = bodyTypeIds.map(id => `bodyTypeIds=${id}`).join('&');
+            const response = await fetch(`${API_BASE_URL}/Vehicles?${queryString}`);
+            if (!response.ok) {
+                throw new Error("Failed to get cars by body types");
+            }
+            const dto = await response.json();
+            return dto.data;
+        } catch (error) {
+            console.error("Error fetching cars by body types:", error);
+            throw error;
+        }
+    }
 }
