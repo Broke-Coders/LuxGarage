@@ -1,11 +1,12 @@
 using AutoMapper;
 using LuxGarage.API.DTOs.Requests.Vehicle;
 using LuxGarage.API.DTOs.Responses.Vehicle;
+using LuxGarage.API.Services.Interfaces;
 using LuxGarage.API.Models;
 using LuxGarage.API.Repositories;
 using LuxGarage.API.Repositories.Interfaces;
 
-namespace LuxGarage.API.Services.Interfaces;
+namespace LuxGarage.API.Services.Implementations;
 
 /// <summary>
 /// Implements the vehicle service for the LuxGarage API, providing methods for managing vehicle data, 
