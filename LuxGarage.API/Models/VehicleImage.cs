@@ -16,5 +16,4 @@ public class VehicleImage
     public string ContentType { get; set; } = default!;
     public long FileSize { get; set; }
     public int SortOrder { get; set; }
-    public bool IsPrimary { get; set; }
 }
