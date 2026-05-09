@@ -33,18 +33,30 @@ jobs:
       run: |
         # create a folder for the generated docs
         mkdir -p frontend_docs
+
+        echo "# JavaScript Files" > frontend_docs/index.md
+        echo "This section contains documentation generated from the JavaScript files." >> frontend_docs/index.md
         
+        echo "- name: Main Menu" > frontend_docs/toc.yml
+        echo "  href: index.md" >> frontend_docs/toc.yml
+
         # create empty navigation file
         echo "" > frontend_docs/toc.yml
 
         for file in LuxGarage.Front/wwwroot/js/*.js; do
           filename="${file##*/}" # get the filename with extension
           
-          clean_name=$(echo "$filename" | tr -d ',\r') # remove commas and carriage returns from the filename (in case there are any)
+          clean_name="${filename%.js}"
+          clean_name=$(echo "$clean_name" | tr -d ',\r') # remove commas and carriage returns from the filename (in case there are any)
 
           npx jsdoc-to-markdown "$file" > "frontend_docs/${clean_name}.md"
 
-          echo "- name: ${clean_name}" >> frontend_docs/toc.yml
+          if [ ! -s "frontend_docs/${clean_name}.md" ]; then
+            echo '# File: '"$filename" > "frontend_docs/${clean_name}.md"
+            echo "No documentation generated for this file." >> "frontend_docs/${clean_name}.md"
+          fi
+
+          echo "- name: ${filename}" >> frontend_docs/toc.yml
           echo "  href: ${clean_name}.md" >> frontend_docs/toc.yml
         done
 
