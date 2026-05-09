@@ -83,6 +83,7 @@ public class VehicleService : IVehicleService
 
         return _mapper.Map<VehicleDetailsResponse>(createdVehicle);
         
+        return _mapper.Map<VehicleDetailsResponse>(vehicle);
     }
 
     /// <summary>
