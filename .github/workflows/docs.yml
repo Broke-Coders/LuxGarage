@@ -3,8 +3,6 @@ name: Generate and Deploy Docs
 on:
   push:
     branches: ["main"] # docs are updated only when we push to main branch
-  pull_request:
-    branches: ["main"] # docs are updated when we create a pull request to main branch
 
 permissions:
   contents: read
