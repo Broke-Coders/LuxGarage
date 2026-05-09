@@ -1,7 +1,7 @@
 using LuxGarage.API.Data;
 using LuxGarage.API.Extensions;
 using LuxGarage.API.Profiles;
-using Microsoft.Extensions.Options;
+using AutoMapper.Internal;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +10,15 @@ builder.Services.AddRepositories();
 builder.Services.AddCorsPolicy();
 builder.Services.AddServices();
 builder.Services.AddControllers();
-builder.Services.AddAutoMapper(typeof(MapperProfile));
+builder.Services.AddAutoMapper(config =>
+{
+    config.AddProfile<MapperProfile>();
+    config.Internal().ForAllMaps((typeMap, mappingExpression) =>
+    {
+        mappingExpression.MaxDepth(2);
+    });
+});
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
