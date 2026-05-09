@@ -38,12 +38,14 @@ jobs:
         echo "" > frontend_docs/toc.yml
 
         for file in LuxGarage.Front/wwwroot/js/*.js; do
-          filename=$(basename "$file" .js)
+          filename="${file##*/}" # get the filename with extension
           
-          npx jsdoc-to-markdown "$file" > "frontend_docs/${filename}.md"
+          clean_name = $(echo "$filename" | tr -d ',/r') # remove commas and carriage returns from the filename (in case there are any)
 
-          echo "- name: ${filename}" >> frontend_docs/toc.yml
-          echo "  href: ${filename}.md" >> frontend_docs/toc.yml
+          npx jsdoc-to-markdown "$file" > "frontend_docs/${clean_name}.md"
+
+          echo "- name: ${clean_name}" >> frontend_docs/toc.yml
+          echo "  href: ${clean_name}.md" >> frontend_docs/toc.yml
         done
 
     # Generate Python docs (for later, when we add Python tests)
