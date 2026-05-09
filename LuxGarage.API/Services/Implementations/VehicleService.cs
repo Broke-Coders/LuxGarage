@@ -74,8 +74,9 @@ public class VehicleService : IVehicleService
 
         var vehicle = _mapper.Map<Vehicle>(request);
 
-        return _mapper.Map<VehicleDetailsResponse>(vehicle);
+        await _vehicleRepository.AddAsync(vehicle);
         
+        return _mapper.Map<VehicleDetailsResponse>(vehicle);
     }
 
     /// <summary>
