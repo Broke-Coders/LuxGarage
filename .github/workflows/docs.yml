@@ -33,12 +33,17 @@ jobs:
         # create a folder for the generated docs
         mkdir -p frontend_docs
         
-        # use npx jsdoc-to-markdown to generate markdown documentation from JavaScript files
-        npx jsdoc-to-markdown LuxGarage.Front/wwwroot/js/*.js > frontend_docs/index.md
-        
-        # generate a navigation file for JavaScript docs
-        echo "- name: JavaScript methods" > frontend_docs/toc.yml
-        echo "  href: index.md" >> frontend_docs/toc.yml
+        # create empty navigation file
+        echo "" > frontend_docs/toc.yml
+
+        for file in LuxGarage.Front/wwwroot/js/*.js; do
+          filename=$(basename "$file", .js)
+          
+          npx jsdoc-to-markdown "$file" > "frontend_docs/${filename}.md"
+
+          echo "- name: ${filename}" >> frontend_docs/toc.yml
+          echo "  href: ${filename}.md" >> frontend_docs/toc.yml
+        done
 
     # Generate Python docs (for later, when we add Python tests)
     - name: Setup Python
@@ -53,18 +58,34 @@ jobs:
         
         # create a folder for the generated Python docs
         mkdir -p python_docs
-        
-        # generate markdown documentation from Python test files (leave this commented out for now, until we add Python tests)
-        # pydoc-markdown -I python_tests -m load_tests > python_docs/index.md
-        
-        # temporary placeholder for Python docs until we add actual tests
-        echo "# Python Tests" > python_docs/index.md
-        echo "Documentation will be here when we add python tests" >> python_docs/index.md
-        
-        # generate a navigation file for Python docs
-        echo "- name: Python Tests" > python_docs/toc.yml
-        echo "  href: index.md" >> python_docs/toc.yml
+        echo "" > python_docs/toc.yml
 
+        # enable nullglob to avoid errors if there are no Python test files (this allows the for loop to simply skip if there are no .py files)
+        shopt -s nullglob
+
+        # initialize a counter to track if any Python files were found
+        files_found=0
+
+        for file in PythonTests/*.py; do
+          files_found=1
+          filename=$(basename "$file", .py)
+          
+          # generate markdown documentation from the Python file using pydoc-markdown 
+          # (specify the PythonTests folder as an include path so it can find any imports)
+          # -I specifies folders to include in the module search path, -m specifies the module to document
+          pydoc-markdown -I PythonTests -m "${filename}" > "python_docs/${filename}.md"
+
+          echo "- name: ${filename}" >> python_docs/toc.yml
+          echo "  href: ${filename}.md" >> python_docs/toc.yml
+        done
+
+        if [ $files_found -eq 0 ]; then
+          echo "- name: No Python test files found" >> python_docs/toc.yml
+          echo "  href: index.md" >> python_docs/toc.yml
+
+          echo "# Python Tests" > python_docs/index.md
+          echo "No Python test files found, so no documentation generated." >> python_docs/index.md
+        fi
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
