@@ -17,7 +17,7 @@ body {
     flex-direction: column; 
     gap: 5px; 
     max-width: 600px; 
-    margin: 20px auto; 
+    margin: 20px auto;
 }
 
 /* Styl pojedynczego samochodu */
@@ -36,4 +36,17 @@ body {
 .car-card p {
     margin-top: 0;
     color: #c8c3bc; 
+}
+
+
+.cars-section{
+    display: flex;
+    justify-content: center;
+    margin-bottom: auto;
+
+}
+main{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
