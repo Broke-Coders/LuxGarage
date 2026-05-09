@@ -9,6 +9,6 @@ public interface IOfferRepository
     Task<Offer?> GetByVehicleIdAsync(int vehicleId);
     Task AddAsync(Offer offer);
     Task UpdateAsync(Offer offer);
-    Task DeleteAsync(Offer offer);
+    Task DeleteAsync(int id);
     Task<bool> ExistsAsync(int id);
 }
