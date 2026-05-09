@@ -2,7 +2,7 @@ using LuxGarage.API.Models;
 
 namespace LuxGarage.API.Repositories.Interfaces;
 
-public class IOfferRepository
+public interface IOfferRepository
 {
     Task<List<Offer>> GetAllAsync();
     Task<Offer?> GetByIdAsync(int id);
