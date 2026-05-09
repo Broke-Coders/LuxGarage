@@ -37,7 +37,7 @@ jobs:
         echo "" > frontend_docs/toc.yml
 
         for file in LuxGarage.Front/wwwroot/js/*.js; do
-          filename=$(basename "$file", .js)
+          filename=$(basename "$file" .js)
           
           npx jsdoc-to-markdown "$file" > "frontend_docs/${filename}.md"
 
@@ -68,7 +68,7 @@ jobs:
 
         for file in PythonTests/*.py; do
           files_found=1
-          filename=$(basename "$file", .py)
+          filename=$(basename "$file" .py)
           
           # generate markdown documentation from the Python file using pydoc-markdown 
           # (specify the PythonTests folder as an include path so it can find any imports)
