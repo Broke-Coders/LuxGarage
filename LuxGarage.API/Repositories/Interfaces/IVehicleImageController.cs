@@ -23,6 +23,6 @@ public interface IVehicleImageRepository
     Task DeleteAsync(int id);
 
     Task SetPrimaryAsync(int id);
-    Task UpdateSortOrderAsync(int imageId, int sortOrder);
+    Task UpdateSortOrderAsync(int imageId, int newSortOrder);
     Task ReorderAsync(int vehicleId, List<int> orderedImageIds);
 }
