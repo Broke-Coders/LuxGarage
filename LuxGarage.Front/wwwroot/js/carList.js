@@ -1,8 +1,9 @@
 import { CarService } from "./carService.js";
 
-
 /**
- * This script is responsible for fetching the list of cars from the API and displaying them on the page. 
+ * @file carList.js
+ * @module CarList
+ * @description This script is responsible for fetching the list of cars from the API and displaying them on the page. 
  * It listens for the DOMContentLoaded event, then calls the CarService to 
  * get all cars, and dynamically creates HTML elements to show each car's details. 
  * If there are no cars or if an error occurs, it displays an appropriate message.
