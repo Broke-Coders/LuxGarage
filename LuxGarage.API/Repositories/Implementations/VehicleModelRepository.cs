@@ -65,11 +65,7 @@ namespace LuxGarage.API.Repositories.Implementations
         {
             var model = await _context.VehicleModels.FindAsync(id);
 
-            if (model != null)
-            {
-                Console.WriteLine("Model brand with given id not found");
-                return;
-            }
+            if (model is null) return;
 
             _context.VehicleModels.Remove(model);
             await _context.SaveChangesAsync();
