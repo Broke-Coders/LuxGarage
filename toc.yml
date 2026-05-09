@@ -5,6 +5,6 @@
 - name: Tests
   href: Tests/
 - name: Frontend (JS)
-  href: frontend_docs/
+  href: frontend_docs/toc.yml
 - name: Python Tests
-  href: python_docs/
+  href: python_docs/toc.yml
