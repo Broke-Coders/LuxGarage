@@ -30,10 +30,11 @@ namespace LuxGarage.API.Profiles
                 .ForMember(dest => dest.PermissionName,
                     opt => opt.MapFrom(src => src.Permission.Name))
                 .ForMember(dest => dest.WorkplaceCity,
-                    opt => opt.MapFrom(src => src.Workplace.City));
+                    opt => opt.MapFrom(src => src.Workplace.City))
+                .MaxDepth(2);
 
-            CreateMap<RegisterRequest, Employee>();
-            CreateMap<UpdateEmployeeRequest, Employee>();
+            CreateMap<RegisterRequest, Employee>().MaxDepth(2);
+            CreateMap<UpdateEmployeeRequest, Employee>().MaxDepth(2);
 
             CreateMap<Vehicle, VehicleListItemResponse>()
                 .ForMember(dest => dest.BrandName,
@@ -43,7 +44,8 @@ namespace LuxGarage.API.Profiles
                 .ForMember(dest => dest.BodyName,
                     opt => opt.MapFrom(src => src.VehicleBody.Name))
                 .ForMember(dest => dest.ColorName,
-                    opt => opt.MapFrom(src => src.VehicleColor.Name));
+                    opt => opt.MapFrom(src => src.VehicleColor.Name))
+                .MaxDepth(2);
 
             CreateMap<Vehicle, VehicleDetailsResponse>()
                 .ForMember(dest => dest.BrandName,
@@ -53,15 +55,16 @@ namespace LuxGarage.API.Profiles
                 .ForMember(dest => dest.BodyName,
                     opt => opt.MapFrom(src => src.VehicleBody.Name))
                 .ForMember(dest => dest.ColorName,
-                    opt => opt.MapFrom(src => src.VehicleColor.Name));
+                    opt => opt.MapFrom(src => src.VehicleColor.Name))
+                .MaxDepth(2);
 
-            CreateMap<CreateVehicleRequest, Vehicle>();
+            CreateMap<CreateVehicleRequest, Vehicle>().MaxDepth(2);
 
-            CreateMap<Workplace, WorkplaceResponse>();
-            CreateMap<ChangeWorkplaceRequest, Workplace>();
+            CreateMap<Workplace, WorkplaceResponse>().MaxDepth(2);
+            CreateMap<ChangeWorkplaceRequest, Workplace>().MaxDepth(2);
 
             // VehicleImage
-            CreateMap<VehicleImage, VehicleImageResponse>();
+            CreateMap<VehicleImage, VehicleImageResponse>().MaxDepth(2);
         }
     }
 }
