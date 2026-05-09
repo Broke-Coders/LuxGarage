@@ -47,9 +47,7 @@ public class VehicleImageRepository : IVehicleImageRepository
                         .AnyAsync(i => i.VehicleId == vehicleId && i.SortOrder == 0);
 
     public async Task AddAsync(VehicleImage vehicleImage)
-    {
-        await context.VehicleImages.AddAsync(vehicleImage);
-    }
+        => await context.VehicleImages.AddAsync(vehicleImage);
 
     public async Task DeleteAsync(int id)
     {
