@@ -40,7 +40,7 @@ jobs:
         for file in LuxGarage.Front/wwwroot/js/*.js; do
           filename="${file##*/}" # get the filename with extension
           
-          clean_name = $(echo "$filename" | tr -d ',/r') # remove commas and carriage returns from the filename (in case there are any)
+          clean_name=$(echo "$filename" | tr -d ',\r') # remove commas and carriage returns from the filename (in case there are any)
 
           npx jsdoc-to-markdown "$file" > "frontend_docs/${clean_name}.md"
 
