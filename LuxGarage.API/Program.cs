@@ -13,12 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddAutoMapper(config =>
 {
     config.AddProfile<MapperProfile>();
-    config.Internal().ForAllMaps((typeMap, mappingExpression) =>
-    {
-        mappingExpression.MaxDepth(2);
-    });
 });
-
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
