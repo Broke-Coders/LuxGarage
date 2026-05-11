@@ -64,12 +64,6 @@ namespace LuxGarage.API.Profiles
 
             // VehicleImage
             CreateMap<VehicleImage, VehicleImageResponse>();
-
-            this.Internal().ForAllMaps((typeMap, mappingExpression) =>
-            {
-                mappingExpression.MaxDepth(2);
-            }
-            );
         }
     }
 }
