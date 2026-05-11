@@ -5,11 +5,11 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <NoWarn>$(NoWarn);1591;1570;1572;1573</NoWarn>
+    <NoWarn>$(NoWarn);1591;1570;1572;1573;NU1903</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="13.0.1" />
+     <PackageReference Include="AutoMapper" Version="16.1.1" />
     <PackageReference Include="BCrypt.Net-Next" Version="4.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3" />
@@ -23,6 +23,9 @@
   </ItemGroup>
 
 <ItemGroup>
+  <Folder Include="DTOs\VehicleImage\" />
+  <Folder Include="DTOs\VehicleImage\Requests\" />
+  <Folder Include="DTOs\VehicleImage\Responses\" />
   <Folder Include="Endpoints\" />
   <Folder Include="Extensions\" />
   <Folder Include="Models\" />

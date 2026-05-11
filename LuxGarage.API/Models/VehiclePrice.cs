@@ -1,4 +1,5 @@
 namespace LuxGarage.API.Models;
+
 /// <summary>
 /// Represents a vehicle price in the LuxGarage system, containing properties for the price's ID, associated offer, 
 /// validity period, and price per day. This class serves as a data model for vehicle prices in the application, allowing for the storage

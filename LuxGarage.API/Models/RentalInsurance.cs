@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace LuxGarage.API.Models;
+
 /// <summary>
 /// Represents a rental insurance in the LuxGarage system, containing properties for the rental insurance's ID, associated rental, 
 /// and associated insurance. This class serves as a data model for rental insurances in the application, allowing for 

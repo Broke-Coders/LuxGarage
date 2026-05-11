@@ -1,7 +1,5 @@
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
 namespace LuxGarage.API.Models;
+
 /// <summary>
 /// Represents a vehicle color in the LuxGarage system, containing properties for the vehicle color's ID, name, HTML color code,
 /// and a collection of vehicles associated with the color. This class serves as a data model for vehicle colors in the application,

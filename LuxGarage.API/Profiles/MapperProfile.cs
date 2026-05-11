@@ -1,8 +1,12 @@
 ﻿using AutoMapper;
+using AutoMapper.Configuration;
+using AutoMapper.Internal;
 using LuxGarage.API.DTOs.Requests;
 using LuxGarage.API.DTOs.Requests.Vehicle;
 using LuxGarage.API.DTOs.Responses;
 using LuxGarage.API.DTOs.Responses.Vehicle;
+using LuxGarage.API.DTOs.VehicleImage.Requests;
+using LuxGarage.API.DTOs.VehicleImage.Responses;
 using LuxGarage.API.Models;
 
 namespace LuxGarage.API.Profiles
@@ -57,6 +61,9 @@ namespace LuxGarage.API.Profiles
 
             CreateMap<Workplace, WorkplaceResponse>();
             CreateMap<ChangeWorkplaceRequest, Workplace>();
+
+            // VehicleImage
+            CreateMap<VehicleImage, VehicleImageResponse>();
         }
     }
 }
