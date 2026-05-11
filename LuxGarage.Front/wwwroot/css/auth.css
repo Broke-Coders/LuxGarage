@@ -19,18 +19,6 @@ body {
    padding: 0;
 }
 
-.logo-link {
-   justify-self: end;
-}
-
-#logo {
-   margin-left: 7.5rem;
-}
-
-.logo-link {
-   justify-self: start;
-}
-
 .auth {
    display: grid;
    grid-template-columns: 60fr 40fr;
