@@ -2,6 +2,7 @@ using AutoMapper;
 using FluentAssertions;
 using LuxGarage.API.DTOs.Requests.Vehicle;
 using LuxGarage.API.DTOs.Responses.Vehicle;
+using LuxGarage.API.Services.Implementations;
 using LuxGarage.API.Models;
 using LuxGarage.API.Profiles;
 using LuxGarage.API.Repositories.Interfaces;
