@@ -48,8 +48,11 @@ namespace LuxGarage.API.Services.Implementations
             {
                 Login = request.Login,
                 Password = hashedPassword,
-                WorkplaceId = request.WorkplaceId,
-                PermissionId = request.PermissionId
+                // WorkplaceId = request.WorkplaceId,
+                // PermissionId = request.PermissionId
+                //TEMPORARY -> ONLY FOR API VALIDATION (POZDRO)
+                WorkplaceId = 1,
+                PermissionId = 1
             };
 
             await _employeeRepository.AddAsync(employee);
