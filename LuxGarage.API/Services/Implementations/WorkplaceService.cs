@@ -52,8 +52,8 @@ namespace LuxGarage.API.Services.Implementations
         /// Creates a new workplace based on the provided request, mapping the request to a Workplace model, adding it to the repository,
         /// and returning the created workplace as a WorkplaceResponse DTO.
         /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <param name="request">The request containing the workplace information.</param>
+        /// <returns>The created WorkplaceResponse DTO.</returns>
         public async Task<WorkplaceResponse> CreateAsync(ChangeWorkplaceRequest request)
         {
             var workplace = _mapper.Map<Workplace>(request);
