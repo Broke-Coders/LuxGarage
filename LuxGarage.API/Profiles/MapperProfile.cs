@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using AutoMapper.Configuration;
+using AutoMapper.Internal;
 using LuxGarage.API.DTOs.Requests;
 using LuxGarage.API.DTOs.Requests.Vehicle;
 using LuxGarage.API.DTOs.Responses;
@@ -62,6 +64,12 @@ namespace LuxGarage.API.Profiles
 
             // VehicleImage
             CreateMap<VehicleImage, VehicleImageResponse>();
+
+            this.Internal().ForAllMaps((typeMap, mappingExpression) =>
+            {
+                mappingExpression.MaxDepth(2);
+            }
+            );
         }
     }
 }
