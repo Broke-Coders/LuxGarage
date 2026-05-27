@@ -8,6 +8,8 @@ namespace LuxGarage.API.Repositories.Interfaces;
 public interface IOfferRepository
 {
     Task<List<Offer>> GetAllAsync();
+    Task<List<Offer>> GetAllWithVehicleAsync();
+    Task<Offer?> GetByIdWithVehicleAndImagesAsync(int id);
     Task<Offer?> GetByIdAsync(int id);
     Task<Offer?> GetByVehicleIdAsync(int vehicleId);
     Task AddAsync(Offer offer);

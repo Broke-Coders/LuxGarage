@@ -30,6 +30,32 @@ public class OfferRepository : IOfferRepository
         => await context.Offers.AsNoTracking().ToListAsync();
 
     /// <summary>
+    /// Retrieves all offers with vehicle details from the database.
+    /// </summary>
+    /// <returns></returns>
+    public async Task<List<Offer>> GetAllWithVehicleAsync()
+    => await context.Offers
+        .Include(o => o.Vehicle.VehicleBrand)
+        .Include(o => o.Vehicle.VehicleBody)
+        .Include(o => o.Vehicle.VehicleColor)
+        .AsNoTracking()
+        .ToListAsync();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public async Task<Offer?> GetByIdWithVehicleAndImagesAsync(int id)
+    => await context.Offers
+        .Include(o => o.Vehicle.VehicleBrand)
+        .Include(o => o.Vehicle.VehicleBody)
+        .Include(o => o.Vehicle.VehicleColor)
+        .Include(o => o.Vehicle.Images)
+        .AsNoTracking()
+        .FirstOrDefaultAsync(o => o.Id == id);
+
+    /// <summary>
     /// Retrieves an offer by its unique identifier.
     /// </summary>
     /// <param name="id">The unique identifier of the offer.</param>
