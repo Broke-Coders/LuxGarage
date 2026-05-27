@@ -4,6 +4,7 @@ using AutoMapper.Internal;
 using LuxGarage.API.DTOs.Requests;
 using LuxGarage.API.DTOs.Requests.Vehicle;
 using LuxGarage.API.DTOs.Responses;
+using LuxGarage.API.DTOs.Responses.Offer;
 using LuxGarage.API.DTOs.Responses.Vehicle;
 using LuxGarage.API.DTOs.VehicleImage.Requests;
 using LuxGarage.API.DTOs.VehicleImage.Responses;
@@ -64,6 +65,55 @@ namespace LuxGarage.API.Profiles
 
             // VehicleImage
             CreateMap<VehicleImage, VehicleImageResponse>();
+
+            // Offer
+            CreateMap<Offer, OfferListItemResponse>()
+                .ForMember(dest => dest.ModelName,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleModel.Name))
+                .ForMember(dest => dest.Horsepower,
+                    opt => opt.MapFrom(src => src.Vehicle.Horsepower))
+                .ForMember(dest => dest.BodyName,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleBody.Name))
+                .ForMember(dest => dest.BrandName,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleBrand.Name))
+                .ForMember(dest => dest.Mileage,
+                    opt => opt.MapFrom(src => src.Vehicle.Mileage))
+                .ForMember(dest => dest.PrimaryImageUrl,
+                    opt => opt.MapFrom(src => src.Vehicle.Images[0]))
+                .ForMember(dest => dest.IsAvailable,
+                    opt => opt.MapFrom(src => src.Status.IsAvailable))
+                .ForMember(dest => dest.AvailableFrom,
+                    opt => opt.MapFrom(src => src.Status.StartingDate))
+                .ForMember(dest => dest.AvailableTo,
+                    opt => opt.MapFrom(src => src.Status.DateToEnd));
+
+            CreateMap<Offer, OfferDetailsResponse>()
+                .ForMember(dest => dest.ModelName,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleModel.Name))
+                .ForMember(dest => dest.Horsepower,
+                    opt => opt.MapFrom(src => src.Vehicle.Horsepower))
+                .ForMember(dest => dest.BodyName,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleBody.Name))
+                .ForMember(dest => dest.BrandName,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleBrand.Name))
+                .ForMember(dest => dest.Mileage,
+                    opt => opt.MapFrom(src => src.Vehicle.Mileage))
+                .ForMember(dest => dest.Price,
+                    opt => opt.MapFrom(src => src.Prices[0].PricePerDay))
+                .ForMember(dest => dest.IsAvailable,
+                    opt => opt.MapFrom(src => src.Status.IsAvailable))
+                .ForMember(dest => dest.AvailableFrom,
+                    opt => opt.MapFrom(src => src.Status.StartingDate))
+                .ForMember(dest => dest.AvailableTo,
+                    opt => opt.MapFrom(src => src.Status.DateToEnd))
+                .ForMember(dest => dest.ColorName,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleColor.Name))
+                .ForMember(dest => dest.Description,
+                    opt => opt.MapFrom(src => src.Status.Description))
+                .ForMember(dest => dest.Images,
+                    opt => opt.MapFrom(src => src.Vehicle.Images))
+                .ForMember(dest => dest.LicensePlate,
+                    opt => opt.MapFrom(src => src.Vehicle.LicensePlate));
 
             this.Internal().ForAllMaps((typeMap, mappingExpression) =>
             {

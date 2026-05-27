@@ -13,6 +13,8 @@ public class VehicleStatus
 
     public string Description { get; set; } = "UNKNOWN";
 
+    public bool IsAvailable { get; set; }    
+
     public required DateTime StartingDate { get; set; }
     public DateTime? DateToEnd { get; set; }
 }
