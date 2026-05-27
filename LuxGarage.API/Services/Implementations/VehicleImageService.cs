@@ -56,18 +56,30 @@ public class VehicleImageService : IVehicleImageService
 
     public async Task<VehicleImageResponse> UploadAsync(CreateVehicleImageRequest request)
     {
-        VehicleImage image = new();
-
-        image.VehicleId = request.VehicleId;
-        image.StorageKey = $"{Guid.NewGuid()}_{request.Image.FileName}";
-        image.ContentType = request.Image.ContentType;
-        image.FileSize = request.Image.Length;
-        image.SortOrder = await repo.GetMaxSortOrderAsync(request.VehicleId) + 1;
-
-        await repo.AddAsync(image);
         
-        return mapper.Map<VehicleImageResponse>(image);
+        var uploadFolder = Path.Combine("../LuxGarage.Front", "images", "cars", request.VehicleId.ToString());
 
+        if (!Directory.Exists(uploadFolder))
+        {
+            Directory.CreateDirectory(uploadFolder);
+        }
+
+        var storageKey = $"{Guid.NewGuid()}_{request.Image.FileName}";
+        var filePath = Path.Combine(uploadFolder, storageKey);
+
+        using var stream = new FileStream(filePath, FileMode.Create);
+        await request.Image.CopyToAsync(stream);
+
+        var entity = mapper.Map<VehicleImage>(request);
+        entity.StorageKey = storageKey;
+        entity.OriginalFileName = request.Image.FileName;
+        entity.ContentType = request.Image.ContentType;
+        entity.FileSize = request.Image.Length;
+        entity.SortOrder = await repo.GetMaxSortOrderAsync(request.VehicleId) + 1;
+
+        await repo.AddAsync(entity);
+
+        return mapper.Map<VehicleImageResponse>(entity);
     }
     public async Task<List<VehicleImageResponse>> UploadManyAsync(CreateManyImagesRequest request)
     {
