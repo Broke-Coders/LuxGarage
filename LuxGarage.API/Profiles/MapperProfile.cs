@@ -65,6 +65,7 @@ namespace LuxGarage.API.Profiles
 
             // VehicleImage
             CreateMap<VehicleImage, VehicleImageResponse>();
+<<<<<<< HEAD
 
             // Offer
             CreateMap<Offer, OfferListItemResponse>()
@@ -120,6 +121,8 @@ namespace LuxGarage.API.Profiles
                 mappingExpression.MaxDepth(2);
             }
             );
+=======
+>>>>>>> 7a207201aebbc6bc3f4224088e18f20b7ac065dc
         }
     }
 }
