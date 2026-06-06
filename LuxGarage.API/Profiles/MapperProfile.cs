@@ -61,6 +61,11 @@ namespace LuxGarage.API.Profiles
             CreateMap<UpdateVehicleRequest, Vehicle>()
                      .ForAllMembers(opts => 
                      opts.Condition((src, dest, srcMember) => srcMember != null));
+
+            CreateMap<CreateCustomerRequest, Customer>();
+            CreateMap<UpdateCustomerRequest, Customer>()
+                     .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            CreateMap<CustomerResponse, Customer>();
         }
     }
 }

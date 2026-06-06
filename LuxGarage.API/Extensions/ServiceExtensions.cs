@@ -37,7 +37,6 @@ public static class ServiceExtensions
         services.AddScoped<IRentalRepository, RentalRepository>();
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         services.AddScoped<IWorkplaceRepository, WorkplaceRepository>();
-
         return services;
     }
 
@@ -53,6 +52,7 @@ public static class ServiceExtensions
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IEmployeeService, EmployeeService>();
         services.AddScoped<IWorkplaceService, WorkplaceService>();
+        services.AddScoped<ICustomerService, CustomerService>();
 
         return services;
     }
