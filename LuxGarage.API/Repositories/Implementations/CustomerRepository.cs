@@ -1,6 +1,7 @@
 using LuxGarage.API.Data;
 using LuxGarage.API.Models;
 using LuxGarage.API.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace LuxGarage.API.Repositories.Implementations;
 
@@ -55,9 +56,7 @@ public class CustomerRepository : ICustomerRepository
     /// <param name="id">The unique identifier of the customer to update.</param>
     public async Task UpdateAsync(Customer borrower, int id)
     {
-        Customer? oldBorrower = await _context.Customers.FindAsync(id);
-
-        oldBorrower = borrower;
+        _context.Customers.Update(borrower);
         await _context.SaveChangesAsync();
     }
 
@@ -78,5 +77,15 @@ public class CustomerRepository : ICustomerRepository
 
         _context.Customers.Remove(borrower);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<List<Customer>> GetAllAsync()
+    {
+        return await _context.Customers.AsNoTracking().ToListAsync();
+    }
+
+    public async Task<Customer?> GetByEmailAsync(string email)
+    {
+        return await _context.Customers.FirstOrDefaultAsync(c => c.Email == email);
     }
 }
