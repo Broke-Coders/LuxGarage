@@ -34,4 +34,6 @@ public class Vehicle
 
     public List<Rental> Rentals {get;} = new List<Rental>();
     public List<VehicleImage> Images { get; set; } = new List<VehicleImage>();
+    public int VehicleStatusId { get; set; }
+    public VehicleStatus VehicleStatus { get; set; } = null!;
 }
