@@ -5,6 +5,7 @@ using LuxGarage.API.Services.Interfaces;
 using LuxGarage.API.Models;
 using LuxGarage.API.Repositories;
 using LuxGarage.API.Repositories.Interfaces;
+using LuxGarage.API.DTOs.Responses;
 
 namespace LuxGarage.API.Services.Implementations;
 
@@ -16,6 +17,13 @@ namespace LuxGarage.API.Services.Implementations;
 public class VehicleService : IVehicleService
 {
     private readonly IVehicleRepository _vehicleRepository;
+    private readonly IVehicleBodyRepository _vehicleBodyRepository;
+    private readonly IVehicleColorRepository _vehicleColorRepository;
+    private readonly IVehicleBrandRepository _vehicleBrandRepository;
+    private readonly IVehicleImageRepository _vehicleImageRepository;
+    private readonly IVehicleModelRepository _vehicleModelRepository;
+    private readonly IVehiclePriceRepository _vehiclePriceRepository;
+
     private readonly IMapper _mapper;
 
     /// <summary>
@@ -23,10 +31,19 @@ public class VehicleService : IVehicleService
     /// </summary>
     /// <param name="vehicleRepository">The vehicle repository to use.</param>
     /// <param name="mapper">The mapper to use.</param>
-    public VehicleService(IVehicleRepository vehicleRepository, IMapper mapper)
+    public VehicleService(IVehicleRepository vehicleRepository, IMapper mapper, IVehicleBodyRepository vehicleBodyRepository,
+                          IVehicleBrandRepository vehicleBrandRepository, IVehicleColorRepository vehicleColorRepository,
+                          IVehicleImageRepository vehicleImageRepository, IVehicleModelRepository vehicleModelRepository,
+                          IVehiclePriceRepository vehiclePriceRepository)
     {
         _vehicleRepository = vehicleRepository;
         _mapper = mapper;
+        _vehicleBodyRepository = vehicleBodyRepository;
+        _vehicleBrandRepository = vehicleBrandRepository;
+        _vehicleColorRepository = vehicleColorRepository;
+        _vehicleImageRepository = vehicleImageRepository;
+        _vehicleModelRepository = vehicleModelRepository;
+        _vehiclePriceRepository = vehiclePriceRepository;
     }
 
     /// <summary>
@@ -127,4 +144,45 @@ public class VehicleService : IVehicleService
         };
     }
 
+    public async Task<VehicleDetailsResponse> UpdateAsync(int id, UpdateVehicleRequest request)
+    {
+        var vehicle = await _vehicleRepository.GetByIdAsync(id)
+                      ?? throw new KeyNotFoundException($"Vehicle with ID {id} doest not exists.");
+
+        var body = await _vehicleBodyRepository.GetByIdAsync(vehicle.VehicleBodyId)
+                      ?? throw new KeyNotFoundException($"Vehicle body with ID {vehicle.VehicleBodyId} doest not exists.");
+
+        var color = await _vehicleColorRepository.GetByIdAsync(vehicle.VehicleColorId)
+                      ?? throw new KeyNotFoundException($"Vehicle color with ID {vehicle.VehicleColorId} doest not exists.");
+
+        var brand = await _vehicleBrandRepository.GetByIdAsync(vehicle.VehicleBrandId)
+                      ?? throw new KeyNotFoundException($"Vehicle brand with ID {vehicle.VehicleBrandId} doest not exists.");
+
+        var image = await _vehicleImageRepository.GetByIdAsync(vehicle.VehicleImageId)
+                      ?? throw new KeyNotFoundException($"Vehicle image with ID {vehicle.VehicleImageId} doest not exists.");
+
+        var model = await _vehicleModelRepository.GetByIdAsync(vehicle.VehicleModelId)
+                      ?? throw new KeyNotFoundException($"Vehicle model with ID {vehicle.VehicleModelId} doest not exists.");
+
+        /*
+        var vehicle = await _vehiclePriceRepository.GetByIdAsync(vehicle.)
+                      ?? throw new KeyNotFoundException($"Vehicle price with ID {id} doest not exists.");
+        */
+
+        _mapper.Map(request, vehicle);
+
+        await _vehicleRepository.UpdateAsync(vehicle, id);
+
+        return _mapper.Map<VehicleDetailsResponse>(vehicle);
+
+    }
+
+    public async Task<bool> DeleteAsync(int id)
+    {
+        var vehicle = await _vehicleRepository.GetByIdAsync(id);
+        if (vehicle == null) return false;
+
+        await _vehicleRepository.DeleteAsync(id);
+        return true;
+    }
 }
