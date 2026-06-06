@@ -57,6 +57,10 @@ namespace LuxGarage.API.Profiles
 
             CreateMap<Workplace, WorkplaceResponse>();
             CreateMap<ChangeWorkplaceRequest, Workplace>();
+
+            CreateMap<UpdateVehicleRequest, Vehicle>()
+                     .ForAllMembers(opts => 
+                     opts.Condition((src, dest, srcMember) => srcMember != null));
         }
     }
 }
