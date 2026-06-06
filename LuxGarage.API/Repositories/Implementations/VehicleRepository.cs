@@ -110,4 +110,15 @@ public class VehicleRepository : IVehicleRepository
         _context.Vehicles.Remove(vehicle);
         await _context.SaveChangesAsync();
     }
+
+    public IQueryable<Vehicle> GetAllQueryable()
+    {
+        return _context.Vehicles
+            .Include(v => v.VehicleBrand)
+            .Include(v => v.VehicleModel)
+            .Include(v => v.VehicleBody)
+            .Include(v => v.VehicleColor)
+            .Include(v => v.VehicleStatus)
+            .AsNoTracking();
+    }
 }
