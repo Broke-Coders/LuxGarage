@@ -40,7 +40,6 @@ public static class ServiceExtensions
         services.AddScoped<IRentalRepository, RentalRepository>();
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         services.AddScoped<IWorkplaceRepository, WorkplaceRepository>();
-
         return services;
     }
 
