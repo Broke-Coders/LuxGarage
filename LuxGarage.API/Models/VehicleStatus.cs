@@ -1,5 +1,15 @@
 namespace LuxGarage.API.Models;
 
+
+public enum StatusType
+{
+    Available,
+    Rented,
+    Maintenance,
+    Unavailable
+}
+
+
 /// <summary>
 /// Represents a vehicle status in the LuxGarage system, containing properties for the status's ID, description, starting date, 
 /// and optional end date. This class serves as a data model for vehicle statuses in the application, 
@@ -10,6 +20,7 @@ namespace LuxGarage.API.Models;
 public class VehicleStatus
 {
     public int Id { get; set; }
+    public StatusType Name { get; set; } = StatusType.Unavailable;
 
     public string Description { get; set; } = "UNKNOWN";
 

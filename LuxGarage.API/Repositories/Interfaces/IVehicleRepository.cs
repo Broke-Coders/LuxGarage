@@ -9,6 +9,7 @@ namespace LuxGarage.API.Repositories.Interfaces;
 public interface IVehicleRepository
 {
     Task<List<Vehicle>> GetAllAsync();
+    IQueryable<Vehicle> GetAllQueryable();
     Task<Vehicle?> GetByIdAsync(int id);
     Task<Vehicle?> GetByLicensePlateAsync(string licensePlate);
     Task AddAsync(Vehicle vehicle);

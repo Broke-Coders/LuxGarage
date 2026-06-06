@@ -210,9 +210,10 @@ public static class DataExtensions
     /// <param name="builder">The web application builder.</param>
     public static void AddStoreDb(this WebApplicationBuilder builder)
     {
-        builder.Services.AddDbContext<RentalContext>((sp, options) =>
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+        builder.Services.AddDbContext<RentalContext>((options) =>
         {
-           options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")); 
+           options.UseNpgsql(connectionString); 
         });
     }
 }

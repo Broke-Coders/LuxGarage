@@ -6,6 +6,7 @@ using LuxGarage.API.Models;
 using LuxGarage.API.Repositories;
 using LuxGarage.API.Repositories.Interfaces;
 using LuxGarage.API.DTOs.Responses;
+using Microsoft.EntityFrameworkCore;
 
 namespace LuxGarage.API.Services.Implementations;
 
@@ -54,9 +55,41 @@ public class VehicleService : IVehicleService
     /// <returns>The list of vehicle items.</returns>
     public async Task<List<VehicleListItemResponse>> GetAllAsync(GetVehiclesRequest request)
     {
-        var vehicles = await _vehicleRepository.GetAllAsync();
+        var query = _vehicleRepository.GetAllQueryable();
 
-        vehicles = ApplySorting(vehicles, request);
+        if (!string.IsNullOrWhiteSpace(request.SearchTerm))
+        {
+            query = query.Where(v => v.VehicleBrand.Name.Contains(request.SearchTerm)
+                                || v.VehicleModel.Name.Contains(request.SearchTerm));
+        }
+
+        if (request.BrandId.HasValue)
+        {
+            query = query.Where(v => v.VehicleBrandId == request.BrandId);
+        }
+
+        if (request.BodyTypeId.HasValue)
+        {
+            query = query.Where(v => v.VehicleBodyId == request.BodyTypeId);
+        }
+
+        if (request.YearFrom.HasValue)
+        {
+            query = query.Where(v => v.year >= request.YearFrom);
+        }
+
+        if (request.YearTo.HasValue)
+        {
+            query = query.Where(v => v.year <= request.YearTo);
+        }
+
+        /*
+        // show only avalible cars
+        query = query.Where(v => v.VehicleStatus.Name == StatusType.Available);
+        */
+        query = ApplySortingQueryable(query, request);
+
+        var vehicles = await query.ToListAsync();
 
         return _mapper.Map<List<VehicleListItemResponse>>(vehicles);
     }
@@ -141,6 +174,39 @@ public class VehicleService : IVehicleService
             _ => request.Descending
                 ? vehicles.OrderByDescending(v => v.Id).ToList()
                 : vehicles.OrderBy(v => v.Id).ToList()
+        };
+    }
+
+    private static IQueryable<Vehicle> ApplySortingQueryable(IQueryable<Vehicle> vehicles, GetVehiclesRequest request)
+    {
+        var sortBy = request.SortBy?.Trim().ToLower();
+
+        return (sortBy, request.Descending) switch
+        {
+            ("brand", false) => vehicles.OrderBy(v => v.VehicleBrand.Name),
+            ("brand", true) => vehicles.OrderByDescending(v => v.VehicleBrand.Name),
+
+            ("model", false) => vehicles.OrderBy(v => v.VehicleModel.Name),
+            ("model", true) => vehicles.OrderByDescending(v => v.VehicleModel.Name),
+
+            ("body", false) => vehicles.OrderBy(v => v.VehicleBody.Name),
+            ("body", true) => vehicles.OrderByDescending(v => v.VehicleBody.Name),
+
+            ("color", false) => vehicles.OrderBy(v => v.VehicleColor.Name),
+            ("color", true) => vehicles.OrderByDescending(v => v.VehicleColor.Name),
+
+            ("horsepower", false) => vehicles.OrderBy(v => v.Horsepower),
+            ("horsepower", true) => vehicles.OrderByDescending(v => v.Horsepower),
+
+            ("mileage", false) => vehicles.OrderBy(v => v.Mileage),
+            ("mileage", true) => vehicles.OrderByDescending(v => v.Mileage),
+
+            ("licenseplate", false) => vehicles.OrderBy(v => v.LicensePlate),
+            ("licenseplate", true) => vehicles.OrderByDescending(v => v.LicensePlate),
+
+            _ => request.Descending
+                ? vehicles.OrderByDescending(v => v.Id)
+                : vehicles.OrderBy(v => v.Id)
         };
     }
 
