@@ -1,6 +1,7 @@
 using LuxGarage.API.Data;
 using LuxGarage.API.Models;
 using LuxGarage.API.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace LuxGarage.API.Repositories.Implementations;
 
@@ -69,5 +70,15 @@ namespace LuxGarage.API.Repositories.Implementations;
 
         _context.VehiclePrices.Remove(vehiclePrice);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<decimal> GetCurrentPriceByVehicleIdAsync(int vehicleId)
+    {
+        return await _context.VehiclePrices
+                             .Where(p => p.Offer.VehicleId == vehicleId
+                             && p.ValidFrom <= DateTime.Now
+                             && (p.ValidTo == null || p.ValidTo >= DateTime.Now))
+                             .Select(p => p.PricePerDay)
+                             .FirstOrDefaultAsync();
     }
 }

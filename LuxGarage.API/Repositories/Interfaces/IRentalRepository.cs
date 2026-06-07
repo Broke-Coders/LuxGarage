@@ -12,4 +12,5 @@ public interface IRentalRepository
     Task AddAsync(Rental rental);
     Task UpdateAsync(Rental rental, int id);
     Task DeleteAsync(int id);
+    Task<List<Rental>> GetByVehicleIdAsync(int vehicleId);
 }

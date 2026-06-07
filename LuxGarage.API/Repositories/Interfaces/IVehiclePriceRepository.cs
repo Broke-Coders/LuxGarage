@@ -12,4 +12,5 @@ namespace LuxGarage.API.Repositories.Interfaces;
         Task AddAsync(VehiclePrice price);
         Task UpdateAsync(VehiclePrice price, int id);
         Task DeleteAsync(int id);
+        Task<decimal> GetCurrentPriceByVehicleIdAsync(int vehicleId);
     }
