@@ -135,6 +135,14 @@ public static class DataExtensions
             dbContext.SaveChanges();
         }
 
+        if(!dbContext.Set<VehicleStatus>().Any())
+        {
+            dbContext.Set<VehicleStatus>().AddRange(
+                new VehicleStatus{Name = StatusType.Available, IsAvailable = true, StartingDate = DateTime.UtcNow}
+            );
+            dbContext.SaveChanges();
+        }
+
         if (!dbContext.Set<Vehicle>().Any())
         {
 
@@ -142,6 +150,7 @@ public static class DataExtensions
             int modelId = dbContext.Set<VehicleModel>().First(m => m.Name == "M5 Competition").Id;
             int bodyId = dbContext.Set<VehicleBody>().First(b => b.Name == "Sedan").Id;
             int colorId = dbContext.Set<VehicleColor>().First(c => c.Name == "WHITE").Id;
+            int statusId = dbContext.Set<VehicleStatus>().First(s => s.Name == StatusType.Available).Id;
             dbContext.Set<Vehicle>().AddRange(
                 new Vehicle
                 {
@@ -152,6 +161,7 @@ public static class DataExtensions
                     Mileage = 50000,
                     VehicleBodyId = bodyId,
                     VehicleColorId = colorId,
+                    VehicleStatusId = statusId
                 },
                 new Vehicle
                 {
@@ -161,7 +171,8 @@ public static class DataExtensions
                     LicensePlate = "WPR 12345",
                     Mileage = 30000,
                     VehicleBodyId = dbContext.Set<VehicleBody>().First(b => b.Name == "Sedan").Id,
-                    VehicleColorId = dbContext.Set<VehicleColor>().First(c => c.Name == "BLACK").Id
+                    VehicleColorId = dbContext.Set<VehicleColor>().First(c => c.Name == "BLACK").Id,
+                    VehicleStatusId = statusId
                 },
                 new Vehicle
                 {
@@ -171,7 +182,8 @@ public static class DataExtensions
                     LicensePlate = "SZY 12345",
                     Mileage = 44444,
                     VehicleBodyId = dbContext.Set<VehicleBody>().First(b => b.Name == "Hatchback").Id,
-                    VehicleColorId = dbContext.Set<VehicleColor>().First(c => c.Name == "RED").Id
+                    VehicleColorId = dbContext.Set<VehicleColor>().First(c => c.Name == "RED").Id,
+                    VehicleStatusId = statusId
                 }
                 );
         }

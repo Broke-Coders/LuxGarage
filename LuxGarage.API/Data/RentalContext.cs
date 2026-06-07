@@ -13,6 +13,7 @@ public class RentalContext(DbContextOptions<RentalContext> options)
 : DbContext(options)
 {
     public DbSet<Customer> Customers => Set<Customer>();
+    public DbSet<Employee> Employees => Set<Employee>();
     public DbSet<Insurance> Insurances => Set<Insurance>();
     public DbSet<Permission> Permissions => Set<Permission>();
     public DbSet<Offer> Offers => Set<Offer>();
@@ -25,7 +26,7 @@ public class RentalContext(DbContextOptions<RentalContext> options)
     public DbSet<VehicleColor> VehicleColors => Set<VehicleColor>();
     public DbSet<VehicleImage> VehicleImages => Set<VehicleImage>();
     public DbSet<VehiclePrice> VehiclePrices => Set<VehiclePrice>();
-    public DbSet<Employee> Employees => Set<Employee>();
+    public DbSet<VehicleStatus> VehicleStatuses => Set<VehicleStatus>();
     public DbSet<Workplace> Workplaces => Set<Workplace>();
 
     /// <summary>
