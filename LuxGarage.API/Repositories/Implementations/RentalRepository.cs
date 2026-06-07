@@ -24,6 +24,13 @@ public class RentalRepository : IRentalRepository
     }
 
     /// <summary>
+    /// Retrieves all rentals from the database.
+    /// </summary>
+    /// <returns>A list of all rentals.</returns>
+    public async Task<IEnumerable<Rental>> GetAllAsync()
+        => await _context.Rentals.ToListAsync();
+
+    /// <summary>
     /// Retrieves a rental by its id from the database.
     /// </summary>
     /// <param name="id">The unique identifier of the rental to retrieve.</param>
