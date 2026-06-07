@@ -63,6 +63,7 @@ namespace LuxGarage.API.Profiles
             CreateMap<Workplace, WorkplaceResponse>();
             CreateMap<ChangeWorkplaceRequest, Workplace>();
 
+<<<<<<< HEAD
             // VehicleImage
             CreateMap<VehicleImage, VehicleImageResponse>();
 <<<<<<< HEAD
@@ -123,6 +124,18 @@ namespace LuxGarage.API.Profiles
             );
 =======
 >>>>>>> 7a207201aebbc6bc3f4224088e18f20b7ac065dc
+=======
+            CreateMap<UpdateVehicleRequest, Vehicle>()
+                     .ForAllMembers(opts => 
+                     opts.Condition((src, dest, srcMember) => srcMember != null));
+
+            CreateMap<CreateCustomerRequest, Customer>();
+            CreateMap<UpdateCustomerRequest, Customer>()
+                     .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            CreateMap<Customer, CustomerResponse>();
+            CreateMap<Rental, RentalResponse>();
+            CreateMap<CreateRentalRequest, Rental>();
+>>>>>>> cf672632a7e9d9291ea91ad30ebb79504d978c9f
         }
     }
 }

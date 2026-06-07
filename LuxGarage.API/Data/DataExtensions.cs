@@ -192,12 +192,30 @@ public static class DataExtensions
         if(!dbContext.Set<Customer>().Any())
         {
             dbContext.Set<Customer>().AddRange(
-                new Customer{Email = "wuj@gmail.com",
-                BorrowCounter = 1},
-                new Customer{Email = "ziutek@outlook.com",
-                BorrowCounter = 5},
-                new Customer{Email = "hop@maupa.net",
-                BorrowCounter = 3}
+                new Customer{
+                    Email = "wuj@gmail.com",
+                    BorrowCounter = 1,
+                    FirstName = "Jan",
+                    LastName = "Kowalski",
+                    PhoneNumber = "123456789",
+                    LicenseNumber = "ABC12345"
+                },
+                new Customer{
+                    Email = "ziutek@outlook.com",
+                    BorrowCounter = 5,
+                    FirstName = "Zbigniew",
+                    LastName = "Nowak",
+                    PhoneNumber = "987654321",
+                    LicenseNumber = "XYZ98765"
+                },
+                new Customer{
+                    Email = "hop@maupa.net",
+                    BorrowCounter = 3,
+                    FirstName = "Adam",
+                    LastName = "Wiśniewski",
+                    PhoneNumber = "555666777",
+                    LicenseNumber = "DEF55566"
+                }
             );
             dbContext.SaveChanges();
         }
@@ -210,9 +228,10 @@ public static class DataExtensions
     /// <param name="builder">The web application builder.</param>
     public static void AddStoreDb(this WebApplicationBuilder builder)
     {
-        builder.Services.AddDbContext<RentalContext>((sp, options) =>
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+        builder.Services.AddDbContext<RentalContext>((options) =>
         {
-           options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")); 
+           options.UseNpgsql(connectionString); 
         });
     }
 }

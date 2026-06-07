@@ -31,8 +31,11 @@ public static class ServiceExtensions
         services.AddScoped<IVehicleBodyRepository, VehicleBodyRepository>();
         services.AddScoped<IVehicleColorRepository, VehicleColorRepository>();
         services.AddScoped<IVehiclePriceRepository, VehiclePriceRepository>();
+<<<<<<< HEAD
         services.AddScoped<IVehicleImageRepository, VehicleImageRepository>();
         services.AddScoped<IOfferRepository, OfferRepository>();
+=======
+>>>>>>> cf672632a7e9d9291ea91ad30ebb79504d978c9f
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IInsuranceRepository, InsuranceRepository>();
         services.AddScoped<IPermissionRepository, PermissionRepository>();
@@ -40,7 +43,6 @@ public static class ServiceExtensions
         services.AddScoped<IRentalRepository, RentalRepository>();
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         services.AddScoped<IWorkplaceRepository, WorkplaceRepository>();
-
         return services;
     }
 
@@ -56,7 +58,12 @@ public static class ServiceExtensions
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IEmployeeService, EmployeeService>();
         services.AddScoped<IWorkplaceService, WorkplaceService>();
+<<<<<<< HEAD
         services.AddScoped<IVehicleImageService, VehicleImageService>();
+=======
+        services.AddScoped<ICustomerService, CustomerService>();
+        services.AddScoped<IRentalService, RentalService>();
+>>>>>>> cf672632a7e9d9291ea91ad30ebb79504d978c9f
 
         return services;
     }

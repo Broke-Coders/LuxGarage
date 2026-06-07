@@ -8,4 +8,10 @@ public class GetVehiclesRequest
 {
     public string? SortBy { get; set; } = "id";
     public bool Descending { get; set; }
+    public string? SearchTerm { get; set; }
+    public int? BrandId { get; set; }
+    public int? BodyTypeId { get; set; }
+    public int? YearFrom { get; set; }
+    public int? YearTo { get; set; }
+
 }

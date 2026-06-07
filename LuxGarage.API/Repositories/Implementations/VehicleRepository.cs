@@ -84,18 +84,7 @@ public class VehicleRepository : IVehicleRepository
     /// <param name="id">The unique identifier of the vehicle to update.</param>
     public async Task UpdateAsync(Vehicle vehicle, int id)
     {
-        Vehicle? myVehicle = await _context.Vehicles.FindAsync(id);
-
-        if (myVehicle == null)
-            return;
-
-        myVehicle.VehicleBrand = vehicle.VehicleBrand;
-        myVehicle.VehicleBody = vehicle.VehicleBody;
-        myVehicle.LicensePlate = vehicle.LicensePlate;
-        myVehicle.Mileage = vehicle.Mileage;
-        myVehicle.Horsepower = vehicle.Horsepower;
-        myVehicle.VehicleColor = vehicle.VehicleColor;
-
+        _context.Vehicles.Update(vehicle);
         await _context.SaveChangesAsync();
     }
 
@@ -109,5 +98,16 @@ public class VehicleRepository : IVehicleRepository
         if (vehicle is null) return;
         _context.Vehicles.Remove(vehicle);
         await _context.SaveChangesAsync();
+    }
+
+    public IQueryable<Vehicle> GetAllQueryable()
+    {
+        return _context.Vehicles
+            .Include(v => v.VehicleBrand)
+            .Include(v => v.VehicleModel)
+            .Include(v => v.VehicleBody)
+            .Include(v => v.VehicleColor)
+            .Include(v => v.VehicleStatus)
+            .AsNoTracking();
     }
 }
