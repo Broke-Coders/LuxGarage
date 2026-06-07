@@ -15,33 +15,32 @@ namespace LuxGarage.API.Repositories.Implementations;
 /// The repository encapsulates the logic for accessing and manipulating customer data, ensuring that the application can manage customer 
 /// information effectively while maintaining a separation of concerns between the data access layer and the business logic layer of the application.
 /// </remarks>
+/// <summary>
+/// Implements the data access layer for customer management using Entity Framework Core.
+/// Handles the physical interaction with the database for all customer-related entities.
+/// </summary>
 public class CustomerRepository : ICustomerRepository
 {
     private readonly RentalContext _context;
 
     /// <summary>
-    /// Initializes a new instance of the CustomerRepository class, providing the necessary context for accessing the database 
-    /// and performing operations on customer data.
+    /// Initializes a new instance of the <see cref="CustomerRepository"/> class.
     /// </summary>
-    /// <param name="context">context for accessing the database</param>
+    /// <param name="context">The EF Core database context.</param>
     public CustomerRepository(RentalContext context)
     {
         _context = context;
     }
 
     /// <summary>
-    /// Retrieves a customer by their unique identifier from the database, 
-    /// allowing for the retrieval of specific customer information based on the provided ID.
+    /// Finds a customer by their primary key.
     /// </summary>
-    /// <param name="id">The unique identifier of the customer to retrieve.</param>
-    /// <returns>The customer if found; otherwise, null.</returns>
     public async Task<Customer?> GetByIdAsync(int id) 
         => await _context.Customers.FindAsync(id);
     
     /// <summary>
-    /// Adds a new customer to the database, allowing for the creation of new customer records in the system.
+    /// Inserts a new customer record into the database.
     /// </summary>
-    /// <param name="borrower">The customer to add.</param>
     public async Task AddAsync(Customer borrower)
     {
         await _context.Customers.AddAsync(borrower);
@@ -49,11 +48,9 @@ public class CustomerRepository : ICustomerRepository
     }
 
     /// <summary>
-    /// Updates an existing customer's information in the database, 
-    /// allowing for the modification of customer records based on the provided customer data and ID.
+    /// Updates an existing customer record. 
+    /// Note: EF Core's Update() handles tracking and modification detection.
     /// </summary>
-    /// <param name="borrower">The updated customer information.</param>
-    /// <param name="id">The unique identifier of the customer to update.</param>
     public async Task UpdateAsync(Customer borrower, int id)
     {
         _context.Customers.Update(borrower);
@@ -61,17 +58,14 @@ public class CustomerRepository : ICustomerRepository
     }
 
     /// <summary>
-    /// Deletes a customer from the database based on their unique identifier, 
-    /// allowing for the removal of customer records from the system.
+    /// Removes a customer from the database.
     /// </summary>
-    /// <param name="id">The unique identifier of the customer to delete.</param>
     public async Task DeleteAsync(int id)
     {
         var borrower = await _context.Customers.FindAsync(id);
         
         if (borrower == null)
         {
-            Console.WriteLine("borrower with given id not found");
             return;
         }
 
@@ -79,11 +73,17 @@ public class CustomerRepository : ICustomerRepository
         await _context.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Retrieves all customers, optimizing performance with AsNoTracking.
+    /// </summary>
     public async Task<List<Customer>> GetAllAsync()
     {
         return await _context.Customers.AsNoTracking().ToListAsync();
     }
 
+    /// <summary>
+    /// Performs an asynchronous lookup for a customer by their email.
+    /// </summary>
     public async Task<Customer?> GetByEmailAsync(string email)
     {
         return await _context.Customers.FirstOrDefaultAsync(c => c.Email == email);

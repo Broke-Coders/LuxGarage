@@ -7,6 +7,10 @@ using LuxGarage.API.Services.Interfaces;
 
 namespace LuxGarage.API.Services.Implementations;
 
+/// <summary>
+/// Implements the core rental engine for the LuxGarage API, orchestrating the booking lifecycle,
+/// pricing strategies (including long-term discounts), and vehicle availability management.
+/// </summary>
 public class RentalService : IRentalService
 {
     private readonly IRentalRepository _rentalRepository;
@@ -15,6 +19,9 @@ public class RentalService : IRentalService
     private readonly IVehiclePriceRepository _priceRepository;
     private readonly IMapper _mapper;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RentalService"/> class with necessary repository dependencies.
+    /// </summary>
     public RentalService(IRentalRepository rentalRepository, IMapper mapper,
         IVehicleRepository vehicleRepository, ICustomerRepository customerRepository,
         IVehiclePriceRepository vehiclePriceRepository)
@@ -25,6 +32,14 @@ public class RentalService : IRentalService
         _customerRepository = customerRepository;
         _priceRepository = vehiclePriceRepository;
     }
+
+    /// <summary>
+    /// Calculates the total rental price, applying a 20% discount for long-term rentals (over 30 days).
+    /// </summary>
+    /// <param name="vehicleId">The vehicle ID to determine the base daily rate.</param>
+    /// <param name="start">Rental start date.</param>
+    /// <param name="end">Rental end date.</param>
+    /// <returns>The calculated total price.</returns>
     public async Task<decimal> CalculateTotalPriceAsync(int vehicleId, DateTime start, DateTime end)
     {
         var days = (end - start).Days;
@@ -43,6 +58,12 @@ public class RentalService : IRentalService
         return total;
     }
 
+    /// <summary>
+    /// Executes the rental booking process, including "on-the-fly" customer creation and availability final checks.
+    /// </summary>
+    /// <param name="request">The rental request details.</param>
+    /// <param name="employeeId">The ID of the processing employee.</param>
+    /// <returns>A finalized rental response.</returns>
     public async Task<RentalResponse> CreateRentalAsync(CreateRentalRequest request, int employeeId)
     {   
         var customer = await _customerRepository.GetByEmailAsync(request.CustomerEmail);
@@ -83,6 +104,9 @@ public class RentalService : IRentalService
         return _mapper.Map<RentalResponse>(rental);
     }
 
+    /// <summary>
+    /// Determines vehicle availability by checking for overlapping rentals in the requested time frame.
+    /// </summary>
     public async Task<bool> IsVehicleAvailableAsync(int vehicleId, DateTime start, DateTime end)
     {
         var rentals = await _rentalRepository.GetByVehicleIdAsync(vehicleId);
