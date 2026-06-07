@@ -12,5 +12,11 @@ namespace LuxGarage.API.Repositories.Interfaces;
         Task AddAsync(VehiclePrice price);
         Task UpdateAsync(VehiclePrice price, int id);
         Task DeleteAsync(int id);
+        /// <summary>
+        /// Retrieves the currently active daily rental price for a specific vehicle.
+        /// Searches across associated offers and valid time frames to find the effective price.
+        /// </summary>
+        /// <param name="vehicleId">The vehicle ID.</param>
+        /// <returns>The current price per day.</returns>
         Task<decimal> GetCurrentPriceByVehicleIdAsync(int vehicleId);
     }
