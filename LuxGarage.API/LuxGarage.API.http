@@ -1,6 +1,32 @@
 @LuxGarage.API_HostAddress = http://localhost:5054
 
-GET {{LuxGarage.API_HostAddress}}/
+GET {{LuxGarage.API_HostAddress}}/api/rental
 Accept: application/json
+
+### Create a new rental
+POST {{LuxGarage.API_HostAddress}}/api/rental
+Content-Type: application/json
+
+{
+  "vehicleId": 1,
+  "customerEmail": "test@example.com",
+  "startDate": "2026-06-10T10:00:00",
+  "endDate": "2026-06-15T10:00:00",
+  "firstName": "Jan",
+  "lastName": "Kowalski",
+  "phoneNumber": "123456789",
+  "licenseNumber": "ABC12345"
+}
+
+### Update rental status (e.g., InProgress = 1)
+PUT {{LuxGarage.API_HostAddress}}/api/rental/1
+Content-Type: application/json
+
+{
+  "status": 1
+}
+
+### Delete rental
+DELETE {{LuxGarage.API_HostAddress}}/api/rental/1
 
 ###
