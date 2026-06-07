@@ -39,4 +39,32 @@ public interface IRentalService
     /// <param name="end">The end date of the rental.</param>
     /// <returns>The total calculated price for the rental period.</returns>
     Task<decimal> CalculateTotalPriceAsync(int vehicleId, DateTime start, DateTime end);
+
+    /// <summary>
+    /// Retrieves all rentals.
+    /// </summary>
+    /// <returns>A collection of all rental responses.</returns>
+    Task<IEnumerable<RentalResponse>> GetAllAsync();
+
+    /// <summary>
+    /// Retrieves a specific rental by its ID.
+    /// </summary>
+    /// <param name="id">The unique identifier of the rental.</param>
+    /// <returns>The rental response if found; otherwise, null.</returns>
+    Task<RentalResponse?> GetByIdAsync(int id);
+
+    /// <summary>
+    /// Updates an existing rental.
+    /// </summary>
+    /// <param name="id">The unique identifier of the rental to update.</param>
+    /// <param name="request">The update details.</param>
+    /// <returns>The updated rental response.</returns>
+    Task<RentalResponse> UpdateAsync(int id, UpdateRentalRequest request);
+
+    /// <summary>
+    /// Deletes a rental.
+    /// </summary>
+    /// <param name="id">The unique identifier of the rental to delete.</param>
+    /// <returns>True if deleted successfully; otherwise, false.</returns>
+    Task<bool> DeleteAsync(int id);
 }

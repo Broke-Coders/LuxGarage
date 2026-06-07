@@ -111,6 +111,60 @@ public class RentalService : IRentalService
     {
         var rentals = await _rentalRepository.GetByVehicleIdAsync(vehicleId);
 
-        return !rentals.Any(r => start < r.AppointedReturnTime && end > r.StartingTime);
+        return !rentals.Any(r => start < r.AppointedReturnTime && end > r.StartingTime && r.Status != RentalStatus.Cancelled);
+    }
+
+    /// <summary>
+    /// Retrieves all rentals.
+    /// </summary>
+    public async Task<IEnumerable<RentalResponse>> GetAllAsync()
+    {
+        var rentals = await _rentalRepository.GetAllAsync();
+        return _mapper.Map<IEnumerable<RentalResponse>>(rentals);
+    }
+
+    /// <summary>
+    /// Retrieves a rental by its ID.
+    /// </summary>
+    public async Task<RentalResponse?> GetByIdAsync(int id)
+    {
+        var rental = await _rentalRepository.GetByIdAsync(id);
+        return _mapper.Map<RentalResponse>(rental);
+    }
+
+    /// <summary>
+    /// Updates an existing rental and recalculates the price if dates changed.
+    /// </summary>
+    public async Task<RentalResponse> UpdateAsync(int id, UpdateRentalRequest request)
+    {
+        var rental = await _rentalRepository.GetByIdAsync(id)
+                     ?? throw new KeyNotFoundException($"Rental with ID {id} was not found.");
+
+        if (request.AppointedReturnTime.HasValue)
+        {
+            rental.AppointedReturnTime = request.AppointedReturnTime.Value;
+            // Recalculate price
+            rental.TotalPrice = await CalculateTotalPriceAsync(rental.VehicleId, rental.StartingTime, rental.AppointedReturnTime);
+        }
+
+        if (request.Status.HasValue)
+        {
+            rental.Status = request.Status.Value;
+        }
+
+        await _rentalRepository.UpdateAsync(rental, id);
+        return _mapper.Map<RentalResponse>(rental);
+    }
+
+    /// <summary>
+    /// Deletes a rental.
+    /// </summary>
+    public async Task<bool> DeleteAsync(int id)
+    {
+        var rental = await _rentalRepository.GetByIdAsync(id);
+        if (rental == null) return false;
+
+        await _rentalRepository.DeleteAsync(id);
+        return true;
     }
 }
