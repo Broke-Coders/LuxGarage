@@ -30,6 +30,7 @@ public static class ServiceExtensions
         services.AddScoped<IVehicleModelRepository, VehicleModelRepository>();
         services.AddScoped<IVehicleBodyRepository, VehicleBodyRepository>();
         services.AddScoped<IVehicleColorRepository, VehicleColorRepository>();
+        services.AddScoped<IVehiclePriceRepository, VehiclePriceRepository>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IInsuranceRepository, InsuranceRepository>();
         services.AddScoped<IPermissionRepository, PermissionRepository>();
@@ -53,6 +54,7 @@ public static class ServiceExtensions
         services.AddScoped<IEmployeeService, EmployeeService>();
         services.AddScoped<IWorkplaceService, WorkplaceService>();
         services.AddScoped<ICustomerService, CustomerService>();
+        services.AddScoped<IRentalService, RentalService>();
 
         return services;
     }

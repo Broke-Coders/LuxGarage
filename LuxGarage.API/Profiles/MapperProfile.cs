@@ -65,7 +65,9 @@ namespace LuxGarage.API.Profiles
             CreateMap<CreateCustomerRequest, Customer>();
             CreateMap<UpdateCustomerRequest, Customer>()
                      .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-            CreateMap<CustomerResponse, Customer>();
+            CreateMap<Customer, CustomerResponse>();
+            CreateMap<Rental, RentalResponse>();
+            CreateMap<CreateRentalRequest, Rental>();
         }
     }
 }

@@ -1,6 +1,7 @@
 using LuxGarage.API.Data;
 using LuxGarage.API.Models;
 using LuxGarage.API.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace LuxGarage.API.Repositories.Implementations;
 
@@ -48,9 +49,7 @@ public class RentalRepository : IRentalRepository
     /// <param name="id">The unique identifier of the rental to update.</param>
     public async Task UpdateAsync(Rental rental, int id)
     {
-        Rental? oldRental = await _context.Rentals.FindAsync(id);
-
-        oldRental = rental;
+        _context.Rentals.Update(rental);
         await _context.SaveChangesAsync();
     }
 
@@ -70,5 +69,13 @@ public class RentalRepository : IRentalRepository
 
         _context.Rentals.Remove(rental);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<List<Rental>> GetByVehicleIdAsync(int vehicleId)
+    {
+        return await _context.Rentals
+                             .Where(r => r.VehicleId == vehicleId)
+                             .AsNoTracking()
+                             .ToListAsync();
     }
 }
