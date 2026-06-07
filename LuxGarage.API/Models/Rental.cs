@@ -5,6 +5,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LuxGarage.API.Models;
 /// <summary>
+/// Defines the possible states of a rental within the LuxGarage system.
+/// </summary>
+public enum RentalStatus
+{
+    /// <summary>The rental is reserved but not yet active.</summary>
+    Reserved,
+    /// <summary>The vehicle is currently with the customer.</summary>
+    InProgress,
+    /// <summary>The rental has been successfully completed.</summary>
+    Completed,
+    /// <summary>The rental was cancelled before completion.</summary>
+    Cancelled
+}
+
+/// <summary>
 /// Represents a rental in the LuxGarage system, containing properties for the rental's ID, associated vehicle, 
 /// starting time, appointed return time, real return time, associated customer, a collection of rental insurances, 
 /// associated employee, and total price. This class serves as a data model for rentals in the application, 
@@ -34,4 +49,6 @@ public class Rental
     public Employee Employee { get; set; } = null!;
 
     public decimal TotalPrice { get; set; }
+
+    public RentalStatus Status { get; set; } = RentalStatus.Reserved;
 }

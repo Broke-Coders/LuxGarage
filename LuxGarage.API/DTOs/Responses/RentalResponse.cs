@@ -19,4 +19,6 @@ public class RentalResponse
     public int CustomerId { get; set; }
     /// <summary>Gets or sets the unique identifier of the employee who processed the rental.</summary>
     public int EmployeeId { get; set; }
+    /// <summary>Gets or sets the current status of the rental.</summary>
+    public string Status { get; set; } = null!;
 }
