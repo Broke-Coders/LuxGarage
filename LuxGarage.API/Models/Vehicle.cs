@@ -24,7 +24,7 @@ public class Vehicle
     public EngineType EngineType { get; set; }
     public VehicleBodyType BodyType { get; set; }
     public VehicleStatus Status { get; set; }
-    public VehicleColor VehicleColor { get; set; } = null!;
+    public VehicleColor VehicleColor { get; set; }
 
     public List<Rental> Rentals {get;} = new List<Rental>();
     public List<VehicleImage> Images { get; set; } = new List<VehicleImage>();
