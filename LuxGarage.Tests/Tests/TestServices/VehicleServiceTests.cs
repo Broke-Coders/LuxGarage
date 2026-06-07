@@ -30,6 +30,12 @@ namespace LuxGarage.Tests.TestServices;
 public class VehicleServiceTests
 {
     private readonly Mock<IVehicleRepository> _repoMock;
+    private readonly Mock<IVehicleBodyRepository> _bodyRepoMock = new();
+    private readonly Mock<IVehicleBrandRepository> _brandRepoMock = new();
+    private readonly Mock<IVehicleColorRepository> _colorRepoMock = new();
+    private readonly Mock<IVehicleImageRepository> _imageRepoMock = new();
+    private readonly Mock<IVehicleModelRepository> _modelRepoMock = new();
+    private readonly Mock<IVehiclePriceRepository> _priceRepoMock = new();
     private readonly IMapper _mapper;
     private readonly IVehicleService _service;
 
@@ -46,7 +52,15 @@ public class VehicleServiceTests
         });
         _mapper = config.CreateMapper();
 
-        _service = new VehicleService(_repoMock.Object, _mapper);
+        _service = new VehicleService(
+            _repoMock.Object, 
+            _mapper, 
+            _bodyRepoMock.Object, 
+            _brandRepoMock.Object, 
+            _colorRepoMock.Object, 
+            _imageRepoMock.Object, 
+            _modelRepoMock.Object, 
+            _priceRepoMock.Object);
     }
 
     /// <summary>
@@ -127,13 +141,13 @@ public class VehicleServiceTests
     {
         var vehicles = new List<Vehicle>
         {
-            new Vehicle { Id = 1, Mileage = 1000 },
-            new Vehicle { Id = 2, Mileage = 2000 },
-            new Vehicle { Id = 3, Mileage = 1500 }
-        };
+            new Vehicle { Id = 1, Mileage = 1000, VehicleBrand = new VehicleBrand { Name = "Brand1" }, VehicleModel = new VehicleModel { Name = "Model1" }, VehicleBody = new VehicleBody { Name = "Body1" }, VehicleColor = new VehicleColor { Name = "Color1", HtmlColor = "#111" } },
+            new Vehicle { Id = 2, Mileage = 2000, VehicleBrand = new VehicleBrand { Name = "Brand2" }, VehicleModel = new VehicleModel { Name = "Model2" }, VehicleBody = new VehicleBody { Name = "Body2" }, VehicleColor = new VehicleColor { Name = "Color2", HtmlColor = "#222" } },
+            new Vehicle { Id = 3, Mileage = 1500, VehicleBrand = new VehicleBrand { Name = "Brand3" }, VehicleModel = new VehicleModel { Name = "Model3" }, VehicleBody = new VehicleBody { Name = "Body3" }, VehicleColor = new VehicleColor { Name = "Color3", HtmlColor = "#333" } }
+        }.AsQueryable();
 
-        _repoMock.Setup(repo => repo.GetAllAsync())
-                 .ReturnsAsync(vehicles);
+        _repoMock.Setup(repo => repo.GetAllQueryable())
+                 .Returns(vehicles);
 
         var request = new GetVehiclesRequest
         {
