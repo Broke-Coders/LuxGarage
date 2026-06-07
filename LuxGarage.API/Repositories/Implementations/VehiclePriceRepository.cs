@@ -71,9 +71,6 @@ namespace LuxGarage.API.Repositories.Implementations;
         _context.VehiclePrices.Remove(vehiclePrice);
         await _context.SaveChangesAsync();
     }
-<<<<<<< HEAD
-}
-=======
 
     public async Task<decimal> GetCurrentPriceByVehicleIdAsync(int vehicleId)
     {
@@ -85,4 +82,3 @@ namespace LuxGarage.API.Repositories.Implementations;
                              .FirstOrDefaultAsync();
     }
 }
->>>>>>> cf672632a7e9d9291ea91ad30ebb79504d978c9f

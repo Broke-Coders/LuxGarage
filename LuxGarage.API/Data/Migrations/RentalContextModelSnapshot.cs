@@ -39,6 +39,22 @@ namespace LuxGarage.API.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LicenseNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
@@ -115,14 +131,9 @@ namespace LuxGarage.API.Data.Migrations
                     b.Property<int>("VehicleId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("VehicleStatusId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("VehicleId");
-
-                    b.HasIndex("VehicleStatusId");
 
                     b.ToTable("Offers", (string)null);
                 });
@@ -425,18 +436,28 @@ namespace LuxGarage.API.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasDefaultValue("UNKNOWN");
+
+                    b.Property<bool>("IsAvailable")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("StartingDate")
-                        .HasColumnType("timestamp with time zone");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
 
-                    b.ToTable("VehicleStatus");
+                    b.ToTable("VehicleStatuses");
                 });
 
             modelBuilder.Entity("LuxGarage.API.Models.Workplace", b =>
@@ -493,14 +514,6 @@ namespace LuxGarage.API.Data.Migrations
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("LuxGarage.API.Models.VehicleStatus", "Status")
-                        .WithMany()
-                        .HasForeignKey("VehicleStatusId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Status");
 
                     b.Navigation("Vehicle");
                 });

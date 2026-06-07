@@ -13,10 +13,6 @@ public class Offer
 
     public int VehicleId { get; set; }
     public Vehicle Vehicle { get; set; } = null!;
-
-    public int VehicleStatusId { get; set; }
-    public VehicleStatus Status { get; set; } = null!;
-
     public string? Description { get; set; }
     public DateTime PublicationDate { get; set; }
 

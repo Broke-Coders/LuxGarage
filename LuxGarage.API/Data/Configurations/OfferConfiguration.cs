@@ -36,10 +36,5 @@ public class OfferConfiguration : IEntityTypeConfiguration<Offer>
             .WithOne(vp => vp.Offer)
             .HasForeignKey(vp => vp.OfferId)
             .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasOne(o => o.Status)
-            .WithMany()
-            .HasForeignKey(o => o.VehicleStatusId)
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }
