@@ -1,3 +1,5 @@
+using LuxGarage.API.Features.Vehicles;
+
 namespace LuxGarage.API.Models;
 
 /// <summary>
@@ -11,27 +13,19 @@ public class Vehicle
 {
     public int Id { get; set; }
 
-    public int VehicleBrandId { get; set; } 
-    public VehicleBrand VehicleBrand{ get; set; } = null!;
-
-    public int VehicleModelId { get; set; }
-    public VehicleModel VehicleModel { get; set; } = null!;
-
-    public int VehicleImageId { get; set; }
+    public string Brand { get; set; } = null!;
+    public string Model { get; set; } = null!;
 
     public decimal Horsepower { get; set; }
     public string LicensePlate { get; set; } = null!;
     public int Mileage { get; set; }
     public int year { get; set; }
     
-    public int VehicleBodyId { get; set; }
-    public VehicleBody VehicleBody { get; set; } = null!;
-
-    public int VehicleColorId { get; set; }
+    public EngineType EngineType { get; set; }
+    public VehicleBodyType BodyType { get; set; }
+    public VehicleStatus Status { get; set; }
     public VehicleColor VehicleColor { get; set; } = null!;
 
     public List<Rental> Rentals {get;} = new List<Rental>();
     public List<VehicleImage> Images { get; set; } = new List<VehicleImage>();
-    public int VehicleStatusId { get; set; }
-    public VehicleStatus VehicleStatus { get; set; } = null!;
 }
