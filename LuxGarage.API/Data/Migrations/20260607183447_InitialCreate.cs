@@ -18,6 +18,10 @@ namespace LuxGarage.API.Data.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FirstName = table.Column<string>(type: "text", nullable: false),
+                    LastName = table.Column<string>(type: "text", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
+                    LicenseNumber = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     BorrowCounter = table.Column<int>(type: "integer", nullable: false, defaultValue: 0)
                 },
@@ -94,18 +98,20 @@ namespace LuxGarage.API.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "VehicleStatus",
+                name: "VehicleStatuses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    StartingDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false, defaultValue: "UNKNOWN"),
+                    IsAvailable = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    StartingDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     DateToEnd = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VehicleStatus", x => x.Id);
+                    table.PrimaryKey("PK_VehicleStatuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -186,7 +192,8 @@ namespace LuxGarage.API.Data.Migrations
                     Mileage = table.Column<int>(type: "integer", nullable: false),
                     year = table.Column<int>(type: "integer", nullable: false),
                     VehicleBodyId = table.Column<int>(type: "integer", nullable: false),
-                    VehicleColorId = table.Column<int>(type: "integer", nullable: false)
+                    VehicleColorId = table.Column<int>(type: "integer", nullable: false),
+                    VehicleStatusId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -215,6 +222,12 @@ namespace LuxGarage.API.Data.Migrations
                         principalTable: "VehicleModels",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Vehicles_VehicleStatuses_VehicleStatusId",
+                        column: x => x.VehicleStatusId,
+                        principalTable: "VehicleStatuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -224,19 +237,12 @@ namespace LuxGarage.API.Data.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     VehicleId = table.Column<int>(type: "integer", nullable: false),
-                    VehicleStatusId = table.Column<int>(type: "integer", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
                     PublicationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Offers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Offers_VehicleStatus_VehicleStatusId",
-                        column: x => x.VehicleStatusId,
-                        principalTable: "VehicleStatus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Offers_Vehicles_VehicleId",
                         column: x => x.VehicleId,
@@ -293,8 +299,7 @@ namespace LuxGarage.API.Data.Migrations
                     OriginalFileName = table.Column<string>(type: "text", nullable: false),
                     ContentType = table.Column<string>(type: "text", nullable: false),
                     FileSize = table.Column<long>(type: "bigint", nullable: false),
-                    SortOrder = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
-                    IsPrimary = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false)
+                    SortOrder = table.Column<int>(type: "integer", nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
                 {
@@ -377,11 +382,6 @@ namespace LuxGarage.API.Data.Migrations
                 column: "VehicleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Offers_VehicleStatusId",
-                table: "Offers",
-                column: "VehicleStatusId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_RentalInsurances_InsuranceId",
                 table: "RentalInsurances",
                 column: "InsuranceId");
@@ -452,6 +452,11 @@ namespace LuxGarage.API.Data.Migrations
                 name: "IX_Vehicles_VehicleModelId",
                 table: "Vehicles",
                 column: "VehicleModelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vehicles_VehicleStatusId",
+                table: "Vehicles",
+                column: "VehicleStatusId");
         }
 
         /// <inheritdoc />
@@ -482,9 +487,6 @@ namespace LuxGarage.API.Data.Migrations
                 name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "VehicleStatus");
-
-            migrationBuilder.DropTable(
                 name: "Vehicles");
 
             migrationBuilder.DropTable(
@@ -501,6 +503,9 @@ namespace LuxGarage.API.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "VehicleModels");
+
+            migrationBuilder.DropTable(
+                name: "VehicleStatuses");
 
             migrationBuilder.DropTable(
                 name: "VehicleBrands");
