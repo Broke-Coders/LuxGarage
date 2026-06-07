@@ -89,7 +89,6 @@ public class OfferRepository : IOfferRepository
         if (existing is null) return;
 
         existing.VehicleId = offer.VehicleId;
-        existing.VehicleStatusId = offer.VehicleStatusId;
         existing.Description = offer.Description;
         existing.PublicationDate = offer.PublicationDate;
         existing.Prices = offer.Prices;

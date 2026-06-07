@@ -55,9 +55,9 @@ public static class ServiceExtensions
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IEmployeeService, EmployeeService>();
         services.AddScoped<IWorkplaceService, WorkplaceService>();
+        services.AddScoped<IVehicleImageService, VehicleImageService>();
         services.AddScoped<ICustomerService, CustomerService>();
         services.AddScoped<IRentalService, RentalService>();
-        services.AddScoped<IVehicleImageService, VehicleImageService>();
 
         return services;
     }

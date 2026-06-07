@@ -63,6 +63,63 @@ namespace LuxGarage.API.Profiles
             CreateMap<Workplace, WorkplaceResponse>();
             CreateMap<ChangeWorkplaceRequest, Workplace>();
 
+            // VehicleImage
+            CreateMap<VehicleImage, VehicleImageResponse>();
+
+            // Offer
+            CreateMap<Offer, OfferListItemResponse>()
+                .ForMember(dest => dest.ModelName,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleModel.Name))
+                .ForMember(dest => dest.Horsepower,
+                    opt => opt.MapFrom(src => src.Vehicle.Horsepower))
+                .ForMember(dest => dest.BodyName,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleBody.Name))
+                .ForMember(dest => dest.BrandName,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleBrand.Name))
+                .ForMember(dest => dest.Mileage,
+                    opt => opt.MapFrom(src => src.Vehicle.Mileage))
+                .ForMember(dest => dest.PrimaryImageUrl,
+                    opt => opt.MapFrom(src => src.Vehicle.Images[0]))
+                .ForMember(dest => dest.IsAvailable,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleStatus.IsAvailable))
+                .ForMember(dest => dest.AvailableFrom,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleStatus.StartingDate))
+                .ForMember(dest => dest.AvailableTo,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleStatus.DateToEnd));
+
+            CreateMap<Offer, OfferDetailsResponse>()
+                .ForMember(dest => dest.ModelName,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleModel.Name))
+                .ForMember(dest => dest.Horsepower,
+                    opt => opt.MapFrom(src => src.Vehicle.Horsepower))
+                .ForMember(dest => dest.BodyName,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleBody.Name))
+                .ForMember(dest => dest.BrandName,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleBrand.Name))
+                .ForMember(dest => dest.Mileage,
+                    opt => opt.MapFrom(src => src.Vehicle.Mileage))
+                .ForMember(dest => dest.Price,
+                    opt => opt.MapFrom(src => src.Prices[0].PricePerDay))
+                .ForMember(dest => dest.IsAvailable,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleStatus.IsAvailable))
+                .ForMember(dest => dest.AvailableFrom,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleStatus.StartingDate))
+                .ForMember(dest => dest.AvailableTo,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleStatus.DateToEnd))
+                .ForMember(dest => dest.ColorName,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleColor.Name))
+                .ForMember(dest => dest.Description,
+                    opt => opt.MapFrom(src => src.Vehicle.VehicleStatus.Description))
+                .ForMember(dest => dest.Images,
+                    opt => opt.MapFrom(src => src.Vehicle.Images))
+                .ForMember(dest => dest.LicensePlate,
+                    opt => opt.MapFrom(src => src.Vehicle.LicensePlate));
+
+            this.Internal().ForAllMaps((typeMap, mappingExpression) =>
+            {
+                mappingExpression.MaxDepth(2);
+            }
+            );
             CreateMap<UpdateVehicleRequest, Vehicle>()
                      .ForAllMembers(opts => 
                      opts.Condition((src, dest, srcMember) => srcMember != null));
@@ -73,8 +130,6 @@ namespace LuxGarage.API.Profiles
             CreateMap<Customer, CustomerResponse>();
             CreateMap<Rental, RentalResponse>();
             CreateMap<CreateRentalRequest, Rental>();
-            // VehicleImage
-            CreateMap<VehicleImage, VehicleImageResponse>();
         }
     }
 }
