@@ -1,5 +1,3 @@
-using Microsoft.Identity.Client;
-
 public class UploadVehicleImagesRequest
 {
     public int VehicleId { get; set; }

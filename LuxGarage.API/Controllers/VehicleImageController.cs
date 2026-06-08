@@ -40,12 +40,13 @@ public class VehicleImageController : ControllerBase
         }
     }
 
-    [HttpPut("vehicle/{vehicleId}/primary/{imageId}")]
-    public async Task<ActionResult> SetPrimary(int vehicleId, int imageId)
+
+    [HttpPut("vehicle/{vehicleId}/primary")]
+    public async Task<ActionResult> SetPrimary(int vehicleId, [FromBody] SetPrimaryImageRequest request)
     {
         try
         {
-            await _imageService.SetPrimaryAsync(vehicleId, imageId);
+            await _imageService.SetPrimaryAsync(vehicleId, request.ImageId);
             return NoContent();
         }
         catch (KeyNotFoundException ex)

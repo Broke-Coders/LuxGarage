@@ -18,6 +18,8 @@ public class RentalContext(DbContextOptions<RentalContext> options)
     public DbSet<Rental> Rentals => Set<Rental>();
     public DbSet<RentalInsurance> RentalInsurances => Set<RentalInsurance>();
     public DbSet<User> Users => Set<User>();
+    public DbSet<Customer> Customers => Set<Customer>();
+    public DbSet<Employee> Employees => Set<Employee>();
     public DbSet<Vehicle> Vehicles => Set<Vehicle>();
     public DbSet<VehicleImage> VehicleImages => Set<VehicleImage>();
     public DbSet<Workplace> Workplaces => Set<Workplace>();
