@@ -29,5 +29,5 @@ public class Rental
     public RentalStatus Status { get; set; }
     public decimal VehiclePriceAtBooking { get; set; }
     public decimal TotalPrice { get; set; }
-    public ICollection<RentalInsurance> RentalInsurances { get; } = new List<RentalInsurance>();
+    public ICollection<RentalInsurance> RentalInsurances { get; set; } = new List<RentalInsurance>();
 }
