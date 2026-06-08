@@ -5,7 +5,7 @@ namespace LuxGarage.API.Models;
 /// contact details, driver's license data, and rental history tracking. This class serves as the 
 /// primary data model for customer management and rental associations.
 /// </summary>
-public class Customer
+public class Customer : User
 {
     /// <summary>Gets or sets the unique identifier for the customer.</summary>
     public int Id { get; set; }
