@@ -1,12 +1,11 @@
-using System;
-using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
 using LuxGarage.API.Models;
 using Microsoft.AspNetCore.Identity;
 using LuxGarage.API.Features.Users;
 using LuxGarage.API.Features.Vehicles;
+using LuxGarage.API.Data;
 
-namespace LuxGarage.API.Data;
+namespace LuxGarage.API.Extensions;
 /// <summary>
 /// Extension methods for database initialization and migration, providing a way to set up the database schema and seed initial data.
 /// </summary>
