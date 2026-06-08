@@ -13,50 +13,11 @@ public class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
     /// <param name="builder">The builder used to configure the entity.</param>
     public void Configure(EntityTypeBuilder<Vehicle> builder)
     {
-        builder.ToTable("Vehicles");
+        builder.Property(v => v.LicensePlate).HasMaxLength(20);
+        builder.HasIndex(v => v.LicensePlate).IsUnique();
 
-        builder.HasKey(v => v.Id);
-
-        builder.Property(v => v.Id)
-            .ValueGeneratedOnAdd();
-
-        builder.Property(v => v.LicensePlate)
-            .IsRequired();
-
-        builder.Property(v => v.Horsepower)
-            .IsRequired();
-
-        builder.Property(v => v.Mileage)
-            .IsRequired();
-
-        builder.HasOne(v => v.VehicleBrand)
-            .WithMany(b => b.Vehicles)
-            .HasForeignKey(v => v.VehicleBrandId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne(v => v.VehicleModel)
-            .WithMany(m => m.Vehicles)
-            .HasForeignKey(v => v.VehicleModelId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne(v => v.VehicleBody)
-            .WithMany(b => b.Vehicles)
-            .HasForeignKey(v => v.VehicleBodyId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne(v => v.VehicleColor)
-            .WithMany(c => c.Vehicles)
-            .HasForeignKey(v => v.VehicleColorId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasMany(v => v.Images)
-            .WithOne(vi => vi.Vehicle)
-            .HasForeignKey(vi => vi.VehicleId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasOne(v => v.VehicleStatus)
-               .WithMany()
-               .HasForeignKey(v => v.VehicleStatusId)
-               .OnDelete(DeleteBehavior.Restrict);
+        builder.Property(v => v.Brand).HasMaxLength(50);
+        builder.Property(v => v.Model).HasMaxLength(50);
+        builder.Property(v => v.Horsepower).HasColumnType("decimal(6,2)");
     }
 }
