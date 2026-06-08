@@ -2,6 +2,9 @@ using System;
 using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
 using LuxGarage.API.Models;
+using Microsoft.AspNetCore.Identity;
+using LuxGarage.API.Features.Users;
+using LuxGarage.API.Features.Vehicles;
 
 namespace LuxGarage.API.Data;
 /// <summary>
@@ -30,204 +33,146 @@ public static class DataExtensions
         dbContext.Database.CloseConnection();
         dbContext.Database.Migrate();
 
-    if (!dbContext.Set<Permission>().Any())
-    {
-        dbContext.Set<Permission>().AddRange(
-        new Permission { Name = "Admin" },
-        new Permission { Name = "Worker" }
-        );
-        dbContext.SaveChanges();
-    }
-
-
-        if(!dbContext.Set<Workplace>().Any())
+        if (!dbContext.Workplaces.Any())
         {
-            dbContext.Set<Workplace>().AddRange(
-                new Workplace {Country = "Poland", 
-                City = "Krakow", Street = "Kulszowa", 
-                BuildingNumber = 1},
-
-                new Workplace {Country = "USA", City = "New York", 
-                Street = "Chinastreet", BuildingNumber = 3},
-
-                new Workplace {Country = "Germany", City = "Berlin", 
-                Street = "Hausstradt", BuildingNumber = 12 }
+            dbContext.Workplaces.AddRange(
+                new Workplace {Country = "Poland", City = "Krakow", Street = "Bracka", BuildingNumber = "12C"},
+                new Workplace {Country = "Poland", City = "Warsaw", Street = "Korfantego", BuildingNumber = "128"}
             );
             dbContext.SaveChanges();
         }
 
-        if(!dbContext.Set<Employee>().Any())
+        if (!dbContext.Users.Any())
         {
-            int permId = dbContext.Set<Permission>().First(p => p.Name == "Admin").Id;
-            int WorkId = dbContext.Set<Workplace>().First(p => p.City == "Krakow").Id;
+            var hasher = new PasswordHasher<User>();
+            var krakowBranch = dbContext.Workplaces.First(b => b.City == "Krakow");
 
-           dbContext.Set<Employee>().AddRange( 
-                new Employee {Password = "pass", Login = "login1",
-                WorkplaceId = WorkId, PermissionId = permId},
+            var admin = new Employee
+            {
+                Email = "admin@luxgarage.com",
+                PasswordHash = "", 
+                FirstName = "Adam",
+                LastName = "Administrator",
+                Role = UserRole.Admin,
+                WorkplaceId = krakowBranch.Id
+            };
+            admin.PasswordHash = hasher.HashPassword(admin, "admin123");
 
-                new Employee {Password = "haslo", Login = "login555",
-                WorkplaceId = WorkId, PermissionId = permId},
+            var worker = new Employee
+            {
+                Email = "worker@luxgarage.com",
+                PasswordHash = "",
+                FirstName = "Piotr",
+                LastName = "Employer",
+                Role = UserRole.Employee,
+                WorkplaceId = krakowBranch.Id
+            };
+            worker.PasswordHash = hasher.HashPassword(worker, "worker123");
 
-                new Employee {Password = "1234", Login = "login67",
-                WorkplaceId = WorkId, PermissionId = permId}
-           );
-           dbContext.SaveChanges();
-        }
+            var customer1 = new Customer
+            {
+                Email = "jan.kowalski@gmail.com",
+                PasswordHash = "",
+                FirstName = "Jan",
+                LastName = "Kowalski",
+                Role = UserRole.Customer,
+                PhoneNumber = "123456789",
+                LicenseNumber = "ABC12345"
+            };
+            customer1.PasswordHash = hasher.HashPassword(customer1, "klient123");
 
-        if(!dbContext.Set<VehicleBrand>().Any())
-        {
-            dbContext.Set<VehicleBrand>().AddRange(
-                new VehicleBrand {Name = "BMW"},
-                new VehicleBrand {Name = "Audi"},
-                new VehicleBrand {Name = "Volkswagen"}
-            );
+            dbContext.Users.AddRange(admin, worker, customer1);
             dbContext.SaveChanges();
         }
 
-        if (!dbContext.Set<VehicleModel>().Any())
+        if (!dbContext.Vehicles.Any())
         {
-            dbContext.Set<VehicleModel>().AddRange(
-                new VehicleModel
+            dbContext.Vehicles.AddRange(
+                new Vehicle
                 {
-                    Name = "M5 Competition",
-                    VehicleBrandId = dbContext.Set<VehicleBrand>().First(b => b.Name == "BMW").Id
+                    Brand = "BMW",
+                    Model = "M5 Competition",
+                    Horsepower = 625,
+                    LicensePlate = "WA 12345",
+                    Mileage = 15000,
+                    Year = 2023,
+                    maxSpeed = 289,
+                    EngineType = EngineType.Gasoline,
+                    BodyType = VehicleBodyType.Sedan,
+                    Color = VehicleColor.Black,
+                    Status = VehicleStatus.Available
                 },
-                new VehicleModel
+                new Vehicle
                 {
-                    Name = "RS5",
-                    VehicleBrandId = dbContext.Set<VehicleBrand>().First(b => b.Name == "Audi").Id
+                    Brand = "Audi",
+                    Model = "RS6 Avant",
+                    Horsepower = 600,
+                    LicensePlate = "KR 54321",
+                    Mileage = 25000,
+                    Year = 2022,
+                    maxSpeed = 311,
+                    EngineType = EngineType.Gasoline,
+                    BodyType = VehicleBodyType.Wagon,
+                    Color = VehicleColor.Grey,
+                    Status = VehicleStatus.Available
                 },
-                new VehicleModel
+                new Vehicle
                 {
-                    Name = "Golf R",
-                    VehicleBrandId = dbContext.Set<VehicleBrand>().First(b => b.Name == "Volkswagen").Id
+                    Brand = "Porsche",
+                    Model = "911 Carrera S",
+                    Horsepower = 450,
+                    LicensePlate = "GD 99999",
+                    Mileage = 5000,
+                    Year = 2024,
+                    maxSpeed = 352,
+                    EngineType = EngineType.Gasoline,
+                    BodyType = VehicleBodyType.Coupe,
+                    Color = VehicleColor.Yellow,
+                    Status = VehicleStatus.Maintenance
                 }
             );
             dbContext.SaveChanges();
         }
 
-        if (!dbContext.Set<VehicleBody>().Any())
+        if (!dbContext.Offers.Any())
         {
-            dbContext.Set<VehicleBody>().AddRange(
-                new VehicleBody {Name = "Sedan"},
-                new VehicleBody { Name = "Hatchback" },
-                new VehicleBody { Name = "Coupe" },
-                new VehicleBody { Name = "Wagon" },
-                new VehicleBody { Name = "Cabriolet" },
-                new VehicleBody { Name = "Roadster" },
-                new VehicleBody { Name = "Pickup" },
-                new VehicleBody {Name = "Van"},
-                new VehicleBody {Name = "Pickup"}
-            );
-            dbContext.SaveChanges();
-        }
+            var bmw = dbContext.Vehicles.First(v => v.Brand == "BMW");
+            var audi = dbContext.Vehicles.First(v => v.Brand == "Audi");
 
-        if(!dbContext.Set<VehicleColor>().Any())
-        {
-            dbContext.Set<VehicleColor>().AddRange(
-                new VehicleColor{Name = "WHITE", 
-                HtmlColor = "#FFFFFF"},
-                new VehicleColor{Name = "BLACK", 
-                HtmlColor = "#000000"},
-                new VehicleColor{Name = "RED", 
-                HtmlColor = "#F00000"}
-            );
-            dbContext.SaveChanges();
-        }
-
-        if(!dbContext.Set<VehicleStatus>().Any())
-        {
-            dbContext.Set<VehicleStatus>().AddRange(
-                new VehicleStatus{Name = StatusType.Available, IsAvailable = true, StartingDate = DateTime.UtcNow}
-            );
-            dbContext.SaveChanges();
-        }
-
-        if (!dbContext.Set<Vehicle>().Any())
-        {
-
-            int brandId = dbContext.Set<VehicleBrand>().First(b => b.Name == "BMW").Id;
-            int modelId = dbContext.Set<VehicleModel>().First(m => m.Name == "M5 Competition").Id;
-            int bodyId = dbContext.Set<VehicleBody>().First(b => b.Name == "Sedan").Id;
-            int colorId = dbContext.Set<VehicleColor>().First(c => c.Name == "WHITE").Id;
-            int statusId = dbContext.Set<VehicleStatus>().First(s => s.Name == StatusType.Available).Id;
-            dbContext.Set<Vehicle>().AddRange(
-                new Vehicle
+            var offerBmw = new Offer
+            {
+                VehicleId = bmw.Id,
+                Title = "Beast from Monachium - BMW M5",
+                Description = "Some descriptionSome descriptionSome descriptionSome description",
+                IsActive = true,
+                Prices = new List<OfferPrice>
                 {
-                    VehicleBrandId = brandId,
-                    VehicleModelId = modelId,
-                    Horsepower = 440,
-                    LicensePlate = "SBI 12345",
-                    Mileage = 50000,
-                    VehicleBodyId = bodyId,
-                    VehicleColorId = colorId,
-                    VehicleStatusId = statusId
-                },
-                new Vehicle
-                {
-                    VehicleBrandId = dbContext.Set<VehicleBrand>().First(b => b.Name == "Audi").Id,
-                    VehicleModelId = dbContext.Set<VehicleModel>().First(m => m.Name == "RS5").Id,
-                    Horsepower = 500,
-                    LicensePlate = "WPR 12345",
-                    Mileage = 30000,
-                    VehicleBodyId = dbContext.Set<VehicleBody>().First(b => b.Name == "Sedan").Id,
-                    VehicleColorId = dbContext.Set<VehicleColor>().First(c => c.Name == "BLACK").Id,
-                    VehicleStatusId = statusId
-                },
-                new Vehicle
-                {
-                    VehicleBrandId = dbContext.Set<VehicleBrand>().First(b => b.Name == "Volkswagen").Id,
-                    VehicleModelId = dbContext.Set<VehicleModel>().First(m => m.Name == "Golf R").Id,
-                    Horsepower = 280,
-                    LicensePlate = "SZY 12345",
-                    Mileage = 44444,
-                    VehicleBodyId = dbContext.Set<VehicleBody>().First(b => b.Name == "Hatchback").Id,
-                    VehicleColorId = dbContext.Set<VehicleColor>().First(c => c.Name == "RED").Id,
-                    VehicleStatusId = statusId
+                    new OfferPrice { PricePerDay = 1500.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) }
                 }
-                );
-        }
+            };
 
-        if(!dbContext.Set<Insurance>().Any())
-        {
-            dbContext.Set<Insurance>().AddRange(
-                new Insurance {Name = "anti-thief",
-                Price = 10.99m},
-                new Insurance {Name = "anti-scratch",
-                Price = 18.99m},
-                new Insurance {Name = "tire-insurance",
-                Price = 6.59m}
-            );
+            var offerAudi = new Offer
+            {
+                VehicleId = audi.Id,
+                Title = "Wow a car - Audi RS6",
+                Description = "Some descriptionSome descriptionSome descriptionSome description",
+                IsActive = true,
+                Prices = new List<OfferPrice>
+                {
+                    new OfferPrice { PricePerDay = 1200.00m, ValidFrom = DateTime.UtcNow.AddMonths(-2) }
+                }
+            };
+
+            dbContext.Offers.AddRange(offerBmw, offerAudi);
             dbContext.SaveChanges();
         }
 
-        if(!dbContext.Set<Customer>().Any())
+        if (!dbContext.Insurances.Any())
         {
-            dbContext.Set<Customer>().AddRange(
-                new Customer{
-                    Email = "wuj@gmail.com",
-                    BorrowCounter = 1,
-                    FirstName = "Jan",
-                    LastName = "Kowalski",
-                    PhoneNumber = "123456789",
-                    LicenseNumber = "ABC12345"
-                },
-                new Customer{
-                    Email = "ziutek@outlook.com",
-                    BorrowCounter = 5,
-                    FirstName = "Zbigniew",
-                    LastName = "Nowak",
-                    PhoneNumber = "987654321",
-                    LicenseNumber = "XYZ98765"
-                },
-                new Customer{
-                    Email = "hop@maupa.net",
-                    BorrowCounter = 3,
-                    FirstName = "Adam",
-                    LastName = "Wiśniewski",
-                    PhoneNumber = "555666777",
-                    LicenseNumber = "DEF55566"
-                }
+            dbContext.Insurances.AddRange(
+                new Insurance { Name = "Full (OC/AC/NNW)", PricePerDay = 150.00m },
+                new Insurance { Name = "Tire and glass protection", PricePerDay = 45.00m },
+                new Insurance { Name = "No income", PricePerDay = 200.00m }
             );
             dbContext.SaveChanges();
         }
