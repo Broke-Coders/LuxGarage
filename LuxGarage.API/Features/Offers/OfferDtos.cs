@@ -1,0 +1,28 @@
+namespace LuxGarage.API.Features.Offers;
+
+public class GetOffersRequest
+{
+    public string? SortBy { get; set; }
+    public bool Descending { get; set; }
+}
+
+public class OfferListItemResponse
+{
+    public int Id { get; set; }
+    public string Title { get; set; } = null!;
+    public decimal Price { get; set; }
+    public string Brand { get; set; } = null!;
+    public string Model { get; set; } = null!;
+    public string? PrimaryImageUrl { get; set; }
+}
+
+public class OfferDetailsResponse
+{
+    public string? Description { get; set; }
+    public DateTime PublicationDate { get; set; }
+    public int Year { get; set; }
+    public decimal Horsepower { get; set; }
+    public string BodyType { get; set; }
+    public string Color { get; set; }
+    public string Status { get; set; }
+}
