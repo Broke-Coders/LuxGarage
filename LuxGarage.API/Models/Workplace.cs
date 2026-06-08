@@ -17,7 +17,7 @@ public class Workplace
 
     public required string Street { get; set; }
 
-    public required int BuildingNumber { get; set; }
+    public required string BuildingNumber { get; set; }
     
     public ICollection<Employee> Employees { get; } = new List<Employee>();
 }
