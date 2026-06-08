@@ -19,13 +19,13 @@ public class Vehicle
     public decimal Horsepower { get; set; }
     public string LicensePlate { get; set; } = null!;
     public int Mileage { get; set; }
-    public int year { get; set; }
+    public int Year { get; set; }
     public int maxSpeed { get; set; }
     
     public EngineType EngineType { get; set; }
     public VehicleBodyType BodyType { get; set; }
     public VehicleStatus Status { get; set; } = VehicleStatus.Available;
-    public VehicleColor VehicleColor { get; set; }
+    public VehicleColor Color { get; set; }
 
     public List<Rental> Rentals {get;} = new List<Rental>();
     public List<VehicleImage> Images { get; set; } = new List<VehicleImage>();
