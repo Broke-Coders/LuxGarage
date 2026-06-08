@@ -12,21 +12,14 @@ namespace LuxGarage.API.Data;
 public class RentalContext(DbContextOptions<RentalContext> options)
 : DbContext(options)
 {
-    public DbSet<Customer> Customers => Set<Customer>();
-    public DbSet<Employee> Employees => Set<Employee>();
     public DbSet<Insurance> Insurances => Set<Insurance>();
-    public DbSet<Permission> Permissions => Set<Permission>();
     public DbSet<Offer> Offers => Set<Offer>();
+    public DbSet<OfferPrice> OfferPrices => Set<OfferPrice>();
     public DbSet<Rental> Rentals => Set<Rental>();
     public DbSet<RentalInsurance> RentalInsurances => Set<RentalInsurance>();
+    public DbSet<User> Users => Set<User>();
     public DbSet<Vehicle> Vehicles => Set<Vehicle>();
-    public DbSet<VehicleBody> VehicleBodies => Set<VehicleBody>();
-    public DbSet<VehicleBrand> VehicleBrands => Set<VehicleBrand>();
-    public DbSet<VehicleModel> VehicleModels => Set<VehicleModel>();
-    public DbSet<VehicleColor> VehicleColors => Set<VehicleColor>();
     public DbSet<VehicleImage> VehicleImages => Set<VehicleImage>();
-    public DbSet<VehiclePrice> VehiclePrices => Set<VehiclePrice>();
-    public DbSet<VehicleStatus> VehicleStatuses => Set<VehicleStatus>();
     public DbSet<Workplace> Workplaces => Set<Workplace>();
 
     /// <summary>
