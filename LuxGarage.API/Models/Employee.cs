@@ -5,12 +5,8 @@ namespace LuxGarage.API.Models;
 /// and permission level. This class serves as a data model for employees in the application, allowing for the storage and retrieval of employee 
 /// information, their assigned workplace, and their permissions within the system. 
 /// </summary>
-public class Employee
+public class Employee : User
 {
-    public int Id { get; set; }
-    public required string Login { get; set;}
-    public required string Password { get; set; }
-
     public int WorkplaceId { get; set; }
     public Workplace Workplace { get; set; } = null!;
 

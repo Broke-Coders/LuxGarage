@@ -13,8 +13,15 @@ public class Offer
 
     public int VehicleId { get; set; }
     public Vehicle Vehicle { get; set; } = null!;
+    public string Title { get; set; } = null!;
     public string? Description { get; set; }
-    public DateTime PublicationDate { get; set; }
+    public decimal PricePerDay { get; set; }
+    public DateTime PublicationDate { get; set; } = DateTime.UtcNow;
+    public bool IsActive { get; set; } = true;
 
-    public List<VehiclePrice> Prices { get; set; } = new List<VehiclePrice>();
+    public void UpdatePrice(decimal newPrice)
+    {
+        if (newPrice <= 0) throw new ArgumentException("Price must be greater than 0");
+        PricePerDay = newPrice;
+    }
 }
