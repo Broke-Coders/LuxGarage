@@ -17,7 +17,7 @@ public class VehicleService
         _mapper = mapper;
     }
 
-    public async Task<List<VehicleListItemResponse>> GetAllAsync(GetVehiclesRequest request)
+    public async Task<List<VehicleResponse>> GetAllAsync(GetVehiclesRequest request)
     {
         var query = _context.Vehicles.AsNoTracking().AsQueryable();
 
@@ -42,19 +42,19 @@ public class VehicleService
         query = ApplySorting(query, request);
 
         var vehicles = await query.ToListAsync();
-        return _mapper.Map<List<VehicleListItemResponse>>(vehicles);
+        return _mapper.Map<List<VehicleResponse>>(vehicles);
     }
 
-    public async Task<VehicleDetailsResponse?> GetByIdAsync(int id)
+    public async Task<VehicleResponse?> GetByIdAsync(int id)
     {
         var vehicle = await _context.Vehicles
             .AsNoTracking()
             .FirstOrDefaultAsync(v => v.Id == id);
 
-        return vehicle is null ? null : _mapper.Map<VehicleDetailsResponse>(vehicle);
+        return vehicle is null ? null : _mapper.Map<VehicleResponse>(vehicle);
     }
 
-    public async Task<VehicleDetailsResponse> CreateAsync(CreateVehicleRequest request)
+    public async Task<VehicleResponse> CreateAsync(CreateVehicleRequest request)
     {
         var exists = await _context.Vehicles.AnyAsync(v => v.LicensePlate == request.LicensePlate);
         if (exists)
@@ -79,10 +79,10 @@ public class VehicleService
         _context.Vehicles.Add(vehicle);
         await _context.SaveChangesAsync();
         
-        return _mapper.Map<VehicleDetailsResponse>(vehicle);
+        return _mapper.Map<VehicleResponse>(vehicle);
     }
 
-    public async Task<VehicleDetailsResponse> UpdateAsync(int id, UpdateVehicleRequest request)
+    public async Task<VehicleResponse> UpdateAsync(int id, UpdateVehicleRequest request)
     {
         var vehicle = await _context.Vehicles.FindAsync(id);
         if (vehicle is null)
@@ -93,7 +93,7 @@ public class VehicleService
 
         await _context.SaveChangesAsync();
 
-        return _mapper.Map<VehicleDetailsResponse>(vehicle);
+        return _mapper.Map<VehicleResponse>(vehicle);
     }
 
     public async Task<bool> DeleteAsync(int id)
