@@ -27,6 +27,7 @@ public class Rental
     public DateTime? RealReturnTime { get; set; }
 
     public RentalStatus Status { get; set; }
+    public decimal VehiclePriceAtBooking { get; set; }
     public decimal TotalPrice { get; set; }
     public ICollection<RentalInsurance> RentalInsurances { get; } = new List<RentalInsurance>();
 }

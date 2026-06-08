@@ -19,6 +19,8 @@ public class Offer
     public DateTime PublicationDate { get; set; } = DateTime.UtcNow;
     public bool IsActive { get; set; } = true;
 
+    public ICollection<OfferPrice> Prices { get; set; } = new List<OfferPrice>();
+
     public void UpdatePrice(decimal newPrice)
     {
         if (newPrice <= 0) throw new ArgumentException("Price must be greater than 0");
