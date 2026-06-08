@@ -1,6 +1,4 @@
-using LuxGarage.API.DTOs.Requests.Vehicle;
-using LuxGarage.API.DTOs.Responses.Vehicle;
-using LuxGarage.API.Services.Interfaces;
+using LuxGarage.API.Features.Vehicles;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LuxGarage.API.Controllers;
@@ -21,13 +19,13 @@ namespace LuxGarage.API.Controllers;
 [Route("api/[controller]")]
 public class VehiclesController : ControllerBase
 {
-    private readonly IVehicleService _vehicleService;
+    private readonly VehicleService _vehicleService;
 
     /// <summary>
     /// Initializes a new instance of the VehiclesController class, injecting the IVehicleService to handle business logic related to vehicles.
     /// </summary>
     /// <param name="vehicleService">The IVehicleService instance to use for vehicle-related operations.</param>
-    public VehiclesController(IVehicleService vehicleService)
+    public VehiclesController(VehicleService vehicleService)
     {
         _vehicleService = vehicleService;
     }
@@ -39,11 +37,10 @@ public class VehiclesController : ControllerBase
     /// <param name="request">The request DTO containing query parameters for filtering, sorting, and pagination.</param>
     /// <returns>A list of vehicles matching the criteria.</returns>
     [HttpGet]
-    public async Task<ActionResult<ApiResponse<List<VehicleListItemResponse>>>> GetAll([FromQuery] GetVehiclesRequest request)
+    public async Task<ActionResult<ApiResponse<List<VehicleResponse>>>> GetAll([FromQuery] GetVehiclesRequest request)
     {
         var vehicles = await _vehicleService.GetAllAsync(request);
-        return Ok(ApiResponse<List<VehicleListItemResponse>>.Ok(vehicles,
-        "All employees retrieved successfully."));
+        return Ok(vehicles);
     }
 
     /// <summary>
@@ -52,9 +49,14 @@ public class VehiclesController : ControllerBase
     /// <param name="id">The unique identifier of the vehicle to retrieve.</param>
     /// <returns>The vehicle details if found, otherwise null.</returns>
     [HttpGet("{id:int}")]
-    public async Task<VehicleDetailsResponse?> GetById(int id)
+    public async Task<ActionResult<VehicleResponse>> GetById(int id)
     {
-        return await _vehicleService.GetByIdAsync(id);
+        var vehicle = await _vehicleService.GetByIdAsync(id);
+        
+        if (vehicle is null)
+            return NotFound();
+
+        return Ok(vehicle);
     }
 
     /// <summary>
@@ -63,8 +65,42 @@ public class VehiclesController : ControllerBase
     /// <param name="request">The request DTO containing the data for the new vehicle.</param>
     /// <returns>The details of the newly created vehicle.</returns>
     [HttpPost]
-    public async Task<VehicleDetailsResponse> Create([FromBody] CreateVehicleRequest request)
+    public async Task<ActionResult<VehicleResponse>> Create([FromForm] CreateVehicleRequest request)
     {
-        return await _vehicleService.CreateAsync(request);
+        try
+        {
+            var response = await _vehicleService.CreateAsync(request);
+            return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { Message = ex.Message });
+        }
+    }
+
+    
+    [HttpPut("{id}")]
+    public async Task<ActionResult<VehicleResponse>> Update(int id, [FromBody] UpdateVehicleRequest request)
+    {
+        try
+        {
+            var response = await _vehicleService.UpdateAsync(id, request);
+            return Ok(response);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new { Message = ex.Message });
+        }
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> Delete(int id)
+    {
+        var deleted = await _vehicleService.DeleteAsync(id);
+        
+        if (!deleted)
+            return NotFound();
+
+        return NoContent();
     }
 }
