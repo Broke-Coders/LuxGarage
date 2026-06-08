@@ -15,7 +15,6 @@ public class OfferPrice
     public Offer Offer { get; set; } = null!;
 
     public DateTime ValidFrom { get; set; }
-
     public DateTime? ValidTo { get; set; }
     public decimal PricePerDay { get; set; }
 }
