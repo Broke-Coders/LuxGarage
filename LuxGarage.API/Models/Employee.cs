@@ -9,8 +9,4 @@ public class Employee : User
 {
     public int WorkplaceId { get; set; }
     public Workplace Workplace { get; set; } = null!;
-
-    public int PermissionId { get; set; }
-
-    public Permission Permission {get; set;} = null!;
 }
