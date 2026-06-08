@@ -11,7 +11,8 @@ public class Insurance
 
     public required string Name { get; set; }
 
-    public required decimal Price { get; set; }
+    public required decimal PricePerDay { get; set; }
+    public bool IsActive { get; set; } = true;
 
-    public ICollection<RentalInsurance> RentalInsurances { get; } = new List<RentalInsurance>();
+    public ICollection<RentalInsurance> RentalInsurances { get; set; } = new List<RentalInsurance>();
 }
