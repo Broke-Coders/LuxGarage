@@ -11,8 +11,9 @@ public class RentalInsurance
     public int Id { get; set; }
 
     public int RentalId { get; set; }
-
     public Rental Rental { get; set; } = null!;
     public int InsuranceId { get; set; }
     public Insurance Insurance { get; set; } = null!;
+
+    public decimal PriceAtBooking { get; set; }
 }
