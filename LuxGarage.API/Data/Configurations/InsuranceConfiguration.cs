@@ -15,21 +15,7 @@ public class InsuranceConfiguration : IEntityTypeConfiguration<Insurance>
     /// <param name="builder">The builder used to configure the entity.</param>
     public void Configure(EntityTypeBuilder<Insurance> builder)
     {
-
-        builder.HasKey(i => i.Id);
-
-        builder.Property(i => i.Id)
-            .ValueGeneratedOnAdd();
-
-        builder.Property(i => i.Name)
-            .IsRequired();
-
-        builder.Property(i => i.Price)
-            .IsRequired();
-
-        builder.HasMany(i => i.RentalInsurances)
-            .WithOne(ri => ri.Insurance)
-            .HasForeignKey(ri => ri.InsuranceId)
-            .OnDelete(DeleteBehavior.Restrict);
+        builder.Property(i => i.Name).HasMaxLength(100);
+        builder.Property(i => i.PricePerDay).HasColumnType("decimal(8,2)");
     }
 }

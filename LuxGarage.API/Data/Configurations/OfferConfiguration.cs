@@ -14,27 +14,11 @@ public class OfferConfiguration : IEntityTypeConfiguration<Offer>
     /// <param name="builder">The builder used to configure the entity.</param>
     public void Configure(EntityTypeBuilder<Offer> builder)
     {
-        builder.ToTable("Offers");
-
-        builder.HasKey(o => o.Id);
-
-        builder.Property(o => o.Id)
-            .ValueGeneratedOnAdd();
-
-        builder.Property(o => o.Description)
-            .IsRequired(false);
-
-        builder.Property(o => o.PublicationDate)
-            .IsRequired();
+        builder.Property(o => o.Title).HasMaxLength(150);
 
         builder.HasOne(o => o.Vehicle)
-            .WithMany()
-            .HasForeignKey(o => o.VehicleId)
+            .WithOne()
+            .HasForeignKey<Offer>(o => o.VehicleId)
             .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasMany(o => o.Prices)
-            .WithOne(vp => vp.Offer)
-            .HasForeignKey(vp => vp.OfferId)
-            .OnDelete(DeleteBehavior.Cascade);
     }
 }
