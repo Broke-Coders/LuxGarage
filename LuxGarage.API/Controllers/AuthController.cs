@@ -1,7 +1,6 @@
 using LuxGarage.API.Features.Auth;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace LuxGarage.API.Controllers;
 
 /// <summary>
@@ -42,8 +41,6 @@ public class AuthController : ControllerBase
         try
         {
             var user = await _authService.RegisterAsync(request);
-            // CreatedAtAction standardowo potrzebuje route'u do pobierania detali np GetById, którego tu nie ma, 
-            // dlatego zwracamy po prostu 201 Created z obiektem
             return StatusCode(StatusCodes.Status201Created, user);
         }
         catch (InvalidOperationException e)
