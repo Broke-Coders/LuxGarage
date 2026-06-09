@@ -1,6 +1,5 @@
 using AutoMapper;
 using LuxGarage.API.Data;
-using LuxGarage.API.DTOs.Responses.Vehicle;
 using LuxGarage.API.Models;
 using Microsoft.EntityFrameworkCore;
 
