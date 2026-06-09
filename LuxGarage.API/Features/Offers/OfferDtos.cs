@@ -13,6 +13,7 @@ public class OfferListItemResponse
     public decimal Price { get; set; }
     public string Brand { get; set; } = null!;
     public string Model { get; set; } = null!;
+    public string Mileage { get; set; } = null!;
     public string? PrimaryImageUrl { get; set; }
 }
 
