@@ -1,14 +1,18 @@
-namespace LuxGarage.API.Features.Branches;
+namespace LuxGarage.API.Features.Workplaces;
 
-public class BranchResponse
+public class WorkplaceResponse
 {
     public int Id { get; set; }
-    public required string Name { get; set; }
-    public required string Address { get; set; } // Złączyliśmy wcześniej Country, City, Street w Address
+    public required string Country { get; set; }
+    public required string City { get; set; }
+    public required string Street { get; set; }
+    public required string BuildingNumber { get; set; }
 }
 
-public class ChangeBranchRequest
+public class ChangeWorkplaceRequest
 {
-    public required string Name { get; set; }
-    public required string Address { get; set; }
+    public required string Country { get; set; }
+    public required string City { get; set; }
+    public required string Street { get; set; }
+    public required string BuildingNumber { get; set; }
 }
