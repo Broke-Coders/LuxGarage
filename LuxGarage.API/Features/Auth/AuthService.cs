@@ -31,7 +31,6 @@ public class AuthService
 
         User newUser;
 
-        // TPH w praktyce: Na podstawie flagi, tworzymy pochodną klasę
         if (request.IsEmployee)
         {
             if (request.WorkplaceId == null)
@@ -61,7 +60,6 @@ public class AuthService
             };
         }
 
-        // Wbudowany Hasher z .NET Core
         newUser.PasswordHash = _passwordHasher.HashPassword(newUser, request.Password);
 
         _context.Users.Add(newUser);
@@ -103,7 +101,6 @@ public class AuthService
         
         var key = Encoding.ASCII.GetBytes(keyString);
 
-        // Standardowe Claims identyfikujące użytkownika
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -111,7 +108,6 @@ public class AuthService
             new Claim(ClaimTypes.Role, user.Role.ToString())
         };
 
-        // Dodatkowe Claims w zależności od typu użytkownika
         if (user is Employee employee)
         {
             claims.Add(new Claim("WorkplaceId", employee.WorkplaceId.ToString()));
