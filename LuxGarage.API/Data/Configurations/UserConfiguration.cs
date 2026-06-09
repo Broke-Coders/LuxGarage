@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using LuxGarage.API.Models;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace LuxGarage.API.Features.Users;
 

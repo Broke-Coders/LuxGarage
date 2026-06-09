@@ -6,7 +6,6 @@ namespace LuxGarage.API.Models;
 /// This class serves as a data model for offers in the application, allowing for the storage and retrieval of offer information, 
 /// including the details of the vehicle being offered and its pricing history.
 /// </summary>
-
 public class Offer
 {
     public int Id { get; set; }
