@@ -1,6 +1,5 @@
 using AutoMapper;
 using LuxGarage.API.Data;
-using LuxGarage.API.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LuxGarage.API.Features.Users;
