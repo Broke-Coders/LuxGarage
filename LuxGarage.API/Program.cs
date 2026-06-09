@@ -1,32 +1,15 @@
-using LuxGarage.API.Data;
 using LuxGarage.API.Extensions;
-using LuxGarage.API.Profiles;
-using AutoMapper.Internal;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddStoreDb();
-builder.Services.AddRepositories();
 builder.Services.AddCorsPolicy();
-builder.Services.AddServices();
+builder.Services.AddApplicationServices();
+builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddControllers();
-builder.Services.AddAutoMapper(config =>
-{
-    config.AddProfile<MapperProfile>();
-});
-
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddCors(options => {
-
-    options.AddPolicy("AllowAll", policy =>
-    {
-        policy.AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader();
-    });
-});
 
 var app = builder.Build();
 app.MigrateDb();
@@ -42,6 +25,9 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseStaticFiles();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
