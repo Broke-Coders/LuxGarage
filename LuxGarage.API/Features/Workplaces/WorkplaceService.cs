@@ -29,7 +29,7 @@ public class WorkplaceService
 
     public async Task<WorkplaceResponse> CreateAsync(ChangeWorkplaceRequest request)
     {
-        var workplace = new Models.Workplace // Zakładam ścieżkę encji, w razie potrzeby dostosuj using
+        var workplace = new Models.Workplace 
         {
             Country = request.Country,
             City = request.City,
@@ -59,7 +59,6 @@ public class WorkplaceService
 
     public async Task<bool> DeleteAsync(int id)
     {
-        // ExecuteDeleteAsync to optymalna metoda EF Core 7+, która usuwa bez pobierania wiersza z bazy
         var rowsDeleted = await _context.Workplaces.Where(w => w.Id == id).ExecuteDeleteAsync();
         return rowsDeleted > 0;
     }
