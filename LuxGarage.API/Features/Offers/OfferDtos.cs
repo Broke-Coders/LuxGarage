@@ -33,7 +33,7 @@ public class OfferListItemResponse
     public string? PrimaryImageUrl { get; set; }
 }
 
-public class OfferDetailsResponse
+public class OfferDetailsResponse : OfferListItemResponse
 {
     public string? Description { get; set; }
     public DateTime PublicationDate { get; set; }
