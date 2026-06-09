@@ -70,6 +70,7 @@ public class CustomerController : ControllerBase
     /// <param name="id">The ID of the customer to update.</param>
     /// <param name="request">The partial update request data.</param>
     /// <returns>The updated customer details.</returns>
+    [HttpPut("{id:int}")]
     public async Task<ActionResult> Update(int id, [FromBody] UpdateCustomerRequest request)
     {
         try
