@@ -39,7 +39,7 @@ public class OfferDetailsResponse
     public DateTime PublicationDate { get; set; }
     public int Year { get; set; }
     public decimal Horsepower { get; set; }
-    public string BodyType { get; set; }
-    public string Color { get; set; }
-    public string Status { get; set; }
+    public string BodyType { get; set; } = null!;
+    public string Color { get; set; } = null!;
+    public string Status { get; set; } = null!;
 }
