@@ -6,6 +6,22 @@ public class GetOffersRequest
     public bool Descending { get; set; }
 }
 
+public class CreateOfferRequest
+{
+    public int VehicleId { get; set; }
+    public required string Title { get; set; }
+    public string? Description { get; set; }
+    public decimal InitialPricePerDay { get; set; }
+}
+
+public class UpdateOfferRequest
+{
+    public required string Title { get; set; }
+    public string? Description { get; set; }
+    public bool IsActive { get; set; }
+    public decimal? NewPricePerDay { get; set; } 
+}
+
 public class OfferListItemResponse
 {
     public int Id { get; set; }

@@ -69,8 +69,24 @@ public class OfferService
     /// <summary>
     /// Creates a new offer and saves it to the database.
     /// </summary>
-    public async Task<int> CreateOfferAsync(Offer offer)
+    public async Task<int> CreateOfferAsync(CreateOfferRequest request)
     {
+        var offer = new Offer
+        {
+            VehicleId = request.VehicleId,
+            Title = request.Title,
+            Description = request.Description,
+            PublicationDate = DateTime.UtcNow,
+            IsActive = true,
+            Prices = new List<OfferPrice>
+            {
+                new OfferPrice 
+                { 
+                    PricePerDay = request.InitialPricePerDay,
+                    ValidFrom = DateTime.UtcNow
+                }
+            }
+        };
         await _context.Offers.AddAsync(offer);
         await _context.SaveChangesAsync();
         
@@ -80,16 +96,38 @@ public class OfferService
     /// <summary>
     /// Updates an existing offer's details.
     /// </summary>
-    public async Task UpdateOfferAsync(int id, Offer updatedOfferData)
+  public async Task UpdateOfferAsync(int id, UpdateOfferRequest request)
     {
-        var existingOffer = await _context.Offers.FindAsync(id);
+        var existingOffer = await _context.Offers
+            .Include(o => o.Prices)
+            .FirstOrDefaultAsync(o => o.Id == id);
 
         if (existingOffer is null) return;
 
-        existingOffer.Title = updatedOfferData.Title;
-        existingOffer.Description = updatedOfferData.Description;
-        existingOffer.PricePerDay = updatedOfferData.PricePerDay;
-        existingOffer.IsActive = updatedOfferData.IsActive;
+        existingOffer.Title = request.Title;
+        existingOffer.Description = request.Description;
+        existingOffer.IsActive = request.IsActive;
+
+        if (request.NewPricePerDay.HasValue)
+        {
+            var activePrice = existingOffer.Prices.FirstOrDefault(p => p.ValidTo == null);
+            
+            if (activePrice == null || activePrice.PricePerDay != request.NewPricePerDay.Value)
+            {
+                var now = DateTime.UtcNow;
+                
+                if (activePrice != null)
+                {
+                    activePrice.ValidTo = now;
+                }
+
+                existingOffer.Prices.Add(new OfferPrice
+                {
+                    PricePerDay = request.NewPricePerDay.Value,
+                    ValidFrom = now
+                });
+            }
+        }
 
         await _context.SaveChangesAsync();
     }
@@ -99,7 +137,12 @@ public class OfferService
     /// </summary>
     public async Task DeleteOfferAsync(int id)
     {
-        await _context.Offers.Where(o => o.Id == id).ExecuteDeleteAsync();
+        var offer = await _context.Offers.FindAsync(id);
+        if (offer != null)
+        {
+            _context.Offers.Remove(offer);
+            await _context.SaveChangesAsync();
+        }
     }
 
     /// <summary>
