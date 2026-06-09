@@ -1,9 +1,14 @@
-using System;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using LuxGarage.API.Models;
-using LuxGarage.API.Repositories.Implementations;
-using LuxGarage.API.Repositories.Interfaces;
-using LuxGarage.API.Services.Implementations;
-using LuxGarage.API.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using LuxGarage.API.Features.Auth;
+using LuxGarage.API.Features.Offers;
+using LuxGarage.API.Features.Rentals;
+using LuxGarage.API.Features.Users;
+using LuxGarage.API.Features.Vehicles;
+using LuxGarage.API.Features.Workplaces;
 
 namespace LuxGarage.API.Extensions;
 
@@ -18,44 +23,62 @@ namespace LuxGarage.API.Extensions;
 public static class ServiceExtensions
 {
     /// <summary>
-    /// Adds repository services to the service collection, including implementations for vehicle, customer, 
-    /// insurance, permission, rental, employee, and workplace repositories.
+    /// Rejestruje wszystkie pionowe serwisy z Vertical Slices w kontenerze DI.
+    /// Zrezygnowano ze wzorca Repository, co eliminuje konieczność rejestracji interfejsów danych.
     /// </summary>
-    /// <param name="services">The service collection to which the repositories will be added.</param>
-    /// <returns>The updated service collection.</returns>
-    public static IServiceCollection AddRepositories(this IServiceCollection services)
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddScoped<IVehicleRepository, VehicleRepository>();
-        services.AddScoped<IVehicleBrandRepository, VehicleBrandRepository>();
-        services.AddScoped<IVehicleModelRepository, VehicleModelRepository>();
-        services.AddScoped<IVehicleBodyRepository, VehicleBodyRepository>();
-        services.AddScoped<IVehicleColorRepository, VehicleColorRepository>();
-        services.AddScoped<IVehiclePriceRepository, VehiclePriceRepository>();
-        services.AddScoped<IVehicleImageRepository, VehicleImageRepository>();
-        services.AddScoped<IOfferRepository, OfferRepository>();
-        services.AddScoped<ICustomerRepository, CustomerRepository>();
-        services.AddScoped<IInsuranceRepository, InsuranceRepository>();
-        services.AddScoped<IPermissionRepository, PermissionRepository>();
-        services.AddScoped<IRentalInsuranceRepository, RentalInsuranceRepository>();
-        services.AddScoped<IRentalRepository, RentalRepository>();
-        services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-        services.AddScoped<IWorkplaceRepository, WorkplaceRepository>();
+        services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+        
+        services.AddScoped<IPricingStrategy, LongTermDiscountStrategy>();
+        services.AddScoped<IPricingStrategy, WeekendSurchargeStrategy>();
+        services.AddScoped<DynamicPricingEngine>();
+
+        services.AddScoped<AuthService>();
+        services.AddScoped<CustomerService>();
+        services.AddScoped<EmployeeService>();
+        services.AddScoped<WorkplaceService>();
+        services.AddScoped<VehicleService>();
+        services.AddScoped<VehicleImageService>();
+        services.AddScoped<OfferService>();
+        services.AddScoped<RentalService>();
+
         return services;
     }
 
     /// <summary>
-    /// Adds service implementations to the service collection, including services for vehicle management, authentication, 
-    /// employee management, and workplace management, allowing these services to be injected and used throughout the application where needed.
+    /// Konfiguruje mechanizm sprawdzania tokenów JWT wysyłanych przez frontend.
+    /// Bez tego API nie będzie potrafiło rozszyfrować faktu, czy dany request pochodzi od zalogowanego usera.
     /// </summary>
-    /// <param name="services">The service collection to which the services will be added.</param>
-    /// <returns>The updated service collection.</returns>
-    public static IServiceCollection AddServices(this IServiceCollection services)
+    public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<IVehicleService, VehicleService>();
-        services.AddScoped<IAuthService, AuthService>();
-        services.AddScoped<IEmployeeService, EmployeeService>();
-        services.AddScoped<IWorkplaceService, WorkplaceService>();
-        services.AddScoped<IVehicleImageService, VehicleImageService>();
+        var keyString = configuration["JwtSettings:Key"];
+        if (string.IsNullOrWhiteSpace(keyString))
+            throw new InvalidOperationException("JWT Key is missing in appsettings.json.");
+
+        var key = Encoding.ASCII.GetBytes(keyString);
+
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options =>
+        {
+            options.RequireHttpsMetadata = false; 
+            options.SaveToken = true;
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                
+                ValidateIssuer = false, 
+                ValidateAudience = false,
+                ValidateLifetime = true, // Ważne: odrzuca przeterminowane tokeny
+                
+                ClockSkew = TimeSpan.Zero 
+            };
+        });
 
         return services;
     }
