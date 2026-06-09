@@ -401,7 +401,6 @@
 
          function populateSelectors() {
             if (!monthList || !yearList) return;
-
             // Populate months
             monthList.innerHTML = "";
             months.forEach((month, index) => {
@@ -495,7 +494,6 @@
                const dayDiv = document.createElement("div");
                dayDiv.classList.add("day");
                dayDiv.textContent = i;
-
                const thisDayDate = new Date(year, month, i);
                thisDayDate.setHours(0, 0, 0, 0);
 
@@ -568,7 +566,6 @@
                renderCalendar();
             });
          }
-
          const todayBtn = document.getElementById("today-btn");
          if (todayBtn) {
             todayBtn.addEventListener("click", () => {
@@ -601,11 +598,5 @@
          updateDateDisplay();
       </script>
    </body>
-=======
-         </div>
-      </main>
-
-      <footer></footer>
    </body>
->>>>>>> fdc18c8 (Expand car offer page with technical details and layout styles)
 </html>
