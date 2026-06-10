@@ -319,6 +319,109 @@
          </div>
       </main>
 
+      <!-- BOOKING MODAL -->
+      <div id="booking-modal" class="modal">
+         <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+               <h2>Complete Your Reservation</h2>
+               <div class="stepper">
+                  <div class="step active" data-step="1">1. Summary</div>
+                  <div class="step" data-step="2">2. Details</div>
+                  <div class="step" data-step="3">3. Extras</div>
+               </div>
+            </div>
+
+            <div class="modal-body">
+               <!-- STEP 1: CAR SUMMARY -->
+               <div class="form-step active" id="step-1">
+                  <h3>Vehicle Summary</h3>
+                  <div class="summary-grid">
+                     <div class="summary-item"><span>Brand:</span> <strong id="sum-brand">McLaren</strong></div>
+                     <div class="summary-item"><span>Model:</span> <strong id="sum-model">650S Spider</strong></div>
+                     <div class="summary-item"><span>Engine:</span> <strong id="sum-engine">3.8L V8 Twin-Turbo</strong></div>
+                     <div class="summary-item"><span>Seats:</span> <strong id="sum-seats">2</strong></div>
+                     <div class="summary-item"><span>0-100 km/h:</span> <strong id="sum-perf">3.0s</strong></div>
+                  </div>
+                  <button class="btn--form next-step">Continue to Details</button>
+               </div>
+
+               <!-- STEP 2: PRICING & CUSTOMER -->
+               <div class="form-step" id="step-2">
+                  <h3>Reservation Details</h3>
+                  <div class="details-form">
+                     <div class="form-group">
+                        <label>Your Full Name</label>
+                        <input type="text" placeholder="John Doe" required />
+                     </div>
+                     <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="john@example.com" required />
+                     </div>
+                     <div class="form-grid">
+                        <div class="form-group">
+                           <label>Selected Duration</label>
+                           <p class="info-display"><span id="display-duration">24</span> Hours</p>
+                        </div>
+                        <div class="form-group">
+                           <label>Base Price</label>
+                           <p class="price-display"><span>1,200</span> PLN</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="modal-btns">
+                     <button class="btn-back prev-step">Back</button>
+                     <button class="btn--form next-step">Select Extras</button>
+                  </div>
+               </div>
+
+               <!-- STEP 3: EXTRAS -->
+               <div class="form-step" id="step-3">
+                  <h3>Enhance Your Experience</h3>
+                  <div class="extras-grid">
+                     <div class="extra-card active" data-price="0">
+                        <div class="extra-icon"><ion-icon name="shield-outline"></ion-icon></div>
+                        <h4>Basic Insurance</h4>
+                        <p>Standard coverage for minor scratches.</p>
+                        <span class="extra-price">Included</span>
+                     </div>
+                     <div class="extra-card" data-price="250">
+                        <div class="extra-icon"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
+                        <h4>Premium Shield</h4>
+                        <p>Full protection. Zero deductible.</p>
+                        <span class="extra-price">+250 PLN</span>
+                     </div>
+                     <div class="extra-card" data-price="150">
+                        <div class="extra-icon"><ion-icon name="person-add-outline"></ion-icon></div>
+                        <h4>Additional Driver</h4>
+                        <p>Share the thrill with a friend.</p>
+                        <span class="extra-price">+150 PLN</span>
+                     </div>
+                     <div class="extra-card" data-price="100">
+                        <div class="extra-icon"><ion-icon name="sparkles-outline"></ion-icon></div>
+                        <h4>Pro Cleaning</h4>
+                        <p>Return dirty, we'll handle the rest.</p>
+                        <span class="extra-price">+100 PLN</span>
+                     </div>
+                  </div>
+
+                  <div class="total-reservation-card">
+                     <div class="total-row">
+                        <span>Total Reservation Cost:</span>
+                        <strong id="final-total-price">1,200 PLN</strong>
+                     </div>
+                     <p class="total-note">Final price calculated including all taxes and selected extras.</p>
+                  </div>
+
+                  <div class="modal-btns">
+                     <button class="btn-back prev-step">Back</button>
+                     <button class="btn--form">Confirm Booking</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
       <footer class="footer">
          <div class="container grid grid--5-cols">
             <div class="logo-col">
@@ -599,6 +702,92 @@
          // Initial render
          renderCalendar();
          updateDateDisplay();
+
+         // BOOKING MODAL LOGIC
+         const modal = document.getElementById("booking-modal");
+         const bookBtn = document.querySelector(".btn-book-sidebar");
+         const closeBtn = document.querySelector(".close-modal");
+         const nextBtns = document.querySelectorAll(".next-step");
+         const prevBtns = document.querySelectorAll(".prev-step");
+         const steps = document.querySelectorAll(".form-step");
+         const stepperItems = document.querySelectorAll(".step");
+         const extraCards = document.querySelectorAll(".extra-card");
+         const finalPriceDisplay = document.getElementById("final-total-price");
+
+         let currentStep = 1;
+         const basePrice = 1200; // Template base price for the selected duration
+
+         bookBtn.onclick = () => {
+            modal.style.display = "block";
+            updatePrice();
+         };
+
+         closeBtn.onclick = () => {
+            modal.style.display = "none";
+            resetModal();
+         };
+
+         window.onclick = (event) => {
+            if (event.target == modal) {
+               modal.style.display = "none";
+               resetModal();
+            }
+         };
+
+         function updateStepUI() {
+            steps.forEach((s) => s.classList.remove("active"));
+            stepperItems.forEach((s) => s.classList.remove("active"));
+            
+            const targetStep = document.getElementById(`step-${currentStep}`);
+            if(targetStep) targetStep.classList.add("active");
+            
+            const targetStepper = document.querySelector(`.step[data-step="${currentStep}"]`);
+            if(targetStepper) targetStepper.classList.add("active");
+         }
+
+         nextBtns.forEach((btn) => {
+            btn.onclick = () => {
+               if (currentStep < 3) {
+                  currentStep++;
+                  updateStepUI();
+               }
+            };
+         });
+
+         prevBtns.forEach((btn) => {
+            btn.onclick = () => {
+               if (currentStep > 1) {
+                  currentStep--;
+                  updateStepUI();
+               }
+            };
+         });
+
+         function resetModal() {
+            currentStep = 1;
+            updateStepUI();
+         }
+
+         // Price calculation logic
+         function updatePrice() {
+            let extrasTotal = 0;
+            extraCards.forEach(card => {
+               if(card.classList.contains("active")) {
+                  extrasTotal += parseInt(card.dataset.price);
+               }
+            });
+            const total = basePrice + extrasTotal;
+            if(finalPriceDisplay) {
+               finalPriceDisplay.textContent = `${total.toLocaleString()} PLN`;
+            }
+         }
+
+         extraCards.forEach(card => {
+            card.onclick = () => {
+               card.classList.toggle("active");
+               updatePrice();
+            };
+         });
       </script>
    </body>
 </html>
