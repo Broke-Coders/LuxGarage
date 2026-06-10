@@ -4,24 +4,19 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LuxGarage.API.Configurations;
 
+/// <summary>
+/// Configuration for the Rental entity, defining the database schema and relationships.
+/// </summary>
 public class RentalConfiguration : IEntityTypeConfiguration<Rental>
 {
+    /// <summary>
+    /// Configures the Rental entity's properties and relationships.
+    /// </summary>
+    /// <param name="builder">The builder used to configure the entity.</param>
     public void Configure(EntityTypeBuilder<Rental> builder)
     {
-
-        builder.HasKey(r => r.Id);
-
-        builder.Property(r => r.Id)
-            .ValueGeneratedOnAdd();
-
-        builder.Property(r => r.StartingTime)
-            .IsRequired();
-
-        builder.Property(r => r.AppointedReturnTime)
-            .IsRequired();
-
-        builder.Property(r => r.RealReturnTime)
-            .IsRequired(false);
+        builder.Property(r => r.VehiclePriceAtBooking).HasColumnType("decimal(10,2)");
+        builder.Property(r => r.TotalPrice).HasColumnType("decimal(12,2)");
 
         builder.HasOne(r => r.Vehicle)
             .WithMany(v => v.Rentals)
@@ -29,13 +24,13 @@ public class RentalConfiguration : IEntityTypeConfiguration<Rental>
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(r => r.Customer)
-            .WithMany(b => b.Rentals)
+            .WithMany(c => c.Rentals)
             .HasForeignKey(r => r.CustomerId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasMany(r => r.RentalInsurances)
-            .WithOne(ri => ri.Rental)
-            .HasForeignKey(ri => ri.RentalId)
-            .OnDelete(DeleteBehavior.Cascade);
+        builder.HasOne(r => r.Employee)
+            .WithMany()
+            .HasForeignKey(r => r.EmployeeId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

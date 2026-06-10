@@ -1,0 +1,64 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": ".",
+          "files": [
+            "LuxGarage.API/**/*.csproj"
+          ]
+        }
+      ],
+      "dest": "API",
+      "namespaceLayout": "nested"
+    },
+	 {
+      "src": [
+        {
+          "src": ".",
+          "files": [
+			"LuxGarage.Tests/**/*.csproj"
+          ]
+        }
+      ],
+      "dest": "Tests",
+      "namespaceLayout": "nested"
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "**/*.{md,yml}",
+          "frontend_docs/**",
+          "python_docs/**"
+        ],
+        "exclude": [
+          "_site/**"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**",
+		      "docs_resources/**"
+        ]
+      }
+    ],
+    "output": "_site",
+    "template": [
+      "default",
+      "modern",
+      "docs_resources"
+    ],
+    "globalMetadata": {
+      "_appName": "LuxGarage - Documentation",
+      "_appTitle": "LuxGarage",
+	  "_appLogoPath": "docs_resources/logo.png",
+      "_appFaviconPath": "docs_resources/favicon.png",
+      "_enableSearch": true
+    }
+  }
+}

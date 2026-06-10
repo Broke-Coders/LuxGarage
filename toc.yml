@@ -1,0 +1,10 @@
+- name: Docs
+  href: docs/
+- name: API
+  href: API/
+- name: Tests
+  href: Tests/
+- name: Frontend (JS)
+  href: frontend_docs/toc.yml
+- name: Python Tests
+  href: python_docs/toc.yml

@@ -1,0 +1,128 @@
+name: Generate and Deploy Docs
+
+on:
+  push:
+    branches: ["main"] # docs are updated only when we push to main branch
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy-docs:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+# add steps to generate documentation for JavaScript
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Generate JavaScript Docs
+      shell: bash
+      run: |
+        # create a folder for the generated docs
+        mkdir -p frontend_docs
+
+        echo "# JavaScript Files" > frontend_docs/index.md
+        echo "This section contains documentation generated from the JavaScript files." >> frontend_docs/index.md
+        
+        echo "- name: Main Menu" > frontend_docs/toc.yml
+        echo "  href: index.md" >> frontend_docs/toc.yml
+
+        # create empty navigation file
+        echo "" > frontend_docs/toc.yml
+
+        for file in LuxGarage.Front/wwwroot/js/*.js; do
+          filename="${file##*/}" # get the filename with extension
+          
+          clean_name="${filename%.js}"
+          clean_name=$(echo "$clean_name" | tr -d ',\r') # remove commas and carriage returns from the filename (in case there are any)
+
+          npx jsdoc-to-markdown "$file" > "frontend_docs/${clean_name}.md"
+
+          if [ ! -s "frontend_docs/${clean_name}.md" ]; then
+            echo '# File: '"$filename" > "frontend_docs/${clean_name}.md"
+            echo "No documentation generated for this file." >> "frontend_docs/${clean_name}.md"
+          fi
+
+          echo "- name: ${filename}" >> frontend_docs/toc.yml
+          echo "  href: ${clean_name}.md" >> frontend_docs/toc.yml
+        done
+
+    # Generate Python docs (for later, when we add Python tests)
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        
+    - name: Generate Python Docs
+      shell: bash
+      run: |
+        # install pydoc-markdown to generate markdown documentation from Python files
+        pip install pydoc-markdown
+        
+        # create a folder for the generated Python docs
+        mkdir -p python_docs
+        echo "" > python_docs/toc.yml
+
+        # enable nullglob to avoid errors if there are no Python test files (this allows the for loop to simply skip if there are no .py files)
+        shopt -s nullglob
+
+        # initialize a counter to track if any Python files were found
+        files_found=0
+
+        for file in PythonTests/*.py; do
+          files_found=1
+          filename=$(basename "$file" .py)
+          
+          # generate markdown documentation from the Python file using pydoc-markdown 
+          # (specify the PythonTests folder as an include path so it can find any imports)
+          # -I specifies folders to include in the module search path, -m specifies the module to document
+          pydoc-markdown -I PythonTests -m "${filename}" > "python_docs/${filename}.md"
+
+          echo "- name: ${filename}" >> python_docs/toc.yml
+          echo "  href: ${filename}.md" >> python_docs/toc.yml
+        done
+
+        if [ $files_found -eq 0 ]; then
+          echo "- name: No Python test files found" >> python_docs/toc.yml
+          echo "  href: index.md" >> python_docs/toc.yml
+
+          echo "# Python Tests" > python_docs/index.md
+          echo "No Python test files found, so no documentation generated." >> python_docs/index.md
+        fi
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.x'
+
+    # Install docfx as a global tool
+    - name: Install DocFX
+      run: dotnet tool install -g docfx
+
+    # Build documentation
+    - name: Build documentation
+      run: docfx ./docfx.json
+
+    # setup github pages
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: '_site' # default folder where docfx outputs the generated site
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
