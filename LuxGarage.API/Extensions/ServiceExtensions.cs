@@ -93,16 +93,8 @@ public static class ServiceExtensions
 
     /// <summary>
     /// Adds a CORS policy to the service collection that allows any origin, method, and header, 
-    /// enabling cross-origin requests to the API from any client or domain.
+    /// enabling 
     /// </summary>
-    /// <param name="services">The service collection to which the CORS policy will be added.</param>
-    /// <returns>The updated service collection.</returns>
-    /// <summary>
-    /// Adds a CORS policy to the service collection that allows any origin, method, and header, 
-    /// enabling cross-origin requests to the API from any client or domain.
-    /// </summary>
-    /// <param name="services">The service collection to which the CORS policy will be added.</param>
-    /// <returns>The updated service collection.</returns>
     public static IServiceCollection AddCorsPolicy (this IServiceCollection services)
     {
         services.AddCors(options =>

@@ -48,12 +48,6 @@ public class VehiclesController : ControllerBase
     /// </summary>
     /// <param name="request">The request DTO containing query parameters for filtering, sorting, and pagination.</param>
     /// <returns>A list of vehicles matching the criteria.</returns>
-    /// <summary>
-    /// Retrieves a list of all vehicles based on the provided query parameters. 
-    /// The endpoint supports filtering, sorting, and pagination through the GetVehiclesRequest DTO.
-    /// </summary>
-    /// <param name="request">The request DTO containing query parameters for filtering, sorting, and pagination.</param>
-    /// <returns>A list of vehicles matching the criteria.</returns>
     [HttpGet]
     public async Task<ActionResult<ApiResponse<List<VehicleResponse>>>> GetAll([FromQuery] GetVehiclesRequest request)
     {
@@ -61,11 +55,6 @@ public class VehiclesController : ControllerBase
         return Ok(vehicles);
     }
 
-    /// <summary>
-    /// Retrieves a specific vehicle by its unique identifier.
-    /// </summary>
-    /// <param name="id">The unique identifier of the vehicle to retrieve.</param>
-    /// <returns>The vehicle details if found, otherwise null.</returns>
     /// <summary>
     /// Retrieves a specific vehicle by its unique identifier.
     /// </summary>
