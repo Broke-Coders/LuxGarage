@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Testcontainers.PostgreSql;
 using LuxGarage.Tests.DbContext;
+using AutoMapper;
+using LuxGarage.API.Features.Workplaces;
 
 namespace LuxGarage.Tests.Bases;
 
@@ -12,22 +14,29 @@ namespace LuxGarage.Tests.Bases;
 /// Base class for VehicleRepository tests, providing a shared database context and transaction management for each test.
 /// </summary>
 [Collection("SharedDB")]
-public class VehicleRepositoryTestBase : IAsyncLifetime
+public class ServiceTestBase : IAsyncLifetime
 {
     
     private readonly SharedDatabaseFixture _fixture;
 
     protected RentalContext context { get; private set; } = null!;
 
+    protected IMapper mapper;
     private IDbContextTransaction _transaction = null!;
 
     /// <summary>
     /// Initializes a new instance of the VehicleRepositoryTestBase class with the provided shared database fixture.
     /// </summary>
     /// <param name="fixture">The shared database fixture.</param>
-    public VehicleRepositoryTestBase(SharedDatabaseFixture fixture)
+    public ServiceTestBase(SharedDatabaseFixture fixture)
     {
         _fixture = fixture;
+        var config = new MapperConfiguration(cfg =>
+        {
+            // could be any ...Mapper, it finds every class inheriting from profile
+            cfg.AddMaps(typeof(WorkplaceMapper).Assembly);
+        });
+        mapper = config.CreateMapper();
     }
 
     /// <summary>
