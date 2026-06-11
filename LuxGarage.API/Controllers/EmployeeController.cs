@@ -129,7 +129,7 @@ public class EmployeeController : ControllerBase
     {
         var pendingUsers = await _employeeService.GetPendingEmployeesAsync();
 
-        return Ok(ApiResponse<object>.NoContent("Employees pended successfully"));
+        return Ok(ApiResponse<IEnumerable<EmployeeResponse>>.Ok(pendingUsers, "All employees retrieved successfully."));
     }
 
     [HttpGet("approve-employee/{userId}")]
