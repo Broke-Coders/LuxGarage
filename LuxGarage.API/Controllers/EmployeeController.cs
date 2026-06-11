@@ -132,13 +132,13 @@ public class EmployeeController : ControllerBase
         return Ok(ApiResponse<IEnumerable<EmployeeResponse>>.Ok(pendingUsers, "All employees retrieved successfully."));
     }
 
-    [HttpGet("approve-employee/{userId}")]
+    [HttpGet("approve-employee/{id:int}")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> ApproveEmployee(int userId)
+    public async Task<IActionResult> ApproveEmployee(int id)
     {
-        var success = await _employeeService.AcceptEmployeeRequest(userId);
+        var success = await _employeeService.ResolveEmployeeRequest(id, EmployeeStatus.Approved);
         if (!success) 
-            return NotFound(ApiResponse<object>.NotFound($"Employee with ID {userId} not found."));
+            return NotFound(ApiResponse<object>.NotFound($"Employee with ID {id} not found."));
         return Ok(ApiResponse<object>.NoContent("Employee accepted."));
     }
 }

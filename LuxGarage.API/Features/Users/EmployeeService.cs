@@ -64,19 +64,19 @@ public class EmployeeService
     public async Task<IEnumerable<EmployeeResponse>> GetPendingEmployeesAsync()
     {
         var pendingUsers = await _context.Employees
-                        .Where(e => e.EmployeeRequested)
+                        .Where(e => e.Status == EmployeeStatus.Pending)
                         .AsNoTracking()
                         .ToListAsync();
 
         return _mapper.Map<IEnumerable<EmployeeResponse>>(pendingUsers);
     }
 
-    public async Task<bool> AcceptEmployeeRequest(int id)
+    public async Task<bool> ResolveEmployeeRequest(int id, EmployeeStatus newStatus)
     {
         var employee = await _context.Employees.FindAsync(id)
             ?? throw new KeyNotFoundException($"Employee with ID {id} does not exist.");
 
-        employee.EmployeeRequested = false;
+        employee.Status = newStatus;
         employee.Role = UserRole.Employee;
 
         await _context.SaveChangesAsync();

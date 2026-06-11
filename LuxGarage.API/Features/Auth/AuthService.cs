@@ -38,12 +38,12 @@ public class AuthService
 
             newUser = new Employee
             {
-                EmployeeRequested = true,
                 Email = request.Email,
                 PasswordHash = string.Empty, 
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Role = UserRole.Employee,
+                Status = EmployeeStatus.Pending,
                 WorkplaceId = request.WorkplaceId.Value
             };
         }
