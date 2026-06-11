@@ -19,3 +19,8 @@ public class UpdateEmployeeRequest
     public int WorkplaceId { get; set; }
     public bool IsActive { get; set; } 
 }
+
+public class ChangeEmployeeStatusRequest
+{
+    public EmployeeStatus Status { get; set; }
+}
