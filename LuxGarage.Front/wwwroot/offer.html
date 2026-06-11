@@ -191,6 +191,11 @@
                      </div>
                      <p class="taxes-note">Taxes & fees calculated at checkout</p>
 
+                     <div id="availability-error" class="availability-error">
+                        <ion-icon name="alert-circle-outline"></ion-icon>
+                        <span>Selected range includes unavailable days.</span>
+                     </div>
+
                      <button class="btn-book-sidebar">Book Now</button>
                   </div>
                </aside>
@@ -462,12 +467,27 @@
          const prevBtn = document.querySelector(".cal-nav ion-icon[name='chevron-back-outline']");
          const nextBtn = document.querySelector(".cal-nav ion-icon[name='chevron-forward-outline']");
          const bookBtnSidebar = document.querySelector(".btn-book-sidebar");
+         const availabilityError = document.getElementById("availability-error");
 
          let currentDate = new Date(2026, 5, 1);
          let startDate = null;
          let endDate = null;
          let startTime = "12:00 PM";
          const pricePerDay = 1200;
+
+         // Helper to check if a range is available
+         function isRangeAvailable(start, end) {
+            if (!start || !end) return true;
+            let temp = new Date(start);
+            while (temp <= end) {
+               // Demo unavailable logic: 15th and 22nd
+               if (temp.getDate() === 15 || temp.getDate() === 22) {
+                  return false;
+               }
+               temp.setDate(temp.getDate() + 1);
+            }
+            return true;
+         }
 
          const months = [
             "January", "February", "March", "April", "May", "June",
@@ -621,8 +641,18 @@
                summaryPriceValue.textContent = formattedPrice;
                totalPriceBottom.textContent = formattedPrice;
                
-               bookBtnSidebar.classList.add("ready");
-               bookBtnSidebar.textContent = "Book Now";
+               const available = isRangeAvailable(startDate, endDate);
+               if (available) {
+                  bookBtnSidebar.classList.add("ready");
+                  bookBtnSidebar.disabled = false;
+                  availabilityError.classList.remove("active");
+                  bookBtnSidebar.textContent = "Book Now";
+               } else {
+                  bookBtnSidebar.classList.remove("ready");
+                  bookBtnSidebar.disabled = true;
+                  availabilityError.classList.add("active");
+                  bookBtnSidebar.textContent = "Range Unavailable";
+               }
             } else if (startDate) {
                summaryDays.textContent = "0";
                const options = { month: "short", day: "numeric" };
@@ -630,12 +660,16 @@
                summaryPriceValue.textContent = "0.00 PLN";
                totalPriceBottom.textContent = "0.00 PLN";
                bookBtnSidebar.classList.remove("ready");
+               bookBtnSidebar.disabled = false;
+               availabilityError.classList.remove("active");
             } else {
                summaryDays.textContent = "0";
                summaryRange.textContent = "Select dates in calendar";
                summaryPriceValue.textContent = "0.00 PLN";
                totalPriceBottom.textContent = "0.00 PLN";
                bookBtnSidebar.classList.remove("ready");
+               bookBtnSidebar.disabled = false;
+               availabilityError.classList.remove("active");
             }
          }
 

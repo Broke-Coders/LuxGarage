@@ -400,6 +400,32 @@ main.offer-page {
    color: #ebe6ce;
 }
 
+.availability-error {
+   display: none;
+   align-items: center;
+   gap: 0.8rem;
+   background-color: #fff5f5;
+   border: 1px solid #ffc9c9;
+   color: #fa5252;
+   padding: 1.2rem;
+   border-radius: 8px;
+   font-size: 1.2rem;
+   font-weight: 600;
+   margin-bottom: 1.6rem;
+   animation: shake 0.4s ease-in-out;
+}
+
+.availability-error.active {
+   display: flex;
+}
+
+@keyframes shake {
+   0%, 100% { transform: translateX(0); }
+   25% { transform: translateX(-4px); }
+   75% { transform: translateX(4px); }
+}
+
+
 
 .selectors-overlay {
    position: absolute;
