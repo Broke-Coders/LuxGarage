@@ -12,7 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LuxGarage.API.Data.Migrations
 {
     [DbContext(typeof(RentalContext))]
+<<<<<<<< HEAD:LuxGarage.API/Data/Migrations/20260609115254_InitialCreate.Designer.cs
     [Migration("20260609115254_InitialCreate")]
+========
+    [Migration("20260610013713_InitialCreate")]
+>>>>>>>> 209f8aaed524ee908434ab582feae3ab8c6b91bd:LuxGarage.API/Data/Migrations/20260610013713_InitialCreate.Designer.cs
     partial class InitialCreate
     {
         /// <inheritdoc />

@@ -30,7 +30,10 @@
   <Folder Include="Endpoints\" />
   <Folder Include="Extensions\" />
   <Folder Include="Models\" />
+<<<<<<< HEAD
   <Folder Include="Repositories\" />
+=======
+>>>>>>> 209f8aaed524ee908434ab582feae3ab8c6b91bd
 </ItemGroup>
 
 </Project>

@@ -11,6 +11,19 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+<<<<<<< HEAD
+=======
+builder.Services.AddCors(options => {
+
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
+>>>>>>> 209f8aaed524ee908434ab582feae3ab8c6b91bd
 var app = builder.Build();
 app.MigrateDb();
 

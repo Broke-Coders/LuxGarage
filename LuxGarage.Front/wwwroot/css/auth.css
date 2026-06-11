@@ -2,6 +2,8 @@ body {
    background-image: url(/LuxGarage.Front/wwwroot/images/why.jpg);
    background-position: center;
    background-size: cover;
+<<<<<<< HEAD
+=======
 }
 .container{
    display: flex;
@@ -10,6 +12,29 @@ body {
    margin-top: 0;
    margin-bottom: 0;
 }
+.container-auth{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 120rem;
+   margin: 0;
+   padding: 0;
+>>>>>>> 209f8aaed524ee908434ab582feae3ab8c6b91bd
+}
+.container{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-top: 0;
+   margin-bottom: 0;
+}
+<<<<<<< HEAD
+=======
+
+#logo {
+   margin-left: 7.5rem;
+}
+>>>>>>> 209f8aaed524ee908434ab582feae3ab8c6b91bd
 .container-auth{
    display: flex;
    align-items: center;
