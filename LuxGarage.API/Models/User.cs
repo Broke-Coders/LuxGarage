@@ -16,7 +16,6 @@ public class User
 
     public UserRole Role { get; set; }
     public bool IsActive { get; set; } = true;
-    public bool EmployeeRequested { get; set; } = false;
 }
 
 /// <summary>
@@ -41,4 +40,5 @@ public class Employee : User
 {
     public int WorkplaceId { get; set; }
     public Workplace Workplace { get; set; } = null!;
+    public EmployeeStatus Status { get; set; } = EmployeeStatus.Pending;
 }
