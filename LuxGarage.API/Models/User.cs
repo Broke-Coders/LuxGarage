@@ -16,6 +16,7 @@ public class User
 
     public UserRole Role { get; set; }
     public bool IsActive { get; set; } = true;
+    public bool EmployeeRequested { get; set; } = false;
 }
 
 /// <summary>
