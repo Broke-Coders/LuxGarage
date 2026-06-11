@@ -1,6 +1,0 @@
-@LuxGarage.API_HostAddress = http://localhost:5054
-
-GET {{LuxGarage.API_HostAddress}}/
-Accept: application/json
-
-###

@@ -486,3 +486,5 @@ $RECYCLE.BIN/
 # DocFX
 _site/
 api/
+
+LuxGarage.Front/wwwroot/images/cars/*
