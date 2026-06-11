@@ -459,6 +459,90 @@
             </div>
          </section>
 
+         <section class="section-packages" id="Packages">
+            <div class="container">
+               <span class="subheading">Enhancements</span>
+               <h2 class="heading-secondary">Tailored Service Packages</h2>
+               <p class="packages-intro">
+                  Upgrade your journey with our exclusive add-ons. Designed to provide peace of mind, comfort, and a flawless experience behind the wheel.
+               </p>
+            </div>
+
+            <div class="container swiper-container-wrapper">
+               <div class="swiper packages-swiper">
+                  <div class="swiper-wrapper">
+                     <!-- PACKAGE 1 -->
+                     <div class="swiper-slide">
+                        <div class="package-card">
+                           <div class="package-icon">
+                              <ion-icon name="shield-outline"></ion-icon>
+                           </div>
+                           <h3 class="package-title">Basic Insurance</h3>
+                           <p class="package-description">
+                              Standard protection included with every rental. Covers minor scratches and essential liability.
+                           </p>
+                           <div class="package-footer">
+                              <span class="package-price">Included</span>
+                           </div>
+                        </div>
+                     </div>
+
+                     <!-- PACKAGE 2 -->
+                     <div class="swiper-slide">
+                        <div class="package-card featured">
+                           <div class="package-tag">Popular</div>
+                           <div class="package-icon">
+                              <ion-icon name="shield-checkmark-outline"></ion-icon>
+                           </div>
+                           <h3 class="package-title">Premium Shield</h3>
+                           <p class="package-description">
+                              Ultimate protection. Zero deductible, full coverage for theft, collision, and glass.
+                           </p>
+                           <div class="package-footer">
+                              <span class="package-price">+250 PLN</span>
+                           </div>
+                        </div>
+                     </div>
+
+                     <!-- PACKAGE 3 -->
+                     <div class="swiper-slide">
+                        <div class="package-card">
+                           <div class="package-icon">
+                              <ion-icon name="person-add-outline"></ion-icon>
+                           </div>
+                           <h3 class="package-title">Additional Driver</h3>
+                           <p class="package-description">
+                              Share the exhilaration. Register a second driver officially on your rental agreement.
+                           </p>
+                           <div class="package-footer">
+                              <span class="package-price">+150 PLN</span>
+                           </div>
+                        </div>
+                     </div>
+
+                     <!-- PACKAGE 4 -->
+                     <div class="swiper-slide">
+                        <div class="package-card">
+                           <div class="package-icon">
+                              <ion-icon name="sparkles-outline"></ion-icon>
+                           </div>
+                           <h3 class="package-title">Pro Cleaning</h3>
+                           <p class="package-description">
+                              Focus on the drive. Return the car in any condition, we'll handle the detailing.
+                           </p>
+                           <div class="package-footer">
+                              <span class="package-price">+100 PLN</span>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Navigation -->
+                  <div class="swiper-button-prev"></div>
+                  <div class="swiper-button-next"></div>
+               </div>
+            </div>
+         </section>
+
          <div id="TestimonialPage" class="screen-section">
             <section class="section-testimonials">
                <div class="testimonials-container">
@@ -847,6 +931,26 @@
             // Enable mousewheel control
             mousewheel: false,
             // Enable grab cursor
+            grabCursor: true,
+         });
+
+         const packagesSwiper = new Swiper(".packages-swiper", {
+            loop: true,
+            autoplay: {
+               delay: 4000,
+               disableOnInteraction: false,
+            },
+            slidesPerView: 1,
+            spaceBetween: 20,
+            navigation: {
+               nextEl: ".swiper-button-next",
+               prevEl: ".swiper-button-prev",
+            },
+            breakpoints: {
+               640: { slidesPerView: 2, spaceBetween: 20 },
+               768: { slidesPerView: 3, spaceBetween: 30 },
+               1024: { slidesPerView: 4, spaceBetween: 30 },
+            },
             grabCursor: true,
          });
       </script>
