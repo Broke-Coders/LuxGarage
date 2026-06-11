@@ -83,4 +83,23 @@ public class EmployeeService
 
         return employee.Role == UserRole.Employee;
     }
+    public async Task<bool> ChangeEmployeeStatus(int id, EmployeeStatus Status)
+    {
+        var employee = await _context.Employees.FindAsync(id)
+            ?? throw new KeyNotFoundException($"Employee with ID {id} does not exist.");
+
+        employee.Status = Status;
+
+        switch (Status)
+        {
+            case EmployeeStatus.Rejected:
+            // TO DO
+            break;
+        }
+
+
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
 }
