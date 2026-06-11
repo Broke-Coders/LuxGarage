@@ -43,7 +43,7 @@ public class AuthService
                 PasswordHash = string.Empty, 
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                Role = UserRole.Customer,
+                Role = UserRole.Employee,
                 WorkplaceId = request.WorkplaceId.Value
             };
         }
