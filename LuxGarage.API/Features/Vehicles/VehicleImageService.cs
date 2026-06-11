@@ -12,10 +12,10 @@ public class VehicleImageService
     public VehicleImageService(RentalContext context, IWebHostEnvironment env)
     {
         _context = context;
-        _uploadFolder = Path.Combine(env.ContentRootPath, "images", "cars");
+        _uploadFolder = Path.Combine(env.ContentRootPath, "..", "LuxGarage.Front", "wwwroot", "images", "cars");
     }
 
-        public async Task<List<VehicleImageResponse>> GetByVehicleIdAsync(int vehicleId)
+    public async Task<List<VehicleImageResponse>> GetByVehicleIdAsync(int vehicleId)
     {
         var images = await _context.VehicleImages
             .Where(i => i.VehicleId == vehicleId)

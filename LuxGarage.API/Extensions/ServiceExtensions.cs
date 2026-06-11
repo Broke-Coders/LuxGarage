@@ -20,17 +20,6 @@ namespace LuxGarage.API.Extensions;
 /// including methods for adding repositories, services, and CORS policies to the service collection used by the application. 
 /// These methods help to organize and centralize the configuration of services and dependencies in the application startup process.
 /// </remarks>
-<<<<<<< HEAD
-=======
-/// <summary>
-/// Extension methods for configuring services in the dependency injection container.
-/// </summary>
-/// <remarks>
-/// This class contains extension methods for adding various services and repositories to the service collection,
-/// including methods for adding repositories, services, and CORS policies to the service collection used by the application. 
-/// These methods help to organize and centralize the configuration of services and dependencies in the application startup process.
-/// </remarks>
->>>>>>> 209f8aaed524ee908434ab582feae3ab8c6b91bd
 public static class ServiceExtensions
 {
     /// <summary>
@@ -96,15 +85,10 @@ public static class ServiceExtensions
 
     /// <summary>
     /// Adds a CORS policy to the service collection that allows any origin, method, and header, 
-<<<<<<< HEAD
     /// enabling cross-origin requests to the API from any client or domain.
     /// </summary>
     /// <param name="services">The service collection to which the CORS policy will be added.</param>
     /// <returns>The updated service collection.</returns>
-=======
-    /// enabling 
-    /// </summary>
->>>>>>> 209f8aaed524ee908434ab582feae3ab8c6b91bd
     public static IServiceCollection AddCorsPolicy (this IServiceCollection services)
     {
         services.AddCors(options =>

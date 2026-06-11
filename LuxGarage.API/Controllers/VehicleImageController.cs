@@ -16,7 +16,7 @@ public class VehicleImageController : ControllerBase
     {
         _imageService = imageService;
         _context = context;
-        _uploadFolder = Path.Combine(env.ContentRootPath, "uploads", "cars");
+        _uploadFolder = Path.Combine(env.ContentRootPath, "..", "LuxGarage.Front", "wwwroot", "images", "cars");
     }
 
     [HttpGet("vehicle/{vehicleId}")]
