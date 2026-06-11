@@ -59,7 +59,6 @@ public class AuthController : ControllerBase
     /// </summary>
     /// <param name="request">The login request.</param>
     /// <returns>The result of the login operation.</returns>
-    [HttpPost("login")]
     public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest request)
     {
         var result = await _authService.LoginAsync(request);
