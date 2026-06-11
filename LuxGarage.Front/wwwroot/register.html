@@ -65,56 +65,61 @@
                         fleet and deliver exceptional service to our elite
                         clientele.
                      </p>
-                     <form class="auth-form" action="">
+                     <form class="auth-form" id="register-form">
                         <div>
-                           <label for="full-name">Full Name</label>
-                           <input
-                              id="full-name"
-                              type="text"
-                              placeholder="John Doe"
-                              required
-                           />
+                           <label for="first-name">First Name</label>
+                           <input id="first-name" type="text" placeholder="John" required />
                         </div>
 
                         <div>
-                           <label for="login">Login</label>
-                           <input
-                              id="login"
-                              type="text"
-                              placeholder="johnDoe123"
-                              required
-                           />
+                           <label for="last-name">Last Name</label>
+                           <input id="last-name" type="text" placeholder="Doe" required />
+                        </div>
+
+                        <div>
+                           <label for="email">Email</label>
+                           <input id="email" type="text" placeholder="john.doe@example.com" required />
                         </div>
 
                         <div>
                            <label for="password">Password</label>
-                           <input
-                              id="password"
-                              type="password"
-                              placeholder="••••••••"
-                              required
-                           />
+                           <input id="password" type="text" placeholder="••••••••" required />
                         </div>
 
                         <div>
-                           <label for="confirm-password"
-                              >Confirm Password</label
-                           >
-                           <input
-                              id="confirm-password"
-                              type="password"
-                              placeholder="••••••••"
-                              required
-                           />
+                           <label for="confirm-password">Confirm Password</label>
+                           <input id="confirm-password" type="text" placeholder="••••••••" required />
                         </div>
 
-                        <button class="btn btn--form">Register Account</button>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem;">
+                           <input id="is-employee" type="checkbox" style="width: auto; margin: 0;" />
+                           <label for="is-employee" style="margin: 0;">Register as employee</label>
+                        </div>
+                        
+                        <div id="customer-fields">
+                           <div>
+                                 <label for="phone-number">Phone Number</label>
+                                 <input id="phone-number" type="tel" placeholder="+48 123 456 789" />
+                           </div>
+                           <div>
+                                 <label for="license-number">License Number</label>
+                                 <input id="license-number" type="text" placeholder="XYZ 123456" />
+                           </div>
+                        </div>
+
+                        <!-- Pola dla pracownika (ukryte domyślnie) -->
+                        <div id="employee-fields" style="display: none;">
+                           <div>
+                                 <label for="workplace-id">Workplace ID</label>
+                                 <input id="workplace-id" type="number" placeholder="1" />
+                           </div>
+                        </div>
+
+                        <button type="submit" class="btn btn--form">Register Account</button>
 
                         <span>
-                           Already a team member?
-                           <a class="auth-link login-link" href="login.html"
-                              >Login</a
-                           >
+                           Already have account?
+                           <a class="auth-link login-link" href="login.html" >Login</a>
                         </span>
                      </form>
                   </div>
