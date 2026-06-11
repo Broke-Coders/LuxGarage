@@ -28,6 +28,7 @@ const hardcodedCars = [
         zeroToHundred: "3.2s",
         mileage: 1200,
         licensePlate: "S GT 911",
+        pricePerDay: 2500,
         image: "./images/cars/niklas-bischop-KZayf7xRScI-unsplash.jpg"
     },
     {
@@ -42,6 +43,7 @@ const hardcodedCars = [
         zeroToHundred: "3.2s",
         mileage: 850,
         licensePlate: "MA GT 730",
+        pricePerDay: 3000,
         image: "./images/cars/flavien-s_E1TRPiId0-unsplash.jpg"
     },
     {
@@ -56,6 +58,7 @@ const hardcodedCars = [
         zeroToHundred: "3.5s",
         mileage: 4500,
         licensePlate: "M WM 3000",
+        pricePerDay: 1200,
         image: "./images/cars/pexels-habib-hosseini-2613461.jpg"
     },
     {
@@ -70,6 +73,7 @@ const hardcodedCars = [
         zeroToHundred: "3.7s",
         mileage: 320,
         licensePlate: "M CS 444",
+        pricePerDay: 1400,
         image: "./images/cars/pexels-mohit-hambiria-92377455-36407338.jpg"
     },
     {
@@ -84,6 +88,7 @@ const hardcodedCars = [
         zeroToHundred: "3.7s",
         mileage: 150,
         licensePlate: "B RS 900",
+        pricePerDay: 4000,
         image: "./images/cars/dextar-vision-YYXRSgxFAxA-unsplash.jpg"
     },
     {
@@ -98,6 +103,7 @@ const hardcodedCars = [
         zeroToHundred: "2.5s",
         mileage: 50,
         licensePlate: "FAST 1",
+        pricePerDay: 15000,
         image: "./images/cars/mclaren.jpg" 
     },
     {
@@ -112,6 +118,7 @@ const hardcodedCars = [
         zeroToHundred: "2.9s",
         mileage: 1100,
         licensePlate: "F 296 IT",
+        pricePerDay: 3500,
         image: "./images/cars/488gtb.jpg"
     },
     {
@@ -126,6 +133,7 @@ const hardcodedCars = [
         zeroToHundred: "2.5s",
         mileage: 210,
         licensePlate: "L RB 1015",
+        pricePerDay: 4500,
         image: "./images/cars/pexels-introspectivedsgn-4077271.jpg"
     },
     {
@@ -140,6 +148,7 @@ const hardcodedCars = [
         zeroToHundred: "3.4s",
         mileage: 8200,
         licensePlate: "IN RS 660",
+        pricePerDay: 1100,
         image: "./images/cars/nsx.jpg" 
     },
     {
@@ -154,6 +163,7 @@ const hardcodedCars = [
         zeroToHundred: "3.0s",
         mileage: 1500,
         licensePlate: "MC ART 1",
+        pricePerDay: 2800,
         image: "./images/cars/mclaren.jpg"
     },
     {
@@ -168,6 +178,7 @@ const hardcodedCars = [
         zeroToHundred: "3.6s",
         mileage: 3400,
         licensePlate: "AM DBS 07",
+        pricePerDay: 2200,
         image: "./images/cars/flavien-s_E1TRPiId0-unsplash.jpg"
     },
     {
@@ -182,6 +193,7 @@ const hardcodedCars = [
         zeroToHundred: "4.8s",
         mileage: 12000,
         licensePlate: "RR LUX 1",
+        pricePerDay: 3800,
         image: "./images/cars/dextar-vision-YYXRSgxFAxA-unsplash.jpg"
     }
 ];
@@ -213,6 +225,7 @@ function displayCars(cars) {
                      <div class="car-tags">
                         <span class="tag tag--origin">${car.bodyName}</span>
                         <span class="tag tag--category">${car.horsepower} HP</span>
+                        <span class="tag tag--price">${car.pricePerDay.toLocaleString()} PLN / day</span>
                      </div>
                      <p class="car-title">${car.brandName} ${car.modelName}</p>
                      <ul class="car-attributes">

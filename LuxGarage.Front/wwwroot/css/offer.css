@@ -234,14 +234,14 @@ main.offer-page {
 
 .day.selected-start,
 .day.selected-end {
-   background-color: #fcc419 !important;
-   color: #47453e !important;
+   background-color: #8d8a7c !important;
+   color: #fff !important;
    font-weight: 700;
    border-radius: 4px;
 }
 
 .day.in-range {
-   background-color: #fff9db;
+   background-color: #ebe6ce;
    color: #47453e;
 }
 
@@ -274,8 +274,8 @@ main.offer-page {
 }
 
 .selection-summary {
-   background-color: #fff9db;
-   border: 1px solid #fcc419;
+   background-color: #ebe6ce;
+   border: 1px solid #8d8a7c;
    border-radius: 8px;
    padding: 1.6rem;
    margin-bottom: 2.4rem;

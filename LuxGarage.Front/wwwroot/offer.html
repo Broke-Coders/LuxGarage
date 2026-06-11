@@ -617,8 +617,9 @@
                summaryRange.textContent = `${startDate.toLocaleDateString("en-US", options)} - ${endDate.toLocaleDateString("en-US", options)}, ${startDate.getFullYear()}`;
                
                const totalPrice = diffDays * pricePerDay;
-               summaryPriceValue.textContent = `${totalPrice.toLocaleString()}.00 PLN`;
-               totalPriceBottom.textContent = `${totalPrice.toLocaleString()}.00 PLN`;
+               const formattedPrice = `${totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} PLN`;
+               summaryPriceValue.textContent = formattedPrice;
+               totalPriceBottom.textContent = formattedPrice;
                
                bookBtnSidebar.classList.add("ready");
                bookBtnSidebar.textContent = "Book Now";
