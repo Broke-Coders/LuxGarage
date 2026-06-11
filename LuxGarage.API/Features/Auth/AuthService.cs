@@ -39,10 +39,10 @@ public class AuthService
             newUser = new Employee
             {
                 Email = request.Email,
-                PasswordHash = string.Empty, // Będzie przypisane niżej
+                PasswordHash = string.Empty, 
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                Role = UserRole.Employee,
+                Role = UserRole.Customer,
                 WorkplaceId = request.WorkplaceId.Value
             };
         }
