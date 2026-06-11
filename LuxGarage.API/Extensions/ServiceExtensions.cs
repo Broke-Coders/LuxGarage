@@ -9,6 +9,8 @@ using LuxGarage.API.Features.Rentals;
 using LuxGarage.API.Features.Users;
 using LuxGarage.API.Features.Vehicles;
 using LuxGarage.API.Features.Workplaces;
+using Microsoft.OpenApi;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LuxGarage.API.Extensions;
 
@@ -98,6 +100,24 @@ public static class ServiceExtensions
                 builder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader();
+            });
+        });
+
+        return services;
+    }
+
+    public static IServiceCollection AddSwaggerWithJwtAuth(this IServiceCollection services)
+    {
+        services.AddSwaggerGen(c =>
+        {
+            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                Description = "Wprowadź token JWT w formacie: Bearer {Twój_Token}",
+                Name = "Authorization",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.ApiKey,
+                Scheme = "Bearer",
+                BearerFormat = "JWT"
             });
         });
 
