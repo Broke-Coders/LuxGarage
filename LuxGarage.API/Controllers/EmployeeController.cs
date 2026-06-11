@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using LuxGarage.API.Features.Users;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LuxGarage.API.Controllers;
 
@@ -106,32 +107,38 @@ public class EmployeeController : ControllerBase
     /// <param name="id">The ID of the employee to delete.</param>
     /// <returns>A response indicating the result of the deletion operation.</returns>
     [HttpDelete("{id:int}")]
-    [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<ApiResponse<object>>> Delete(int id)
+    public async Task<ActionResult> Delete(int id)
     {
         try
         {
-            if (id <= 0)
-            {
-                return BadRequest(ApiResponse<object>.BadRequest("Employee ID must be greater than 0."));
-            }
-
             var success = await _employeeService.DeleteAsync(id);
             if (!success)
-            {
-                return NotFound(ApiResponse<object>.NotFound($"Delete failed. Employee with ID {id} was not found."));
-            }
+                return NotFound(ApiResponse<object>.NotFound($"Employee with ID {id} not found."));
 
             return Ok(ApiResponse<object>.NoContent("Employee removed successfully."));
         }
         catch (Exception e)
         {
-            return StatusCode(500,
-                ApiResponse<object>.Error(500, "An unexpected error occured while deleting employee.",
-                    e.Message));
+            return StatusCode(500, ApiResponse<object>.Error(500, "Error deleting employee.", e.Message));
         }
+    }
+
+    [HttpGet("pending-employees")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetPendingEmployees()
+    {
+        var pendingUsers = await _employeeService.GetPendingEmployeesAsync();
+
+        return Ok(ApiResponse<object>.NoContent("Employees pended successfully"));
+    }
+
+    [HttpGet("approve-employee/{userId}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> ApproveEmployee(int userId)
+    {
+        var success = await _employeeService.AcceptEmployeeRequest(userId);
+        if (!success) 
+            return NotFound(ApiResponse<object>.NotFound($"Employee with ID {userId} not found."));
+        return Ok(ApiResponse<object>.NoContent("Employee accepted."));
     }
 }
