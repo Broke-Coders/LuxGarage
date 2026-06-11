@@ -18,9 +18,10 @@ public class Vehicle
 
     public decimal Horsepower { get; set; }
     public string LicensePlate { get; set; } = null!;
+    public string EngineName { get; set; } = null!;
     public int Mileage { get; set; }
     public int Year { get; set; }
-    public int maxSpeed { get; set; }
+    public float SpeedToHundred { get; set; }
     
     public EngineType EngineType { get; set; }
     public VehicleBodyType BodyType { get; set; }
