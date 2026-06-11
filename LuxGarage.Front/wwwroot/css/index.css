@@ -422,8 +422,101 @@
 }
 
 /**************************/
-/*      CTA SECTION       */
+/* PACKAGES SECTION */
 /**************************/
+
+.section-packages {
+   padding: 9.6rem 0;
+   background-color: #fff;
+}
+
+.packages-intro {
+   font-size: 1.8rem;
+   line-height: 1.6;
+   color: #666;
+   max-width: 70rem;
+   margin-bottom: 4.8rem;
+}
+
+.package-card {
+   background-color: #fdfcf7;
+   padding: 3.2rem;
+   border-radius: 12px;
+   border: 1px solid rgba(141, 138, 124, 0.1);
+   transition: all 0.4s;
+   display: flex;
+   flex-direction: column;
+   position: relative;
+   aspect-ratio: 1 / 1;
+   justify-content: center;
+   text-align: center;
+}
+
+.packages-swiper {
+   padding: 2rem 1rem 6.4rem 1rem !important;
+}
+
+.package-card:hover {
+   transform: translateY(-0.8rem);
+   box-shadow: 0 2rem 4rem rgba(71, 69, 62, 0.08);
+   border-color: rgba(141, 138, 124, 0.3);
+}
+
+.package-card.featured {
+   background-color: #fff;
+   border: 2px solid #8d8a7c;
+   box-shadow: 0 1.2rem 3.2rem rgba(71, 69, 62, 0.1);
+}
+
+.package-tag {
+   position: absolute;
+   top: 0;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   background-color: #8d8a7c;
+   color: #fff;
+   padding: 0.6rem 1.6rem;
+   font-size: 1.1rem;
+   font-weight: 700;
+   text-transform: uppercase;
+   border-radius: 100px;
+   letter-spacing: 0.1rem;
+   white-space: nowrap;
+}
+
+.package-icon {
+   font-size: 4.8rem;
+   color: #8d8a7c;
+   margin-bottom: 1.6rem;
+}
+
+.package-title {
+   font-size: 2rem;
+   font-family: "Playfair", serif;
+   color: #47453e;
+   font-weight: 700;
+   margin-bottom: 1.2rem;
+}
+
+.package-description {
+   font-size: 1.3rem;
+   line-height: 1.5;
+   color: #666;
+   margin-bottom: 2rem;
+}
+
+.package-footer {
+   margin-top: 1.2rem;
+   padding-top: 1.6rem;
+   border-top: 1px solid rgba(141, 138, 124, 0.1);
+}
+
+.package-price {
+   font-size: 1.8rem;
+   font-weight: 700;
+   color: #47453e;
+}
+
 
 .section-cta {
    padding: 9.6rem 0;
