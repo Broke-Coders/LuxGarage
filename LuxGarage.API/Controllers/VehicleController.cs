@@ -14,22 +14,6 @@ namespace LuxGarage.API.Controllers;
 /// The controller includes proper error handling and returns appropriate HTTP status codes based on the outcome of the operations, 
 /// such as 200 OK for successful retrievals, 201 Created for successful creation, and 400 Bad Request for invalid input. 
 /// </remarks>
-<<<<<<< HEAD
-=======
-
-/// <summary>
-/// Controller responsible for handling vehicle-related endpoints, including retrieving all vehicles, 
-/// retrieving a vehicle by ID, and creating a new vehicle.
-/// </summary> 
-/// <remarks>
-/// The VehiclesController provides endpoints for managing vehicles, utilizing the IVehicleService to perform the
-/// necessary business logic. The controller uses DTOs (Data Transfer Objects) to facilitate data serialization and deserialization 
-/// between the service layer and the client, ensuring that the data is properly structured. 
-/// The controller includes proper error handling and returns appropriate HTTP status codes based on the outcome of the operations, 
-/// such as 200 OK for successful retrievals, 201 Created for successful creation, and 400 Bad Request for invalid input. 
-/// </remarks>
-
->>>>>>> develop
 [ApiController]
 [Route("api/[controller]")]
 public class VehiclesController : ControllerBase
