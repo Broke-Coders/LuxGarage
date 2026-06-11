@@ -38,6 +38,7 @@ public class AuthService
 
             newUser = new Employee
             {
+                EmployeeRequested = true,
                 Email = request.Email,
                 PasswordHash = string.Empty, 
                 FirstName = request.FirstName,
