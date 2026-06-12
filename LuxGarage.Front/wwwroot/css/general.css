@@ -171,15 +171,63 @@ img {
    transform: scaleX(1);
 }
 
-.navbar-profile {
-   display: flex;
-   align-items: center;
+.navbar-profile-menu {
+   position: relative;
 }
 
 .navbar-profile img {
    height: 4rem; 
    width: 4rem;
    object-fit: contain;
+}
+
+.user-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  background-color: #fff;
+  border: 1px solid #e0ddd0;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  list-style: none;
+  padding: 0.5rem 0;
+  margin: 0;
+  min-width: 180px;
+  z-index: 1000;
+}
+
+.dropdown-menu.open {
+  display: block;
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 0.75rem 1.2rem;
+  color: #333;
+  text-decoration: none;
+  font-size: 1.4rem;
+  transition: background 0.2s;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #f5f3e7;
+  color: #8d8a7c;
+}
+
+.dropdown-menu .dropdown-divider {
+  height: 1px;
+  background-color: #e0ddd0;
+  margin: 0.4rem 0;
 }
 
 /**************************/

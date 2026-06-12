@@ -41,13 +41,17 @@ export const AuthService = {
    },
 
    logout() {
-      localStorage.setItem("jwtToken", result.token);
-      localStorage.setItem("userRole", result.role);
-      localStorage.setItem("userEmail", result.email);
+      localStorage.removeItem("jwtToken");
+      localStorage.removeItem("userRole");
+      localStorage.removeItem("userEmail");
       window.location.href = "login.html";
    },
 
    getToken() {
       return localStorage.getItem("jwtToken");
    },
+
+   getRole() {
+      return localStorage.getItem("userRole");
+   }
 };
