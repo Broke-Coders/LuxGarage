@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
          customerFields.style.display = "none";
          employeeFields.style.display = "block";
       } else {
-         customerFields.style.display = "block";
+         customerFields.style.display = "contents";
          employeeFields.style.display = "none";
       }
    });
