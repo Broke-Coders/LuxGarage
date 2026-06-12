@@ -77,13 +77,22 @@ public class AuthService
     public async Task<LoginResponse?> LoginAsync(LoginRequest request)
     {
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
-        if (user == null || !user.IsActive)
-            return null;
+
+        if (user == null) 
+            throw new ArgumentException("User with given email does not exist");
 
         var verificationResult = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, request.Password);
         
-        if (verificationResult == PasswordVerificationResult.Failed)
-            return null;
+        if (user == null || verificationResult == PasswordVerificationResult.Failed)
+            throw new ArgumentException("Invalid password");
+
+        if (user.Role == UserRole.Employee)
+        {
+            var employee = await _context.Employees.FirstOrDefaultAsync(e => e.Email == request.Email);
+
+            if (employee != null && employee.Status == EmployeeStatus.Pending)
+                throw new UnauthorizedAccessException("Your employee account is waiting for admin approval");
+        }
 
         var token = GenerateJwtToken(user);
 
