@@ -68,37 +68,23 @@
                            reservations.
                         </p>
                      </div>
-                     <form class="auth-form" action="">
+                     <form class="auth-form" id="login-form">
                         <div>
-                           <label for="login">Login</label>
-                           <input
-                              id="login"
-                              type="login"
-                              placeholder="johnDoe123"
-                              required
-                           />
+                           <label for="email">Email</label>
+                           <input id="email" type="email" placeholder="john.doe@example.com" required />
                         </div>
 
                         <div>
                            <label for="password">Password</label>
-                           <input
-                              id="password"
-                              type="password"
-                              placeholder="••••••••"
-                              required
-                           />
+                           <input id="password" type="password" placeholder="••••••••" required />
                         </div>
 
-                        <button class="btn btn--form">Access System</button>
+                        <button type="submit" class="btn btn--form">Log in</button>
 
-                        <span
-                           >Are you a new team member?
-                           <a
-                              class="auth-link register-link"
-                              href="register.html"
-                              >Register</a
-                           ></span
-                        >
+                        <span>
+                           Are you a new user?
+                           <a class="auth-link register-link" href="register.html">Register</a>
+                        </span>
                      </form>
                      <!-- <form action="" class="login-form"></form> -->
                   </div>
@@ -191,6 +177,6 @@
             </nav>
          </div>
       </footer>
-      <script type="module" src="js/auth.js"></script>
+      <script type="module" src="./js/login.js"></script>
    </body>
 </html>
