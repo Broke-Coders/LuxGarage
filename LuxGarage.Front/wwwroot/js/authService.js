@@ -10,7 +10,7 @@ export const AuthService = {
 
       if (!response.ok) {
          const errorInfo = await response.json();
-         throw new Error(errorInfo.message || "Login error");
+         throw new Error(errorInfo.message || errorInfo.Message ||  "Login error");
       }
 
       const result = await response.json();

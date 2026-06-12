@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
    const showMessage = (msg, isError = false) => {
       messageBox.textContent = msg;
-      messageBox.className = "form-message " + (isError ? "Error" : "Success");
+      messageBox.className = "form-message " + (isError ? "error" : "success");
    };
 
    loginForm.addEventListener("submit", async (e) => {

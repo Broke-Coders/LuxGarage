@@ -1,6 +1,6 @@
 import { AuthService } from "./authService.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
    const registerForm = document.getElementById("register-form");
    const isEmployeeCheckbox = document.getElementById("is-employee");
    const customerFields = document.getElementById("customer-fields");
@@ -23,20 +23,23 @@ document.addEventListener("DOMContentLoaded", () => {
       }
    });
 
-   //try {
-       //const wpResponse = await fetch("http://localhost:5054/api/Workplace");
-       //if(wpResponse.ok) {
-           //const workplaces = await wpResponse.json();
-           //workplaces.forEach(wp => {
-               //const option = document.createElement("option");
-               //option.value = wp.id;
-               //option.textContent = `${wp.Country}, ${wp.City}, ${wp.Street}, ${wp.BuildingNumber}`;
-               //workplaceSelect.appendChild(option);
-           //});
-       //}
-   //} catch (error) {
-       //console.error("Error while loading LuxGarage Branches", error);
-   //}
+   try {
+      const wpResponse = await fetch("http://localhost:5054/api/Workplace");
+      if (wpResponse.ok) {
+         const apiResponse = await wpResponse.json();
+         const workplaces = apiResponse.data || apiResponse.data || [];
+         workplaces.forEach(wp => {
+            const option = document.createElement("option");
+            option.value = wp.id;
+            option.textContent = `${wp.country}, ${wp.city}, ${wp.street}, ${wp.buildingNumber}`;
+            workplaceSelect.appendChild(option);
+         });
+      } else {
+      console.error("Error while loading LuxGarage Branches:", wpResponse.status);
+      }
+   } catch (error) {
+      console.error("Error: cannot load LuxGarage Branches", error);
+   }
 
    registerForm.addEventListener("submit", async (e) => {
       e.preventDefault();
