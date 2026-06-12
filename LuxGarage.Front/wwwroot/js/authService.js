@@ -33,7 +33,11 @@ export const AuthService = {
          throw new Error(errorInfo.message || "Register error");
       } 
 
-      return result.data;
+      try {
+         return await response.json();
+      } catch {
+         return true;
+      }
    },
 
    logout() {
