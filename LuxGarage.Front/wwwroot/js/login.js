@@ -2,6 +2,12 @@ import { AuthService } from "./authService.js";
 
 document.addEventListener("DOMContentLoaded", () => {
    const loginForm = document.getElementById("login-form");
+   const messageBox = document.getElementById("form-message");
+
+   const showMessage = (msg, isError = false) => {
+      messageBox.textContent = msg;
+      messageBox.className = "form-message " + (isError ? "Error" : "Success");
+   };
 
    loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -13,10 +19,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
          await AuthService.login(loginRequest);
-         alert("Login successful");
-         window.location.href = "index.html";
+         showMessage("Login successful! Redirecting...", false);
+         setTimeout(() => {
+            window.location.href = "index.html";
+         }, 2000);
       } catch (error) {
-         alert(error.message);
+         showMessage(error.message, true);
       }
    });
 });

@@ -5,6 +5,13 @@ document.addEventListener("DOMContentLoaded", () => {
    const isEmployeeCheckbox = document.getElementById("is-employee");
    const customerFields = document.getElementById("customer-fields");
    const employeeFields = document.getElementById("employee-fields");
+   const messageBox = document.getElementById("form-message");
+   const workplaceSelect = document.getElementById("workplace-id");
+
+   const showMessage = (msg, isError = false) => {
+      messageBox.textContent = msg;
+      messageBox.className = "form-message " + (isError ? "error" : "success");
+   };
 
    isEmployeeCheckbox.addEventListener("change", (e) => {
       if (e.target.checked) {
@@ -16,6 +23,21 @@ document.addEventListener("DOMContentLoaded", () => {
       }
    });
 
+   //try {
+       //const wpResponse = await fetch("http://localhost:5054/api/Workplace");
+       //if(wpResponse.ok) {
+           //const workplaces = await wpResponse.json();
+           //workplaces.forEach(wp => {
+               //const option = document.createElement("option");
+               //option.value = wp.id;
+               //option.textContent = `${wp.Country}, ${wp.City}, ${wp.Street}, ${wp.BuildingNumber}`;
+               //workplaceSelect.appendChild(option);
+           //});
+       //}
+   //} catch (error) {
+       //console.error("Error while loading LuxGarage Branches", error);
+   //}
+
    registerForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
@@ -23,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const confirmPassword = document.getElementById("confirm-password").value;
 
       if (password !== confirmPassword) {
-         alert("Passwords do not match");
+         showMessage("Passwords do not match", true);
          return;
       }
 
@@ -37,15 +59,17 @@ document.addEventListener("DOMContentLoaded", () => {
          isEmployee: isEmployee,
          phoneNumber: isEmployee ? null : document.getElementById("phone-number").value,
          licenseNumber: isEmployee ? null : document.getElementById("license-number").value,
-         workplaceId: isEmployee ? parseInt(document.getElementById("workplace-id").value) : null
+         workplaceId: isEmployee ? parseInt(workplaceSelect.value) : null
       };
 
       try {
          await AuthService.register(registerRequest);
-         alert("Registration successful");
-         window.location.href = "login.html";
+         showMessage("Registration successful!", false);
+         setTimeout(() => {
+            window.location.href = "login.html";
+         }, 2000);
       } catch (error) {
-         alert(error.message);
+         showMessage(error.message, true);
       }
    });
 });
