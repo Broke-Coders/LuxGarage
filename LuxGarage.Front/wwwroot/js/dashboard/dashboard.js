@@ -1,6 +1,7 @@
 import { AuthService }    from "../authService.js";
 import { bindModalClose } from "./utils/modal.js";
 import { initVehicles }   from "./vehicles.js";
+import { initOffers }     from "./offers.js";
 
 (function guardRoute() {
   const role = AuthService.getRole();
@@ -24,10 +25,16 @@ async function init() {
     loadComponent("modals-placeholder","../components/dashboard/modals-vehicles.html"),
   ]);
 
+    // Doładuj modale ofert do tego samego placeholdera
+  const extra = await fetch("./components/dashboard/modals-offers.html");
+  document.getElementById("modals-placeholder").innerHTML +=
+    await extra.text();
+
   // Bind tabs and modals
   _bindTabs();
   bindModalClose();
   initVehicles();
+  initOffers();
 }
 
 function _bindTabs() {
