@@ -1,401 +1,306 @@
 <!doctype html>
 <html lang="en">
-<head>
-   <meta charset="UTF-8" />
-   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-   <link rel="stylesheet" href="./css/general.css" />
-   <link rel="stylesheet" href="./css/dashboard.css" />
-   <link rel="icon" href="./images/favicon.png" />
-
-   <title>LuxGarage &mdash; Dashboard</title>
-
-   <link rel="preconnect" href="https://fonts.googleapis.com" />
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-   <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap"
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | LuxGarage</title>
+    <link rel="stylesheet" href="./css/general.css" />
+    <link rel="stylesheet" href="./css/dashboard.css" />
+    <link rel="icon" href="./images/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap"
       rel="stylesheet"
-   />
-   <script
-      type="module"
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-   ></script>
-   <script
-      nomodule
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-   ></script>
-</head>
+    />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  </head>
 
-<body>
-   <nav id="navbar">
-      <div class="navbar-logo-title">
-         <a href="index.html">
-            <img id="logo" src="images/logo.png" alt="LuxGarage Logo" />
-         </a>
-         <a href="index.html" id="logo-title">LuxGarage</a>
+  <body>
+    <div id="navbar-placeholder"></div>
+
+    <main class="screen-section dashboard-section">
+      <div class="container dashboard-container">
+
+        <!-- Page Header -->
+        <div class="dashboard-header">
+          <div>
+            <h1 class="dashboard-title">Vehicle Management</h1>
+            <p class="dashboard-subtitle">Manage the fleet — add, edit and remove vehicles.</p>
+          </div>
+          <button class="btn-add-vehicle" id="btnAddVehicle">
+            <ion-icon name="add-outline"></ion-icon>
+            Add Vehicle
+          </button>
+        </div>
+
+        <!-- Filters Bar -->
+        <div class="dashboard-filters">
+          <div class="filter-search">
+            <ion-icon name="search-outline"></ion-icon>
+            <input
+              type="text"
+              id="filterSearch"
+              placeholder="Search brand, model, plate…"
+              class="filter-input"
+            />
+          </div>
+
+          <select id="filterStatus" class="filter-select">
+            <option value="">All statuses</option>
+            <option value="1">Available</option>
+            <option value="2">Rented</option>
+            <option value="3">Maintenance</option>
+            <option value="4">Out of Service</option>
+            <option value="5">Retired</option>
+          </select>
+
+          <select id="filterBodyType" class="filter-select">
+            <option value="">All body types</option>
+            <option value="1">Sedan</option>
+            <option value="2">SUV</option>
+            <option value="3">Coupe</option>
+            <option value="4">Cabriolet</option>
+            <option value="5">Hatchback</option>
+            <option value="6">Wagon</option>
+          </select>
+
+          <button class="btn-filter-reset" id="btnResetFilters">
+            <ion-icon name="refresh-outline"></ion-icon>
+          </button>
+        </div>
+
+        <!-- Vehicles Table -->
+        <div class="table-wrapper">
+          <table class="vehicles-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Brand / Model</th>
+                <th>Plate</th>
+                <th>Year</th>
+                <th>Mileage</th>
+                <th>HP</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="vehiclesTableBody">
+              <tr class="table-loading-row">
+                <td colspan="8">
+                  <div class="table-spinner">
+                    <div class="spinner"></div>
+                    <span>Loading vehicles…</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Empty state -->
+        <div class="table-empty" id="tableEmpty" style="display:none;">
+          <ion-icon name="car-outline"></ion-icon>
+          <p>No vehicles found.</p>
+        </div>
+
       </div>
+    </main>
 
-      <div class="navbar-links">
-         <a href="cars.html" id="cars-nav" class="navbar-text">Cars</a>
-         <a href="index.html#TestimonialPage" id="why-us-nav" class="navbar-text">Why Us</a>
-         <a href="#" id="vouchers-nav" class="navbar-text">Vouchers</a>
-      </div>
+    <!-- ── ADD VEHICLE MODAL ───────────────────────────── -->
+    <div class="modal-overlay" id="modalAdd">
+      <div class="modal-box">
+        <div class="modal-head">
+          <h2>Add New Vehicle</h2>
+          <button class="modal-close" data-modal="modalAdd">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+        </div>
 
-      <div class="navbar-profile">
-         <a href="login.html" id="account-nav" class="navbar-image">
-            <img src="images/profile.png" alt="Profile image. Click to see your log in status." />
-         </a>
-      </div>
-   </nav>
-
-   <main>
-      <section id="cars-section" class="screen-section">
-         <div class="general-se">
-         </div>
-         <div class="cars-search-container">
-            <div class="advanced-se">
+        <form id="formAdd" class="modal-form" enctype="multipart/form-data" novalidate>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="add-brand">Brand <span class="req">*</span></label>
+              <input type="text" id="add-brand" name="Brand" placeholder="e.g. McLaren" required />
             </div>
-            <div class="cars-container">
+            <div class="form-group">
+              <label for="add-model">Model <span class="req">*</span></label>
+              <input type="text" id="add-model" name="Model" placeholder="e.g. 650S Spider" required />
             </div>
-         </div>
-      </section>
-   </main>
-
-   <footer class="footer">
-      <div class="container grid grid--5-cols">
-         <div class="logo-col">
-            <a href="#" class="footer-logo">
-               <img class="lux-logo-footer" src="images/logo.png" alt="LuxGarage Logo" loading="lazy" />
-            </a>
-            <a href="index.html" id="logo-title">LuxGarage</a>
-         </div>
-
-         <div class="navbar-links">
-            <a href="cars.html" id="cars-nav" class="navbar-text">Cars</a>
-            <a href="index.html#TestimonialPage" id="why-us-nav" class="navbar-text">Why Us</a>
-            <a href="" id="vouchers-nav" class="navbar-text">Vouchers</a>
-         </div>
-
-         <div class="navbar-profile">
-            <a href="login.html" id="account-nav" class="navbar-image">
-               <img
-                  src="images/profile.png"
-                  alt="Profile image. Click to see your log in status."
-               />
-            </a>
-         </div>
-      </nav>
-
-      <div class="dashboard-container">
-         <aside class="dashboard-sidebar">
-            <div class="sidebar-user">
-               <img src="images/profile.png" alt="Concierge" />
-               <div class="user-info">
-                  <p class="user-name">John Concierge</p>
-                  <p class="user-role">Senior Manager</p>
-               </div>
+            <div class="form-group">
+              <label for="add-plate">License Plate <span class="req">*</span></label>
+              <input type="text" id="add-plate" name="LicensePlate" placeholder="e.g. KR 12345" required />
             </div>
-
-            <nav class="sidebar-nav">
-               <a href="#" class="sidebar-link active" data-view="overview">
-                  <ion-icon name="grid-outline"></ion-icon> Overview
-               </a>
-               <a href="#" class="sidebar-link" data-view="fleet">
-                  <ion-icon name="car-sport-outline"></ion-icon> Fleet Management
-               </a>
-               <a href="#" class="sidebar-link" data-view="reservations">
-                  <ion-icon name="calendar-outline"></ion-icon> Reservations
-               </a>
-               <a href="#" class="sidebar-link" data-view="customers">
-                  <ion-icon name="people-outline"></ion-icon> Customers
-               </a>
-            </nav>
-
-            <div class="sidebar-footer">
-               <a href="login.html" class="logout-link">
-                  <ion-icon name="log-out-outline"></ion-icon> Sign Out
-               </a>
+            <div class="form-group">
+              <label for="add-engine">Engine Name <span class="req">*</span></label>
+              <input type="text" id="add-engine" name="EngineName" placeholder="e.g. 3.8L V8 Twin-Turbo" required />
             </div>
-         </aside>
+            <div class="form-group">
+              <label for="add-year">Year <span class="req">*</span></label>
+              <input type="number" id="add-year" name="Year" min="1990" max="2030" placeholder="2024" required />
+            </div>
+            <div class="form-group">
+              <label for="add-hp">Horsepower <span class="req">*</span></label>
+              <input type="number" id="add-hp" name="Horsepower" min="1" placeholder="650" required />
+            </div>
+            <div class="form-group">
+              <label for="add-mileage">Mileage (km) <span class="req">*</span></label>
+              <input type="number" id="add-mileage" name="Mileage" min="0" placeholder="0" required />
+            </div>
+            <div class="form-group">
+              <label for="add-tohundred">0–100 km/h (s) <span class="req">*</span></label>
+              <input type="number" id="add-tohundred" name="ToHundred" step="0.1" min="0" placeholder="3.0" required />
+            </div>
+            <div class="form-group">
+              <label for="add-enginetype">Engine Type <span class="req">*</span></label>
+              <select id="add-enginetype" name="EngineType" required>
+                <option value="">Select…</option>
+                <option value="1">Gasoline</option>
+                <option value="2">Diesel</option>
+                <option value="3">Electric</option>
+                <option value="4">Hybrid</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="add-bodytype">Body Type <span class="req">*</span></label>
+              <select id="add-bodytype" name="BodyType" required>
+                <option value="">Select…</option>
+                <option value="1">Sedan</option>
+                <option value="2">SUV</option>
+                <option value="3">Coupe</option>
+                <option value="4">Cabriolet</option>
+                <option value="5">Hatchback</option>
+                <option value="6">Wagon</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="add-color">Color <span class="req">*</span></label>
+              <select id="add-color" name="Color" required>
+                <option value="">Select…</option>
+                <option value="1">Black</option>
+                <option value="2">White</option>
+                <option value="3">Silver</option>
+                <option value="4">Grey</option>
+                <option value="5">Red</option>
+                <option value="6">Blue</option>
+                <option value="7">Yellow</option>
+                <option value="8">Green</option>
+                <option value="99">Custom</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="add-status">Status <span class="req">*</span></label>
+              <select id="add-status" name="Status" required>
+                <option value="">Select…</option>
+                <option value="1">Available</option>
+                <option value="2">Rented</option>
+                <option value="3">Maintenance</option>
+                <option value="4">Out of Service</option>
+                <option value="5">Retired</option>
+              </select>
+            </div>
+          </div>
 
-         <main class="dashboard-main">
-            <!-- OVERVIEW SECTION -->
-            <section id="view-overview" class="dashboard-view active">
-               <header class="main-header">
-                  <div class="header-title">
-                     <h1>Dashboard Overview</h1>
-                     <p>Welcome back, John. Here's what's happening today.</p>
-                  </div>
-                  <div class="header-actions">
-                     <button class="btn--form">+ New Reservation</button>
-                  </div>
-               </header>
+          <!-- Image Upload -->
+          <div class="form-group form-group--full">
+            <label>Vehicle Images</label>
+            <div class="image-drop-zone" id="addImageDropZone">
+              <ion-icon name="cloud-upload-outline"></ion-icon>
+              <p>Drag & drop images or <span class="drop-link">browse</span></p>
+              <p class="drop-hint">PNG, JPG, WEBP — max 10 MB each</p>
+              <input type="file" id="add-images" name="Images" multiple accept="image/*" hidden />
+            </div>
+            <div class="image-preview-list" id="addImagePreview"></div>
+          </div>
 
-               <section class="stats-grid">
-                  <div class="stat-card">
-                     <div class="stat-icon car"><ion-icon name="car-outline"></ion-icon></div>
-                     <div class="stat-data">
-                        <p class="stat-label">Total Fleet</p>
-                        <p class="stat-value">42</p>
-                     </div>
-                     <div class="stat-trend positive">+3 this month</div>
-                  </div>
-                  <div class="stat-card">
-                     <div class="stat-icon rental"><ion-icon name="key-outline"></ion-icon></div>
-                     <div class="stat-data">
-                        <p class="stat-label">Active Rentals</p>
-                        <p class="stat-value">12</p>
-                     </div>
-                     <div class="stat-trend">85% utilization</div>
-                  </div>
-                  <div class="stat-card">
-                     <div class="stat-icon revenue"><ion-icon name="cash-outline"></ion-icon></div>
-                     <div class="stat-data">
-                        <p class="stat-label">Daily Revenue</p>
-                        <p class="stat-value">8,450 PLN</p>
-                     </div>
-                     <div class="stat-trend positive">+12% vs avg</div>
-                  </div>
-                  <div class="stat-card">
-                     <div class="stat-icon alert"><ion-icon name="alert-circle-outline"></ion-icon></div>
-                     <div class="stat-data">
-                        <p class="stat-label">Maintenance</p>
-                        <p class="stat-value">4</p>
-                     </div>
-                     <div class="stat-trend negative">Requires attention</div>
-                  </div>
-               </section>
+          <div id="formAddError" class="form-error" style="display:none;"></div>
 
-               <section class="content-sections">
-                  <div class="recent-rentals-card">
-                     <div class="card-header">
-                        <h2>Recent Reservations</h2>
-                        <a href="#" class="view-all">View All</a>
-                     </div>
-                     <table class="dashboard-table">
-                        <thead>
-                           <tr>
-                              <th>Vehicle</th>
-                              <th>Customer</th>
-                              <th>Date</th>
-                              <th>Status</th>
-                              <th>Actions</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                              <td class="td-vehicle">
-                                 <img src="images/cars/mclaren.jpg" alt="Car" />
-                                 <span>McLaren 650S</span>
-                              </td>
-                              <td>Jakub Hejnał</td>
-                              <td>June 12 - June 15</td>
-                              <td><span class="status-pill active">Active</span></td>
-                              <td><button class="action-btn"><ion-icon name="ellipsis-horizontal"></ion-icon></button></td>
-                           </tr>
-                           <tr>
-                              <td class="td-vehicle">
-                                 <img src="images/cars/nsx.jpg" alt="Car" />
-                                 <span>Honda NSX</span>
-                              </td>
-                              <td>Maksymilian Klu</td>
-                              <td>June 10 - June 12</td>
-                              <td><span class="status-pill completed">Completed</span></td>
-                              <td><button class="action-btn"><ion-icon name="ellipsis-horizontal"></ion-icon></button></td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </div>
-
-                  <div class="quick-fleet-card">
-                     <div class="card-header">
-                        <h2>Fleet Status</h2>
-                     </div>
-                     <div class="fleet-status-list">
-                        <div class="fleet-item">
-                           <span>Sports Cars</span>
-                           <div class="progress-bar"><div class="progress" style="width: 90%"></div></div>
-                           <span>18/20</span>
-                        </div>
-                        <div class="fleet-item">
-                           <span>SUVs</span>
-                           <div class="progress-bar"><div class="progress" style="width: 60%"></div></div>
-                           <span>6/10</span>
-                        </div>
-                     </div>
-                  </div>
-               </section>
-            </section>
-
-            <!-- FLEET MANAGEMENT VIEW -->
-            <section id="view-fleet" class="dashboard-view">
-               <header class="main-header">
-                  <div class="header-title">
-                     <h1>Fleet Management</h1>
-                     <p>Manage your luxury vehicles, track mileage and update status.</p>
-                  </div>
-                  <div class="header-actions">
-                     <button class="btn--form">+ Add Vehicle</button>
-                  </div>
-               </header>
-               <div class="table-container">
-                  <table class="dashboard-table">
-                     <thead>
-                        <tr>
-                           <th>Vehicle</th>
-                           <th>Body Type</th>
-                           <th>Power</th>
-                           <th>Mileage</th>
-                           <th>License Plate</th>
-                           <th>Actions</th>
-                        </tr>
-                     </thead>
-                     <tbody id="fleet-table-body">
-                        <!-- Template for VehicleListItemResponse -->
-                        <tr>
-                           <td class="td-vehicle">
-                              <img src="images/cars/mclaren.jpg" alt="Car" />
-                              <span>McLaren 650S</span>
-                           </td>
-                           <td>Supercar</td>
-                           <td>650 HP</td>
-                           <td>12,400 km</td>
-                           <td>G0 LUX1</td>
-                           <td>
-                              <div class="table-actions">
-                                 <button class="action-btn edit"><ion-icon name="create-outline"></ion-icon></button>
-                                 <button class="action-btn delete"><ion-icon name="trash-outline"></ion-icon></button>
-                              </div>
-                           </td>
-                        </tr>
-                     </tbody>
-                  </table>
-               </div>
-            </section>
-
-            <!-- RESERVATIONS VIEW -->
-            <section id="view-reservations" class="dashboard-view">
-               <header class="main-header">
-                  <div class="header-title">
-                     <h1>All Reservations</h1>
-                     <p>Track all current, pending and completed rentals.</p>
-                  </div>
-               </header>
-               <div class="table-container">
-                  <table class="dashboard-table">
-                     <thead>
-                        <tr>
-                           <th>ID</th>
-                           <th>Vehicle</th>
-                           <th>Dates</th>
-                           <th>Total Price</th>
-                           <th>Status</th>
-                           <th>Actions</th>
-                        </tr>
-                     </thead>
-                     <tbody id="reservations-table-body">
-                        <!-- Template for RentalResponse -->
-                        <tr>
-                           <td>#1024</td>
-                           <td>Ferrari 488 GTB</td>
-                           <td>Jun 14, 2026 - Jun 17, 2026</td>
-                           <td>4,200 PLN</td>
-                           <td><span class="status-pill pending">Pending</span></td>
-                           <td><button class="action-btn"><ion-icon name="ellipsis-horizontal"></ion-icon></button></td>
-                        </tr>
-                     </tbody>
-                  </table>
-               </div>
-            </section>
-
-            <!-- CUSTOMERS VIEW -->
-            <section id="view-customers" class="dashboard-view">
-               <header class="main-header">
-                  <div class="header-title">
-                     <h1>Customer Directory</h1>
-                     <p>Manage customer profiles and viewing rental history.</p>
-                  </div>
-               </header>
-               <div class="table-container">
-                  <table class="dashboard-table">
-                     <thead>
-                        <tr>
-                           <th>Name</th>
-                           <th>Contact</th>
-                           <th>License</th>
-                           <th>Rentals</th>
-                           <th>Actions</th>
-                        </tr>
-                     </thead>
-                     <tbody id="customers-table-body">
-                        <!-- Template for CustomerResponse -->
-                        <tr>
-                           <td><strong>Jakub Hejnał</strong></td>
-                           <td>
-                              <div class="contact-info">
-                                 <span>jakub.h@example.com</span>
-                                 <span>+48 555 123 444</span>
-                              </div>
-                           </td>
-                           <td>ABC 123456</td>
-                           <td>5</td>
-                           <td><button class="action-btn"><ion-icon name="ellipsis-horizontal"></ion-icon></button></td>
-                        </tr>
-                     </tbody>
-                  </table>
-               </div>
-            </section>
-         </main>
+          <div class="modal-actions">
+            <button type="button" class="btn-cancel" data-modal="modalAdd">Cancel</button>
+            <button type="submit" class="btn-submit" id="btnAddSubmit">
+              <span class="btn-text">Add Vehicle</span>
+              <span class="btn-spinner" style="display:none;"><div class="spinner spinner--sm"></div></span>
+            </button>
+          </div>
+        </form>
       </div>
+    </div>
 
-      <footer class="footer dashboard-footer">
-         <div class="container">
-            <p class="copyright">
-               &copy; 2026 LuxGarage Concierge System. Internal Use Only.
-            </p>
-         </div>
-         <div class="address-col">
-            <p class="footer-heading">Contact us</p>
-            <address class="contacts">
-               <p>ul. Akademicka 16<br/>44-100 Gliwice</p>
-               <p>
-                  <a href="tel:+48123456789">+48 123 456 789</a><br />
-                  <a href="mailto:luxgarage@gmail.com">luxgarage@gmail.com</a>
-               </p>
-            </address>
-         </div>
-         <nav class="contact-col">
-            <p class="footer-heading">Company</p>
-            <ul class="footer-links">
-               <li><a class="footer-link" href="#">About LuxGarage</a></li>
-               <li><a class="footer-link" href="#">Why us</a></li>
-               <li><a class="footer-link" href="#">Partners</a></li>
-               <li><a class="footer-link" href="#">Career</a></li>
-            </ul>
-         </nav>
+    <!-- ── EDIT VEHICLE MODAL ────────────────────────────── -->
+    <div class="modal-overlay" id="modalEdit">
+      <div class="modal-box modal-box--sm">
+        <div class="modal-head">
+          <h2>Edit Vehicle</h2>
+          <button class="modal-close" data-modal="modalEdit">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+        </div>
 
-         <nav class="rentals-col">
-            <p class="footer-heading">Rentals</p>
-            <ul class="footer-links">
-               <li><a class="footer-link" href="cars.html">Our fleet</a></li>
-               <li><a class="footer-link" href="#">Luxury Sedans</a></li>
-               <li><a class="footer-link" href="#">Sports Cars</a></li>
-               <li><a class="footer-link" href="#">SUVs & 4x4</a></li>
-            </ul>
-         </nav>
+        <form id="formEdit" class="modal-form" novalidate>
+          <input type="hidden" id="edit-id" />
 
-         <nav class="restources-col">
-            <p class="footer-heading">Resources</p>
-            <ul class="footer-links">
-               <li><a class="footer-link" href="#">Insurance Policy</a></li>
-               <li><a class="footer-link" href="#">Rental Terms</a></li>
-               <li><a class="footer-link" href="#">Gift Vouchers</a></li>
-               <li><a class="footer-link" href="#">Privacy & terms</a></li>
-            </ul>
-         </nav>
+          <div class="form-group">
+            <label class="label-readonly">Vehicle</label>
+            <p class="value-readonly" id="edit-vehicle-name">—</p>
+          </div>
+
+          <div class="form-group">
+            <label for="edit-mileage">Mileage (km) <span class="req">*</span></label>
+            <input type="number" id="edit-mileage" name="Mileage" min="0" required />
+          </div>
+
+          <div class="form-group">
+            <label for="edit-status">Status <span class="req">*</span></label>
+            <select id="edit-status" name="Status" required>
+              <option value="1">Available</option>
+              <option value="2">Rented</option>
+              <option value="3">Maintenance</option>
+              <option value="4">Out of Service</option>
+              <option value="5">Retired</option>
+            </select>
+          </div>
+
+          <div id="formEditError" class="form-error" style="display:none;"></div>
+
+          <div class="modal-actions">
+            <button type="button" class="btn-cancel" data-modal="modalEdit">Cancel</button>
+            <button type="submit" class="btn-submit" id="btnEditSubmit">
+              <span class="btn-text">Save Changes</span>
+              <span class="btn-spinner" style="display:none;"><div class="spinner spinner--sm"></div></span>
+            </button>
+          </div>
+        </form>
       </div>
-   </footer>
+    </div>
 
-   <script src="./app.js"></script>
-</body>
+    <!-- ── DELETE CONFIRM MODAL ──────────────────────────── -->
+    <div class="modal-overlay" id="modalDelete">
+      <div class="modal-box modal-box--xs">
+        <div class="modal-head">
+          <h2>Delete Vehicle</h2>
+          <button class="modal-close" data-modal="modalDelete">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+        </div>
+        <div class="modal-body-text">
+          <ion-icon name="warning-outline" class="icon-warning"></ion-icon>
+          <p>Are you sure you want to delete <strong id="delete-vehicle-name">this vehicle</strong>?</p>
+          <p class="delete-note">This action cannot be undone.</p>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" data-modal="modalDelete">Cancel</button>
+          <button type="button" class="btn-danger" id="btnDeleteConfirm">
+            <span class="btn-text">Delete</span>
+            <span class="btn-spinner" style="display:none;"><div class="spinner spinner--sm"></div></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script type="module" src="./js/layout.js"></script>
+    <script type="module" src="./js/dashboard.js"></script>
+  </body>
 </html>
