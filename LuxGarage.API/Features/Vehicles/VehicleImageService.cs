@@ -143,6 +143,19 @@ public class VehicleImageService
         }
     }
 
+    public async Task DeleteVehicleDirAsync(int vehicleId)
+    {
+        await _context.VehicleImages
+        .Where(i => i.VehicleId == vehicleId)
+        .ExecuteDeleteAsync();
+
+        var vehicleFolder = Path.Combine(_uploadFolder, vehicleId.ToString());
+        if (Directory.Exists(vehicleFolder))
+        {
+            Directory.Delete(vehicleFolder, recursive: true);
+        }
+    }
+
     private VehicleImageResponse MapToResponse(VehicleImage entity)
     {
         return new VehicleImageResponse
