@@ -25,6 +25,7 @@ public class UpdateOfferRequest
 public class OfferListItemResponse
 {
     public int Id { get; set; }
+    public int VehicleId { get; set; }
     public string Title { get; set; } = null!;
     public decimal Price { get; set; }
     public string Brand { get; set; } = null!;
