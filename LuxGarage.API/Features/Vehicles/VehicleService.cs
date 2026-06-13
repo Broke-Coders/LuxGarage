@@ -82,7 +82,7 @@ public class VehicleService
             };
 
             _context.Vehicles.Add(vehicle);
-            await _context.SaveChangesAsync(); // vehicle.Id jest teraz dostępne
+            await _context.SaveChangesAsync();
 
             if (request.Images is { Count: > 0 })
             {
@@ -100,7 +100,7 @@ public class VehicleService
         catch
         {
             await transaction.RollbackAsync();
-            throw; // kontroler złapie wyjątek i zwróci 500 / BadRequest
+            throw;
         }
     }
 
@@ -120,7 +120,15 @@ public class VehicleService
 
     public async Task<bool> DeleteAsync(int id)
     {
-        var rowsDeleted = await _context.Vehicles.Where(v => v.Id == id).ExecuteDeleteAsync();
+        var vehicleExists = await _context.Vehicles.AnyAsync(v => v.Id == id);
+        if (!vehicleExists) return false;
+
+        await _imageService.DeleteVehicleDirAsync(id);
+
+        var rowsDeleted = await _context.Vehicles
+            .Where(v => v.Id == id)
+            .ExecuteDeleteAsync();
+
         return rowsDeleted > 0;
     }
 
