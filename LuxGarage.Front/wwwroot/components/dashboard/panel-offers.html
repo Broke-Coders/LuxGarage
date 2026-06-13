@@ -3,8 +3,38 @@
     <h2 class="panel-title">Offer Management</h2>
     <p class="panel-subtitle">Create and manage rental offers.</p>
   </div>
+  <button class="btn-add-vehicle" id="btnAddOffer">
+    <ion-icon name="add-outline"></ion-icon>
+    Add Offer
+  </button>
 </div>
-<div class="panel-placeholder">
-  <ion-icon name="construct-outline"></ion-icon>
-  <p>Coming soon</p>
+
+<div class="table-wrapper">
+  <table class="vehicles-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th></th>
+        <th>Title / Vehicle</th>
+        <th>Mileage</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="offersTableBody">
+      <tr class="table-loading-row">
+        <td colspan="7">
+          <div class="table-spinner">
+            <div class="spinner"></div>
+            <span>Loading offers…</span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="table-empty" id="offersTableEmpty" style="display:none;">
+  <ion-icon name="pricetag-outline"></ion-icon>
+  <p>No offers found.</p>
 </div>
