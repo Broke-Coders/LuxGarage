@@ -618,3 +618,81 @@
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/**************************/
+/*        TABS            */
+/**************************/
+
+.tab-nav {
+  display: flex;
+  gap: 0.4rem;
+  border-bottom: 2px solid #e0ddd0;
+  margin-bottom: 3rem;
+}
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 1.1rem 2rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  font-size: 1.5rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: #8d8a7c;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.tab-btn ion-icon { font-size: 1.8rem; }
+
+.tab-btn:hover { color: #47453e; }
+
+.tab-btn.active {
+  color: #47453e;
+  font-weight: 700;
+  border-bottom-color: #47453e;
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/**************************/
+/*     PANEL HEADER       */
+/**************************/
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2.4rem;
+}
+
+.panel-title {
+  font-family: "Playfair", serif;
+  font-size: 2.8rem;
+  color: #47453e;
+}
+
+.panel-subtitle {
+  font-size: 1.4rem;
+  color: #8d8a7c;
+  margin-top: 0.4rem;
+}
+
+.panel-placeholder {
+  text-align: center;
+  padding: 8rem 2rem;
+  color: #b0aa96;
+}
+
+.panel-placeholder ion-icon {
+  font-size: 5rem;
+  display: block;
+  margin-bottom: 1.2rem;
+}
+
+.panel-placeholder p { font-size: 1.6rem; }
