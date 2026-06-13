@@ -39,8 +39,8 @@ public static class ServiceExtensions
         services.AddScoped<CustomerService>();
         services.AddScoped<EmployeeService>();
         services.AddScoped<WorkplaceService>();
-        services.AddScoped<VehicleService>();
         services.AddScoped<VehicleImageService>();
+        services.AddScoped<VehicleService>();
         services.AddScoped<OfferService>();
         services.AddScoped<RentalService>();
 
