@@ -140,5 +140,78 @@ public class VehicleServiceIntegrationTests : ServiceTestBase
         await act.Should().ThrowAsync<InvalidOperationException>().WithMessage("Vehicle with this license plate already exists.");
     }
 
+    [Fact]
+    public async Task UpdateAsync_ShouldUpdateCorrectly()
+    {
+        var addedVehicle = new VehicleBuilder().WithBrand("TEST BRAND")
+                                               .WithStatus(VehicleStatus.Retired)
+                                               .Build();
+
+        context.Vehicles.Add(addedVehicle);
+        await context.SaveChangesAsync();
+
+        var updateRequest = new UpdateVehicleRequest
+        {
+            Mileage = 1000,
+            Status = VehicleStatus.Available
+        };
+        
+        var result = await _service.UpdateAsync(addedVehicle.Id, updateRequest);
+
+        result.Should().NotBeNull();
+        context.Vehicles.Any(v => v.Status == VehicleStatus.Available && v.Mileage == 1000).Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task UpdateAsync_ShouldThrowException()
+    {
+        
+        var updateRequest = new UpdateVehicleRequest
+        {
+            Mileage = 1000,
+            Status = VehicleStatus.Available
+        };
+        
+        int wrongId = 9999;
+
+        Func<Task> act = async () => await _service.UpdateAsync(wrongId, updateRequest);
+
+        await act.Should().ThrowAsync<KeyNotFoundException>().WithMessage($"Vehicle with ID {wrongId} does not exist.");
+    }
+
+    [Fact]
+    public async Task DeleteAsync_ShouldDeleteAndReturnTrue()
+    {
+        var v1 = new VehicleBuilder()
+                    .WithBrand("TEST BRAND")
+                    .WithLicensePlate("TST")
+                    .Build();
+
+        context.Vehicles.Add(v1);
+        await context.SaveChangesAsync();
+
+        var result = await _service.DeleteAsync(v1.Id);
+
+        result.Should().BeTrue();
+        context.Vehicles.Should().BeNullOrEmpty();
+    }
+
+    [Fact]
+    public async Task DeleteAsync_ShouldNotDeleteAndReturnFalse()
+    {
+        var v1 = new VehicleBuilder()
+                    .WithBrand("TEST BRAND")
+                    .WithLicensePlate("TST")
+                    .Build();
+
+        context.Vehicles.Add(v1);
+        await context.SaveChangesAsync();
+
+        var result = await _service.DeleteAsync(v1.Id+9999);
+
+
+        result.Should().BeFalse();
+        context.Vehicles.Should().NotBeNullOrEmpty();
+    }
 
 }

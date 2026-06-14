@@ -486,3 +486,16 @@ $RECYCLE.BIN/
 # DocFX
 _site/
 api/
+python_docs/
+frontend_docs/
+
+# Python venv
+**/Python/.venv/
+**/Python/Include/
+**/Python/Lib/
+**/Python/Scripts/
+**/Python/pyvenv.cfg
+
+# rest of python
+**/__pycache__/
+**/*.py[cod]
