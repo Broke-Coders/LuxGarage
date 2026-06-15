@@ -61,4 +61,45 @@ public class EmployeeService
         var deleted = await _context.Employees.Where(e => e.Id == id).ExecuteDeleteAsync();
         return deleted > 0;
     }
+    public async Task<IEnumerable<EmployeeResponse>> GetPendingEmployeesAsync()
+    {
+        var pendingUsers = await _context.Employees
+                        .Where(e => e.Status == EmployeeStatus.Pending)
+                        .AsNoTracking()
+                        .ToListAsync();
+
+        return _mapper.Map<IEnumerable<EmployeeResponse>>(pendingUsers);
+    }
+
+    public async Task<bool> ResolveEmployeeRequest(int id, EmployeeStatus newStatus)
+    {
+        var employee = await _context.Employees.FindAsync(id)
+            ?? throw new KeyNotFoundException($"Employee with ID {id} does not exist.");
+
+        employee.Status = newStatus;
+        employee.Role = UserRole.Employee;
+
+        await _context.SaveChangesAsync();
+
+        return employee.Role == UserRole.Employee;
+    }
+    public async Task<bool> ChangeEmployeeStatus(int id, EmployeeStatus Status)
+    {
+        var employee = await _context.Employees.FindAsync(id)
+            ?? throw new KeyNotFoundException($"Employee with ID {id} does not exist.");
+
+        employee.Status = Status;
+
+        switch (Status)
+        {
+            case EmployeeStatus.Rejected:
+            // TO DO
+            break;
+        }
+
+
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
 }

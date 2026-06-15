@@ -67,14 +67,291 @@
             <a href="#" class="footer-logo">
                <img class="lux-logo-footer" src="images/logo.png" alt="LuxGarage Logo" loading="lazy" />
             </a>
-            <div class="footer-icons">
-               <a class="footer-icon-link" href="#"><ion-icon class="footer-icon" name="logo-github"></ion-icon></a>
-               <a class="footer-icon-link" href="#"><ion-icon class="footer-icon" name="logo-facebook"></ion-icon></a>
-               <a class="footer-icon-link" href="#"><ion-icon class="footer-icon" name="logo-instagram"></ion-icon></a>
+            <a href="index.html" id="logo-title">LuxGarage</a>
+         </div>
+
+         <div class="navbar-links">
+            <a href="cars.html" id="cars-nav" class="navbar-text">Cars</a>
+            <a href="index.html#TestimonialPage" id="why-us-nav" class="navbar-text">Why Us</a>
+            <a href="" id="vouchers-nav" class="navbar-text">Vouchers</a>
+         </div>
+
+         <div class="navbar-profile">
+            <a href="login.html" id="account-nav" class="navbar-image">
+               <img
+                  src="images/profile.png"
+                  alt="Profile image. Click to see your log in status."
+               />
+            </a>
+         </div>
+      </nav>
+
+      <div class="dashboard-container">
+         <aside class="dashboard-sidebar">
+            <div class="sidebar-user">
+               <img src="images/profile.png" alt="Concierge" />
+               <div class="user-info">
+                  <p class="user-name">John Concierge</p>
+                  <p class="user-role">Senior Manager</p>
+               </div>
             </div>
 
+            <nav class="sidebar-nav">
+               <a href="#" class="sidebar-link active" data-view="overview">
+                  <ion-icon name="grid-outline"></ion-icon> Overview
+               </a>
+               <a href="#" class="sidebar-link" data-view="fleet">
+                  <ion-icon name="car-sport-outline"></ion-icon> Fleet Management
+               </a>
+               <a href="#" class="sidebar-link" data-view="reservations">
+                  <ion-icon name="calendar-outline"></ion-icon> Reservations
+               </a>
+               <a href="#" class="sidebar-link" data-view="customers">
+                  <ion-icon name="people-outline"></ion-icon> Customers
+               </a>
+            </nav>
+
+            <div class="sidebar-footer">
+               <a href="login.html" class="logout-link">
+                  <ion-icon name="log-out-outline"></ion-icon> Sign Out
+               </a>
+            </div>
+         </aside>
+
+         <main class="dashboard-main">
+            <!-- OVERVIEW SECTION -->
+            <section id="view-overview" class="dashboard-view active">
+               <header class="main-header">
+                  <div class="header-title">
+                     <h1>Dashboard Overview</h1>
+                     <p>Welcome back, John. Here's what's happening today.</p>
+                  </div>
+                  <div class="header-actions">
+                     <button class="btn--form">+ New Reservation</button>
+                  </div>
+               </header>
+
+               <section class="stats-grid">
+                  <div class="stat-card">
+                     <div class="stat-icon car"><ion-icon name="car-outline"></ion-icon></div>
+                     <div class="stat-data">
+                        <p class="stat-label">Total Fleet</p>
+                        <p class="stat-value">42</p>
+                     </div>
+                     <div class="stat-trend positive">+3 this month</div>
+                  </div>
+                  <div class="stat-card">
+                     <div class="stat-icon rental"><ion-icon name="key-outline"></ion-icon></div>
+                     <div class="stat-data">
+                        <p class="stat-label">Active Rentals</p>
+                        <p class="stat-value">12</p>
+                     </div>
+                     <div class="stat-trend">85% utilization</div>
+                  </div>
+                  <div class="stat-card">
+                     <div class="stat-icon revenue"><ion-icon name="cash-outline"></ion-icon></div>
+                     <div class="stat-data">
+                        <p class="stat-label">Daily Revenue</p>
+                        <p class="stat-value">8,450 PLN</p>
+                     </div>
+                     <div class="stat-trend positive">+12% vs avg</div>
+                  </div>
+                  <div class="stat-card">
+                     <div class="stat-icon alert"><ion-icon name="alert-circle-outline"></ion-icon></div>
+                     <div class="stat-data">
+                        <p class="stat-label">Maintenance</p>
+                        <p class="stat-value">4</p>
+                     </div>
+                     <div class="stat-trend negative">Requires attention</div>
+                  </div>
+               </section>
+
+               <section class="content-sections">
+                  <div class="recent-rentals-card">
+                     <div class="card-header">
+                        <h2>Recent Reservations</h2>
+                        <a href="#" class="view-all">View All</a>
+                     </div>
+                     <table class="dashboard-table">
+                        <thead>
+                           <tr>
+                              <th>Vehicle</th>
+                              <th>Customer</th>
+                              <th>Date</th>
+                              <th>Status</th>
+                              <th>Actions</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td class="td-vehicle">
+                                 <img src="images/cars/mclaren.jpg" alt="Car" />
+                                 <span>McLaren 650S</span>
+                              </td>
+                              <td>Jakub Hejnał</td>
+                              <td>June 12 - June 15</td>
+                              <td><span class="status-pill active">Active</span></td>
+                              <td><button class="action-btn"><ion-icon name="ellipsis-horizontal"></ion-icon></button></td>
+                           </tr>
+                           <tr>
+                              <td class="td-vehicle">
+                                 <img src="images/cars/nsx.jpg" alt="Car" />
+                                 <span>Honda NSX</span>
+                              </td>
+                              <td>Maksymilian Klu</td>
+                              <td>June 10 - June 12</td>
+                              <td><span class="status-pill completed">Completed</span></td>
+                              <td><button class="action-btn"><ion-icon name="ellipsis-horizontal"></ion-icon></button></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+
+                  <div class="quick-fleet-card">
+                     <div class="card-header">
+                        <h2>Fleet Status</h2>
+                     </div>
+                     <div class="fleet-status-list">
+                        <div class="fleet-item">
+                           <span>Sports Cars</span>
+                           <div class="progress-bar"><div class="progress" style="width: 90%"></div></div>
+                           <span>18/20</span>
+                        </div>
+                        <div class="fleet-item">
+                           <span>SUVs</span>
+                           <div class="progress-bar"><div class="progress" style="width: 60%"></div></div>
+                           <span>6/10</span>
+                        </div>
+                     </div>
+                  </div>
+               </section>
+            </section>
+
+            <!-- FLEET MANAGEMENT VIEW -->
+            <section id="view-fleet" class="dashboard-view">
+               <header class="main-header">
+                  <div class="header-title">
+                     <h1>Fleet Management</h1>
+                     <p>Manage your luxury vehicles, track mileage and update status.</p>
+                  </div>
+                  <div class="header-actions">
+                     <button class="btn--form">+ Add Vehicle</button>
+                  </div>
+               </header>
+               <div class="table-container">
+                  <table class="dashboard-table">
+                     <thead>
+                        <tr>
+                           <th>Vehicle</th>
+                           <th>Body Type</th>
+                           <th>Power</th>
+                           <th>Mileage</th>
+                           <th>License Plate</th>
+                           <th>Actions</th>
+                        </tr>
+                     </thead>
+                     <tbody id="fleet-table-body">
+                        <!-- Template for VehicleListItemResponse -->
+                        <tr>
+                           <td class="td-vehicle">
+                              <img src="images/cars/mclaren.jpg" alt="Car" />
+                              <span>McLaren 650S</span>
+                           </td>
+                           <td>Supercar</td>
+                           <td>650 HP</td>
+                           <td>12,400 km</td>
+                           <td>G0 LUX1</td>
+                           <td>
+                              <div class="table-actions">
+                                 <button class="action-btn edit"><ion-icon name="create-outline"></ion-icon></button>
+                                 <button class="action-btn delete"><ion-icon name="trash-outline"></ion-icon></button>
+                              </div>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </section>
+
+            <!-- RESERVATIONS VIEW -->
+            <section id="view-reservations" class="dashboard-view">
+               <header class="main-header">
+                  <div class="header-title">
+                     <h1>All Reservations</h1>
+                     <p>Track all current, pending and completed rentals.</p>
+                  </div>
+               </header>
+               <div class="table-container">
+                  <table class="dashboard-table">
+                     <thead>
+                        <tr>
+                           <th>ID</th>
+                           <th>Vehicle</th>
+                           <th>Dates</th>
+                           <th>Total Price</th>
+                           <th>Status</th>
+                           <th>Actions</th>
+                        </tr>
+                     </thead>
+                     <tbody id="reservations-table-body">
+                        <!-- Template for RentalResponse -->
+                        <tr>
+                           <td>#1024</td>
+                           <td>Ferrari 488 GTB</td>
+                           <td>Jun 14, 2026 - Jun 17, 2026</td>
+                           <td>4,200 PLN</td>
+                           <td><span class="status-pill pending">Pending</span></td>
+                           <td><button class="action-btn"><ion-icon name="ellipsis-horizontal"></ion-icon></button></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </section>
+
+            <!-- CUSTOMERS VIEW -->
+            <section id="view-customers" class="dashboard-view">
+               <header class="main-header">
+                  <div class="header-title">
+                     <h1>Customer Directory</h1>
+                     <p>Manage customer profiles and viewing rental history.</p>
+                  </div>
+               </header>
+               <div class="table-container">
+                  <table class="dashboard-table">
+                     <thead>
+                        <tr>
+                           <th>Name</th>
+                           <th>Contact</th>
+                           <th>License</th>
+                           <th>Rentals</th>
+                           <th>Actions</th>
+                        </tr>
+                     </thead>
+                     <tbody id="customers-table-body">
+                        <!-- Template for CustomerResponse -->
+                        <tr>
+                           <td><strong>Jakub Hejnał</strong></td>
+                           <td>
+                              <div class="contact-info">
+                                 <span>jakub.h@example.com</span>
+                                 <span>+48 555 123 444</span>
+                              </div>
+                           </td>
+                           <td>ABC 123456</td>
+                           <td>5</td>
+                           <td><button class="action-btn"><ion-icon name="ellipsis-horizontal"></ion-icon></button></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </section>
+         </main>
+      </div>
+
+      <footer class="footer dashboard-footer">
+         <div class="container">
             <p class="copyright">
-               Copyright &copy; by LuxGarage, Inc. All rights reserved.
+               &copy; 2026 LuxGarage Concierge System. Internal Use Only.
             </p>
          </div>
          <div class="address-col">

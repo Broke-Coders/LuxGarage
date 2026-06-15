@@ -1,40 +1,53 @@
 const API_BASE_URL = "http://localhost:5054/api/Auth";
 
 export const AuthService = {
-   async login(login, password) {
+   async login(loginRequest) {
       const response = await fetch(`${API_BASE_URL}/login`, {
          method: "POST",
          headers: { "Content-Type": "application/json" },
-         body: JSON.stringify({ login, password }),
+         body: JSON.stringify(loginRequest),
       });
 
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.message || "Login error");
+      if (!response.ok) {
+         const errorInfo = await response.json();
+         throw new Error(errorInfo.message || errorInfo.Message ||  "Login error");
+      }
 
-      localStorage.setItem("token", result.data.token);
-      localStorage.setItem("user", JSON.stringify(result.data));
-      return result.data;
+      const result = await response.json();
+
+      localStorage.setItem("jwtToken", result.token);
+      localStorage.setItem("userRole", result.role);
+      localStorage.setItem("userEmail", result.email);
+      return result;
    },
 
-   async register(fullName, login, password) {
+   async register(registerRequest) {
       const response = await fetch(`${API_BASE_URL}/register`, {
          method: "POST",
          headers: { "Content-Type": "application/json" },
-         body: JSON.stringify({ fullName, login, password }),
+         body: JSON.stringify(registerRequest),
       });
 
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.message || "Register error");
-      return result.data;
+      if (!response.ok) {
+         const errorInfo = await response.json();
+         throw new Error(errorInfo.message || "Register error");
+      } 
+
+      try {
+         return await response.json();
+      } catch {
+         return true;
+      }
    },
 
    logout() {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
+      localStorage.setItem("jwtToken", result.token);
+      localStorage.setItem("userRole", result.role);
+      localStorage.setItem("userEmail", result.email);
       window.location.href = "login.html";
    },
 
    getToken() {
-      return localStorage.getItem("token");
+      return localStorage.getItem("jwtToken");
    },
 };

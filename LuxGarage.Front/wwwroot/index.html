@@ -8,6 +8,12 @@
       <link rel="stylesheet" href="./css/index.css" />
       <link rel="icon" href="./images/favicon.png" />
 
+      <!-- Swiper CSS -->
+      <link
+         rel="stylesheet"
+         href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      />
+
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
       <link
@@ -25,29 +31,7 @@
    </head>
 
    <body>
-      <nav id="navbar">
-         <div class="navbar-logo-title">
-            <a href="index.html">
-               <img id="logo" src="images/logo.png" alt="LuxGarage Logo" />
-            </a>
-            <a href="index.html" id="logo-title">LuxGarage</a>
-         </div>
-
-         <div class="navbar-links">
-            <a href="cars.html" id="cars-nav" class="navbar-text">Cars</a>
-            <a href="#TestimonialPage" id="why-us-nav" class="navbar-text">Why Us</a>
-         </div>
-
-         <div class="navbar-profile">
-            <a href="login.html" id="account-nav" class="navbar-image">
-               <img
-                  src="images/profile.png"
-                  alt="Profile image. Click to see your log in status."
-               />
-            </a>
-         </div>
-      </nav>
-
+      <div id="navbar-placeholder"></div>
       <main class="main-page">
          <div id="FirstPage" class="screen-section">
             <section id="first-page-hero">
@@ -96,6 +80,7 @@
             </section>
          </div>
 
+         <!-- <div id="SecondPage" class="screen-section"> -->
          <div id="SecondPage">
             <section id="hero2" class="section-why">
                <div class="container">
@@ -189,122 +174,346 @@
                </h2>
             </div>
 
-            <div class="container grid grid--3-cols">
-               <!-- CAR1 -->
-               <div class="car">
-                  <img
-                     src="./images/cars/mclaren.jpg"
-                     class="car-img"
-                     alt="McLaren 650S Spider"
-                  />
-                  <div class="car-content">
-                     <div class="car-tags">
-                        <span class="tag tag--origin">UK</span>
-                        <span class="tag tag--category">Supercar</span>
+            <div class="container swiper-container-wrapper">
+               <!-- Slider main container -->
+               <div class="swiper car-swiper">
+                  <!-- Additional required wrapper -->
+                  <div class="swiper-wrapper">
+                     <!-- Slides -->
+                     <!-- CAR 1 -->
+                     <div class="swiper-slide">
+                        <div class="car">
+                           <img
+                              src="./images/cars/mclaren.jpg"
+                              class="car-img"
+                              alt="McLaren 650S Spider"
+                           />
+                           <div class="car-content">
+                              <div class="car-tags">
+                                 <span class="tag tag--origin">UK</span>
+                                 <span class="tag tag--category">Supercar</span>
+                              </div>
+                              <p class="car-title">McLaren 650S Spider</p>
+                              <ul class="car-attributes">
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="calendar-outline"></ion-icon>
+                                    <span>Year: <strong>2015</strong></span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="speedometer-outline"></ion-icon>
+                                    <span>Power: <strong>650</strong> hp</span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="timer-outline"></ion-icon>
+                                    <span>0-100: <strong>3.0s</strong></span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="cog-outline"></ion-icon>
+                                    <span>Transmission: <strong>Automatic</strong></span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="flame-outline"></ion-icon>
+                                    <span>Engine: <strong>3.8L V8</strong></span>
+                                 </li>
+                              </ul>
+                              <a href="offer.html" class="btn-car">Rent Now</a>
+                           </div>
+                        </div>
                      </div>
-                     <p class="car-title">McLaren 650S Spider</p>
-                     <ul class="car-attributes">
-                        <li class="car-attribute">
-                           <ion-icon class="car-icon" name="calendar-outline"></ion-icon>
-                           <span>Year: <strong>2015</strong></span>
-                        </li>
-                        <li class="car-attribute">
-                           <ion-icon class="car-icon" name="speedometer-outline"></ion-icon>
-                           <span><strong>650</strong> hp</span>
-                        </li>
-                        <li class="car-attribute">
-                           <ion-icon class="car-icon" name="timer-outline"></ion-icon>
-                           <span><strong>3.0s</strong> to 100km/h</span>
-                        </li>
-                        <li class="car-attribute">
-                           <ion-icon class="car-icon" name="cog-outline"></ion-icon>
-                           <span>7-speed dual-clutch</span>
-                        </li>
-                        <li class="car-attribute">
-                           <ion-icon class="car-icon" name="flame-outline"></ion-icon>
-                           <span>3.8L V8 Twin-Turbo</span>
-                        </li>
-                     </ul>
-                     <a href="offer.html" class="btn-car">Rent Now</a>
-                  </div>
-               </div>
 
-               <!-- CAR2-->
-               <div class="car">
-                  <img
-                     src="./images/cars/nsx.jpg"
-                     class="car-img"
-                     alt="Honda NSX NA1 Modified"
-                  />
-                  <div class="car-content">
-                     <div class="car-tags">
-                        <span class="tag tag--origin">Japan</span>
-                        <span class="tag tag--category">Modified</span>
+                     <!-- CAR 2 -->
+                     <div class="swiper-slide">
+                        <div class="car">
+                           <img
+                              src="./images/cars/nsx.jpg"
+                              class="car-img"
+                              alt="Honda NSX NA1"
+                           />
+                           <div class="car-content">
+                              <div class="car-tags">
+                                 <span class="tag tag--origin">Japan</span>
+                                 <span class="tag tag--category">Modified</span>
+                              </div>
+                              <p class="car-title">Honda NSX NA1</p>
+                              <ul class="car-attributes">
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="calendar-outline"></ion-icon>
+                                    <span>Year: <strong>1992</strong></span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="speedometer-outline"></ion-icon>
+                                    <span>Power: <strong>450</strong> hp</span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="timer-outline"></ion-icon>
+                                    <span>0-100: <strong>3.8s</strong></span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="cog-outline"></ion-icon>
+                                    <span>Transmission: <strong>Manual</strong></span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="flame-outline"></ion-icon>
+                                    <span>Engine: <strong>3.2L V6</strong></span>
+                                 </li>
+                              </ul>
+                              <a href="offer.html" class="btn-car">Rent Now</a>
+                           </div>
+                        </div>
                      </div>
-                     <p class="car-title">Honda NSX NA1</p>
-                     <ul class="car-attributes">
-                        <li class="car-attribute">
-                           <ion-icon class="car-icon" name="calendar-outline"></ion-icon>
-                           <span>Year: <strong>1992</strong></span>
-                        </li>
-                        <li class="car-attribute">
-                           <ion-icon class="car-icon" name="speedometer-outline"></ion-icon>
-                           <span><strong>450</strong> hp (Tuned)</span>
-                        </li>
-                        <li class="car-attribute">
-                           <ion-icon class="car-icon" name="timer-outline"></ion-icon>
-                           <span><strong>3.8s</strong> to 100km/h</span>
-                        </li>
-                        <li class="car-attribute">
-                           <ion-icon class="car-icon" name="cog-outline"></ion-icon>
-                           <span>6-speed manual</span>
-                        </li>
-                        <li class="car-attribute">
-                           <ion-icon class="car-icon" name="flame-outline"></ion-icon>
-                           <span>3.2L V6 VTEC</span>
-                        </li>
-                     </ul>
-                     <a href="offer.html" class="btn-car">Rent Now</a>
-                  </div>
-               </div>
 
-               <!-- CAR3-->
-               <div class="car">
-                  <img
-                     src="./images/cars/488gtb.jpg"
-                     class="car-img"
-                     alt="Ferrari 488 GTB"
-                  />
-                  <div class="car-content">
-                     <div class="car-tags">
-                        <span class="tag tag--origin">Italy</span>
-                        <span class="tag tag--category">Supercar</span>
+                     <!-- CAR 3 -->
+                     <div class="swiper-slide">
+                        <div class="car">
+                           <img
+                              src="./images/cars/488gtb.jpg"
+                              class="car-img"
+                              alt="Ferrari 488 GTB"
+                           />
+                           <div class="car-content">
+                              <div class="car-tags">
+                                 <span class="tag tag--origin">Italy</span>
+                                 <span class="tag tag--category">Supercar</span>
+                              </div>
+                              <p class="car-title">Ferrari 488 GTB</p>
+                              <ul class="car-attributes">
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="calendar-outline"></ion-icon>
+                                    <span>Year: <strong>2017</strong></span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="speedometer-outline"></ion-icon>
+                                    <span>Power: <strong>661</strong> hp</span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="timer-outline"></ion-icon>
+                                    <span>0-100: <strong>3.0s</strong></span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="cog-outline"></ion-icon>
+                                    <span>Transmission: <strong>Automatic</strong></span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="flame-outline"></ion-icon>
+                                    <span>Engine: <strong>3.9L V8</strong></span>
+                                 </li>
+                              </ul>
+                              <a href="offer.html" class="btn-car">Rent Now</a>
+                           </div>
+                        </div>
                      </div>
-                     <p class="car-title">Ferrari 488 GTB</p>
-                     <ul class="car-attributes">
-                        <li class="car-attribute">
-                           <ion-icon class="car-icon" name="calendar-outline"></ion-icon>
-                           <span>Year: <strong>2017</strong></span>
-                        </li>
-                        <li class="car-attribute">
-                           <ion-icon class="car-icon" name="speedometer-outline"></ion-icon>
-                           <span><strong>661</strong> hp</span>
-                        </li>
-                        <li class="car-attribute">
-                           <ion-icon class="car-icon" name="timer-outline"></ion-icon>
-                           <span><strong>3.0s</strong> to 100km/h</span>
-                        </li>
-                        <li class="car-attribute">
-                           <ion-icon class="car-icon" name="cog-outline"></ion-icon>
-                           <span>7-speed dual-clutch</span>
-                        </li>
-                        <li class="car-attribute">
-                           <ion-icon class="car-icon" name="flame-outline"></ion-icon>
-                           <span>3.9L V8 Turbo</span>
-                        </li>
-                     </ul>
-                     <a href="offer.html" class="btn-car">Rent Now</a>
+
+                     <!-- CAR 4 -->
+                     <div class="swiper-slide">
+                        <div class="car">
+                           <img
+                              src="./images/cars/niklas-bischop-KZayf7xRScI-unsplash.jpg"
+                              class="car-img"
+                              alt="Porsche 911 GT3 RS"
+                           />
+                           <div class="car-content">
+                              <div class="car-tags">
+                                 <span class="tag tag--origin">Germany</span>
+                                 <span class="tag tag--category">Track Car</span>
+                              </div>
+                              <p class="car-title">Porsche 911 GT3 RS</p>
+                              <ul class="car-attributes">
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="calendar-outline"></ion-icon>
+                                    <span>Year: <strong>2023</strong></span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="speedometer-outline"></ion-icon>
+                                    <span>Power: <strong>525</strong> hp</span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="timer-outline"></ion-icon>
+                                    <span>0-100: <strong>3.2s</strong></span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="cog-outline"></ion-icon>
+                                    <span>Transmission: <strong>Automatic</strong></span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="flame-outline"></ion-icon>
+                                    <span>Engine: <strong>4.0L Flat-6</strong></span>
+                                 </li>
+                              </ul>
+                              <a href="offer.html" class="btn-car">Rent Now</a>
+                           </div>
+                        </div>
+                     </div>
+
+                     <!-- CAR 5 -->
+                     <div class="swiper-slide">
+                        <div class="car">
+                           <img
+                              src="./images/cars/flavien-s_E1TRPiId0-unsplash.jpg"
+                              class="car-img"
+                              alt="Mercedes-AMG GT Black Series"
+                           />
+                           <div class="car-content">
+                              <div class="car-tags">
+                                 <span class="tag tag--origin">Germany</span>
+                                 <span class="tag tag--category">Supercar</span>
+                              </div>
+                              <p class="car-title">AMG GT Black Series</p>
+                              <ul class="car-attributes">
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="calendar-outline"></ion-icon>
+                                    <span>Year: <strong>2021</strong></span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="speedometer-outline"></ion-icon>
+                                    <span>Power: <strong>730</strong> hp</span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="timer-outline"></ion-icon>
+                                    <span>0-100: <strong>3.2s</strong></span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="cog-outline"></ion-icon>
+                                    <span>Transmission: <strong>Automatic</strong></span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="flame-outline"></ion-icon>
+                                    <span>Engine: <strong>4.0L V8</strong></span>
+                                 </li>
+                              </ul>
+                              <a href="offer.html" class="btn-car">Rent Now</a>
+                           </div>
+                        </div>
+                     </div>
+
+                     <!-- CAR 6 -->
+                     <div class="swiper-slide">
+                        <div class="car">
+                           <img
+                              src="./images/cars/dextar-vision-YYXRSgxFAxA-unsplash.jpg"
+                              class="car-img"
+                              alt="Brabus G900 Rocket"
+                           />
+                           <div class="car-content">
+                              <div class="car-tags">
+                                 <span class="tag tag--origin">Germany</span>
+                                 <span class="tag tag--category">SUV</span>
+                              </div>
+                              <p class="car-title">Brabus G900 Rocket</p>
+                              <ul class="car-attributes">
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="calendar-outline"></ion-icon>
+                                    <span>Year: <strong>2022</strong></span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="speedometer-outline"></ion-icon>
+                                    <span>Power: <strong>900</strong> hp</span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="timer-outline"></ion-icon>
+                                    <span>0-100: <strong>3.7s</strong></span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="cog-outline"></ion-icon>
+                                    <span>Transmission: <strong>Automatic</strong></span>
+                                 </li>
+                                 <li class="car-attribute">
+                                    <ion-icon class="car-icon" name="flame-outline"></ion-icon>
+                                    <span>Engine: <strong>4.5L V8</strong></span>
+                                 </li>
+                              </ul>
+                              <a href="offer.html" class="btn-car">Rent Now</a>
+                           </div>
+                        </div>
+                     </div>
                   </div>
+
+                  <!-- If we need navigation buttons -->
+                  <div class="swiper-button-prev"></div>
+                  <div class="swiper-button-next"></div>
+               </div>
+            </div>
+         </section>
+
+         <section class="section-packages" id="Packages">
+            <div class="container">
+               <span class="subheading">Enhancements</span>
+               <h2 class="heading-secondary">Tailored Service Packages</h2>
+               <p class="packages-intro">
+                  Upgrade your journey with our exclusive add-ons. Designed to provide peace of mind, comfort, and a flawless experience behind the wheel.
+               </p>
+            </div>
+
+            <div class="container swiper-container-wrapper">
+               <div class="swiper packages-swiper">
+                  <div class="swiper-wrapper">
+                     <!-- PACKAGE 1 -->
+                     <div class="swiper-slide">
+                        <div class="package-card">
+                           <div class="package-icon">
+                              <ion-icon name="shield-outline"></ion-icon>
+                           </div>
+                           <h3 class="package-title">Basic Insurance</h3>
+                           <p class="package-description">
+                              Standard protection included with every rental. Covers minor scratches and essential liability.
+                           </p>
+                           <div class="package-footer">
+                              <span class="package-price">Included</span>
+                           </div>
+                        </div>
+                     </div>
+
+                     <!-- PACKAGE 2 -->
+                     <div class="swiper-slide">
+                        <div class="package-card featured">
+                           <div class="package-tag">Popular</div>
+                           <div class="package-icon">
+                              <ion-icon name="shield-checkmark-outline"></ion-icon>
+                           </div>
+                           <h3 class="package-title">Premium Shield</h3>
+                           <p class="package-description">
+                              Ultimate protection. Zero deductible, full coverage for theft, collision, and glass.
+                           </p>
+                           <div class="package-footer">
+                              <span class="package-price">+250 PLN</span>
+                           </div>
+                        </div>
+                     </div>
+
+                     <!-- PACKAGE 3 -->
+                     <div class="swiper-slide">
+                        <div class="package-card">
+                           <div class="package-icon">
+                              <ion-icon name="person-add-outline"></ion-icon>
+                           </div>
+                           <h3 class="package-title">Additional Driver</h3>
+                           <p class="package-description">
+                              Share the exhilaration. Register a second driver officially on your rental agreement.
+                           </p>
+                           <div class="package-footer">
+                              <span class="package-price">+150 PLN</span>
+                           </div>
+                        </div>
+                     </div>
+
+                     <!-- PACKAGE 4 -->
+                     <div class="swiper-slide">
+                        <div class="package-card">
+                           <div class="package-icon">
+                              <ion-icon name="sparkles-outline"></ion-icon>
+                           </div>
+                           <h3 class="package-title">Pro Cleaning</h3>
+                           <p class="package-description">
+                              Focus on the drive. Return the car in any condition, we'll handle the detailing.
+                           </p>
+                           <div class="package-footer">
+                              <span class="package-price">+100 PLN</span>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Navigation -->
+                  <div class="swiper-button-prev"></div>
+                  <div class="swiper-button-next"></div>
                </div>
             </div>
          </section>
@@ -408,7 +617,7 @@
                      <figure>
                         <img
                            src="images/testimonial/klaszcz_demo.jpg"
-                           alt="Photo of customer David Jasper"
+                           alt="Photo of customer "
                            class="testimonial-img"
                            loading="lazy"
                         />
@@ -426,40 +635,88 @@
 
                <div class="testimonials-gallery">
                   <figure class="testimonials-gallery-item">
-                     <img src="images/gallery/gallery1.jpg" alt="Gallery image 1" loading="lazy" />
+                     <img
+                        src="images/gallery/gallery1.jpg"
+                        alt="temp"
+                        loading="lazy"
+                     />
                   </figure>
                   <figure class="testimonials-gallery-item">
-                     <img src="images/gallery/gallery2.jpg" alt="Gallery image 2" loading="lazy" />
+                     <img
+                        src="images/gallery/gallery2.jpg"
+                        alt="temp"
+                        loading="lazy"
+                     />
                   </figure>
                   <figure class="testimonials-gallery-item">
-                     <img src="images/gallery/gallery3.jpg" alt="Gallery image 3" loading="lazy" />
+                     <img
+                        src="images/gallery/gallery3.jpg"
+                        alt="temp"
+                        loading="lazy"
+                     />
                   </figure>
                   <figure class="testimonials-gallery-item">
-                     <img src="images/gallery/gallery4.jpg" alt="Gallery image 4" loading="lazy" />
+                     <img
+                        src="images/gallery/gallery4.jpg"
+                        alt="temp"
+                        loading="lazy"
+                     />
                   </figure>
                   <figure class="testimonials-gallery-item">
-                     <img src="images/gallery/gallery5.jpg" alt="Gallery image 5" loading="lazy" />
+                     <img
+                        src="images/gallery/gallery5.jpg"
+                        alt="temp"
+                        loading="lazy"
+                     />
                   </figure>
                   <figure class="testimonials-gallery-item">
-                     <img src="images/gallery/gallery6.jpg" alt="Gallery image 6" loading="lazy" />
+                     <img
+                        src="images/gallery/gallery6.jpg"
+                        alt="temp"
+                        loading="lazy"
+                     />
                   </figure>
                   <figure class="testimonials-gallery-item">
-                     <img src="images/gallery/gallery7.jpg" alt="Gallery image 7" loading="lazy" />
+                     <img
+                        src="images/gallery/gallery7.jpg"
+                        alt="temp"
+                        loading="lazy"
+                     />
                   </figure>
                   <figure class="testimonials-gallery-item">
-                     <img src="images/gallery/gallery8.jpg" alt="Gallery image 8" loading="lazy" />
+                     <img
+                        src="images/gallery/gallery8.jpg"
+                        alt="temp"
+                        loading="lazy"
+                     />
                   </figure>
                   <figure class="testimonials-gallery-item">
-                     <img src="images/gallery/gallery9.jpg" alt="Gallery image 9" loading="lazy" />
+                     <img
+                        src="images/gallery/gallery9.jpg"
+                        alt="temp"
+                        loading="lazy"
+                     />
                   </figure>
                   <figure class="testimonials-gallery-item">
-                     <img src="images/gallery/gallery10.jpg" alt="Gallery image 10" loading="lazy" />
+                     <img
+                        src="images/gallery/gallery10.jpg"
+                        alt="temp"
+                        loading="lazy"
+                     />
                   </figure>
                   <figure class="testimonials-gallery-item">
-                     <img src="images/gallery/gallery11.jpg" alt="Gallery image 11" loading="lazy" />
+                     <img
+                        src="images/gallery/gallery11.jpg"
+                        alt="temp"
+                        loading="lazy"
+                     />
                   </figure>
                   <figure class="testimonials-gallery-item">
-                     <img src="images/gallery/gallery12.jpg" alt="Gallery image 12" loading="lazy" />
+                     <img
+                        src="images/gallery/gallery12.jpg"
+                        alt="temp"
+                        loading="lazy"
+                     />
                   </figure>
                </div>
             </section>
@@ -492,27 +749,27 @@
                         <input
                            id="lastname"
                            type="text"
-                           placeholder="Cena"
+                           placeholder=" Cena"
                            required
                         />
                      </div>
 
                      <div>
-                        <label for="email">Email</label>
-                        <input id="email" type="email" placeholder="john@gmail.com" />
+                        <label for="">Email</label>
+                        <input type="email" placeholder="john@gmail.com" />
                      </div>
 
                      <div>
-                        <label for="tel">Telephone no.</label>
-                        <input id="tel" type="tel" placeholder="+48 123 456 789" />
+                        <label for="">Telephone no.</label>
+                        <input type="tel" placeholder="+48 123 456 789" />
                      </div>
 
                      <div class="select">
                         <label for="select-type"
                            >What type of car are you interested in?</label
                         >
-                        <select id="select-type" name="">
-                           <option value="">Please choose one option:</option>
+                        <select id="select-type" name="" id="">
+                           <option value>Please choose one option:</option>
                            <option value="sports cars">Sports Cars</option>
                            <option value="supercars">Supercars</option>
                            <option value="hypercars">Hypercars</option>
@@ -530,84 +787,69 @@
          </div>
       </section>
 
-      <footer class="footer">
-         <div class="container grid grid--5-cols">
-            <div class="logo-col">
-               <a href="#" class="footer-logo">
-                  <img
-                     class="lux-logo-footer"
-                     src="images/logo.png"
-                     alt="LuxGarage Logo"
-                     loading="lazy"
-                  />
-               </a>
-               <div class="footer-icons">
-                  <a class="footer-icon-link" href="#"
-                     ><ion-icon
-                        class="footer-icon"
-                        name="logo-github"
-                     ></ion-icon
-                  ></a>
-                  <a class="footer-icon-link" href="#"
-                     ><ion-icon
-                        class="footer-icon"
-                        name="logo-facebook"
-                     ></ion-icon
-                  ></a>
-                  <a class="footer-icon-link" href="#"
-                     ><ion-icon
-                        class="footer-icon"
-                        name="logo-instagram"
-                     ></ion-icon
-                  ></a>
-               </div>
+      <div id="footer-placeholder"></div>
 
-               <p class="copyright">
-                  Copyright &copy; by LuxGarage, Inc. All rights reserved.
-               </p>
-            </div>
-            <div class="address-col">
-               <p class="footer-heading">Contact us</p>
-               <address class="contacts">
-                  <p>ul. Akademicka 16<br/>44-100 Gliwice</p>
-                  <p>
-                     <a href="tel:+48123456789">+48 123 456 789</a><br />
-                     <a href="mailto:luxgarage@gmail.com"
-                        >luxgarage@gmail.com</a
-                     >
-                  </p>
-               </address>
-            </div>
-            <nav class="contact-col">
-               <p class="footer-heading">Company</p>
-               <ul class="footer-links">
-                  <li><a class="footer-link" href="#">About LuxGarage</a></li>
-                  <li><a class="footer-link" href="#">Why us</a></li>
-                  <li><a class="footer-link" href="#">Partners</a></li>
-                  <li><a class="footer-link" href="#">Career</a></li>
-               </ul>
-            </nav>
+      <script type="module" src="js/layout.js"></script>
+      <!-- Swiper JS -->
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <!-- Initialize Swiper -->
+      <script>
+         const swiper = new Swiper(".car-swiper", {
+            // Optional parameters
+            direction: "horizontal",
+            loop: true,
+            autoplay: {
+               delay: 5000,
+               disableOnInteraction: false,
+            },
+            slidesPerView: 1,
+            spaceBetween: 20,
 
-            <nav class="rentals-col">
-               <p class="footer-heading">Rentals</p>
-               <ul class="footer-links">
-                  <li><a class="footer-link" href="#">Our fleet</a></li>
-                  <li><a class="footer-link" href="#">Luxury Sedans</a></li>
-                  <li><a class="footer-link" href="#">Sports Cars</a></li>
-                  <li><a class="footer-link" href="#">SUVs & 4x4</a></li>
-               </ul>
-            </nav>
+            // Navigation arrows
+            navigation: {
+               nextEl: ".swiper-button-next",
+               prevEl: ".swiper-button-prev",
+            },
 
-            <nav class="restources-col">
-               <p class="footer-heading">Resources</p>
-               <ul class="footer-links">
-                  <li><a class="footer-link" href="#">Insurance Policy</a></li>
-                  <li><a class="footer-link" href="#">Rental Terms</a></li>
-                  <li><a class="footer-link" href="#">Gift Vouchers</a></li>
-                  <li><a class="footer-link" href="#">Privacy & terms</a></li>
-               </ul>
-            </nav>
-         </div>
-      </footer>
+            // Responsive breakpoints
+            breakpoints: {
+               // when window width is >= 640px
+               640: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+               },
+               // when window width is >= 1024px
+               1024: {
+                  slidesPerView: 3,
+                  spaceBetween: 30,
+               },
+            },
+
+            // Enable mousewheel control
+            mousewheel: false,
+            // Enable grab cursor
+            grabCursor: true,
+         });
+
+         const packagesSwiper = new Swiper(".packages-swiper", {
+            loop: true,
+            autoplay: {
+               delay: 4000,
+               disableOnInteraction: false,
+            },
+            slidesPerView: 1,
+            spaceBetween: 20,
+            navigation: {
+               nextEl: ".swiper-button-next",
+               prevEl: ".swiper-button-prev",
+            },
+            breakpoints: {
+               640: { slidesPerView: 2, spaceBetween: 20 },
+               768: { slidesPerView: 3, spaceBetween: 30 },
+               1024: { slidesPerView: 4, spaceBetween: 30 },
+            },
+            grabCursor: true,
+         });
+      </script>
    </body>
 </html>

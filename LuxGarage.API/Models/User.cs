@@ -40,4 +40,5 @@ public class Employee : User
 {
     public int WorkplaceId { get; set; }
     public Workplace Workplace { get; set; } = null!;
+    public EmployeeStatus Status { get; set; } = EmployeeStatus.Pending;
 }

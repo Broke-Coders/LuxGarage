@@ -17,9 +17,11 @@ public class CreateVehicleRequest
     public string Brand { get; set; } = null!;
     public string Model { get; set; } = null!;
     public string LicensePlate { get; set; } = null!;
+    public string EngineName { get; set; } = null!;
     public int Year { get; set; }
     public decimal Horsepower { get; set; }
     public int Mileage { get; set; }
+    public float ToHundred { get; set; }
     
     public EngineType EngineType { get; set; }
     public VehicleBodyType BodyType { get; set; }

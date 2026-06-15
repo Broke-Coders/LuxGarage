@@ -62,13 +62,18 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest request)
     {
-        var result = await _authService.LoginAsync(request);
-        
-        if (result == null)
+        try
         {
-            return Unauthorized(new { Message = "Invalid email or password." });
+            var result = await _authService.LoginAsync(request);
+            return Ok(result);
+        } 
+        catch (ArgumentException e)
+        {
+            return BadRequest(new {Message = e.Message});
         }
-
-        return Ok(result);
+        catch (UnauthorizedAccessException e)
+        {
+            return BadRequest( new {Message = e.Message});
+        } 
     }
 }

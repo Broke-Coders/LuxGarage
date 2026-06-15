@@ -25,32 +25,7 @@
    </head>
 
    <body>
-      <nav id="navbar">
-         <div class="navbar-logo-title">
-            <a href="index.html">
-               <img id="logo" src="images/logo.png" alt="LuxGarage Logo" />
-            </a>
-            <a href="index.html" id="logo-title">LuxGarage</a>
-         </div>
-
-         <div class="navbar-links">
-            <a href="cars.html" id="cars-nav" class="navbar-text">Cars</a>
-            <a
-               href="index.html#TestimonialPage"
-               id="why-us-nav"
-               class="navbar-text"
-               >Why Us</a
-            >
-            <a href="" id="vouchers-nav" class="navbar-text">Vouchers</a>
-         </div>
-
-         <div class="navbar-profile">
-            <a href="login.html" id="account-nav" class="navbar-image">
-               <img src="images/profile.png" alt="Profile image" />
-            </a>
-         </div>
-      </nav>
-
+      <div id="navbar-placeholder"></div>
       <main class="offer-page">
          <div class="container">
             <h1 class="offer-main-title">McLaren 650S Spider</h1>
@@ -103,7 +78,7 @@
                <aside class="booking-sidebar">
                   <div class="calendar-card">
                      <div class="calendar-header">
-                        <h3>Availability Calendar</h3>
+                        <h3>Availabilities Calendar</h3>
                         <p id="month-year-display">June 2026</p>
 
                         <div class="selectors-overlay" id="selectors-overlay">
@@ -124,23 +99,28 @@
                         </div>
 
                         <div class="cal-nav">
-                           <button id="today-btn" class="today-btn">
-                              Today
-                           </button>
                            <ion-icon name="chevron-back-outline"></ion-icon>
                            <ion-icon name="chevron-forward-outline"></ion-icon>
                         </div>
                      </div>
 
                      <div class="calendar-legend">
-                        <span
-                           ><span class="dot available"></span> Fully
-                           available</span
-                        >
-                        <span
-                           ><span class="dot unavailable"></span>
-                           Unavailable</span
-                        >
+                        <div class="legend-item">
+                           <span class="dot available"></span>
+                           <span>Fully available</span>
+                        </div>
+                        <div class="legend-item">
+                           <span class="dot unavailable"></span>
+                           <span>Unavailable</span>
+                        </div>
+                        <div class="legend-item">
+                           <span class="dot partial"></span>
+                           <span>Partially available</span>
+                        </div>
+                        <div class="legend-item">
+                           <span class="dot day-off"></span>
+                           <span>Day off</span>
+                        </div>
                      </div>
 
                      <div class="calendar-grid">
@@ -151,64 +131,47 @@
                         <div class="day-label">T</div>
                         <div class="day-label">F</div>
                         <div class="day-label">S</div>
-                        <!-- Placeholder days -->
-                        <div class="day disabled">31</div>
-                        <div class="day">1</div>
-                        <div class="day">2</div>
-                        <div class="day">3</div>
-                        <div class="day">4</div>
-                        <div class="day">5</div>
-                        <div class="day">6</div>
-                        <div class="day">7</div>
-                        <div class="day">8</div>
-                        <div class="day selected">9</div>
-                        <div class="day">10</div>
-                        <div class="day">11</div>
-                        <div class="day">12</div>
-                        <div class="day">13</div>
-                        <div class="day">14</div>
-                        <div class="day unavailable-day">15</div>
-                        <div class="day unavailable-day">16</div>
-                        <div class="day unavailable-day">17</div>
-                        <div class="day unavailable-day">18</div>
-                        <div class="day">19</div>
-                        <div class="day">20</div>
-                        <div class="day">21</div>
-                        <div class="day">22</div>
-                        <div class="day">23</div>
-                        <div class="day">24</div>
-                        <div class="day">25</div>
-                        <div class="day">26</div>
-                        <div class="day">27</div>
-                        <div class="day">28</div>
-                        <div class="day">29</div>
-                        <div class="day">30</div>
+                        <!-- Days populated by JS -->
                      </div>
 
-                     <div class="date-selection">
-                        <label>Select start day</label>
-                        <div class="input-display">June 9, 2026</div>
-                     </div>
-
-                     <div class="booking-times">
-                        <p class="times-label">Booking Times</p>
-                        <div class="times-grid">
-                           <button class="time-btn">09:00</button>
-                           <button class="time-btn">10:00</button>
-                           <button class="time-btn">11:00</button>
-                           <button class="time-btn active">12:00</button>
-                           <button class="time-btn">13:00</button>
-                           <button class="time-btn">14:00</button>
-                           <button class="time-btn">15:00</button>
-                           <button class="time-btn">16:00</button>
-                           <button class="time-btn">17:00</button>
-                           <!-- <button class="time-btn">18:00</button>
-                           <button class="time-btn">19:00</button>
-                           <button class="time-btn">20:00</button> -->
+                     <div class="selection-summary" id="selection-summary">
+                        <div class="summary-info">
+                           <p class="duration-text"><span id="summary-days">0</span> Days</p>
+                           <p class="range-text" id="summary-range">Select dates in calendar</p>
+                        </div>
+                        <div class="summary-price">
+                           <p id="summary-price-value">0.00 PLN</p>
                         </div>
                      </div>
 
-                     <button class="btn-book-sidebar">Book This Car</button>
+                     <div class="booking-times">
+                        <p class="times-label">Starting Times</p>
+                        <div class="times-grid">
+                           <button class="time-btn">09:00 AM</button>
+                           <button class="time-btn">10:00 AM</button>
+                           <button class="time-btn">11:00 AM</button>
+                           <button class="time-btn">12:00 PM</button>
+                           <button class="time-btn">01:00 PM</button>
+                           <button class="time-btn">02:00 PM</button>
+                           <button class="time-btn">03:00 PM</button>
+                           <button class="time-btn">04:00 PM</button>
+                           <button class="time-btn">05:00 PM</button>
+                           <button class="time-btn">06:00 PM</button>
+                        </div>
+                     </div>
+
+                     <div class="total-price-container">
+                        <p>Total Price</p>
+                        <p class="total-price-value" id="total-price-bottom">0.00 PLN</p>
+                     </div>
+                     <p class="taxes-note">Taxes & fees calculated at checkout</p>
+
+                     <div id="availability-error" class="availability-error">
+                        <ion-icon name="alert-circle-outline"></ion-icon>
+                        <span>Selected range includes unavailable days.</span>
+                     </div>
+
+                     <button class="btn-book-sidebar">Book Now</button>
                   </div>
                </aside>
             </div>
@@ -319,147 +282,202 @@
          </div>
       </main>
 
-      <footer class="footer">
-         <div class="container grid grid--5-cols">
-            <div class="logo-col">
-               <a href="#" class="footer-logo">
-                  <img
-                     class="lux-logo-footer"
-                     src="images/logo.png"
-                     alt="LuxGarage Logo"
-                  />
-               </a>
-               <p class="copyright">Copyright &copy; by LuxGarage, Inc.</p>
+      <!-- BOOKING MODAL -->
+      <div id="booking-modal" class="modal">
+         <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+               <h2>Complete Your Reservation</h2>
+               <div class="stepper">
+                  <div class="step active" data-step="1">1. Summary</div>
+                  <div class="step" data-step="2">2. Details</div>
+                  <div class="step" data-step="3">3. Extras</div>
+               </div>
             </div>
-            <div class="address-col">
-               <p class="footer-heading">Contact us</p>
-               <address class="contacts">
-                  <p>ul. Akademicka 16<br />44-100 Gliwice</p>
-                  <p><a href="tel:+48123456789">+48 123 456 789</a></p>
-               </address>
-            </div>
-            <nav class="contact-col">
-               <p class="footer-heading">Company</p>
-               <ul class="footer-links">
-                  <li><a class="footer-link" href="">About</a></li>
-                  <li><a class="footer-link" href="">Career</a></li>
-               </ul>
-            </nav>
-            <nav class="rentals-col">
-               <p class="footer-heading">Rentals</p>
-               <ul class="footer-links">
-                  <li><a class="footer-link" href="">Our fleet</a></li>
-                  <li><a class="footer-link" href="">Terms</a></li>
-               </ul>
-            </nav>
-            <nav class="restources-col">
-               <p class="footer-heading">Resources</p>
-               <ul class="footer-links">
-                  <li><a class="footer-link" href="">Policy</a></li>
-                  <li><a class="footer-link" href="">Privacy</a></li>
-               </ul>
-            </nav>
-         </div>
-      </footer>
 
+            <div class="modal-body">
+               <!-- STEP 1: CAR SUMMARY -->
+               <div class="form-step active" id="step-1">
+                  <h3>Vehicle Summary</h3>
+                  <div class="summary-grid">
+                     <div class="summary-item"><span>Brand:</span> <strong id="sum-brand">McLaren</strong></div>
+                     <div class="summary-item"><span>Model:</span> <strong id="sum-model">650S Spider</strong></div>
+                     <div class="summary-item"><span>Engine:</span> <strong id="sum-engine">3.8L V8 Twin-Turbo</strong></div>
+                     <div class="summary-item"><span>Seats:</span> <strong id="sum-seats">2</strong></div>
+                     <div class="summary-item"><span>0-100 km/h:</span> <strong id="sum-perf">3.0s</strong></div>
+                  </div>
+                  <button class="btn--form next-step">Continue to Details</button>
+               </div>
+
+               <!-- STEP 2: PRICING & CUSTOMER -->
+               <div class="form-step" id="step-2">
+                  <h3>Reservation Details</h3>
+                  <div class="details-form">
+                     <div class="form-group">
+                        <label>Your Full Name</label>
+                        <input type="text" placeholder="John Doe" required />
+                     </div>
+                     <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="john@example.com" required />
+                     </div>
+                     <div class="form-grid">
+                        <div class="form-group">
+                           <label>Selected Duration</label>
+                           <p class="info-display"><span id="display-duration">24</span> Hours</p>
+                        </div>
+                        <div class="form-group">
+                           <label>Base Price</label>
+                           <p class="price-display"><span>1,200</span> PLN</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="modal-btns">
+                     <button class="btn-back prev-step">Back</button>
+                     <button class="btn--form next-step">Select Extras</button>
+                  </div>
+               </div>
+
+               <!-- STEP 3: EXTRAS -->
+               <div class="form-step" id="step-3">
+                  <h3>Enhance Your Experience</h3>
+                  <div class="extras-grid">
+                     <div class="extra-card active" data-price="0">
+                        <div class="extra-icon"><ion-icon name="shield-outline"></ion-icon></div>
+                        <h4>Basic Insurance</h4>
+                        <p>Standard coverage for minor scratches.</p>
+                        <span class="extra-price">Included</span>
+                     </div>
+                     <div class="extra-card" data-price="250">
+                        <div class="extra-icon"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
+                        <h4>Premium Shield</h4>
+                        <p>Full protection. Zero deductible.</p>
+                        <span class="extra-price">+250 PLN</span>
+                     </div>
+                     <div class="extra-card" data-price="150">
+                        <div class="extra-icon"><ion-icon name="person-add-outline"></ion-icon></div>
+                        <h4>Additional Driver</h4>
+                        <p>Share the thrill with a friend.</p>
+                        <span class="extra-price">+150 PLN</span>
+                     </div>
+                     <div class="extra-card" data-price="100">
+                        <div class="extra-icon"><ion-icon name="sparkles-outline"></ion-icon></div>
+                        <h4>Pro Cleaning</h4>
+                        <p>Return dirty, we'll handle the rest.</p>
+                        <span class="extra-price">+100 PLN</span>
+                     </div>
+                  </div>
+
+                  <div class="total-reservation-card">
+                     <div class="total-row">
+                        <span>Total Reservation Cost:</span>
+                        <strong id="final-total-price">1,200 PLN</strong>
+                     </div>
+                     <p class="total-note">Final price calculated including all taxes and selected extras.</p>
+                  </div>
+
+                  <div class="modal-btns">
+                     <button class="btn-back prev-step">Back</button>
+                     <button class="btn--form">Confirm Booking</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div id="footer-placeholder"></div>
+
+
+      <script type="module" src="js/layout.js"></script>
       <script>
          const monthYearDisplay = document.getElementById("month-year-display");
          const selectorsOverlay = document.getElementById("selectors-overlay");
          const monthList = document.getElementById("month-list");
          const yearList = document.getElementById("year-list");
          const calendarGrid = document.querySelector(".calendar-grid");
-         const inputDisplay = document.querySelector(".input-display");
-         const prevBtn = document.querySelector(
-            ".cal-nav ion-icon[name='chevron-back-outline']",
-         );
-         const nextBtn = document.querySelector(
-            ".cal-nav ion-icon[name='chevron-forward-outline']",
-         );
          const timeButtons = document.querySelectorAll(".time-btn");
+         const summaryDays = document.getElementById("summary-days");
+         const summaryRange = document.getElementById("summary-range");
+         const summaryPriceValue = document.getElementById("summary-price-value");
+         const totalPriceBottom = document.getElementById("total-price-bottom");
+         const prevBtn = document.querySelector(".cal-nav ion-icon[name='chevron-back-outline']");
+         const nextBtn = document.querySelector(".cal-nav ion-icon[name='chevron-forward-outline']");
+         const bookBtnSidebar = document.querySelector(".btn-book-sidebar");
+         const availabilityError = document.getElementById("availability-error");
 
-         let currentDate = new Date(2026, 5, 9); // Starting date based on placeholder (June 2026)
-         let selectedDate = new Date(2026, 5, 9);
+         let currentDate = new Date(2026, 5, 1);
+         let startDate = null;
+         let endDate = null;
+         let startTime = "12:00 PM";
+         const pricePerDay = 1200;
+
+         // Helper to check if a range is available
+         function isRangeAvailable(start, end) {
+            if (!start || !end) return true;
+            let temp = new Date(start);
+            while (temp <= end) {
+               // Demo unavailable logic: 15th and 22nd
+               if (temp.getDate() === 15 || temp.getDate() === 22) {
+                  return false;
+               }
+               temp.setDate(temp.getDate() + 1);
+            }
+            return true;
+         }
 
          const months = [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
          ];
 
-         // Generate years (e.g., from current year to +5 years)
-         const currentYear = new Date().getFullYear();
-         const years = Array.from({ length: 6 }, (_, i) => 2026 + i); // Starting from 2026 for demo
+         const years = Array.from({ length: 6 }, (_, i) => 2026 + i);
 
          function populateSelectors() {
             if (!monthList || !yearList) return;
-
-            // Populate months
             monthList.innerHTML = "";
             months.forEach((month, index) => {
                const item = document.createElement("div");
                item.classList.add("selector-item");
                item.textContent = month;
-               if (index === currentDate.getMonth())
-                  item.classList.add("current");
-
-               item.addEventListener("click", (e) => {
+               if (index === currentDate.getMonth()) item.classList.add("current");
+               item.onclick = (e) => {
                   e.stopPropagation();
                   currentDate.setMonth(index);
                   selectorsOverlay.classList.remove("active");
                   renderCalendar();
-               });
+               };
                monthList.appendChild(item);
             });
 
-            // Populate years
             yearList.innerHTML = "";
             years.forEach((year) => {
                const item = document.createElement("div");
                item.classList.add("selector-item");
                item.textContent = year;
-               if (year === currentDate.getFullYear())
-                  item.classList.add("current");
-
-               item.addEventListener("click", (e) => {
+               if (year === currentDate.getFullYear()) item.classList.add("current");
+               item.onclick = (e) => {
                   e.stopPropagation();
                   currentDate.setFullYear(year);
                   selectorsOverlay.classList.remove("active");
                   renderCalendar();
-               });
+               };
                yearList.appendChild(item);
             });
          }
 
-         // Toggle selectors overlay
          if (monthYearDisplay) {
-            monthYearDisplay.addEventListener("click", (e) => {
+            monthYearDisplay.onclick = (e) => {
                e.stopPropagation();
-               populateSelectors(); // Refresh "current" highlights
-               if (selectorsOverlay) {
-                  selectorsOverlay.classList.toggle("active");
-               }
-            });
+               populateSelectors();
+               selectorsOverlay.classList.toggle("active");
+            };
          }
 
-         // Close selectors when clicking outside
-         document.addEventListener("click", (e) => {
-            if (
-               selectorsOverlay &&
-               !selectorsOverlay.contains(e.target) &&
-               e.target !== monthYearDisplay
-            ) {
+         document.onclick = (e) => {
+            if (selectorsOverlay && !selectorsOverlay.contains(e.target) && e.target !== monthYearDisplay) {
                selectorsOverlay.classList.remove("active");
             }
-         });
+         };
 
          function renderCalendar() {
             const year = currentDate.getFullYear();
@@ -471,10 +489,7 @@
                monthYearDisplay.textContent = `${months[month]} ${year}`;
             }
 
-            // Clear previous days (keep labels)
-            const labels = Array.from(
-               calendarGrid.querySelectorAll(".day-label"),
-            );
+            const labels = Array.from(calendarGrid.querySelectorAll(".day-label"));
             calendarGrid.innerHTML = "";
             labels.forEach((label) => calendarGrid.appendChild(label));
 
@@ -482,7 +497,6 @@
             const daysInMonth = new Date(year, month + 1, 0).getDate();
             const daysInPrevMonth = new Date(year, month, 0).getDate();
 
-            // Previous month placeholder days
             for (let i = firstDayOfMonth; i > 0; i--) {
                const dayDiv = document.createElement("div");
                dayDiv.classList.add("day", "disabled");
@@ -490,7 +504,6 @@
                calendarGrid.appendChild(dayDiv);
             }
 
-            // Current month days
             for (let i = 1; i <= daysInMonth; i++) {
                const dayDiv = document.createElement("div");
                dayDiv.classList.add("day");
@@ -499,42 +512,47 @@
                const thisDayDate = new Date(year, month, i);
                thisDayDate.setHours(0, 0, 0, 0);
 
-               // Disable past days
                if (thisDayDate < realToday) {
                   dayDiv.classList.add("past-day");
                }
 
-               // Highlight selected
-               if (
-                  selectedDate &&
-                  i === selectedDate.getDate() &&
-                  month === selectedDate.getMonth() &&
-                  year === selectedDate.getFullYear()
-               ) {
-                  dayDiv.classList.add("selected");
-               }
-
-               // Randomly mark some days as unavailable for demo (only future days)
                if ((i === 15 || i === 22) && thisDayDate >= realToday) {
                   dayDiv.classList.add("unavailable-day");
                }
 
-               dayDiv.addEventListener("click", () => {
-                  if (
-                     dayDiv.classList.contains("unavailable-day") ||
-                     dayDiv.classList.contains("past-day")
-                  )
-                     return;
+               // Range Highlighting
+               if (startDate && thisDayDate.getTime() === startDate.getTime()) {
+                  dayDiv.classList.add("selected-start");
+               } else if (endDate && thisDayDate.getTime() === endDate.getTime()) {
+                  dayDiv.classList.add("selected-end");
+               } else if (startDate && endDate && thisDayDate > startDate && thisDayDate < endDate) {
+                  dayDiv.classList.add("in-range");
+               }
 
-                  selectedDate = new Date(year, month, i);
-                  updateDateDisplay();
+               dayDiv.onclick = () => {
+                  if (dayDiv.classList.contains("unavailable-day") || dayDiv.classList.contains("past-day")) return;
+
+                  if (!startDate || (startDate && endDate)) {
+                     startDate = thisDayDate;
+                     endDate = null;
+                  } else if (startDate && !endDate) {
+                     if (thisDayDate < startDate) {
+                        startDate = thisDayDate;
+                     } else if (thisDayDate.getTime() === startDate.getTime()) {
+                        // Toggle off if clicking same day? Or just keep as start.
+                        // Let's keep it as start.
+                     } else {
+                        endDate = thisDayDate;
+                     }
+                  }
+                  
+                  updateDisplay();
                   renderCalendar();
-               });
+               };
 
                calendarGrid.appendChild(dayDiv);
             }
 
-            // Next month placeholder days to ensure a 7x6 grid (42 days)
             const totalDaysSoFar = firstDayOfMonth + daysInMonth;
             const extraDays = 42 - totalDaysSoFar;
             for (let i = 1; i <= extraDays; i++) {
@@ -545,60 +563,175 @@
             }
          }
 
-         function updateDateDisplay() {
-            const options = { month: "long", day: "numeric", year: "numeric" };
-            if (inputDisplay) {
-               inputDisplay.textContent = selectedDate.toLocaleDateString(
-                  "en-US",
-                  options,
-               );
+         function updateDisplay() {
+            if (startDate && endDate) {
+               const diffTime = Math.abs(endDate - startDate);
+               const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+               summaryDays.textContent = diffDays;
+               
+               const options = { month: "short", day: "numeric" };
+               summaryRange.textContent = `${startDate.toLocaleDateString("en-US", options)} - ${endDate.toLocaleDateString("en-US", options)}, ${startDate.getFullYear()}`;
+               
+               const totalPrice = diffDays * pricePerDay;
+               const formattedPrice = `${totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} PLN`;
+               summaryPriceValue.textContent = formattedPrice;
+               totalPriceBottom.textContent = formattedPrice;
+               
+               const available = isRangeAvailable(startDate, endDate);
+               if (available) {
+                  bookBtnSidebar.classList.add("ready");
+                  bookBtnSidebar.disabled = false;
+                  availabilityError.classList.remove("active");
+                  bookBtnSidebar.textContent = "Book Now";
+               } else {
+                  bookBtnSidebar.classList.remove("ready");
+                  bookBtnSidebar.disabled = true;
+                  availabilityError.classList.add("active");
+                  bookBtnSidebar.textContent = "Range Unavailable";
+               }
+            } else if (startDate) {
+               summaryDays.textContent = "0";
+               const options = { month: "short", day: "numeric" };
+               summaryRange.textContent = `From ${startDate.toLocaleDateString("en-US", options)}`;
+               summaryPriceValue.textContent = "0.00 PLN";
+               totalPriceBottom.textContent = "0.00 PLN";
+               bookBtnSidebar.classList.remove("ready");
+               bookBtnSidebar.disabled = false;
+               availabilityError.classList.remove("active");
+            } else {
+               summaryDays.textContent = "0";
+               summaryRange.textContent = "Select dates in calendar";
+               summaryPriceValue.textContent = "0.00 PLN";
+               totalPriceBottom.textContent = "0.00 PLN";
+               bookBtnSidebar.classList.remove("ready");
+               bookBtnSidebar.disabled = false;
+               availabilityError.classList.remove("active");
             }
          }
 
          if (prevBtn) {
-            prevBtn.addEventListener("click", () => {
+            prevBtn.onclick = () => {
                currentDate.setMonth(currentDate.getMonth() - 1);
                renderCalendar();
-            });
+            };
          }
 
          if (nextBtn) {
-            nextBtn.addEventListener("click", () => {
+            nextBtn.onclick = () => {
                currentDate.setMonth(currentDate.getMonth() + 1);
                renderCalendar();
-            });
+            };
          }
 
-         const todayBtn = document.getElementById("today-btn");
-         if (todayBtn) {
-            todayBtn.addEventListener("click", () => {
-               const realToday = new Date();
-               currentDate = new Date(
-                  realToday.getFullYear(),
-                  realToday.getMonth(),
-                  realToday.getDate(),
-               );
-               selectedDate = new Date(
-                  realToday.getFullYear(),
-                  realToday.getMonth(),
-                  realToday.getDate(),
-               );
-               updateDateDisplay();
-               renderCalendar();
-            });
-         }
-
-         // Time button selection
          timeButtons.forEach((btn) => {
-            btn.addEventListener("click", () => {
+            btn.onclick = () => {
                timeButtons.forEach((b) => b.classList.remove("active"));
                btn.classList.add("active");
-            });
+               startTime = btn.textContent;
+            };
          });
 
-         // Initial render
+         // Initial Active Time
+         timeButtons[3].classList.add("active");
+
          renderCalendar();
-         updateDateDisplay();
+         updateDisplay();
+
+         // MODAL LOGIC (UPDATED)
+         const modal = document.getElementById("booking-modal");
+         const closeBtn = document.querySelector(".close-modal");
+         const nextBtns = document.querySelectorAll(".next-step");
+         const prevBtns = document.querySelectorAll(".prev-step");
+         const steps = document.querySelectorAll(".form-step");
+         const stepperItems = document.querySelectorAll(".step");
+         const extraCards = document.querySelectorAll(".extra-card");
+         const finalPriceDisplay = document.getElementById("final-total-price");
+         const displayDuration = document.getElementById("display-duration");
+
+         let currentStep = 1;
+
+         bookBtnSidebar.onclick = () => {
+            if (!startDate || !endDate) {
+               alert("Please select a date range first.");
+               return;
+            }
+            modal.style.display = "block";
+            
+            // Sync summary to modal
+            const diffTime = Math.abs(endDate - startDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            if(displayDuration) displayDuration.textContent = diffDays * 24;
+            
+            updatePrice();
+         };
+
+         closeBtn.onclick = () => {
+            modal.style.display = "none";
+            resetModal();
+         };
+
+         window.onclick = (event) => {
+            if (event.target == modal) {
+               modal.style.display = "none";
+               resetModal();
+            }
+         };
+
+         function updateStepUI() {
+            steps.forEach((s) => s.classList.remove("active"));
+            stepperItems.forEach((s) => s.classList.remove("active"));
+            const targetStep = document.getElementById(`step-${currentStep}`);
+            if(targetStep) targetStep.classList.add("active");
+            const targetStepper = document.querySelector(`.step[data-step="${currentStep}"]`);
+            if(targetStepper) targetStepper.classList.add("active");
+         }
+
+         nextBtns.forEach((btn) => {
+            btn.onclick = () => {
+               if (currentStep < 3) {
+                  currentStep++;
+                  updateStepUI();
+               }
+            };
+         });
+
+         prevBtns.forEach((btn) => {
+            btn.onclick = () => {
+               if (currentStep > 1) {
+                  currentStep--;
+                  updateStepUI();
+               }
+            };
+         });
+
+         function resetModal() {
+            currentStep = 1;
+            updateStepUI();
+         }
+
+         function updatePrice() {
+            const diffTime = Math.abs(endDate - startDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            const baseTotal = diffDays * pricePerDay;
+            
+            let extrasTotal = 0;
+            extraCards.forEach(card => {
+               if(card.classList.contains("active")) {
+                  extrasTotal += parseInt(card.dataset.price);
+               }
+            });
+            const total = baseTotal + extrasTotal;
+            if(finalPriceDisplay) {
+               finalPriceDisplay.textContent = `${total.toLocaleString()} PLN`;
+            }
+         }
+
+         extraCards.forEach(card => {
+            card.onclick = () => {
+               card.classList.toggle("active");
+               updatePrice();
+            };
+         });
       </script>
    </body>
 </html>

@@ -499,3 +499,5 @@ frontend_docs/
 # rest of python
 **/__pycache__/
 **/*.py[cod]
+
+LuxGarage.Front/wwwroot/images/cars/*
