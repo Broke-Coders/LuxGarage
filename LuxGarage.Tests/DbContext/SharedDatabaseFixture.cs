@@ -30,7 +30,7 @@ public class SharedDatabaseFixture : IAsyncLifetime
     public SharedDatabaseFixture()
     {
         // configure and create the PostgreSQL container
-        DbContainer = new PostgreSqlBuilder("postgres:16")
+        DbContainer = new PostgreSqlBuilder("postgres:17")
             .WithDatabase("testDb")
             .WithUsername("testuser")
             .WithPassword("testpassword")
