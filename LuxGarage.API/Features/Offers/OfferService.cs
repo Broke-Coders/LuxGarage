@@ -23,6 +23,7 @@ public class OfferService
     {
         var query = _context.Offers
             .Include(o => o.Vehicle)
+            .Include(o => o.Prices)
             .AsNoTracking()
             .AsQueryable();
 
