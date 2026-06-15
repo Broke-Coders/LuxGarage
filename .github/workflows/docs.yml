@@ -80,14 +80,14 @@ jobs:
         # initialize a counter to track if any Python files were found
         files_found=0
 
-        for file in PythonTests/*.py; do
+        for file in Python/*.py; do
           files_found=1
           filename=$(basename "$file" .py)
           
           # generate markdown documentation from the Python file using pydoc-markdown 
           # (specify the PythonTests folder as an include path so it can find any imports)
           # -I specifies folders to include in the module search path, -m specifies the module to document
-          pydoc-markdown -I PythonTests -m "${filename}" > "python_docs/${filename}.md"
+          pydoc-markdown -I LuxGarage.Tests/Python -m "${filename}" > "python_docs/${filename}.md"
 
           echo "- name: ${filename}" >> python_docs/toc.yml
           echo "  href: ${filename}.md" >> python_docs/toc.yml
