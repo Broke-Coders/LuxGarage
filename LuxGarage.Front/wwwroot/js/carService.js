@@ -208,6 +208,23 @@ export const CarService = {
     }
   },
 
+
+  async getPrimaryImage(vehicleId) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/VehicleImages/${vehicleId}/primary`,
+        {
+          method: "GET",
+          headers: {...authHeaders(), "Content-Type": "application/json" },
+          body: JSON.stringify({ vehicleId }),
+        }
+      );
+      return await handleResponse(response);
+    } catch (error) {
+      console.error("Error getting primary image:", error);
+      throw error;
+    }
+  },
+
   /**
    * Sets a specific image as the primary image for a vehicle.
    * Maps to PATCH /api/VehicleImages/{imageId}/set-primary
@@ -218,9 +235,9 @@ export const CarService = {
   async setPrimaryImage(vehicleId, imageId) {
     try {
       const response = await fetch(
-        `${API_BASE_URL}/VehicleImages/${imageId}/set-primary`,
+        `${API_BASE_URL}/VehicleImages/${imageId}/primary`,
         {
-          method: "PATCH",
+          method: "POST",
           headers: { ...authHeaders(), "Content-Type": "application/json" },
           body: JSON.stringify({ vehicleId }),
         }
