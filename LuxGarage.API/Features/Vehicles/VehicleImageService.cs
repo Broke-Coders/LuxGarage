@@ -26,7 +26,7 @@ public class VehicleImageService
         return images.Select(MapToResponse).ToList();
     }
 
-    public async Task<VehicleImageResponse> GetPrimaryByVehicleIdAsync(int vehicleId)
+    public async Task<VehicleImage> GetPrimaryByVehicleIdAsync(int vehicleId)
     {
         var primary = await _context.VehicleImages
             .Where(i => i.VehicleId == vehicleId && i.IsPrimary)
@@ -36,7 +36,7 @@ public class VehicleImageService
         if (primary == null)
             throw new KeyNotFoundException($"There's no primary image for vehicle with ID {vehicleId}");
 
-        return MapToResponse(primary);
+        return primary;
     }
 
     public async Task<List<VehicleImageResponse>> UploadImagesAsync(UploadVehicleImagesRequest request)

@@ -3,6 +3,8 @@ import { CarService }                        from "../carService.js";
 import { openModal, closeModal, setLoading,
          showError, clearError }             from "./utils/modal.js";
 
+const API_ORIGIN = "http://localhost:5054";
+
 let allOffers       = [];
 let pendingDeleteId = null;
 
@@ -56,7 +58,7 @@ function _renderTable(offers) {
         <td>#${o.id}</td>
         <td class="td-offer-img">
           ${o.primaryImageUrl
-            ? `<img src="${o.primaryImageUrl}" alt="${o.title}" class="offer-thumb" />`
+            ? `<img src="${API_ORIGIN}${o.primaryImageUrl}" alt="${o.title}" class="offer-thumb" />`
             : `<div class="offer-thumb-placeholder"><ion-icon name="car-outline"></ion-icon></div>`
           }
         </td>

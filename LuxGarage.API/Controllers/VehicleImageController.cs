@@ -1,3 +1,4 @@
+using System.Reflection;
 using LuxGarage.API.Data;
 using LuxGarage.API.Features.Vehicles;
 using Microsoft.AspNetCore.Mvc;
@@ -41,12 +42,16 @@ public class VehicleImagesController : ControllerBase
     }
 
     [HttpGet("vehicle/{vehicleId}/primary")]
-    public async Task<ActionResult<VehicleImageResponse>> GetPrimary(int vehicleId)
+    public async Task<ActionResult> GetPrimary(int vehicleId)
     {
         try
         {
             var primary = await _imageService.GetPrimaryByVehicleIdAsync(vehicleId);
-            return Ok(primary);
+            if (primary is null) return NotFound();
+
+            var filePath = Path.Combine(_uploadFolder, vehicleId.ToString(), primary.StorageKey);
+            if (!System.IO.File.Exists(filePath)) return NotFound();
+            return PhysicalFile(filePath, primary.ContentType);
         }
         catch (KeyNotFoundException e)
         {
