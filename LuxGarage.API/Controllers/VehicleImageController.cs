@@ -40,6 +40,19 @@ public class VehicleImagesController : ControllerBase
         }
     }
 
+    [HttpGet("vehicle/{vehicleId}/primary")]
+    public async Task<ActionResult<VehicleImageResponse>> GetPrimary(int vehicleId)
+    {
+        try
+        {
+            var primary = await _imageService.GetPrimaryByVehicleIdAsync(vehicleId);
+            return Ok(primary);
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(new { Message = e.Message});
+        }
+    }
 
     [HttpPut("vehicle/{vehicleId}/primary")]
     public async Task<ActionResult> SetPrimary(int vehicleId, [FromBody] SetPrimaryImageRequest request)
