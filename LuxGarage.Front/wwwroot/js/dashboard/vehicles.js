@@ -416,13 +416,11 @@ function _initDragReorder(grid) {
         grid.insertBefore(dragSrc, item);
       }
 
-      // Zaktualizuj lokalną tablicę galleryImages wg nowego porządku DOM
       const newOrder = [...grid.querySelectorAll(".gallery-item")].map((el) =>
         galleryImages.find((img) => img.id === parseInt(el.dataset.id))
       );
       galleryImages = newOrder;
 
-      // Pokaż przycisk Save Order
       galleryDirty = true;
       document.getElementById("btnSaveOrder").style.display       = "inline-flex";
       document.getElementById("galleryReorderHint").style.display = "flex";
@@ -430,6 +428,25 @@ function _initDragReorder(grid) {
       item.classList.remove("drag-over-item");
     });
   });
+}
+
+async function _setPrimary(imageId) {
+  try {
+    await CarService.setPrimaryImage(galleryVehicleId, imageId);
+    await _loadGalleryImages();
+  } catch (e) {
+    showError("galleryUploadError", e.message);
+  }
+}
+
+async function _deleteImage(imageId) {
+  if (!confirm("Delete this image?")) return;
+  try {
+    await CarService.deleteImage(imageId);
+    await _loadGalleryImages();
+  } catch (e) {
+    showError("galleryUploadError", e.message);
+  }
 }
 
 async function _saveOrder() {
@@ -446,5 +463,23 @@ async function _saveOrder() {
     showError("galleryUploadError", e.message);
   } finally {
     setLoading(btn, false);
+  }
+}
+
+async function _handleGalleryUpload(files) {
+  const validFiles = files.filter((f) => f.type.startsWith("image/"));
+  if (!validFiles.length) return;
+
+  clearError("galleryUploadError");
+  const dropZone = document.getElementById("galleryDropZone");
+  dropZone.classList.add("uploading");
+
+  try {
+    await CarService.uploadImages(galleryVehicleId, validFiles);
+    await _loadGalleryImages();
+  } catch (e) {
+    showError("galleryUploadError", e.message);
+  } finally {
+    dropZone.classList.remove("uploading");
   }
 }
