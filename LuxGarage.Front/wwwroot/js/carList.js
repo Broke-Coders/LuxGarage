@@ -1,4 +1,5 @@
 import { CarService } from "./carService.js";
+import { OfferService } from "./offerService.js";
 
 /**
  * @file carList.js
@@ -200,6 +201,7 @@ const hardcodedCars = [
 
 /** @type {Set<string>} Active body type filters */
 const activeFilters = new Set();
+let allCars = [];
 
 /**
  * Displays a list of cars in the container element.
@@ -242,7 +244,7 @@ function displayCars(cars) {
                            <span>0-100: <strong>${car.zeroToHundred}</strong> / Body: <strong>${car.bodyName}</strong></span>
                         </li>
                      </ul>
-                     <a href="offer.html" class="btn-car">Rent Now</a>
+                     <a href="offer.html?id=${car.id}" class="btn-car">Rent Now</a>
                   </div>
                </div>`
         container.innerHTML += carCard;
@@ -250,21 +252,48 @@ function displayCars(cars) {
 }
 
 /**
- * Filters the hardcoded car list based on active filters.
+ * Filters the combined car list based on active filters.
  */
 function filterCars() {
     if (activeFilters.size === 0) {
-        displayCars(hardcodedCars);
+        displayCars(allCars);
         return;
     }
 
-    const filtered = hardcodedCars.filter(car => activeFilters.has(car.bodyName));
+    const filtered = allCars.filter(car => activeFilters.has(car.bodyName));
     displayCars(filtered);
 }
 
+async function loadCars() {
+    try {
+        const apiOffers = await OfferService.getAllOffers();
+        const dynamicCars = apiOffers.map(offer => ({
+            id: offer.id,
+            brandName: offer.brand,
+            modelName: offer.model,
+            bodyName: offer.bodyName,
+            engine: offer.engine,
+            horsepower: offer.horsepower,
+            seats: offer.model.includes("Urus") ? 5 : 2,
+            driveType: offer.brand === "Lamborghini" ? "AWD" : "RWD",
+            zeroToHundred: offer.zeroToHundred,
+            mileage: parseInt(offer.mileage),
+            licensePlate: "",
+            pricePerDay: offer.price,
+            image: `http://localhost:5054${offer.primaryImageUrl}`
+        }));
+
+        allCars = [...dynamicCars, ...hardcodedCars];
+        displayCars(allCars);
+    } catch (error) {
+        console.error("Error loading cars from API:", error);
+        allCars = [...hardcodedCars];
+        displayCars(allCars);
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-    // Initial display of all hardcoded cars
-    displayCars(hardcodedCars);
+    loadCars();
 });
 
 searchButtons.forEach(searchButton => {
