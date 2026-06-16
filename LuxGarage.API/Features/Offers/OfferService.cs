@@ -23,6 +23,7 @@ public class OfferService
     {
         var query = _context.Offers
             .Include(o => o.Vehicle)
+            .Include(o => o.Prices)
             .AsNoTracking()
             .AsQueryable();
 
@@ -31,9 +32,13 @@ public class OfferService
         var offers = await query.ToListAsync();
         var listDtos = _mapper.Map<List<OfferListItemResponse>>(offers);
 
-        foreach (var dto in listDtos)
+        foreach (var (dto, offer) in listDtos.Zip(offers))
         {
-            dto.PrimaryImageUrl = $"/api/vehicle-images/by-offer/{dto.Id}/primary/file";
+            dto.Price = offer.Prices
+                    .OrderByDescending(p => p.ValidFrom)
+                    .Select(p => p.PricePerDay)
+                    .FirstOrDefault();
+            dto.PrimaryImageUrl = $"/api/VehicleImages/vehicle/{dto.VehicleId}/primary";
         }
 
         return listDtos;

@@ -1,0 +1,69 @@
+<div class="panel-header">
+  <div>
+    <h2 class="panel-title">Vehicle Management</h2>
+    <p class="panel-subtitle">Add, edit and remove vehicles from the fleet.</p>
+  </div>
+  <button class="btn-add-vehicle" id="btnAddVehicle">
+    <ion-icon name="add-outline"></ion-icon>
+    Add Vehicle
+  </button>
+</div>
+
+<div class="dashboard-filters">
+  <div class="filter-search">
+    <ion-icon name="search-outline"></ion-icon>
+    <input type="text" id="filterSearch" placeholder="Search brand, model, plate…" class="filter-input" />
+  </div>
+  <select id="filterStatus" class="filter-select">
+    <option value="">All statuses</option>
+    <option value="1">Available</option>
+    <option value="2">Rented</option>
+    <option value="3">Maintenance</option>
+    <option value="4">Out of Service</option>
+    <option value="5">Retired</option>
+  </select>
+  <select id="filterBodyType" class="filter-select">
+    <option value="">All body types</option>
+    <option value="1">Sedan</option>
+    <option value="2">SUV</option>
+    <option value="3">Coupe</option>
+    <option value="4">Cabriolet</option>
+    <option value="5">Hatchback</option>
+    <option value="6">Wagon</option>
+  </select>
+  <button class="btn-filter-reset" id="btnResetFilters">
+    <ion-icon name="refresh-outline"></ion-icon>
+  </button>
+</div>
+
+<div class="table-wrapper">
+  <table class="vehicles-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Brand</th>
+        <th>Plate</th>
+        <th>Year</th>
+        <th>Mileage</th>
+        <th>HP</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="vehiclesTableBody">
+      <tr class="table-loading-row">
+        <td colspan="8">
+          <div class="table-spinner">
+            <div class="spinner"></div>
+            <span>Loading vehicles…</span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="table-empty" id="tableEmpty" style="display:none;">
+  <ion-icon name="car-outline"></ion-icon>
+  <p>No vehicles found.</p>
+</div>

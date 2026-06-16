@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>My Account | LuxGarage</title>
+      <link rel="stylesheet" href="./css/general.css" />
+      <link rel="stylesheet" href="./css/account.css" />
+      <link rel="icon" href="./images/favicon.png" />
+
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap"
+         rel="stylesheet"
+      />
+      <script
+         type="module"
+         src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+      ></script>
+      <script
+         nomodule
+         src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+      ></script>
+   </head>
+
+   <body>
+      <div id="navbar-placeholder"></div>
+
+      <main class="account-page">
+         <div class="container">
+            <header class="account-header">
+               <h1 class="heading-primary">My Account</h1>
+               <p class="subheading">Manage your personal information and preferences</p>
+            </header>
+
+            <div class="account-grid">
+               <!-- Sidebar Navigation -->
+               <aside class="account-sidebar">
+                  <nav class="account-nav">
+                     <a href="#" class="account-nav-link active" data-tab="profile">
+                        <ion-icon name="person-outline"></ion-icon>
+                        <span>Profile Details</span>
+                     </a>
+                     <a href="#" class="account-nav-link" data-tab="rentals">
+                        <ion-icon name="time-outline"></ion-icon>
+                        <span>Rental History</span>
+                     </a>
+                     <a href="#" class="account-nav-link" id="logout-btn">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                        <span>Logout</span>
+                     </a>
+                  </nav>
+               </aside>
+
+               <!-- Main Content Area -->
+               <section class="account-content">
+                  <!-- PROFILE TAB -->
+                  <div class="account-tab-content active" id="profile-tab">
+                     <h2 class="heading-secondary">Personal Information</h2>
+                     
+                     <form id="profile-form" class="profile-form">
+                        <div class="form-grid">
+                           <div class="form-group">
+                              <label for="acc-firstname">First Name</label>
+                              <input type="text" id="acc-firstname" required />
+                           </div>
+                           <div class="form-group">
+                              <label for="acc-lastname">Last Name</label>
+                              <input type="text" id="acc-lastname" required />
+                           </div>
+                        </div>
+
+                        <div class="form-group">
+                           <label for="acc-email">Email Address</label>
+                           <input type="email" id="acc-email" disabled />
+                           <p class="input-note">Email address cannot be changed.</p>
+                        </div>
+
+                        <div class="form-grid">
+                           <div class="form-group">
+                              <label for="acc-phone">Phone Number</label>
+                              <input type="tel" id="acc-phone" placeholder="+48 123 456 789" required />
+                           </div>
+                           <div class="form-group">
+                              <label for="acc-license">Driver's License</label>
+                              <input type="text" id="acc-license" required />
+                           </div>
+                        </div>
+
+                        <div class="form-actions">
+                           <button type="submit" class="btn btn--form" id="save-profile-btn">
+                              Save Changes
+                           </button>
+                           <span id="save-status" class="status-msg"></span>
+                        </div>
+                     </form>
+                  </div>
+
+                  <!-- RENTALS TAB -->
+                  <div class="account-tab-content" id="rentals-tab">
+                     <h2 class="heading-secondary">Your Rentals</h2>
+                     <div id="rentals-list" class="rentals-list">
+                        <div class="loading-spinner">Loading rentals...</div>
+                     </div>
+                  </div>
+               </section>
+            </div>
+         </div>
+      </main>
+
+      <div id="footer-placeholder"></div>
+
+      <script type="module">
+         import { AuthService } from "./js/authService.js";
+         import { UserService } from "./js/userService.js";
+         import { RentalService } from "./js/rentalService.js";
+
+         const profileForm = document.getElementById("profile-form");
+         const saveStatus = document.getElementById("save-status");
+         const logoutBtn = document.getElementById("logout-btn");
+         const navLinks = document.querySelectorAll(".account-nav-link[data-tab]");
+         const tabs = document.querySelectorAll(".account-tab-content");
+
+         const firstNameInput = document.getElementById("acc-firstname");
+         const lastNameInput = document.getElementById("acc-lastname");
+         const emailInput = document.getElementById("acc-email");
+         const phoneInput = document.getElementById("acc-phone");
+         const licenseInput = document.getElementById("acc-license");
+
+         const rentalsList = document.getElementById("rentals-list");
+
+         // Tab Switching
+         navLinks.forEach(link => {
+            link.onclick = (e) => {
+               e.preventDefault();
+               const tabId = link.getAttribute("data-tab");
+               
+               navLinks.forEach(l => l.classList.remove("active"));
+               link.classList.add("active");
+               
+               tabs.forEach(t => t.classList.remove("active"));
+               document.getElementById(`${tabId}-tab`).classList.add("active");
+
+               if (tabId === "rentals") {
+                  loadRentals();
+               }
+            };
+         });
+
+         async function loadProfile() {
+            try {
+               const profile = await UserService.getMyProfile();
+               if (profile) {
+                  firstNameInput.value = profile.firstName || "";
+                  lastNameInput.value = profile.lastName || "";
+                  emailInput.value = profile.email || "";
+                  phoneInput.value = profile.phoneNumber || "";
+                  licenseInput.value = profile.licenseNumber || "";
+               } else {
+                  window.location.href = "login.html";
+               }
+            } catch (err) {
+               console.error("Failed to load profile", err);
+               window.location.href = "login.html";
+            }
+         }
+
+         async function loadRentals() {
+            try {
+               rentalsList.innerHTML = '<div class="loading-spinner">Loading rentals...</div>';
+               const rentals = await RentalService.getMyRentals();
+               
+               if (!rentals || rentals.length === 0) {
+                  rentalsList.innerHTML = `
+                     <div class="empty-state">
+                        <ion-icon name="car-outline"></ion-icon>
+                        <p>You don't have any rentals yet.</p>
+                        <a href="cars.html" class="btn btn--form">Book a car</a>
+                     </div>
+                  `;
+                  return;
+               }
+
+               rentalsList.innerHTML = rentals.map(rental => `
+                  <div class="rental-item">
+                     <div class="rental-header">
+                        <span class="rental-id">Reservation #${rental.id}</span>
+                        <span class="rental-status status-${rental.status.toLowerCase()}">${rental.status}</span>
+                     </div>
+                     <div class="rental-body">
+                        <div class="rental-info">
+                           <p><strong>Date:</strong> ${new Date(rental.startingTime).toLocaleDateString()} - ${new Date(rental.appointedReturnTime).toLocaleDateString()}</p>
+                           <p><strong>Total Price:</strong> ${rental.totalPrice.toLocaleString()} PLN</p>
+                        </div>
+                     </div>
+                  </div>
+               `).join("");
+
+            } catch (err) {
+               rentalsList.innerHTML = `<p class="error-msg">Error loading rentals: ${err.message}</p>`;
+            }
+         }
+
+         profileForm.onsubmit = async (e) => {
+            e.preventDefault();
+            
+            const data = {
+               firstName: firstNameInput.value,
+               lastName: lastNameInput.value,
+               phoneNumber: phoneInput.value,
+               licenseNumber: licenseInput.value
+            };
+
+            try {
+               saveStatus.textContent = "Saving...";
+               saveStatus.className = "status-msg";
+               
+               await UserService.updateProfile(data);
+               
+               saveStatus.textContent = "Profile updated successfully!";
+               saveStatus.classList.add("success");
+               
+               setTimeout(() => {
+                  saveStatus.textContent = "";
+               }, 3000);
+            } catch (err) {
+               saveStatus.textContent = "Error: " + err.message;
+               saveStatus.classList.add("error");
+            }
+         };
+
+         logoutBtn.onclick = (e) => {
+            e.preventDefault();
+            AuthService.logout();
+         };
+
+         // Initial load
+         if (!AuthService.getToken()) {
+            window.location.href = "login.html";
+         } else {
+            loadProfile();
+         }
+      </script>
+      <script type="module" src="js/layout.js"></script>
+   </body>
+</html>

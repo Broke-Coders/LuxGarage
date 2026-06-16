@@ -1,18 +1,19 @@
+using System.Reflection;
 using LuxGarage.API.Data;
 using LuxGarage.API.Features.Vehicles;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LuxGarage.API.Features.Cars;
+namespace LuxGarage.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class VehicleImageController : ControllerBase
+public class VehicleImagesController : ControllerBase
 {
     private readonly VehicleImageService _imageService;
     private readonly RentalContext _context;
     private readonly string _uploadFolder;
 
-    public VehicleImageController(VehicleImageService imageService, RentalContext context, IWebHostEnvironment env)
+    public VehicleImagesController(VehicleImageService imageService, RentalContext context, IWebHostEnvironment env)
     {
         _imageService = imageService;
         _context = context;
@@ -40,6 +41,23 @@ public class VehicleImageController : ControllerBase
         }
     }
 
+    [HttpGet("vehicle/{vehicleId}/primary")]
+    public async Task<ActionResult> GetPrimary(int vehicleId)
+    {
+        try
+        {
+            var primary = await _imageService.GetPrimaryByVehicleIdAsync(vehicleId);
+            if (primary is null) return NotFound();
+
+            var filePath = Path.Combine(_uploadFolder, vehicleId.ToString(), primary.StorageKey);
+            if (!System.IO.File.Exists(filePath)) return NotFound();
+            return PhysicalFile(filePath, primary.ContentType);
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(new { Message = e.Message});
+        }
+    }
 
     [HttpPut("vehicle/{vehicleId}/primary")]
     public async Task<ActionResult> SetPrimary(int vehicleId, [FromBody] SetPrimaryImageRequest request)

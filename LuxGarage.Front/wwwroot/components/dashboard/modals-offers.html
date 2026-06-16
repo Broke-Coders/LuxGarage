@@ -1,0 +1,145 @@
+<!-- ADD OFFER MODAL -->
+<div class="modal-overlay" id="modalAddOffer">
+  <div class="modal-box modal-box--sm">
+    <div class="modal-head">
+      <h2>Add New Offer</h2>
+      <button class="modal-close" data-modal="modalAddOffer">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+    <form id="formAddOffer" class="modal-form" novalidate>
+      <div class="form-group">
+        <label for="addOfferVehicleId">Vehicle <span class="req">*</span></label>
+        <select id="addOfferVehicleId" required>
+          <option value="">Select vehicle…</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="addOfferTitle">Title <span class="req">*</span></label>
+        <input
+          type="text"
+          id="addOfferTitle"
+          placeholder="e.g. McLaren 650S Spider — Weekend Special"
+          maxlength="150"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="addOfferDescription">Description</label>
+        <textarea
+          id="addOfferDescription"
+          class="form-textarea"
+          rows="4"
+          placeholder="Optional description of the offer…"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="addOfferPrice">Price per Day (PLN) <span class="req">*</span></label>
+        <input
+          type="number"
+          id="addOfferPrice"
+          min="1"
+          step="0.01"
+          placeholder="1200.00"
+          required
+        />
+      </div>
+
+      <div id="formAddOfferError" class="form-error" style="display:none;"></div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" data-modal="modalAddOffer">Cancel</button>
+        <button type="submit" class="btn-submit" id="btnAddOfferSubmit">
+          <span class="btn-text">Add Offer</span>
+          <span class="btn-spinner" style="display:none;">
+            <div class="spinner spinner--sm"></div>
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- EDIT OFFER MODAL -->
+<div class="modal-overlay" id="modalEditOffer">
+  <div class="modal-box modal-box--sm">
+    <div class="modal-head">
+      <h2>Edit Offer</h2>
+      <button class="modal-close" data-modal="modalEditOffer">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+    <form id="formEditOffer" class="modal-form" novalidate>
+      <input type="hidden" id="editOfferId" />
+
+      <div class="form-group">
+        <label class="label-readonly">Vehicle</label>
+        <p class="value-readonly" id="editOfferVehicleName">—</p>
+      </div>
+      <div class="form-group">
+        <label for="editOfferTitle">Title <span class="req">*</span></label>
+        <input type="text" id="editOfferTitle" maxlength="150" required />
+      </div>
+      <div class="form-group">
+        <label for="editOfferDescription">Description</label>
+        <textarea id="editOfferDescription" class="form-textarea" rows="4"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="editOfferPrice">New Price per Day (PLN)</label>
+        <input
+          type="number"
+          id="editOfferPrice"
+          min="1"
+          step="0.01"
+          placeholder="Leave blank to keep current price"
+        />
+      </div>
+      <div class="form-group form-group--inline">
+        <label class="toggle-label" for="editOfferActive">
+          <input type="checkbox" id="editOfferActive" class="toggle-input" />
+          <span class="toggle-track"></span>
+          Active offer
+        </label>
+      </div>
+
+      <div id="formEditOfferError" class="form-error" style="display:none;"></div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" data-modal="modalEditOffer">Cancel</button>
+        <button type="submit" class="btn-submit" id="btnEditOfferSubmit">
+          <span class="btn-text">Save Changes</span>
+          <span class="btn-spinner" style="display:none;">
+            <div class="spinner spinner--sm"></div>
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- DELETE OFFER MODAL -->
+<div class="modal-overlay" id="modalDeleteOffer">
+  <div class="modal-box modal-box--xs">
+    <div class="modal-head">
+      <h2>Delete Offer</h2>
+      <button class="modal-close" data-modal="modalDeleteOffer">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+    <div class="modal-body-text">
+      <ion-icon name="warning-outline" class="icon-warning"></ion-icon>
+      <p>Are you sure you want to delete <strong id="deleteOfferName">this offer</strong>?</p>
+      <p class="delete-note">This action cannot be undone.</p>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn-cancel" data-modal="modalDeleteOffer">Cancel</button>
+      <button type="button" class="btn-danger" id="btnDeleteOfferConfirm">
+        <span class="btn-text">Delete</span>
+        <span class="btn-spinner" style="display:none;">
+          <div class="spinner spinner--sm"></div>
+        </span>
+      </button>
+    </div>
+    <div id="formDeleteOfferError" class="form-error" style="display:none; margin: 0 2.8rem 2rem;"></div>
+  </div>
+</div>

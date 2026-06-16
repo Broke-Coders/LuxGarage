@@ -1,0 +1,187 @@
+<!-- ADD VEHICLE MODAL -->
+<div class="modal-overlay" id="modalAdd">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2>Add New Vehicle</h2>
+      <button class="modal-close" data-modal="modalAdd">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+    <form id="formAdd" class="modal-form" novalidate>
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label for="add-brand">Brand <span class="req">*</span></label>
+          <input type="text" id="add-brand" placeholder="e.g. McLaren" required />
+        </div>
+        <div class="form-group">
+          <label for="add-model">Model <span class="req">*</span></label>
+          <input type="text" id="add-model" placeholder="e.g. 650S Spider" required />
+        </div>
+        <div class="form-group">
+          <label for="add-plate">License Plate <span class="req">*</span></label>
+          <input type="text" id="add-plate" placeholder="e.g. KR 12345" required />
+        </div>
+        <div class="form-group">
+          <label for="add-engine">Engine Name <span class="req">*</span></label>
+          <input type="text" id="add-engine" placeholder="e.g. 3.8L V8 Twin-Turbo" required />
+        </div>
+        <div class="form-group">
+          <label for="add-year">Year <span class="req">*</span></label>
+          <input type="number" id="add-year" min="1990" max="2030" placeholder="2024" required />
+        </div>
+        <div class="form-group">
+          <label for="add-hp">Horsepower <span class="req">*</span></label>
+          <input type="number" id="add-hp" min="1" placeholder="650" required />
+        </div>
+        <div class="form-group">
+          <label for="add-mileage">Mileage (km) <span class="req">*</span></label>
+          <input type="number" id="add-mileage" min="0" placeholder="0" required />
+        </div>
+        <div class="form-group">
+          <label for="add-tohundred">0–100 km/h (s) <span class="req">*</span></label>
+          <input type="number" id="add-tohundred" step="0.1" min="0" placeholder="3.0" required />
+        </div>
+        <div class="form-group">
+          <label for="add-enginetype">Engine Type <span class="req">*</span></label>
+          <select id="add-enginetype" required>
+            <option value="">Select…</option>
+            <option value="1">Gasoline</option>
+            <option value="2">Diesel</option>
+            <option value="3">Electric</option>
+            <option value="4">Hybrid</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="add-bodytype">Body Type <span class="req">*</span></label>
+          <select id="add-bodytype" required>
+            <option value="">Select…</option>
+            <option value="1">Sedan</option>
+            <option value="2">SUV</option>
+            <option value="3">Coupe</option>
+            <option value="4">Cabriolet</option>
+            <option value="5">Hatchback</option>
+            <option value="6">Wagon</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="add-color">Color <span class="req">*</span></label>
+          <select id="add-color" required>
+            <option value="">Select…</option>
+            <option value="1">Black</option>
+            <option value="2">White</option>
+            <option value="3">Silver</option>
+            <option value="4">Grey</option>
+            <option value="5">Red</option>
+            <option value="6">Blue</option>
+            <option value="7">Yellow</option>
+            <option value="8">Green</option>
+            <option value="99">Custom</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="add-status">Status <span class="req">*</span></label>
+          <select id="add-status" required>
+            <option value="">Select…</option>
+            <option value="1">Available</option>
+            <option value="2">Rented</option>
+            <option value="3">Maintenance</option>
+            <option value="4">Out of Service</option>
+            <option value="5">Retired</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group form-group--full">
+        <label>Vehicle Images</label>
+        <div class="image-drop-zone" id="addImageDropZone">
+          <ion-icon name="cloud-upload-outline"></ion-icon>
+          <p>Drag & drop images or <span class="drop-link">browse</span></p>
+          <p class="drop-hint">PNG, JPG, WEBP — max 10 MB each</p>
+          <input type="file" id="add-images" multiple accept="image/*" hidden />
+        </div>
+        <div class="image-preview-list" id="addImagePreview"></div>
+      </div>
+
+      <div id="formAddError" class="form-error" style="display:none;"></div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" data-modal="modalAdd">Cancel</button>
+        <button type="submit" class="btn-submit" id="btnAddSubmit">
+          <span class="btn-text">Add Vehicle</span>
+          <span class="btn-spinner" style="display:none;">
+            <div class="spinner spinner--sm"></div>
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- EDIT VEHICLE MODAL -->
+<div class="modal-overlay" id="modalEdit">
+  <div class="modal-box modal-box--sm">
+    <div class="modal-head">
+      <h2>Edit Vehicle</h2>
+      <button class="modal-close" data-modal="modalEdit">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+    <form id="formEdit" class="modal-form" novalidate>
+      <input type="hidden" id="edit-id" />
+      <div class="form-group">
+        <label class="label-readonly">Vehicle</label>
+        <p class="value-readonly" id="edit-vehicle-name">—</p>
+      </div>
+      <div class="form-group">
+        <label for="edit-mileage">Mileage (km) <span class="req">*</span></label>
+        <input type="number" id="edit-mileage" min="0" required />
+      </div>
+      <div class="form-group">
+        <label for="edit-status">Status <span class="req">*</span></label>
+        <select id="edit-status" required>
+          <option value="1">Available</option>
+          <option value="2">Rented</option>
+          <option value="3">Maintenance</option>
+          <option value="4">Out of Service</option>
+          <option value="5">Retired</option>
+        </select>
+      </div>
+      <div id="formEditError" class="form-error" style="display:none;"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" data-modal="modalEdit">Cancel</button>
+        <button type="submit" class="btn-submit" id="btnEditSubmit">
+          <span class="btn-text">Save Changes</span>
+          <span class="btn-spinner" style="display:none;">
+            <div class="spinner spinner--sm"></div>
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- DELETE VEHICLE MODAL -->
+<div class="modal-overlay" id="modalDelete">
+  <div class="modal-box modal-box--xs">
+    <div class="modal-head">
+      <h2>Delete Vehicle</h2>
+      <button class="modal-close" data-modal="modalDelete">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+    <div class="modal-body-text">
+      <ion-icon name="warning-outline" class="icon-warning"></ion-icon>
+      <p>Are you sure you want to delete <strong id="delete-vehicle-name">this vehicle</strong>?</p>
+      <p class="delete-note">This action cannot be undone.</p>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn-cancel" data-modal="modalDelete">Cancel</button>
+      <button type="button" class="btn-danger" id="btnDeleteConfirm">
+        <span class="btn-text">Delete</span>
+        <span class="btn-spinner" style="display:none;">
+          <div class="spinner spinner--sm"></div>
+        </span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -9,11 +9,13 @@ public class VehicleService
 {
     private readonly RentalContext _context;
     private readonly IMapper _mapper;
+    private readonly VehicleImageService _imageService;
 
-    public VehicleService(RentalContext context, IMapper mapper)
+    public VehicleService(RentalContext context, IMapper mapper, VehicleImageService imageService)
     {
         _context = context;
         _mapper = mapper;
+        _imageService = imageService;
     }
 
     public async Task<List<VehicleResponse>> GetAllAsync(GetVehiclesRequest request)
@@ -59,26 +61,47 @@ public class VehicleService
         if (exists)
             throw new InvalidOperationException("Vehicle with this license plate already exists.");
 
-        var vehicle = new Vehicle
+        await using var transaction = await _context.Database.BeginTransactionAsync();
+
+        try
         {
-            Brand = request.Brand,
-            Model = request.Model,
-            LicensePlate = request.LicensePlate,
-            Year = request.Year,
-            Horsepower = request.Horsepower,
-            Mileage = request.Mileage,
-            BodyType = request.BodyType,
-            Color = request.Color,
-            Status = request.Status
-        };
+            var vehicle = new Vehicle
+            {
+                Brand        = request.Brand,
+                Model        = request.Model,
+                LicensePlate = request.LicensePlate,
+                EngineName   = request.EngineName,
+                Year         = request.Year,
+                Horsepower   = request.Horsepower,
+                Mileage      = request.Mileage,
+                SpeedToHundred = request.ToHundred,
+                EngineType   = request.EngineType,
+                BodyType     = request.BodyType,
+                Color        = request.Color,
+                Status       = request.Status,
+            };
 
-        // TODO: Zapis zdjęć (jeśli request.Images != null) 
-        // np. wywołując metodę UploadImage(IFormFile) lub wstrzykując serwis chmurowy/S3.
+            _context.Vehicles.Add(vehicle);
+            await _context.SaveChangesAsync();
 
-        _context.Vehicles.Add(vehicle);
-        await _context.SaveChangesAsync();
-        
-        return _mapper.Map<VehicleResponse>(vehicle);
+            if (request.Images is { Count: > 0 })
+            {
+                await _imageService.UploadImagesAsync(new UploadVehicleImagesRequest
+                {
+                    VehicleId         = vehicle.Id,
+                    Images            = request.Images,
+                    PrimaryImageIndex = 0
+                });
+            }
+
+            await transaction.CommitAsync();
+            return _mapper.Map<VehicleResponse>(vehicle);
+        }
+        catch
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
     }
 
     public async Task<VehicleResponse> UpdateAsync(int id, UpdateVehicleRequest request)
@@ -97,7 +120,15 @@ public class VehicleService
 
     public async Task<bool> DeleteAsync(int id)
     {
-        var rowsDeleted = await _context.Vehicles.Where(v => v.Id == id).ExecuteDeleteAsync();
+        var vehicleExists = await _context.Vehicles.AnyAsync(v => v.Id == id);
+        if (!vehicleExists) return false;
+
+        await _imageService.DeleteVehicleDirAsync(id);
+
+        var rowsDeleted = await _context.Vehicles
+            .Where(v => v.Id == id)
+            .ExecuteDeleteAsync();
+
         return rowsDeleted > 0;
     }
 

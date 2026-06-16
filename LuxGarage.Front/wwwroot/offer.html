@@ -171,7 +171,7 @@
                         <span>Selected range includes unavailable days.</span>
                      </div>
 
-                     <button class="btn-book-sidebar">Book Now</button>
+                     <button class="btn-book-sidebar">Confirm Booking</button>
                   </div>
                </aside>
             </div>
@@ -313,13 +313,30 @@
                <div class="form-step" id="step-2">
                   <h3>Reservation Details</h3>
                   <div class="details-form">
-                     <div class="form-group">
-                        <label>Your Full Name</label>
-                        <input type="text" placeholder="John Doe" required />
+                     <div class="form-grid">
+                        <div class="form-group">
+                           <label>First Name</label>
+                           <input type="text" id="cust-firstname" placeholder="John" required />
+                        </div>
+                        <div class="form-group">
+                           <label>Last Name</label>
+                           <input type="text" id="cust-lastname" placeholder="Doe" required />
+                        </div>
                      </div>
                      <div class="form-group">
                         <label>Email Address</label>
-                        <input type="email" placeholder="john@example.com" required />
+                        <input type="email" id="cust-email" placeholder="john@example.com" required />
+                     </div>
+                     <div class="form-grid">
+                        <div class="form-group">
+                           <label>Phone Number</label>
+                           <input type="tel" id="cust-phone" placeholder="+48 123 456 789" required />
+                           <span class="error-msg" id="phone-error">Invalid phone format</span>
+                        </div>
+                        <div class="form-group">
+                           <label>Driver License Number</label>
+                           <input type="text" id="cust-license" placeholder="ABC123456" required />
+                        </div>
                      </div>
                      <div class="form-grid">
                         <div class="form-group">
@@ -328,7 +345,7 @@
                         </div>
                         <div class="form-group">
                            <label>Base Price</label>
-                           <p class="price-display"><span>1,200</span> PLN</p>
+                           <p class="price-display"><span id="display-base-price">1,200</span> PLN</p>
                         </div>
                      </div>
                   </div>
@@ -342,29 +359,29 @@
                <div class="form-step" id="step-3">
                   <h3>Enhance Your Experience</h3>
                   <div class="extras-grid">
-                     <div class="extra-card active" data-price="0">
+                     <div class="extra-card" data-price="0" data-id="1">
                         <div class="extra-icon"><ion-icon name="shield-outline"></ion-icon></div>
                         <h4>Basic Insurance</h4>
                         <p>Standard coverage for minor scratches.</p>
                         <span class="extra-price">Included</span>
                      </div>
-                     <div class="extra-card" data-price="250">
+                     <div class="extra-card" data-price="250" data-id="2">
                         <div class="extra-icon"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
                         <h4>Premium Shield</h4>
                         <p>Full protection. Zero deductible.</p>
-                        <span class="extra-price">+250 PLN</span>
+                        <span class="extra-price">+250 PLN / day</span>
                      </div>
-                     <div class="extra-card" data-price="150">
+                     <div class="extra-card" data-price="150" data-id="3">
                         <div class="extra-icon"><ion-icon name="person-add-outline"></ion-icon></div>
                         <h4>Additional Driver</h4>
                         <p>Share the thrill with a friend.</p>
-                        <span class="extra-price">+150 PLN</span>
+                        <span class="extra-price">+150 PLN / day</span>
                      </div>
-                     <div class="extra-card" data-price="100">
+                     <div class="extra-card" data-price="100" data-id="4">
                         <div class="extra-icon"><ion-icon name="sparkles-outline"></ion-icon></div>
                         <h4>Pro Cleaning</h4>
                         <p>Return dirty, we'll handle the rest.</p>
-                        <span class="extra-price">+100 PLN</span>
+                        <span class="extra-price">+100 PLN / day</span>
                      </div>
                   </div>
 
@@ -378,7 +395,7 @@
 
                   <div class="modal-btns">
                      <button class="btn-back prev-step">Back</button>
-                     <button class="btn--form">Confirm Booking</button>
+                     <button class="btn--form" id="confirm-booking-final">Confirm Booking</button>
                   </div>
                </div>
             </div>
@@ -388,8 +405,11 @@
       <div id="footer-placeholder"></div>
 
 
-      <script type="module" src="js/layout.js"></script>
-      <script>
+      <script type="module">
+         import { RentalService } from "./js/rentalService.js";
+         import { AuthService } from "./js/authService.js";
+         import { UserService } from "./js/userService.js";
+
          const monthYearDisplay = document.getElementById("month-year-display");
          const selectorsOverlay = document.getElementById("selectors-overlay");
          const monthList = document.getElementById("month-list");
@@ -405,11 +425,44 @@
          const bookBtnSidebar = document.querySelector(".btn-book-sidebar");
          const availabilityError = document.getElementById("availability-error");
 
+         // Modal elements
+         const modal = document.getElementById("booking-modal");
+         const closeBtn = document.querySelector(".close-modal");
+         const nextBtns = document.querySelectorAll(".next-step");
+         const prevBtns = document.querySelectorAll(".prev-step");
+         const steps = document.querySelectorAll(".form-step");
+         const stepperItems = document.querySelectorAll(".step");
+         const extraCards = document.querySelectorAll(".extra-card");
+         const finalPriceDisplay = document.getElementById("final-total-price");
+         const displayDuration = document.getElementById("display-duration");
+         const displayBasePrice = document.getElementById("display-base-price");
+         const confirmBookingFinal = document.getElementById("confirm-booking-final");
+
+         // Customer fields
+         const custFirstName = document.getElementById("cust-firstname");
+         const custLastName = document.getElementById("cust-lastname");
+         const custEmail = document.getElementById("cust-email");
+         const custPhone = document.getElementById("cust-phone");
+         const custLicense = document.getElementById("cust-license");
+         const phoneError = document.getElementById("phone-error");
+
+         const urlParams = new URLSearchParams(window.location.search);
+         const vehicleId = parseInt(urlParams.get("id")) || 1;
+         
+         // Try to get vehicle details from page
+         const pageTitle = document.querySelector(".offer-main-title")?.textContent || "McLaren 650S Spider";
+         const brand = pageTitle.split(" ")[0];
+         const model = pageTitle.split(" ").slice(1).join(" ");
+
          let currentDate = new Date(2026, 5, 1);
          let startDate = null;
          let endDate = null;
          let startTime = "12:00 PM";
          const pricePerDay = 1200;
+
+         // Update Summary in Modal Step 1
+         document.getElementById("sum-brand").textContent = brand;
+         document.getElementById("sum-model").textContent = model;
 
          // Helper to check if a range is available
          function isRangeAvailable(start, end) {
@@ -539,8 +592,7 @@
                      if (thisDayDate < startDate) {
                         startDate = thisDayDate;
                      } else if (thisDayDate.getTime() === startDate.getTime()) {
-                        // Toggle off if clicking same day? Or just keep as start.
-                        // Let's keep it as start.
+                        // Toggle off
                      } else {
                         endDate = thisDayDate;
                      }
@@ -582,7 +634,7 @@
                   bookBtnSidebar.classList.add("ready");
                   bookBtnSidebar.disabled = false;
                   availabilityError.classList.remove("active");
-                  bookBtnSidebar.textContent = "Book Now";
+                  bookBtnSidebar.textContent = "Confirm Booking";
                } else {
                   bookBtnSidebar.classList.remove("ready");
                   bookBtnSidebar.disabled = true;
@@ -637,20 +689,9 @@
          renderCalendar();
          updateDisplay();
 
-         // MODAL LOGIC (UPDATED)
-         const modal = document.getElementById("booking-modal");
-         const closeBtn = document.querySelector(".close-modal");
-         const nextBtns = document.querySelectorAll(".next-step");
-         const prevBtns = document.querySelectorAll(".prev-step");
-         const steps = document.querySelectorAll(".form-step");
-         const stepperItems = document.querySelectorAll(".step");
-         const extraCards = document.querySelectorAll(".extra-card");
-         const finalPriceDisplay = document.getElementById("final-total-price");
-         const displayDuration = document.getElementById("display-duration");
-
          let currentStep = 1;
 
-         bookBtnSidebar.onclick = () => {
+         bookBtnSidebar.onclick = async () => {
             if (!startDate || !endDate) {
                alert("Please select a date range first.");
                return;
@@ -661,6 +702,27 @@
             const diffTime = Math.abs(endDate - startDate);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             if(displayDuration) displayDuration.textContent = diffDays * 24;
+            if(displayBasePrice) displayBasePrice.textContent = (diffDays * pricePerDay).toLocaleString();
+            
+            // Pre-fill user data if logged in
+            try {
+               const profile = await UserService.getMyProfile();
+               if (profile) {
+                  if (custFirstName) custFirstName.value = profile.firstName || "";
+                  if (custLastName) custLastName.value = profile.lastName || "";
+                  if (custEmail) custEmail.value = profile.email || "";
+                  if (custPhone) custPhone.value = profile.phoneNumber || "";
+                  if (custLicense) custLicense.value = profile.licenseNumber || "";
+               } else {
+                  // Fallback to just email from localStorage if profile fetch failed but user is logged in
+                  const userEmail = localStorage.getItem("userEmail");
+                  if (userEmail && custEmail) custEmail.value = userEmail;
+               }
+            } catch (err) {
+               console.error("Failed to fetch user profile", err);
+               const userEmail = localStorage.getItem("userEmail");
+               if (userEmail && custEmail) custEmail.value = userEmail;
+            }
             
             updatePrice();
          };
@@ -686,8 +748,38 @@
             if(targetStepper) targetStepper.classList.add("active");
          }
 
+         function validateStep2() {
+            let isValid = true;
+            if (!custFirstName.value) { custFirstName.style.borderColor = "red"; isValid = false; }
+            else { custFirstName.style.borderColor = ""; }
+
+            if (!custLastName.value) { custLastName.style.borderColor = "red"; isValid = false; }
+            else { custLastName.style.borderColor = ""; }
+
+            if (!custEmail.value || !custEmail.value.includes("@")) { custEmail.style.borderColor = "red"; isValid = false; }
+            else { custEmail.style.borderColor = ""; }
+
+            const phoneRegex = /^\+?[0-9\s-]{9,}$/;
+            if (!phoneRegex.test(custPhone.value)) {
+               custPhone.style.borderColor = "red";
+               phoneError.style.display = "block";
+               isValid = false;
+            } else {
+               custPhone.style.borderColor = "";
+               phoneError.style.display = "none";
+            }
+
+            if (!custLicense.value) { custLicense.style.borderColor = "red"; isValid = false; }
+            else { custLicense.style.borderColor = ""; }
+
+            return isValid;
+         }
+
          nextBtns.forEach((btn) => {
             btn.onclick = () => {
+               if (currentStep === 2) {
+                  if (!validateStep2()) return;
+               }
                if (currentStep < 3) {
                   currentStep++;
                   updateStepUI();
@@ -717,7 +809,7 @@
             let extrasTotal = 0;
             extraCards.forEach(card => {
                if(card.classList.contains("active")) {
-                  extrasTotal += parseInt(card.dataset.price);
+                  extrasTotal += parseInt(card.dataset.price) * diffDays;
                }
             });
             const total = baseTotal + extrasTotal;
@@ -732,6 +824,40 @@
                updatePrice();
             };
          });
+
+         confirmBookingFinal.onclick = async () => {
+            const insuranceIds = [];
+            extraCards.forEach(card => {
+               if (card.classList.contains("active") && card.dataset.id !== "1") {
+                  insuranceIds.push(parseInt(card.dataset.id));
+               }
+            });
+
+            const bookingData = {
+               vehicleId: vehicleId,
+               customerEmail: custEmail.value,
+               firstName: custFirstName.value,
+               lastName: custLastName.value,
+               phoneNumber: custPhone.value,
+               licenseNumber: custLicense.value,
+               startDate: startDate.toISOString(),
+               endDate: endDate.toISOString(),
+               selectedInsuranceIds: insuranceIds
+            };
+
+            try {
+               confirmBookingFinal.disabled = true;
+               confirmBookingFinal.textContent = "Processing...";
+               
+               const response = await RentalService.createRental(bookingData);
+               alert("Booking successful! ID: " + response.id);
+               window.location.href = "dashboard.html";
+            } catch (error) {
+               alert("Error: " + error.message);
+               confirmBookingFinal.disabled = false;
+               confirmBookingFinal.textContent = "Confirm Booking";
+            }
+         };
       </script>
    </body>
 </html>
