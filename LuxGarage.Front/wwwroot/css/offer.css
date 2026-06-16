@@ -972,3 +972,69 @@ main.offer-page {
    cursor: not-allowed;
 }
 
+/* READ-ONLY EXTRAS UNDER GALLERY */
+.offer-extras-readonly {
+   margin-top: 3.2rem;
+}
+
+.offer-extras-readonly h3 {
+   font-size: 1.8rem;
+   font-weight: 700;
+   color: #47453e;
+   margin-bottom: 2rem;
+   font-family: "Montserrat", sans-serif;
+}
+
+.extras-grid-readonly {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: 1.5rem;
+}
+
+.extra-card-readonly {
+   background-color: #fff;
+   border: 1px solid #ebe6ce;
+   padding: 2rem;
+   border-radius: 8px;
+   display: flex;
+   flex-direction: column;
+   gap: 0.8rem;
+   cursor: default;
+   box-shadow: 0 0.5rem 1.5rem rgba(71, 69, 62, 0.04);
+}
+
+.extra-card-readonly .extra-icon {
+   font-size: 2.4rem;
+   color: #8d8a7c;
+}
+
+.extra-card-readonly h4 {
+   font-size: 1.6rem;
+   color: #47453e;
+   margin: 0;
+}
+
+.extra-card-readonly p {
+   font-size: 1.3rem;
+   color: #666;
+   margin: 0;
+   line-height: 1.4;
+}
+
+.extra-card-readonly .extra-price {
+   font-weight: 700;
+   color: #47453e;
+   margin-top: auto;
+   font-size: 1.4rem;
+}
+
+@media (max-width: 1400px) {
+   .offer-extras-readonly {
+      margin-top: 2.4rem;
+   }
+
+   .extra-card-readonly {
+      padding: 1.5rem;
+   }
+}
+
