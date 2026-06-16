@@ -408,6 +408,7 @@
       <script type="module">
          import { RentalService } from "./js/rentalService.js";
          import { AuthService } from "./js/authService.js";
+         import { UserService } from "./js/userService.js";
 
          const monthYearDisplay = document.getElementById("month-year-display");
          const selectorsOverlay = document.getElementById("selectors-overlay");
@@ -690,7 +691,7 @@
 
          let currentStep = 1;
 
-         bookBtnSidebar.onclick = () => {
+         bookBtnSidebar.onclick = async () => {
             if (!startDate || !endDate) {
                alert("Please select a date range first.");
                return;
@@ -703,9 +704,25 @@
             if(displayDuration) displayDuration.textContent = diffDays * 24;
             if(displayBasePrice) displayBasePrice.textContent = (diffDays * pricePerDay).toLocaleString();
             
-            // Pre-fill user data
-            const userEmail = localStorage.getItem("userEmail");
-            if (userEmail && custEmail) custEmail.value = userEmail;
+            // Pre-fill user data if logged in
+            try {
+               const profile = await UserService.getMyProfile();
+               if (profile) {
+                  if (custFirstName) custFirstName.value = profile.firstName || "";
+                  if (custLastName) custLastName.value = profile.lastName || "";
+                  if (custEmail) custEmail.value = profile.email || "";
+                  if (custPhone) custPhone.value = profile.phoneNumber || "";
+                  if (custLicense) custLicense.value = profile.licenseNumber || "";
+               } else {
+                  // Fallback to just email from localStorage if profile fetch failed but user is logged in
+                  const userEmail = localStorage.getItem("userEmail");
+                  if (userEmail && custEmail) custEmail.value = userEmail;
+               }
+            } catch (err) {
+               console.error("Failed to fetch user profile", err);
+               const userEmail = localStorage.getItem("userEmail");
+               if (userEmail && custEmail) custEmail.value = userEmail;
+            }
             
             updatePrice();
          };
