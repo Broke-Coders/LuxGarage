@@ -42,7 +42,7 @@
                         <ion-icon name="person-outline"></ion-icon>
                         <span>Profile Details</span>
                      </a>
-                     <a href="dashboard.html" class="account-nav-link">
+                     <a href="#" class="account-nav-link" data-tab="rentals">
                         <ion-icon name="time-outline"></ion-icon>
                         <span>Rental History</span>
                      </a>
@@ -55,6 +55,7 @@
 
                <!-- Main Content Area -->
                <section class="account-content">
+                  <!-- PROFILE TAB -->
                   <div class="account-tab-content active" id="profile-tab">
                      <h2 class="heading-secondary">Personal Information</h2>
                      
@@ -95,6 +96,14 @@
                         </div>
                      </form>
                   </div>
+
+                  <!-- RENTALS TAB -->
+                  <div class="account-tab-content" id="rentals-tab">
+                     <h2 class="heading-secondary">Your Rentals</h2>
+                     <div id="rentals-list" class="rentals-list">
+                        <div class="loading-spinner">Loading rentals...</div>
+                     </div>
+                  </div>
                </section>
             </div>
          </div>
@@ -105,16 +114,39 @@
       <script type="module">
          import { AuthService } from "./js/authService.js";
          import { UserService } from "./js/userService.js";
+         import { RentalService } from "./js/rentalService.js";
 
          const profileForm = document.getElementById("profile-form");
          const saveStatus = document.getElementById("save-status");
          const logoutBtn = document.getElementById("logout-btn");
+         const navLinks = document.querySelectorAll(".account-nav-link[data-tab]");
+         const tabs = document.querySelectorAll(".account-tab-content");
 
          const firstNameInput = document.getElementById("acc-firstname");
          const lastNameInput = document.getElementById("acc-lastname");
          const emailInput = document.getElementById("acc-email");
          const phoneInput = document.getElementById("acc-phone");
          const licenseInput = document.getElementById("acc-license");
+
+         const rentalsList = document.getElementById("rentals-list");
+
+         // Tab Switching
+         navLinks.forEach(link => {
+            link.onclick = (e) => {
+               e.preventDefault();
+               const tabId = link.getAttribute("data-tab");
+               
+               navLinks.forEach(l => l.classList.remove("active"));
+               link.classList.add("active");
+               
+               tabs.forEach(t => t.classList.remove("active"));
+               document.getElementById(`${tabId}-tab`).classList.add("active");
+
+               if (tabId === "rentals") {
+                  loadRentals();
+               }
+            };
+         });
 
          async function loadProfile() {
             try {
@@ -131,6 +163,42 @@
             } catch (err) {
                console.error("Failed to load profile", err);
                window.location.href = "login.html";
+            }
+         }
+
+         async function loadRentals() {
+            try {
+               rentalsList.innerHTML = '<div class="loading-spinner">Loading rentals...</div>';
+               const rentals = await RentalService.getMyRentals();
+               
+               if (!rentals || rentals.length === 0) {
+                  rentalsList.innerHTML = `
+                     <div class="empty-state">
+                        <ion-icon name="car-outline"></ion-icon>
+                        <p>You don't have any rentals yet.</p>
+                        <a href="cars.html" class="btn btn--form">Book a car</a>
+                     </div>
+                  `;
+                  return;
+               }
+
+               rentalsList.innerHTML = rentals.map(rental => `
+                  <div class="rental-item">
+                     <div class="rental-header">
+                        <span class="rental-id">Reservation #${rental.id}</span>
+                        <span class="rental-status status-${rental.status.toLowerCase()}">${rental.status}</span>
+                     </div>
+                     <div class="rental-body">
+                        <div class="rental-info">
+                           <p><strong>Date:</strong> ${new Date(rental.startingTime).toLocaleDateString()} - ${new Date(rental.appointedReturnTime).toLocaleDateString()}</p>
+                           <p><strong>Total Price:</strong> ${rental.totalPrice.toLocaleString()} PLN</p>
+                        </div>
+                     </div>
+                  </div>
+               `).join("");
+
+            } catch (err) {
+               rentalsList.innerHTML = `<p class="error-msg">Error loading rentals: ${err.message}</p>`;
             }
          }
 
