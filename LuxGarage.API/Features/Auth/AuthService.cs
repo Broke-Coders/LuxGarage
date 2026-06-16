@@ -137,4 +137,13 @@ public class AuthService
 
         return tokenHandler.WriteToken(token);
     }
+
+    public async Task<bool> Validate(int userId)
+    {
+        var user = await _context.Users.FindAsync(userId);
+        if (user == null)
+            throw new KeyNotFoundException("User no longer exists.");
+        
+        return true;
+    }
 }

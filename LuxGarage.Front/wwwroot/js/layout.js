@@ -13,6 +13,33 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
+    async function validateToken() {
+        const token = localStorage.getItem('jwtToken');
+        if (!token) return;
+
+        try {
+            const response = await fetch('http://localhost:5054/api/Auth/validate', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                clearSession();
+            }
+
+        } catch (error) {
+            console.warn('Token validation failed (network error):', error);
+            clearSession(); 
+        }
+    }
+
+    function clearSession() {
+        localStorage.removeItem("jwtToken");
+        localStorage.removeItem("userRole");
+    }
+
     function buildUserMenu() {
         const dropdown = document.getElementById('userDropdown');
         const btn = document.getElementById('userIconBtn');
@@ -26,8 +53,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!token) {
             menuItems = `<li><a href="login.html">Log in</a></li>`;
         } else {
-            menuItems = `<li><a href="account.html">My account</a></li>`;
 
+            if (role === 'Customer') {
+                menuItems += `<li><a href="account.html">My account</a></li>`;
+            }
             if (role === 'Employee' || role === 'Admin') {
                 menuItems += `<li><a href="dashboard.html">Dashboard</a></li>`;
             }
@@ -65,5 +94,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadComponent("navbar-placeholder", "./components/navbar.html");
     await loadComponent("footer-placeholder", "./components/footer.html");
 
+    await validateToken();
     buildUserMenu();
 });

@@ -75,7 +75,7 @@ public static class ServiceExtensions
                 
                 ValidateIssuer = false, 
                 ValidateAudience = false,
-                ValidateLifetime = true, // Ważne: odrzuca przeterminowane tokeny
+                ValidateLifetime = true, 
                 
                 ClockSkew = TimeSpan.Zero 
             };
@@ -121,8 +121,8 @@ public static class ServiceExtensions
             {
                 [new OpenApiSecuritySchemeReference("bearer", document)] = []
             });
-                });
+        });
 
-                return services;
-            }
+        return services;
+    }
 }
