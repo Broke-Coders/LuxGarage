@@ -267,21 +267,26 @@ function filterCars() {
 async function loadCars() {
     try {
         const apiOffers = await OfferService.getAllOffers();
-        const dynamicCars = apiOffers.map(offer => ({
-            id: offer.id,
-            brandName: offer.brand,
-            modelName: offer.model,
-            bodyName: offer.bodyName,
-            engine: offer.engine,
-            horsepower: offer.horsepower,
-            seats: offer.model.includes("Urus") ? 5 : 2,
-            driveType: offer.brand === "Lamborghini" ? "AWD" : "RWD",
-            zeroToHundred: offer.zeroToHundred,
-            mileage: parseInt(offer.mileage),
-            licensePlate: "",
-            pricePerDay: offer.price,
-            image: `http://localhost:5054${offer.primaryImageUrl}`
-        }));
+        const dynamicCars = apiOffers.map(offer => {
+            const isSedanOrSUV = offer.bodyName === "Sedan" || offer.bodyName === "SUV";
+            const isAWD = offer.brand === "Lamborghini" || offer.brand === "Bentley" || (offer.brand === "Mercedes-Benz" && offer.model === "S580");
+            
+            return {
+                id: offer.id,
+                brandName: offer.brand,
+                modelName: offer.model,
+                bodyName: offer.bodyName,
+                engine: offer.engine,
+                horsepower: offer.horsepower,
+                seats: isSedanOrSUV ? 5 : 2,
+                driveType: isAWD ? "AWD" : "RWD",
+                zeroToHundred: offer.zeroToHundred,
+                mileage: parseInt(offer.mileage),
+                licensePlate: "",
+                pricePerDay: offer.price,
+                image: `http://localhost:5054${offer.primaryImageUrl}`
+            };
+        });
 
         allCars = [...dynamicCars, ...hardcodedCars];
         displayCars(allCars);
