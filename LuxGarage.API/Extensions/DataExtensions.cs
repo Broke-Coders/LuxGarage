@@ -89,6 +89,81 @@ public static class DataExtensions
             dbContext.Vehicles.AddRange(
                 new Vehicle
                 {
+                    Brand = "Ferrari",
+                    Model = "F8 Spider",
+                    Horsepower = 710,
+                    LicensePlate = "F8 SPIDER",
+                    EngineName = "3.9L V8 Twin-Turbo",
+                    Mileage = 1200,
+                    Year = 2023,
+                    SpeedToHundred = 2.9f,
+                    EngineType = EngineType.Gasoline,
+                    BodyType = VehicleBodyType.Cabriolet,
+                    Color = VehicleColor.Red,
+                    Status = VehicleStatus.Available
+                },
+                new Vehicle
+                {
+                    Brand = "Lamborghini",
+                    Model = "Huracan Evo Spyder",
+                    Horsepower = 640,
+                    LicensePlate = "EVO SPYDR",
+                    EngineName = "5.2L V10",
+                    Mileage = 2500,
+                    Year = 2022,
+                    SpeedToHundred = 3.1f,
+                    EngineType = EngineType.Gasoline,
+                    BodyType = VehicleBodyType.Cabriolet,
+                    Color = VehicleColor.Green,
+                    Status = VehicleStatus.Available
+                },
+                new Vehicle
+                {
+                    Brand = "Ferrari",
+                    Model = "488 Spider",
+                    Horsepower = 661,
+                    LicensePlate = "488 SPIDR",
+                    EngineName = "3.9L V8 Twin-Turbo",
+                    Mileage = 8500,
+                    Year = 2019,
+                    SpeedToHundred = 3.0f,
+                    EngineType = EngineType.Gasoline,
+                    BodyType = VehicleBodyType.Cabriolet,
+                    Color = VehicleColor.Blue,
+                    Status = VehicleStatus.Available
+                },
+                new Vehicle
+                {
+                    Brand = "Lamborghini",
+                    Model = "Urus SE",
+                    Horsepower = 789,
+                    LicensePlate = "URUS SE",
+                    EngineName = "4.0L V8 Twin-Turbo Hybrid",
+                    Mileage = 500,
+                    Year = 2024,
+                    SpeedToHundred = 3.4f,
+                    EngineType = EngineType.Hybrid,
+                    BodyType = VehicleBodyType.SUV,
+                    Color = VehicleColor.Black,
+                    Status = VehicleStatus.Available
+                },
+                new Vehicle
+                {
+                    Brand = "Lamborghini",
+                    Model = "Huracan Spyder",
+                    Horsepower = 602,
+                    LicensePlate = "HURACAN S",
+                    EngineName = "5.2L V10",
+                    Mileage = 12000,
+                    Year = 2018,
+                    SpeedToHundred = 3.4f,
+                    EngineType = EngineType.Gasoline,
+                    BodyType = VehicleBodyType.Cabriolet,
+                    Color = VehicleColor.Yellow,
+                    Status = VehicleStatus.Available
+                },
+                new Vehicle
+                {
                     Brand = "BMW",
                     Model = "M5 Competition",
                     Horsepower = 625,
@@ -138,34 +213,81 @@ public static class DataExtensions
 
         if (!dbContext.Offers.Any())
         {
+            var f8 = dbContext.Vehicles.First(v => v.Model == "F8 Spider");
+            var evo = dbContext.Vehicles.First(v => v.Model == "Huracan Evo Spyder");
+            var f488 = dbContext.Vehicles.First(v => v.Model == "488 Spider");
+            var urus = dbContext.Vehicles.First(v => v.Model == "Urus SE");
+            var huracan = dbContext.Vehicles.First(v => v.Model == "Huracan Spyder");
             var bmw = dbContext.Vehicles.First(v => v.Brand == "BMW");
             var audi = dbContext.Vehicles.First(v => v.Brand == "Audi");
 
-            var offerBmw = new Offer
+            var offers = new List<Offer>
             {
-                VehicleId = bmw.Id,
-                Title = "Beast from Monachium - BMW M5",
-                Description = "Some descriptionSome descriptionSome descriptionSome description",
-                IsActive = true,
-                Prices = new List<OfferPrice>
+                new Offer
                 {
-                    new OfferPrice { PricePerDay = 1500.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) }
+                    VehicleId = f8.Id,
+                    Title = "Italian Masterpiece - Ferrari F8 Spider",
+                    Description = "The Ferrari F8 Spider delivers an incredible open-top driving experience paired with unmistakable Italian design. Powered by a twin-turbocharged 3.9L V8 engine, it produces exhilarating performance with a lightning-fast 7-speed dual-clutch transmission and rear-wheel drive. The retractable hard top opens in seconds, allowing you to enjoy the sound of the V8 at any speed. Finished with a sharp, aggressive exterior and a driver-focused interior, the F8 Spider offers the perfect balance of supercar performance, luxury, and everyday usability.",
+                    IsActive = true,
+                    Prices = new List<OfferPrice> { new OfferPrice { PricePerDay = 3500.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) } }
+                },
+                new Offer
+                {
+                    VehicleId = evo.Id,
+                    Title = "V10 Symphony - Lamborghini Huracan Evo Spyder",
+                    Description = "The Lamborghini Huracan Evo Spyder delivers an incredible open-top driving experience paired with unmistakable Sant'Agata design. Powered by a naturally aspirated 5.2L V10 engine, it produces exhilarating performance with a lightning-fast dual-clutch transmission and all-wheel drive. The power-operated soft top opens in seconds, allowing you to enjoy the sound of the V10 at any speed. Finished with a sharp, aggressive exterior and a driver-focused interior, the Evo Spyder offers the perfect balance of supercar performance, luxury, and everyday usability.",
+                    IsActive = true,
+                    Prices = new List<OfferPrice> { new OfferPrice { PricePerDay = 3800.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) } }
+                },
+                new Offer
+                {
+                    VehicleId = f488.Id,
+                    Title = "Turbocharged Legend - Ferrari 488 Spider",
+                    Description = "The Ferrari 488 Spider delivers an incredible open-top driving experience paired with unmistakable Italian design. Powered by a twin-turbocharged 3.9L V8 engine, it produces exhilarating performance with a lightning-fast 7-speed dual-clutch transmission and rear-wheel drive. The retractable hard top opens in seconds, allowing you to enjoy the sound of the V8 at any speed. Finished with a sharp, aggressive exterior and a driver-focused interior, the 488 Spider offers the perfect balance of supercar performance, luxury, and everyday usability.",
+                    IsActive = true,
+                    Prices = new List<OfferPrice> { new OfferPrice { PricePerDay = 3000.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) } }
+                },
+                new Offer
+                {
+                    VehicleId = urus.Id,
+                    Title = "The Ultimate SUV - Lamborghini Urus SE",
+                    Description = "The Lamborghini Urus SE delivers an incredible performance SUV experience paired with unmistakable Lamborghini design. Powered by a twin-turbocharged 4.0L V8 hybrid engine, it produces exhilarating performance with a lightning-fast 8-speed automatic transmission and all-wheel drive. The advanced hybrid system provides instant torque, allowing you to enjoy the power at any speed. Finished with a sharp, aggressive exterior and a driver-focused interior, the Urus SE offers the perfect balance of supercar performance, luxury, and everyday usability.",
+                    IsActive = true,
+                    Prices = new List<OfferPrice> { new OfferPrice { PricePerDay = 4000.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) } }
+                },
+                new Offer
+                {
+                    VehicleId = huracan.Id,
+                    Title = "Pure Emotion - Lamborghini Huracan Spyder",
+                    Description = "The Lamborghini Huracan Spyder delivers an incredible open-top driving experience paired with unmistakable Italian design. Powered by a naturally aspirated 5.2L V10 engine, it produces exhilarating performance with a lightning-fast dual-clutch transmission and all-wheel drive. The power-operated soft top opens in seconds, allowing you to enjoy the sound of the V10 at any speed. Finished with a sharp, aggressive exterior and a driver-focused interior, the Huracan Spyder offers the perfect balance of supercar performance, luxury, and everyday usability.",
+                    IsActive = true,
+                    Prices = new List<OfferPrice> { new OfferPrice { PricePerDay = 3200.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) } }
+                },
+                new Offer
+                {
+                    VehicleId = bmw.Id,
+                    Title = "Beast from Monachium - BMW M5",
+                    Description = "Some descriptionSome descriptionSome descriptionSome description",
+                    IsActive = true,
+                    Prices = new List<OfferPrice>
+                    {
+                        new OfferPrice { PricePerDay = 1500.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) }
+                    }
+                },
+                new Offer
+                {
+                    VehicleId = audi.Id,
+                    Title = "Wow a car - Audi RS6",
+                    Description = "Some descriptionSome descriptionSome descriptionSome description",
+                    IsActive = true,
+                    Prices = new List<OfferPrice>
+                    {
+                        new OfferPrice { PricePerDay = 1200.00m, ValidFrom = DateTime.UtcNow.AddMonths(-2) }
+                    }
                 }
             };
 
-            var offerAudi = new Offer
-            {
-                VehicleId = audi.Id,
-                Title = "Wow a car - Audi RS6",
-                Description = "Some descriptionSome descriptionSome descriptionSome description",
-                IsActive = true,
-                Prices = new List<OfferPrice>
-                {
-                    new OfferPrice { PricePerDay = 1200.00m, ValidFrom = DateTime.UtcNow.AddMonths(-2) }
-                }
-            };
-
-            dbContext.Offers.AddRange(offerBmw, offerAudi);
+            dbContext.Offers.AddRange(offers);
             dbContext.SaveChanges();
         }
 
