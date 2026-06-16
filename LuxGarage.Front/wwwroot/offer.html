@@ -409,6 +409,8 @@
          import { RentalService } from "./js/rentalService.js";
          import { AuthService } from "./js/authService.js";
          import { UserService } from "./js/userService.js";
+         import { OfferService } from "./js/offerService.js";
+         import { CarService } from "./js/carService.js";
 
          const monthYearDisplay = document.getElementById("month-year-display");
          const selectorsOverlay = document.getElementById("selectors-overlay");
@@ -447,22 +449,116 @@
          const phoneError = document.getElementById("phone-error");
 
          const urlParams = new URLSearchParams(window.location.search);
-         const vehicleId = parseInt(urlParams.get("id")) || 1;
+         const offerId = parseInt(urlParams.get("id")) || 1;
          
-         // Try to get vehicle details from page
-         const pageTitle = document.querySelector(".offer-main-title")?.textContent || "McLaren 650S Spider";
-         const brand = pageTitle.split(" ")[0];
-         const model = pageTitle.split(" ").slice(1).join(" ");
-
+         let vehicleId = 1;
+         let pricePerDay = 0;
          let currentDate = new Date(2026, 5, 1);
          let startDate = null;
          let endDate = null;
          let startTime = "12:00 PM";
-         const pricePerDay = 1200;
 
-         // Update Summary in Modal Step 1
-         document.getElementById("sum-brand").textContent = brand;
-         document.getElementById("sum-model").textContent = model;
+         const months = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+         ];
+         const years = Array.from({ length: 6 }, (_, i) => 2026 + i);
+
+         async function initPage() {
+             try {
+                 const offer = await OfferService.getOfferById(offerId);
+                 if (!offer) throw new Error("Offer not found");
+
+                 vehicleId = offer.vehicleId;
+                 pricePerDay = offer.price;
+
+                 // Update basic info
+                 const fullTitle = offer.title;
+                 document.title = `${offer.brand} ${offer.model} | LuxGarage Offer`;
+                 document.querySelector(".offer-main-title").textContent = fullTitle;
+                 document.querySelector(".section-content p").textContent = offer.description;
+
+                 // Update Vehicle Info Table
+                 const infoTable = document.querySelector(".offer-section:nth-of-type(3) .info-table");
+                 infoTable.innerHTML = `
+                    <div class="info-row"><span>Class/category</span><span>${offer.bodyName}</span></div>
+                    <div class="info-row"><span>Make</span><span>${offer.brand}</span></div>
+                    <div class="info-row"><span>Model</span><span>${offer.model}</span></div>
+                    <div class="info-row"><span>Year</span><span>${offer.year}</span></div>
+                    <div class="info-row"><span>Availability</span><span>In Stock</span></div>
+                 `;
+
+                 // Update Performance Table
+                 const perfTable = document.querySelector(".offer-section:nth-of-type(4) .info-table");
+                 perfTable.innerHTML = `
+                    <div class="info-row"><span>Engine</span><span>${offer.engine}</span></div>
+                    <div class="info-row"><span>Power</span><span>${offer.horsepower} HP</span></div>
+                    <div class="info-row"><span>0-100 km/h</span><span>${offer.zeroToHundred}</span></div>
+                 `;
+
+                 // Update Modal Summary
+                 document.getElementById("sum-brand").textContent = offer.brand;
+                 document.getElementById("sum-model").textContent = offer.model;
+                 document.getElementById("sum-engine").textContent = offer.engine;
+                 document.getElementById("sum-seats").textContent = offer.brand === "Bentley" || offer.model.includes("Urus") || offer.model === "S580" ? "5" : "2";
+                 document.getElementById("sum-perf").textContent = offer.zeroToHundred;
+
+                 // Load Images
+                 const images = await CarService.getImagesByVehicleId(vehicleId);
+                 const mainImg = document.querySelector(".main-img");
+                 const thumbGallery = document.querySelector(".thumbnail-gallery");
+                 
+                 if (images && images.length > 0) {
+                     let currentImgIdx = 0;
+                     mainImg.src = `http://localhost:5054${images[0].url}`;
+                     thumbGallery.innerHTML = "";
+                     
+                     const updateGallery = (index) => {
+                         currentImgIdx = index;
+                         mainImg.src = `http://localhost:5054${images[currentImgIdx].url}`;
+                         document.querySelectorAll(".thumb").forEach((t, i) => {
+                             if(i === currentImgIdx) t.classList.add("active");
+                             else t.classList.remove("active");
+                         });
+                     };
+
+                     images.forEach((img, idx) => {
+                         const thumb = document.createElement("img");
+                         thumb.src = `http://localhost:5054${img.url}`;
+                         thumb.alt = `Thumb ${idx + 1}`;
+                         thumb.classList.add("thumb");
+                         if (idx === 0) thumb.classList.add("active");
+                         
+                         thumb.onclick = () => updateGallery(idx);
+                         thumbGallery.appendChild(thumb);
+                     });
+
+                     const prevBtn = document.querySelector(".nav-btn.prev");
+                     const nextBtn = document.querySelector(".nav-btn.next");
+                     
+                     if (prevBtn) {
+                         prevBtn.onclick = () => {
+                             let nextIdx = currentImgIdx - 1;
+                             if (nextIdx < 0) nextIdx = images.length - 1;
+                             updateGallery(nextIdx);
+                         };
+                     }
+                     if (nextBtn) {
+                         nextBtn.onclick = () => {
+                             let nextIdx = currentImgIdx + 1;
+                             if (nextIdx >= images.length) nextIdx = 0;
+                             updateGallery(nextIdx);
+                         };
+                     }
+                 }
+
+                 renderCalendar();
+                 updateDisplay();
+             } catch (error) {
+                 console.error("Error loading offer data:", error);
+                 alert("Could not load offer data.");
+             }
+         }
 
          // Helper to check if a range is available
          function isRangeAvailable(start, end) {
@@ -477,13 +573,6 @@
             }
             return true;
          }
-
-         const months = [
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-         ];
-
-         const years = Array.from({ length: 6 }, (_, i) => 2026 + i);
 
          function populateSelectors() {
             if (!monthList || !yearList) return;
@@ -686,8 +775,7 @@
          // Initial Active Time
          timeButtons[3].classList.add("active");
 
-         renderCalendar();
-         updateDisplay();
+         initPage();
 
          let currentStep = 1;
 

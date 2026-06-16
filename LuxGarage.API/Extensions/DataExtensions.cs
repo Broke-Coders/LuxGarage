@@ -264,6 +264,7 @@ public static class DataExtensions
                     IsActive = true,
                     Prices = new List<OfferPrice> { new OfferPrice { PricePerDay = 2200.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) } }
                 },
+                //////////////////////////////////////
                 new Offer
                 {
                     VehicleId = bmw.Id,
@@ -286,6 +287,8 @@ public static class DataExtensions
                         new OfferPrice { PricePerDay = 1200.00m, ValidFrom = DateTime.UtcNow.AddMonths(-2) }
                     }
                 }
+                //////////////////////////////////////
+
             };
 
             dbContext.Offers.AddRange(offers);
