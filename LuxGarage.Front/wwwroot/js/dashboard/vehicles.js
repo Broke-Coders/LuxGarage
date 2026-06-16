@@ -12,6 +12,7 @@ export function initVehicles() {
   _bindAddModal();
   _bindEditForm();
   _bindDeleteConfirm();
+  _bindGallery();
   loadVehicles();
 }
 
@@ -87,6 +88,9 @@ function _renderTable(vehicles) {
   );
   tableBody.querySelectorAll(".btn-icon--delete").forEach((btn) =>
     btn.addEventListener("click", () => _openDeleteModal(parseInt(btn.dataset.id)))
+  );
+  tableBody.querySelectorAll(".btn-icon--gallery").forEach((btn) =>
+    btn.addEventListener("click", () => _openGalleryModal(parseInt(btn.dataset.id)))
   );
 }
 
@@ -264,4 +268,183 @@ function _bindDeleteConfirm() {
       setLoading(btn, false);
     }
   });
+}
+
+// -- Gallery modal -----------------------------
+const API_ORIGIN = "http://localhost:5054";
+
+let galleryVehicleId = null;
+let galleryImages = [];    
+let galleryDirty = false; 
+let galleryUploadFiles = [];
+
+function _bindGallery() {
+  const dropZone  = document.getElementById("galleryDropZone");
+  const fileInput = document.getElementById("galleryFileInput");
+
+  dropZone.addEventListener("click",     () => fileInput.click());
+  dropZone.addEventListener("dragover",  (e) => { e.preventDefault(); dropZone.classList.add("drag-over"); });
+  dropZone.addEventListener("dragleave", () => dropZone.classList.remove("drag-over"));
+  dropZone.addEventListener("drop", (e) => {
+    e.preventDefault();
+    dropZone.classList.remove("drag-over");
+    _handleGalleryUpload([...e.dataTransfer.files]);
+  });
+  fileInput.addEventListener("change", () => {
+    _handleGalleryUpload([...fileInput.files]);
+    fileInput.value = "";
+  });
+
+  document.getElementById("btnSaveOrder").addEventListener("click", _saveOrder);
+}
+
+async function _openGalleryModal(vehicleId) {
+  const vehicle = allVehicles.find((v) => v.id === vehicleId);
+  galleryVehicleId   = vehicleId;
+  galleryDirty       = false;
+  galleryUploadFiles = [];
+
+  document.getElementById("galleryVehicleName").textContent =
+    vehicle ? `${vehicle.brand} — ${vehicle.licensePlate}` : `#${vehicleId}`;
+  document.getElementById("btnSaveOrder").style.display       = "none";
+  document.getElementById("galleryReorderHint").style.display = "none";
+  clearError("galleryUploadError");
+
+  openModal("modalGallery");
+  await _loadGalleryImages();
+}
+
+async function _loadGalleryImages() {
+  const grid  = document.getElementById("galleryGrid");
+  const empty = document.getElementById("galleryEmpty");
+
+  grid.innerHTML = `<div class="gallery-loading"><div class="spinner"></div><span>Loading…</span></div>`;
+  empty.style.display = "none";
+
+  try {
+    galleryImages = await CarService.getImagesByVehicleId(galleryVehicleId);
+    _renderGalleryGrid();
+  } catch (e) {
+    grid.innerHTML = `<p style="color:#c0392b;padding:2rem;">${e.message}</p>`;
+  }
+}
+
+function _renderGalleryGrid() {
+  const grid  = document.getElementById("galleryGrid");
+  const empty = document.getElementById("galleryEmpty");
+
+  if (!galleryImages.length) {
+    grid.innerHTML = "";
+    empty.style.display = "flex";
+    return;
+  }
+  empty.style.display = "none";
+
+  grid.innerHTML = galleryImages
+    .map((img, idx) => `
+      <div class="gallery-item" draggable="true" data-id="${img.id}" data-idx="${idx}">
+        <div class="gallery-item-img-wrap">
+          <img src="${API_ORIGIN}${img.url}" alt="Vehicle image ${idx + 1}" loading="lazy" />
+          ${img.isPrimary ? `<span class="gallery-primary-badge"><ion-icon name="star"></ion-icon></span>` : ""}
+        </div>
+        <div class="gallery-item-actions">
+          ${!img.isPrimary
+            ? `<button class="gallery-btn gallery-btn--star" data-id="${img.id}" title="Set as primary">
+                <ion-icon name="star-outline"></ion-icon>
+               </button>`
+            : `<span class="gallery-btn gallery-btn--star gallery-btn--star-active" title="Primary image">
+                <ion-icon name="star"></ion-icon>
+               </span>`
+          }
+          <button class="gallery-btn gallery-btn--delete" data-id="${img.id}" title="Delete image">
+            <ion-icon name="trash-outline"></ion-icon>
+          </button>
+        </div>
+      </div>`)
+    .join("");
+
+  // Set primary
+  grid.querySelectorAll(".gallery-btn--star[data-id]").forEach((btn) =>
+    btn.addEventListener("click", () => _setPrimary(parseInt(btn.dataset.id)))
+  );
+
+  // Delete
+  grid.querySelectorAll(".gallery-btn--delete").forEach((btn) =>
+    btn.addEventListener("click", () => _deleteImage(parseInt(btn.dataset.id)))
+  );
+
+  // Drag & drop reorder
+  _initDragReorder(grid);
+}
+
+function _initDragReorder(grid) {
+  let dragSrc = null;
+
+  grid.querySelectorAll(".gallery-item").forEach((item) => {
+    item.addEventListener("dragstart", (e) => {
+      dragSrc = item;
+      item.classList.add("dragging");
+      e.dataTransfer.effectAllowed = "move";
+    });
+
+    item.addEventListener("dragend", () => {
+      item.classList.remove("dragging");
+      grid.querySelectorAll(".gallery-item").forEach((i) => i.classList.remove("drag-over-item"));
+    });
+
+    item.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "move";
+      if (item !== dragSrc) {
+        grid.querySelectorAll(".gallery-item").forEach((i) => i.classList.remove("drag-over-item"));
+        item.classList.add("drag-over-item");
+      }
+    });
+
+    item.addEventListener("drop", (e) => {
+      e.preventDefault();
+      if (!dragSrc || dragSrc === item) return;
+
+      // Przestaw w DOM
+      const items   = [...grid.querySelectorAll(".gallery-item")];
+      const srcIdx  = items.indexOf(dragSrc);
+      const destIdx = items.indexOf(item);
+
+      if (srcIdx < destIdx) {
+        grid.insertBefore(dragSrc, item.nextSibling);
+      } else {
+        grid.insertBefore(dragSrc, item);
+      }
+
+      // Zaktualizuj lokalną tablicę galleryImages wg nowego porządku DOM
+      const newOrder = [...grid.querySelectorAll(".gallery-item")].map((el) =>
+        galleryImages.find((img) => img.id === parseInt(el.dataset.id))
+      );
+      galleryImages = newOrder;
+
+      // Pokaż przycisk Save Order
+      galleryDirty = true;
+      document.getElementById("btnSaveOrder").style.display       = "inline-flex";
+      document.getElementById("galleryReorderHint").style.display = "flex";
+
+      item.classList.remove("drag-over-item");
+    });
+  });
+}
+
+async function _saveOrder() {
+  const btn = document.getElementById("btnSaveOrder");
+  setLoading(btn, true);
+
+  try {
+    await CarService.reorderImages(galleryVehicleId, galleryImages.map((img) => img.id));
+    galleryDirty = false;
+    document.getElementById("btnSaveOrder").style.display       = "none";
+    document.getElementById("galleryReorderHint").style.display = "none";
+    await _loadGalleryImages();
+  } catch (e) {
+    showError("galleryUploadError", e.message);
+  } finally {
+    setLoading(btn, false);
+  }
 }
