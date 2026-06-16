@@ -1,0 +1,190 @@
+.account-page {
+   padding: 12rem 0 9.6rem 0;
+   background-color: #fdfaf3;
+   min-height: 100vh;
+}
+
+.account-header {
+   margin-bottom: 4.8rem;
+   text-align: center;
+}
+
+.account-header .heading-primary {
+   font-size: 4.4rem;
+   color: #47453e;
+   margin-bottom: 1.2rem;
+}
+
+.account-header .subheading {
+   font-size: 1.8rem;
+   color: #8d8a7c;
+   font-weight: 500;
+}
+
+.account-grid {
+   display: grid;
+   grid-template-columns: 24rem 1fr;
+   gap: 6.4rem;
+   align-items: start;
+}
+
+/* Sidebar */
+.account-sidebar {
+   background-color: #fff;
+   border-radius: 12px;
+   padding: 2.4rem;
+   box-shadow: 0 1rem 3rem rgba(71, 69, 62, 0.05);
+   border: 1px solid #ebe6ce;
+}
+
+.account-nav {
+   display: flex;
+   flex-direction: column;
+   gap: 0.8rem;
+}
+
+.account-nav-link {
+   display: flex;
+   align-items: center;
+   gap: 1.2rem;
+   padding: 1.2rem 1.6rem;
+   font-size: 1.6rem;
+   font-weight: 600;
+   color: #555;
+   text-decoration: none;
+   border-radius: 8px;
+   transition: all 0.3s;
+}
+
+.account-nav-link ion-icon {
+   font-size: 2rem;
+   color: #8d8a7c;
+}
+
+.account-nav-link:hover {
+   background-color: #fdfaf3;
+   color: #47453e;
+}
+
+.account-nav-link.active {
+   background-color: #47453e;
+   color: #ebe6ce;
+}
+
+.account-nav-link.active ion-icon {
+   color: #ebe6ce;
+}
+
+/* Content Area */
+.account-content {
+   background-color: #fff;
+   border-radius: 12px;
+   padding: 4.8rem;
+   box-shadow: 0 1rem 3rem rgba(71, 69, 62, 0.05);
+   border: 1px solid #ebe6ce;
+}
+
+.account-tab-content {
+   display: none;
+}
+
+.account-tab-content.active {
+   display: block;
+   animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+   from { opacity: 0; transform: translateY(10px); }
+   to { opacity: 1; transform: translateY(0); }
+}
+
+.heading-secondary {
+   font-size: 2.4rem;
+   color: #47453e;
+   margin-bottom: 3.2rem;
+   padding-bottom: 1.6rem;
+   border-bottom: 1px solid #f1efea;
+}
+
+/* Form Styles */
+.profile-form {
+   display: flex;
+   flex-direction: column;
+   gap: 2.4rem;
+}
+
+.form-grid {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: 2.4rem;
+}
+
+.form-group {
+   display: flex;
+   flex-direction: column;
+   gap: 0.8rem;
+}
+
+.form-group label {
+   font-size: 1.4rem;
+   font-weight: 700;
+   color: #47453e;
+}
+
+.form-group input {
+   width: 100%;
+   padding: 1.2rem;
+   font-size: 1.6rem;
+   font-family: inherit;
+   color: inherit;
+   border: 1px solid #ddd;
+   border-radius: 8px;
+   transition: all 0.3s;
+}
+
+.form-group input:focus {
+   outline: none;
+   border-color: #8d8a7c;
+   box-shadow: 0 0 0 3px rgba(141, 138, 124, 0.1);
+}
+
+.form-group input:disabled {
+   background-color: #f8f9fa;
+   color: #adb5bd;
+   cursor: not-allowed;
+}
+
+.input-note {
+   font-size: 1.2rem;
+   color: #adb5bd;
+}
+
+.form-actions {
+   margin-top: 1.6rem;
+   display: flex;
+   align-items: center;
+   gap: 2.4rem;
+}
+
+.status-msg {
+   font-size: 1.4rem;
+   font-weight: 600;
+}
+
+.status-msg.success {
+   color: #51cf66;
+}
+
+.status-msg.error {
+   color: #fa5252;
+}
+
+@media (max-width: 768px) {
+   .account-grid {
+      grid-template-columns: 1fr;
+   }
+   
+   .form-grid {
+      grid-template-columns: 1fr;
+   }
+}

@@ -55,5 +55,31 @@ export const UserService = {
     });
     const result = await handleResponse(response);
     return result?.data ?? result;
+  },
+
+  /**
+   * Aktualizuje profil zalogowanego użytkownika
+   * @param {Object} data 
+   * @returns {Promise<Object>}
+   */
+  async updateProfile(data) {
+    const token = AuthService.getToken();
+    if (!token) throw new Error("Not logged in");
+
+    const payload = parseJwt(token);
+    const userId = payload?.nameid || payload?.sub;
+
+    if (!userId) throw new Error("Invalid token");
+
+    const response = await fetch(`${API_BASE_URL}/Customer/${userId}`, {
+      method: "PUT",
+      headers: { 
+        ...authHeaders(), 
+        "Content-Type": "application/json" 
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await handleResponse(response);
+    return result?.data ?? result;
   }
 };
