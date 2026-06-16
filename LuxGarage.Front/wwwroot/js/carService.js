@@ -150,8 +150,11 @@ export const CarService = {
   async getImagesByVehicleId(vehicleId) {
     try {
       const response = await fetch(
-        `${API_BASE_URL}/VehicleImages?vehicleId=${vehicleId}`,
-        { headers: authHeaders() }
+        `${API_BASE_URL}/VehicleImages/vehicle/${vehicleId}`,
+        { 
+          method: "GET",
+          headers: authHeaders()
+         }
       );
       return await handleResponse(response);
     } catch (error) {
@@ -237,7 +240,7 @@ export const CarService = {
       const response = await fetch(
         `${API_BASE_URL}/VehicleImages/${imageId}/primary`,
         {
-          method: "POST",
+          method: "PUT",
           headers: { ...authHeaders(), "Content-Type": "application/json" },
           body: JSON.stringify({ vehicleId }),
         }
@@ -261,7 +264,7 @@ export const CarService = {
       const response = await fetch(`${API_BASE_URL}/VehicleImages/reorder`, {
         method: "PUT",
         headers: { ...authHeaders(), "Content-Type": "application/json" },
-        body: JSON.stringify({ vehicleId, orderedImageIds }),
+        body: JSON.stringify({ VehicleId: vehicleId, OrderedImageIds: orderedImageIds }),
       });
       return await handleResponse(response);
     } catch (error) {
