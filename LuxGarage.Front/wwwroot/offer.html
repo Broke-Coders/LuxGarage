@@ -595,8 +595,14 @@
                      currentImgIdx = index;
                      mainImg.src = `http://localhost:5054${images[currentImgIdx].url}`;
                      document.querySelectorAll(".thumb").forEach((t, i) => {
-                        if (i === currentImgIdx) t.classList.add("active");
-                        else t.classList.remove("active");
+                        if (i === currentImgIdx) {
+                           t.classList.add("active");
+                           t.scrollIntoView({
+                              behavior: "smooth",
+                              block: "nearest",
+                              inline: "center",
+                           });
+                        } else t.classList.remove("active");
                      });
                   };
 
