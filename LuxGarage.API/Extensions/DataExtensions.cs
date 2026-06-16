@@ -87,6 +87,8 @@ public static class DataExtensions
         if (!dbContext.Vehicles.Any())
         {
             dbContext.Vehicles.AddRange(
+                /////////////////////////////////////////////////////////
+                
                 new Vehicle
                 {
                     Brand = "Ferrari",
@@ -100,7 +102,11 @@ public static class DataExtensions
                     EngineType = EngineType.Gasoline,
                     BodyType = VehicleBodyType.Cabriolet,
                     Color = VehicleColor.Red,
-                    Status = VehicleStatus.Available
+                    Status = VehicleStatus.Available,
+                    Images = new List<VehicleImage>
+                    {
+                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
+                    }
                 },
                 new Vehicle
                 {
@@ -114,8 +120,12 @@ public static class DataExtensions
                     SpeedToHundred = 3.1f,
                     EngineType = EngineType.Gasoline,
                     BodyType = VehicleBodyType.Cabriolet,
-                    Color = VehicleColor.Green,
-                    Status = VehicleStatus.Available
+                    Color = VehicleColor.Grey,
+                    Status = VehicleStatus.Available,
+                    Images = new List<VehicleImage>
+                    {
+                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
+                    }
                 },
                 new Vehicle
                 {
@@ -129,8 +139,12 @@ public static class DataExtensions
                     SpeedToHundred = 3.0f,
                     EngineType = EngineType.Gasoline,
                     BodyType = VehicleBodyType.Cabriolet,
-                    Color = VehicleColor.Blue,
-                    Status = VehicleStatus.Available
+                    Color = VehicleColor.Red,
+                    Status = VehicleStatus.Available,
+                    Images = new List<VehicleImage>
+                    {
+                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
+                    }
                 },
                 new Vehicle
                 {
@@ -145,7 +159,11 @@ public static class DataExtensions
                     EngineType = EngineType.Hybrid,
                     BodyType = VehicleBodyType.SUV,
                     Color = VehicleColor.Black,
-                    Status = VehicleStatus.Available
+                    Status = VehicleStatus.Available,
+                    Images = new List<VehicleImage>
+                    {
+                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
+                    }
                 },
                 new Vehicle
                 {
@@ -159,9 +177,15 @@ public static class DataExtensions
                     SpeedToHundred = 3.4f,
                     EngineType = EngineType.Gasoline,
                     BodyType = VehicleBodyType.Cabriolet,
-                    Color = VehicleColor.Yellow,
-                    Status = VehicleStatus.Available
+                    Color = VehicleColor.White,
+                    Status = VehicleStatus.Available,
+                    Images = new List<VehicleImage>
+                    {
+                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
+                    }
                 },
+
+                /////////////////////////////////////////////////////////
                 new Vehicle
                 {
                     Brand = "BMW",
@@ -175,7 +199,11 @@ public static class DataExtensions
                     EngineType = EngineType.Gasoline,
                     BodyType = VehicleBodyType.Sedan,
                     Color = VehicleColor.Black,
-                    Status = VehicleStatus.Available
+                    Status = VehicleStatus.Available,
+                    Images = new List<VehicleImage>
+                    {
+                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
+                    }
                 },
                 new Vehicle
                 {
@@ -190,7 +218,11 @@ public static class DataExtensions
                     EngineType = EngineType.Gasoline,
                     BodyType = VehicleBodyType.Wagon,
                     Color = VehicleColor.Grey,
-                    Status = VehicleStatus.Available
+                    Status = VehicleStatus.Available,
+                    Images = new List<VehicleImage>
+                    {
+                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
+                    }
                 },
                 new Vehicle
                 {
