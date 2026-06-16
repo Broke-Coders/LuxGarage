@@ -22,7 +22,7 @@ export async function loadVehicles(params = {}) {
 
   tableBody.innerHTML = `
     <tr class="table-loading-row">
-      <td colspan="8">
+      <td colspan="9">
         <div class="table-spinner">
           <div class="spinner"></div><span>Loading vehicles…</span>
         </div>
@@ -35,7 +35,7 @@ export async function loadVehicles(params = {}) {
     _renderTable(allVehicles);
   } catch (e) {
     tableBody.innerHTML = `
-      <tr><td colspan="8" style="text-align:center;padding:3rem;color:#c0392b;">
+      <tr><td colspan="9" style="text-align:center;padding:3rem;color:#c0392b;">
         ${e.message}
       </td></tr>`;
   }
@@ -63,6 +63,11 @@ function _renderTable(vehicles) {
         <td>${v.mileage.toLocaleString()} km</td>
         <td>${v.horsepower} HP</td>
         <td>${statusBadge(v.status)}</td>
+        <td>
+          <button class="btn-icon btn-icon--gallery" data-id="${v.id}" title="Manage images">
+            <ion-icon name="images-outline"></ion-icon>
+          </button>
+        </td>
         <td>
           <div class="td-actions">
             <button class="btn-icon btn-icon--edit"   data-id="${v.id}" title="Edit">

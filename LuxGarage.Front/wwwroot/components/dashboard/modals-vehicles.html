@@ -185,3 +185,68 @@
     </div>
   </div>
 </div>
+
+<!-- VEHICLE GALLERY MODAL -->
+<div class="modal-overlay" id="modalGallery">
+  <div class="modal-box modal-box--gallery">
+    <div class="modal-head">
+      <div>
+        <h2>Vehicle Images</h2>
+        <p class="modal-head-sub" id="galleryVehicleName">—</p>
+      </div>
+      <button class="modal-close" data-modal="modalGallery">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+
+    <div class="gallery-body">
+
+      <div class="gallery-upload-zone" id="galleryDropZone">
+        <ion-icon name="cloud-upload-outline"></ion-icon>
+        <p>Drag & drop or <span class="drop-link">browse</span> to upload new images</p>
+        <p class="drop-hint">PNG, JPG, WEBP — max 10 MB each</p>
+        <input type="file" id="galleryFileInput" multiple accept="image/*" hidden />
+      </div>
+
+      <div id="galleryUploadError" class="form-error" style="display:none;"></div>
+
+      <div class="gallery-section-title">
+        <span>Current Images</span>
+        <span class="gallery-hint">
+          <ion-icon name="swap-vertical-outline"></ion-icon>
+          Drag to reorder · Star = primary
+        </span>
+      </div>
+
+      <div class="gallery-grid" id="galleryGrid">
+        <div class="gallery-loading">
+          <div class="spinner"></div>
+          <span>Loading images…</span>
+        </div>
+      </div>
+
+      <div class="gallery-empty" id="galleryEmpty" style="display:none;">
+        <ion-icon name="images-outline"></ion-icon>
+        <p>No images yet. Upload the first one above.</p>
+      </div>
+
+    </div>
+
+    <div class="modal-actions gallery-actions">
+      <div class="gallery-reorder-hint" id="galleryReorderHint" style="display:none;">
+        <ion-icon name="warning-outline"></ion-icon>
+        Unsaved order — click Save Order to apply
+      </div>
+      <button type="button" class="btn-submit" id="btnSaveOrder" style="display:none;">
+        <span class="btn-text">
+          <ion-icon name="checkmark-outline"></ion-icon>
+          Save Order
+        </span>
+        <span class="btn-spinner" style="display:none;">
+          <div class="spinner spinner--sm"></div>
+        </span>
+      </button>
+      <button type="button" class="btn-cancel" data-modal="modalGallery">Close</button>
+    </div>
+  </div>
+</div>
