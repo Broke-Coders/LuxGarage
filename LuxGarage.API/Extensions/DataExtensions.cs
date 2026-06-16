@@ -86,275 +86,75 @@ public static class DataExtensions
 
         if (!dbContext.Vehicles.Any())
         {
-            dbContext.Vehicles.AddRange(
-                /////////////////////////////////////////////////////////
-                
-                new Vehicle
-                {
-                    Brand = "Ferrari",
-                    Model = "F8 Spider",
-                    Horsepower = 710,
-                    LicensePlate = "F8 SPIDER",
-                    EngineName = "3.9L V8 Twin-Turbo",
-                    Mileage = 1200,
-                    Year = 2023,
-                    SpeedToHundred = 2.9f,
-                    EngineType = EngineType.Gasoline,
-                    BodyType = VehicleBodyType.Cabriolet,
-                    Color = VehicleColor.Red,
-                    Status = VehicleStatus.Available,
-                    Images = new List<VehicleImage>
-                    {
-                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
-                    }
-                },
-                new Vehicle
-                {
-                    Brand = "Lamborghini",
-                    Model = "Huracan Evo Spyder",
-                    Horsepower = 640,
-                    LicensePlate = "EVO SPYDR",
-                    EngineName = "5.2L V10",
-                    Mileage = 2500,
-                    Year = 2022,
-                    SpeedToHundred = 3.1f,
-                    EngineType = EngineType.Gasoline,
-                    BodyType = VehicleBodyType.Cabriolet,
-                    Color = VehicleColor.Grey,
-                    Status = VehicleStatus.Available,
-                    Images = new List<VehicleImage>
-                    {
-                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
-                    }
-                },
-                new Vehicle
-                {
-                    Brand = "Ferrari",
-                    Model = "488 Spider",
-                    Horsepower = 661,
-                    LicensePlate = "488 SPIDR",
-                    EngineName = "3.9L V8 Twin-Turbo",
-                    Mileage = 8500,
-                    Year = 2019,
-                    SpeedToHundred = 3.0f,
-                    EngineType = EngineType.Gasoline,
-                    BodyType = VehicleBodyType.Cabriolet,
-                    Color = VehicleColor.Red,
-                    Status = VehicleStatus.Available,
-                    Images = new List<VehicleImage>
-                    {
-                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
-                    }
-                },
-                new Vehicle
-                {
-                    Brand = "Lamborghini",
-                    Model = "Urus SE",
-                    Horsepower = 789,
-                    LicensePlate = "URUS SE",
-                    EngineName = "4.0L V8 Twin-Turbo Hybrid",
-                    Mileage = 500,
-                    Year = 2024,
-                    SpeedToHundred = 3.4f,
-                    EngineType = EngineType.Hybrid,
-                    BodyType = VehicleBodyType.SUV,
-                    Color = VehicleColor.Black,
-                    Status = VehicleStatus.Available,
-                    Images = new List<VehicleImage>
-                    {
-                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
-                    }
-                },
-                new Vehicle
-                {
-                    Brand = "Lamborghini",
-                    Model = "Huracan Spyder",
-                    Horsepower = 602,
-                    LicensePlate = "HURACAN S",
-                    EngineName = "5.2L V10",
-                    Mileage = 12000,
-                    Year = 2018,
-                    SpeedToHundred = 3.4f,
-                    EngineType = EngineType.Gasoline,
-                    BodyType = VehicleBodyType.Cabriolet,
-                    Color = VehicleColor.White,
-                    Status = VehicleStatus.Available,
-                    Images = new List<VehicleImage>
-                    {
-                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
-                    }
-                },
+            var vehicles = new List<Vehicle>
+            {
+                new Vehicle { Brand = "Ferrari", Model = "F8 Spider", Horsepower = 710, LicensePlate = "F8 SPIDER", EngineName = "3.9L V8 Twin-Turbo", Mileage = 1200, Year = 2023, SpeedToHundred = 2.9f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Cabriolet, Color = VehicleColor.Red },
+                new Vehicle { Brand = "Lamborghini", Model = "Huracan Evo Spyder", Horsepower = 640, LicensePlate = "EVO SPYDR", EngineName = "5.2L V10", Mileage = 2500, Year = 2022, SpeedToHundred = 3.1f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Cabriolet, Color = VehicleColor.Grey },
+                new Vehicle { Brand = "Ferrari", Model = "488 Spider", Horsepower = 661, LicensePlate = "488 SPIDR", EngineName = "3.9L V8 Twin-Turbo", Mileage = 8500, Year = 2019, SpeedToHundred = 3.0f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Cabriolet, Color = VehicleColor.Red },
+                new Vehicle { Brand = "Lamborghini", Model = "Urus SE", Horsepower = 789, LicensePlate = "URUS SE", EngineName = "4.0L V8 Twin-Turbo Hybrid", Mileage = 500, Year = 2024, SpeedToHundred = 3.4f, EngineType = EngineType.Hybrid, BodyType = VehicleBodyType.SUV, Color = VehicleColor.Black },
+                new Vehicle { Brand = "Lamborghini", Model = "Huracan Spyder", Horsepower = 602, LicensePlate = "HURACAN S", EngineName = "5.2L V10", Mileage = 12000, Year = 2018, SpeedToHundred = 3.4f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Cabriolet, Color = VehicleColor.White },
+                new Vehicle { Brand = "Ferrari", Model = "458 Coupe", Horsepower = 562, LicensePlate = "F458 IT", EngineName = "4.5L V8", Mileage = 15000, Year = 2015, SpeedToHundred = 3.4f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Coupe, Color = VehicleColor.Red },
+                new Vehicle { Brand = "Bentley", Model = "Flying Spur", Horsepower = 626, LicensePlate = "B FLYING", EngineName = "6.0L W12 Twin-Turbo", Mileage = 5000, Year = 2022, SpeedToHundred = 3.8f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Sedan, Color = VehicleColor.White },
+                new Vehicle { Brand = "Porsche", Model = "911 GT3", Horsepower = 502, LicensePlate = "P GT3 RS", EngineName = "4.0L Flat-6", Mileage = 2000, Year = 2023, SpeedToHundred = 3.2f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Coupe, Color = VehicleColor.Blue },
+                new Vehicle { Brand = "Mercedes-AMG", Model = "GT-C", Horsepower = 550, LicensePlate = "M GTC AM", EngineName = "4.0L V8 Biturbo", Mileage = 8000, Year = 2021, SpeedToHundred = 3.7f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Coupe, Color = VehicleColor.White },
+                new Vehicle { Brand = "Porsche", Model = "911 Carrera", Horsepower = 380, LicensePlate = "P 911 RED", EngineName = "3.0L Flat-6", Mileage = 12000, Year = 2020, SpeedToHundred = 4.2f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Coupe, Color = VehicleColor.Red },
+                new Vehicle { Brand = "Mercedes-Benz", Model = "S580", Horsepower = 496, LicensePlate = "M S580 BK", EngineName = "4.0L V8 Biturbo", Mileage = 3000, Year = 2023, SpeedToHundred = 4.4f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Sedan, Color = VehicleColor.Black },
+                new Vehicle { Brand = "BMW", Model = "M5 Competition", Horsepower = 625, LicensePlate = "WA 12345", EngineName = "4.4 V8", Mileage = 15000, Year = 2023, SpeedToHundred = 3.5f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Sedan, Color = VehicleColor.Black },
+                new Vehicle { Brand = "Audi", Model = "RS6 Avant", Horsepower = 600, LicensePlate = "KR 54321", EngineName = "V8", Mileage = 25000, Year = 2022, SpeedToHundred = 2.7f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Wagon, Color = VehicleColor.Grey },
+                new Vehicle { Brand = "Porsche", Model = "911 Carrera S", Horsepower = 450, LicensePlate = "GD 99999", EngineName = "3.0 flat six", Mileage = 5000, Year = 2024, SpeedToHundred = 3.3f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Coupe, Color = VehicleColor.Yellow, Status = VehicleStatus.Maintenance }
+            };
 
-                new Vehicle
-                {
-                    Brand = "Ferrari",
-                    Model = "458 Coupe",
-                    Horsepower = 562,
-                    LicensePlate = "F458 IT",
-                    EngineName = "4.5L V8",
-                    Mileage = 15000,
-                    Year = 2015,
-                    SpeedToHundred = 3.4f,
-                    EngineType = EngineType.Gasoline,
-                    BodyType = VehicleBodyType.Coupe,
-                    Color = VehicleColor.Red,
-                    Status = VehicleStatus.Available,
-                    Images = new List<VehicleImage>
-                    {
-                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
-                    }
-                },
-                new Vehicle
-                {
-                    Brand = "Bentley",
-                    Model = "Flying Spur",
-                    Horsepower = 626,
-                    LicensePlate = "B FLYING",
-                    EngineName = "6.0L W12 Twin-Turbo",
-                    Mileage = 5000,
-                    Year = 2022,
-                    SpeedToHundred = 3.8f,
-                    EngineType = EngineType.Gasoline,
-                    BodyType = VehicleBodyType.Sedan,
-                    Color = VehicleColor.White,
-                    Status = VehicleStatus.Available,
-                    Images = new List<VehicleImage>
-                    {
-                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
-                    }
-                },
-                new Vehicle
-                {
-                    Brand = "Porsche",
-                    Model = "911 GT3",
-                    Horsepower = 502,
-                    LicensePlate = "P GT3 RS",
-                    EngineName = "4.0L Flat-6",
-                    Mileage = 2000,
-                    Year = 2023,
-                    SpeedToHundred = 3.2f,
-                    EngineType = EngineType.Gasoline,
-                    BodyType = VehicleBodyType.Coupe,
-                    Color = VehicleColor.Blue,
-                    Status = VehicleStatus.Available,
-                    Images = new List<VehicleImage>
-                    {
-                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
-                    }
-                },
-                new Vehicle
-                {
-                    Brand = "Mercedes-AMG",
-                    Model = "GT-C",
-                    Horsepower = 550,
-                    LicensePlate = "M GTC AM",
-                    EngineName = "4.0L V8 Biturbo",
-                    Mileage = 8000,
-                    Year = 2021,
-                    SpeedToHundred = 3.7f,
-                    EngineType = EngineType.Gasoline,
-                    BodyType = VehicleBodyType.Coupe,
-                    Color = VehicleColor.White,
-                    Status = VehicleStatus.Available,
-                    Images = new List<VehicleImage>
-                    {
-                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
-                    }
-                },
-                new Vehicle
-                {
-                    Brand = "Porsche",
-                    Model = "911 Carrera",
-                    Horsepower = 380,
-                    LicensePlate = "P 911 RED",
-                    EngineName = "3.0L Flat-6",
-                    Mileage = 12000,
-                    Year = 2020,
-                    SpeedToHundred = 4.2f,
-                    EngineType = EngineType.Gasoline,
-                    BodyType = VehicleBodyType.Coupe,
-                    Color = VehicleColor.Red,
-                    Status = VehicleStatus.Available,
-                    Images = new List<VehicleImage>
-                    {
-                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
-                    }
-                },
-                new Vehicle
-                {
-                    Brand = "Mercedes-Benz",
-                    Model = "S580",
-                    Horsepower = 496,
-                    LicensePlate = "M S580 BK",
-                    EngineName = "4.0L V8 Biturbo",
-                    Mileage = 3000,
-                    Year = 2023,
-                    SpeedToHundred = 4.4f,
-                    EngineType = EngineType.Gasoline,
-                    BodyType = VehicleBodyType.Sedan,
-                    Color = VehicleColor.Black,
-                    Status = VehicleStatus.Available,
-                    Images = new List<VehicleImage>
-                    {
-                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
-                    }
-                },
+            dbContext.Vehicles.AddRange(vehicles);
+            dbContext.SaveChanges();
 
-                /////////////////////////////////////////////////////////
-                new Vehicle
+            // Image Seeding Logic
+            var sourceRoot = Path.Combine(app.Environment.ContentRootPath, "..", "LuxGarage.Front", "wwwroot", "images", "cars-gotham");
+            var targetRoot = Path.Combine(app.Environment.ContentRootPath, "..", "LuxGarage.Front", "wwwroot", "images", "cars");
+
+            var modelToFolder = new Dictionary<string, string>
+            {
+                { "F8 Spider", "FerrariF8Spider" },
+                { "Huracan Evo Spyder", "LamborghiniEvoSpider" },
+                { "488 Spider", "Ferrari488Spider" },
+                { "Urus SE", "LamborghihiUrusSE" },
+                { "Huracan Spyder", "LamborghiniHuracanSpider" },
+                { "458 Coupe", "Ferrari458Coupe" },
+                { "Flying Spur", "BentleyFlyingSpur" },
+                { "911 GT3", "PorsheGT3" },
+                { "GT-C", "MercederGT-c" },
+                { "911 Carrera", "Porshe911" },
+                { "S580", "MercedesBenzS580" }
+            };
+
+            foreach (var vehicle in vehicles)
+            {
+                if (modelToFolder.TryGetValue(vehicle.Model, out var folderName))
                 {
-                    Brand = "BMW",
-                    Model = "M5 Competition",
-                    Horsepower = 625,
-                    LicensePlate = "WA 12345",
-                    EngineName = "4.4 V8",
-                    Mileage = 15000,
-                    Year = 2023,
-                    SpeedToHundred = 3.5f,
-                    EngineType = EngineType.Gasoline,
-                    BodyType = VehicleBodyType.Sedan,
-                    Color = VehicleColor.Black,
-                    Status = VehicleStatus.Available,
-                    Images = new List<VehicleImage>
+                    var sourcePath = Path.Combine(sourceRoot, folderName);
+                    if (Directory.Exists(sourcePath))
                     {
-                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
+                        var targetPath = Path.Combine(targetRoot, vehicle.Id.ToString());
+                        if (!Directory.Exists(targetPath)) Directory.CreateDirectory(targetPath);
+
+                        var files = Directory.GetFiles(sourcePath, "*.webp");
+                        for (int i = 0; i < files.Length; i++)
+                        {
+                            var fileName = Path.GetFileName(files[i]);
+                            File.Copy(files[i], Path.Combine(targetPath, fileName), true);
+
+                            dbContext.VehicleImages.Add(new VehicleImage
+                            {
+                                VehicleId = vehicle.Id,
+                                StorageKey = fileName,
+                                OriginalFileName = fileName,
+                                ContentType = "image/webp",
+                                IsPrimary = fileName == "1.webp",
+                                SortOrder = i
+                            });
+                        }
                     }
-                },
-                new Vehicle
-                {
-                    Brand = "Audi",
-                    Model = "RS6 Avant",
-                    Horsepower = 600,
-                    LicensePlate = "KR 54321",
-                    EngineName = "V8",
-                    Mileage = 25000,
-                    Year = 2022,
-                    SpeedToHundred = 2.7f,
-                    EngineType = EngineType.Gasoline,
-                    BodyType = VehicleBodyType.Wagon,
-                    Color = VehicleColor.Grey,
-                    Status = VehicleStatus.Available,
-                    Images = new List<VehicleImage>
-                    {
-                        new VehicleImage { StorageKey = "1.webp", OriginalFileName = "1.webp", ContentType = "image/webp", IsPrimary = true }
-                    }
-                },
-                new Vehicle
-                {
-                    Brand = "Porsche",
-                    Model = "911 Carrera S",
-                    Horsepower = 450,
-                    LicensePlate = "GD 99999",
-                    EngineName = "3.0 flat six",
-                    Mileage = 5000,
-                    Year = 2024,
-                    SpeedToHundred = 3.3f,
-                    EngineType = EngineType.Gasoline,
-                    BodyType = VehicleBodyType.Coupe,
-                    Color = VehicleColor.Yellow,
-                    Status = VehicleStatus.Maintenance
                 }
-            );
+            }
             dbContext.SaveChanges();
         }
 
