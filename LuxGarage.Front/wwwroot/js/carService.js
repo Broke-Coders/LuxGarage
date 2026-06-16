@@ -180,7 +180,7 @@ export const CarService = {
         formData.append("PrimaryImageIndex", primaryImageIndex);
       }
 
-      const response = await fetch(`${API_BASE_URL}/VehicleImages/upload`, {
+      const response = await fetch(`${API_BASE_URL}/VehicleImages`, {
         method: "POST",
         headers: authHeaders(),
         body: formData,
@@ -238,11 +238,11 @@ export const CarService = {
   async setPrimaryImage(vehicleId, imageId) {
     try {
       const response = await fetch(
-        `${API_BASE_URL}/VehicleImages/${imageId}/primary`,
+        `${API_BASE_URL}/VehicleImages/vehicle/${vehicleId}/primary`,
         {
           method: "PUT",
           headers: { ...authHeaders(), "Content-Type": "application/json" },
-          body: JSON.stringify({ vehicleId }),
+          body: JSON.stringify({ imageId }),
         }
       );
       return await handleResponse(response);
