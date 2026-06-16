@@ -821,6 +821,14 @@ main.offer-page {
    margin-top: auto;
 }
 
+.error-msg {
+   color: #fa5252;
+   font-size: 1.2rem;
+   font-weight: 600;
+   display: none;
+   margin-top: 0.4rem;
+}
+
 .modal-btns {
    display: flex;
    justify-content: space-between;
@@ -839,5 +847,10 @@ main.offer-page {
 
 .btn-back:hover {
    color: #47453e;
+}
+
+.btn--form:disabled {
+   background-color: #adb5bd;
+   cursor: not-allowed;
 }
 
