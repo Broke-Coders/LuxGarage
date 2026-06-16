@@ -11,13 +11,20 @@ main.offer-page {
    color: #47453e;
    margin-bottom: 3.2rem;
 }
+
+.container-wide {
+   max-width: 160rem;
+   padding: 0 4.8rem;
+   margin: 0 auto;
+}
+
 /**************************/
 /* TOP GRID LAYOUT*/
 /**************************/
 .offer-top-grid {
    display: grid;
-   grid-template-columns: 1.8fr 1.2fr;
-   gap: 4rem;
+   grid-template-columns: 1fr 42rem;
+   gap: 4.8rem;
    margin-bottom: 6.4rem;
 }
 
@@ -28,13 +35,18 @@ main.offer-page {
    position: relative;
    border-radius: 4px;
    overflow: hidden;
-   margin-bottom: 1.4rem;
-   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+   margin-bottom: 1.6rem;
+   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+   aspect-ratio: 16 / 9;
+   background-color: #eee;
 }
 
 .main-img {
    width: 100%;
+   height: 100%;
    display: block;
+   object-fit: cover;
+   transition: opacity 0.2s ease-in-out;
 }
 
 .nav-btn {
@@ -53,6 +65,7 @@ main.offer-page {
    cursor: pointer;
    font-size: 2.4rem;
    transition: background 0.3s;
+   z-index: 10;
 }
 
 .nav-btn:hover {
@@ -68,14 +81,21 @@ main.offer-page {
 }
 
 .thumbnail-gallery {
-   display: grid;
-   grid-template-columns: repeat(5, 1fr);
+   display: flex;
    gap: 1.2rem;
+   overflow-x: auto;
+   scrollbar-width: none;
+   -ms-overflow-style: none;
+   padding: 0.4rem 0;
+}
+
+.thumbnail-gallery::-webkit-scrollbar {
+   display: none;
 }
 
 .thumb {
-   width: 100%;
-   height: 8rem;
+   flex: 0 0 14rem;
+   height: 9rem;
    object-fit: cover;
    border-radius: 4px;
    cursor: pointer;
