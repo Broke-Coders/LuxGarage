@@ -108,50 +108,27 @@ public static class DataExtensions
             dbContext.SaveChanges();
 
             // Image Seeding Logic
-            var sourceRoot = Path.Combine(app.Environment.ContentRootPath, "..", "LuxGarage.Front", "wwwroot", "images", "cars-gotham");
             var targetRoot = Path.Combine(app.Environment.ContentRootPath, "..", "LuxGarage.Front", "wwwroot", "images", "cars");
-
-            var modelToFolder = new Dictionary<string, string>
-            {
-                { "F8 Spider", "FerrariF8Spider" },
-                { "Huracan Evo Spyder", "LamborghiniEvoSpider" },
-                { "488 Spider", "Ferrari488Spider" },
-                { "Urus SE", "LamborghihiUrusSE" },
-                { "Huracan Spyder", "LamborghiniHuracanSpider" },
-                { "458 Coupe", "Ferrari458Coupe" },
-                { "Flying Spur", "BentleyFlyingSpur" },
-                { "911 GT3", "PorsheGT3" },
-                { "GT-C", "MercederGT-c" },
-                { "911 Carrera", "Porshe911" },
-                { "S580", "MercedesBenzS580" }
-            };
 
             foreach (var vehicle in vehicles)
             {
-                if (modelToFolder.TryGetValue(vehicle.Model, out var folderName))
+                var targetPath = Path.Combine(targetRoot, vehicle.Id.ToString());
+                if (Directory.Exists(targetPath))
                 {
-                    var sourcePath = Path.Combine(sourceRoot, folderName);
-                    if (Directory.Exists(sourcePath))
+                    var files = Directory.GetFiles(targetPath, "*.webp");
+                    for (int i = 0; i < files.Length; i++)
                     {
-                        var targetPath = Path.Combine(targetRoot, vehicle.Id.ToString());
-                        if (!Directory.Exists(targetPath)) Directory.CreateDirectory(targetPath);
-
-                        var files = Directory.GetFiles(sourcePath, "*.webp");
-                        for (int i = 0; i < files.Length; i++)
+                        var fileName = Path.GetFileName(files[i]);
+                        
+                        dbContext.VehicleImages.Add(new VehicleImage
                         {
-                            var fileName = Path.GetFileName(files[i]);
-                            File.Copy(files[i], Path.Combine(targetPath, fileName), true);
-
-                            dbContext.VehicleImages.Add(new VehicleImage
-                            {
-                                VehicleId = vehicle.Id,
-                                StorageKey = fileName,
-                                OriginalFileName = fileName,
-                                ContentType = "image/webp",
-                                IsPrimary = fileName == "1.webp",
-                                SortOrder = i
-                            });
-                        }
+                            VehicleId = vehicle.Id,
+                            StorageKey = fileName,
+                            OriginalFileName = fileName,
+                            ContentType = "image/webp",
+                            IsPrimary = fileName == "1.webp",
+                            SortOrder = i
+                        });
                     }
                 }
             }
