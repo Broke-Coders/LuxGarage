@@ -50,15 +50,19 @@ function displayCars(cars) {
                      <ul class="car-attributes">
                         <li class="car-attribute">
                            <ion-icon class="car-icon" name="speedometer-outline"></ion-icon>
-                           <span>Power: <strong>${car.horsepower}</strong> hp / <strong>${car.engine}</strong></span>
+                           <span>Power: <strong>${car.horsepower} hp</strong> / <strong>${car.engine}</strong></span>
                         </li>
                         <li class="car-attribute">
                            <ion-icon class="car-icon" name="people-outline"></ion-icon>
-                           <span>Seats: <strong>${car.seats}</strong> / Drive: <strong>${car.driveType}</strong></span>
+                           <span>Seats: <strong>${car.seats}</strong></span>
+                        </li>
+                        <li class="car-attribute">
+                           <ion-icon class="car-icon" name="car-sport-outline"></ion-icon>
+                           <span>Drive: <strong>${car.driveType}</strong></span>
                         </li>
                          <li class="car-attribute">
-                           <ion-icon class="car-icon" name="flash-outline"></ion-icon>
-                           <span>0-100: <strong>${car.zeroToHundred}</strong> / Body: <strong>${car.bodyName}</strong></span>
+                           <ion-icon class="car-icon" name="timer-outline"></ion-icon>
+                           <span>0-100 km/h: <strong>${car.zeroToHundred}</strong></span>
                         </li>
                      </ul>
                      <a href="offer.html?id=${car.id}" class="btn-car">Rent Now</a>
