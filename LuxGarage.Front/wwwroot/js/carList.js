@@ -1,213 +1,30 @@
 import { CarService } from "./carService.js";
 import { OfferService } from "./offerService.js";
+import { RentalService } from "./rentalService.js";
 
 /**
  * @file carList.js
  * @module CarList
- * @description This script is responsible for fetching the list of cars from the API and displaying them on the page. 
- * It listens for the DOMContentLoaded event and button click events, then calls the CarService to 
- * get all cars, and dynamically creates and updates container's innerHTML to show each car's details. 
- * If there are no cars or if an error occurs, it displays an appropriate message.
  */
 const container = document.getElementById("cars-container");
 const searchButtons = document.querySelectorAll(".search-button");
 const searchInput = document.getElementById("car-search-input");
 
-/** 
- * Hardcoded fleet of 12 premium cars for demonstration purposes.
- */
-const hardcodedCars = [
-    {
-        id: 101, // Adjusted IDs to not overlap with typical DB IDs
-        brandName: "Porsche",
-        modelName: "911 GT3 RS",
-        bodyName: "Coupe",
-        engine: "4.0L Flat-6",
-        horsepower: 525,
-        seats: 2,
-        driveType: "RWD",
-        zeroToHundred: "3.2s",
-        mileage: 1200,
-        licensePlate: "S GT 911",
-        pricePerDay: 2500,
-        image: "./images/cars/niklas-bischop-KZayf7xRScI-unsplash.jpg"
-    },
-    {
-        id: 102,
-        brandName: "Mercedes-AMG",
-        modelName: "GT Black Series",
-        bodyName: "Coupe",
-        engine: "4.0L V8 Biturbo",
-        horsepower: 730,
-        seats: 2,
-        driveType: "RWD",
-        zeroToHundred: "3.2s",
-        mileage: 850,
-        licensePlate: "MA GT 730",
-        pricePerDay: 3000,
-        image: "./images/cars/flavien-s_E1TRPiId0-unsplash.jpg"
-    },
-    {
-        id: 103,
-        brandName: "BMW",
-        modelName: "M3 Competition",
-        bodyName: "Sedan",
-        engine: "3.0L Straight-6",
-        horsepower: 510,
-        seats: 5,
-        driveType: "xDrive (AWD)",
-        zeroToHundred: "3.5s",
-        mileage: 4500,
-        licensePlate: "M WM 3000",
-        pricePerDay: 1200,
-        image: "./images/cars/pexels-habib-hosseini-2613461.jpg"
-    },
-    {
-        id: 104,
-        brandName: "BMW",
-        modelName: "M4 CSL",
-        bodyName: "Coupe",
-        engine: "3.0L Straight-6",
-        horsepower: 550,
-        seats: 2,
-        driveType: "RWD",
-        zeroToHundred: "3.7s",
-        mileage: 320,
-        licensePlate: "M CS 444",
-        pricePerDay: 1400,
-        image: "./images/cars/pexels-mohit-hambiria-92377455-36407338.jpg"
-    },
-    {
-        id: 105,
-        brandName: "Brabus",
-        modelName: "G900 Rocket Edition",
-        bodyName: "SUV",
-        engine: "4.5L V8 Biturbo",
-        horsepower: 900,
-        seats: 5,
-        driveType: "AWD",
-        zeroToHundred: "3.7s",
-        mileage: 150,
-        licensePlate: "B RS 900",
-        pricePerDay: 4000,
-        image: "./images/cars/dextar-vision-YYXRSgxFAxA-unsplash.jpg"
-    },
-    {
-        id: 106,
-        brandName: "Koenigsegg",
-        modelName: "Jesko Absolut",
-        bodyName: "Hypercar",
-        engine: "5.0L V8 Biturbo",
-        horsepower: 1600,
-        seats: 2,
-        driveType: "RWD",
-        zeroToHundred: "2.5s",
-        mileage: 50,
-        licensePlate: "FAST 1",
-        pricePerDay: 15000,
-        image: "./images/cars/mclaren.jpg" 
-    },
-    {
-        id: 107,
-        brandName: "Ferrari",
-        modelName: "296 GTB",
-        bodyName: "Coupe",
-        engine: "3.0L V6 Hybrid",
-        horsepower: 830,
-        seats: 2,
-        driveType: "RWD",
-        zeroToHundred: "2.9s",
-        mileage: 1100,
-        licensePlate: "F 296 IT",
-        pricePerDay: 3500,
-        image: "./images/cars/488gtb.jpg"
-    },
-    {
-        id: 108,
-        brandName: "Lamborghini",
-        modelName: "Revuelto",
-        bodyName: "Coupe",
-        engine: "6.5L V12 Hybrid",
-        horsepower: 1015,
-        seats: 2,
-        driveType: "AWD",
-        zeroToHundred: "2.5s",
-        mileage: 210,
-        licensePlate: "L RB 1015",
-        pricePerDay: 4500,
-        image: "./images/cars/pexels-introspectivedsgn-4077271.jpg"
-    },
-    {
-        id: 109,
-        brandName: "Audi",
-        modelName: "RS6 Avant",
-        bodyName: "Wagon",
-        engine: "4.0L V8 Biturbo",
-        horsepower: 630,
-        seats: 5,
-        driveType: "Quattro (AWD)",
-        zeroToHundred: "3.4s",
-        mileage: 8200,
-        licensePlate: "IN RS 660",
-        pricePerDay: 1100,
-        image: "./images/cars/nsx.jpg" 
-    },
-    {
-        id: 110,
-        brandName: "McLaren",
-        modelName: "Artura",
-        bodyName: "Coupe",
-        engine: "3.0L V6 Hybrid",
-        horsepower: 680,
-        seats: 2,
-        driveType: "RWD",
-        zeroToHundred: "3.0s",
-        mileage: 1500,
-        licensePlate: "MC ART 1",
-        pricePerDay: 2800,
-        image: "./images/cars/mclaren.jpg"
-    },
-    {
-        id: 111,
-        brandName: "Aston Martin",
-        modelName: "DBS Volante",
-        bodyName: "Cabriolet",
-        engine: "5.2L V12 Biturbo",
-        horsepower: 715,
-        seats: 4,
-        driveType: "RWD",
-        zeroToHundred: "3.6s",
-        mileage: 3400,
-        licensePlate: "AM DBS 07",
-        pricePerDay: 2200,
-        image: "./images/cars/flavien-s_E1TRPiId0-unsplash.jpg"
-    },
-    {
-        id: 112,
-        brandName: "Rolls-Royce",
-        modelName: "Cullinan",
-        bodyName: "SUV",
-        engine: "6.75L V12 Biturbo",
-        horsepower: 600,
-        seats: 5,
-        driveType: "AWD",
-        zeroToHundred: "4.8s",
-        mileage: 12000,
-        licensePlate: "RR LUX 1",
-        pricePerDay: 3800,
-        image: "./images/cars/dextar-vision-YYXRSgxFAxA-unsplash.jpg"
-    }
-];
+const brandDropdown = document.getElementById("brand-dropdown");
+const brandSelectBox = document.querySelector(".select-box");
+const brandSelect = document.getElementById("brand-select");
+const minPriceInput = document.getElementById("min-price");
+const maxPriceInput = document.getElementById("max-price");
+const startDateInput = document.getElementById("start-date");
+const endDateInput = document.getElementById("end-date");
+const clearFiltersBtn = document.getElementById("clear-filters");
 
-/** @type {Set<string>} Active body type filters */
-const activeFilters = new Set();
 let allCars = [];
+let allRentals = []; // Used for availability check
+const activeBodyFilters = new Set();
+const activeBrandFilters = new Set();
 let currentSearchTerm = "";
 
-/**
- * Displays a list of cars in the container element.
- * @param {Array} cars - Array of car objects to display
- */
 function displayCars(cars) {
     container.innerHTML = "";
 
@@ -230,7 +47,7 @@ function displayCars(cars) {
                         <span class="tag tag--category">${car.horsepower} HP</span>
                         <span class="tag tag--price">${car.pricePerDay.toLocaleString()} PLN / day</span>
                      </div>
-                     <p class="car-title">${car.brandName} ${car.modelName}</p>
+                     <p class="car-title">${car.brandName} ${car.modelName} - <strong>${car.pricePerDay.toLocaleString()} PLN</strong></p>
                      <ul class="car-attributes">
                         <li class="car-attribute">
                            <ion-icon class="car-icon" name="speedometer-outline"></ion-icon>
@@ -252,13 +69,34 @@ function displayCars(cars) {
     });
 }
 
-/**
- * Filters the combined car list based on active filters and current search term.
- */
+function isCarAvailable(carId, startDateStr, endDateStr) {
+    if (!startDateStr || !endDateStr) return true;
+    
+    const checkStart = new Date(startDateStr);
+    const checkEnd = new Date(endDateStr);
+    
+    // Safety check: end date must be after start date
+    if (checkStart > checkEnd) return false;
+
+    // Filter rentals for this car
+    const carRentals = allRentals.filter(r => r.vehicleId === carId && (r.status === 'Active' || r.status === 'Pending'));
+    
+    for (let rental of carRentals) {
+        const rStart = new Date(rental.startingTime);
+        const rEnd = new Date(rental.appointedReturnTime);
+        
+        // Overlap logic: (StartA <= EndB) and (EndA >= StartB)
+        if (checkStart <= rEnd && checkEnd >= rStart) {
+            return false; // Found an overlap, not available
+        }
+    }
+    return true; // No overlaps found
+}
+
 function filterCars() {
     let filtered = allCars;
 
-    // Apply search term filter (local filter for hardcoded cars and double check for API cars)
+    // 1. Text Search Filter
     if (currentSearchTerm) {
         const search = currentSearchTerm.toLowerCase();
         filtered = filtered.filter(car => 
@@ -267,24 +105,99 @@ function filterCars() {
         );
     }
 
-    // Apply body type filters
-    if (activeFilters.size > 0) {
-        filtered = filtered.filter(car => activeFilters.has(car.bodyName));
+    // 2. Body Type Filter
+    if (activeBodyFilters.size > 0) {
+        filtered = filtered.filter(car => activeBodyFilters.has(car.bodyName));
+    }
+
+    // 3. Brand Filter (Multi-select)
+    if (activeBrandFilters.size > 0) {
+        filtered = filtered.filter(car => activeBrandFilters.has(car.brandName));
+    }
+
+    // 4. Price Filter
+    const minPrice = parseFloat(minPriceInput.value);
+    const maxPrice = parseFloat(maxPriceInput.value);
+    
+    if (!isNaN(minPrice)) {
+        filtered = filtered.filter(car => car.pricePerDay >= minPrice);
+    }
+    if (!isNaN(maxPrice)) {
+        filtered = filtered.filter(car => car.pricePerDay <= maxPrice);
+    }
+
+    // 5. Availability Filter
+    const startD = startDateInput.value;
+    const endD = endDateInput.value;
+    if (startD && endD) {
+        filtered = filtered.filter(car => isCarAvailable(car.vehicleId, startD, endD));
     }
 
     displayCars(filtered);
 }
 
-async function loadCars(searchTerm = "") {
+function renderBrandDropdown(brands) {
+    if (!brandDropdown) return;
+    brandDropdown.innerHTML = "";
+    
+    brands.forEach(brand => {
+        const label = document.createElement("label");
+        label.className = "checkbox-label";
+        
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.value = brand;
+        checkbox.checked = activeBrandFilters.has(brand);
+        
+        checkbox.addEventListener("change", (e) => {
+            if (e.target.checked) {
+                activeBrandFilters.add(brand);
+            } else {
+                activeBrandFilters.delete(brand);
+            }
+            updateBrandSelectBoxText();
+            filterCars();
+        });
+        
+        const text = document.createTextNode(` ${brand}`);
+        label.appendChild(checkbox);
+        label.appendChild(text);
+        
+        brandDropdown.appendChild(label);
+    });
+}
+
+function updateBrandSelectBoxText() {
+    if (!brandSelectBox) return;
+    if (activeBrandFilters.size === 0) {
+        brandSelectBox.textContent = "Select brands...";
+    } else if (activeBrandFilters.size === 1) {
+        brandSelectBox.textContent = [...activeBrandFilters][0];
+    } else {
+        brandSelectBox.textContent = `${activeBrandFilters.size} brands selected`;
+    }
+}
+
+async function loadData(searchTerm = "") {
     try {
         currentSearchTerm = searchTerm;
-        const apiOffers = await OfferService.getAllOffers({ searchTerm });
-        const dynamicCars = apiOffers.map(offer => {
-            const isSedanOrSUV = offer.bodyName === "Sedan" || offer.bodyName === "SUV";
-            const isAWD = offer.brand === "Lamborghini" || offer.brand === "Bentley" || (offer.brand === "Mercedes-Benz" && offer.model === "S580");
+        
+        // Fetch offers and rentals concurrently
+        const [apiOffers, apiRentals] = await Promise.all([
+            OfferService.getAllOffers({ searchTerm }),
+            // Fetch rentals for availability filter - using open GET if available, otherwise just gracefully fallback to empty array
+            fetch("http://localhost:5054/api/rental").then(res => res.ok ? res.json() : []).catch(() => [])
+        ]);
+
+        allRentals = apiRentals;
+        
+        allCars = apiOffers.map(offer => {
+            const isSedanOrSUV = offer.bodyName === "Sedan" || offer.bodyName === "SUV" || offer.bodyName === "Wagon";
+            const isAWD = offer.brand === "Lamborghini" || offer.brand === "Bentley" || offer.brand === "Audi" || (offer.brand === "Mercedes-Benz" && offer.model === "S580") || (offer.brand === "Mercedes-AMG" && offer.model === "GT Black Series");
             
             return {
                 id: offer.id,
+                vehicleId: offer.vehicleId, // needed for availability check
                 brandName: offer.brand,
                 modelName: offer.model,
                 bodyName: offer.bodyName,
@@ -300,16 +213,18 @@ async function loadCars(searchTerm = "") {
             };
         });
 
-        allCars = [...dynamicCars, ...hardcodedCars];
+        // Extract unique brands for filtering
+        const uniqueBrands = [...new Set(allCars.map(car => car.brandName))].sort();
+        renderBrandDropdown(uniqueBrands);
+
         filterCars();
     } catch (error) {
-        console.error("Error loading cars from API:", error);
-        allCars = [...hardcodedCars];
+        console.error("Error loading data from API:", error);
+        allCars = [];
         filterCars();
     }
 }
 
-// Debounce helper
 function debounce(func, timeout = 300) {
     let timer;
     return (...args) => {
@@ -319,29 +234,83 @@ function debounce(func, timeout = 300) {
 }
 
 const handleSearch = debounce((e) => {
-    loadCars(e.target.value);
+    loadData(e.target.value);
 });
 
+// Event Listeners Initialization
 document.addEventListener("DOMContentLoaded", () => {
-    loadCars();
+    loadData();
     
     if (searchInput) {
         searchInput.addEventListener("input", handleSearch);
     }
-});
-
-searchButtons.forEach(searchButton => {
-    searchButton.addEventListener("click", () => {
-        const filterType = searchButton.id;
-        
-        if (activeFilters.has(filterType)) {
-            activeFilters.delete(filterType);
-            searchButton.classList.remove("active");
-        } else {
-            activeFilters.add(filterType);
-            searchButton.classList.add("active");
-        }
-        
-        filterCars();
+    
+    // Body type buttons
+    searchButtons.forEach(searchButton => {
+        searchButton.addEventListener("click", () => {
+            const filterType = searchButton.id;
+            if (activeBodyFilters.has(filterType)) {
+                activeBodyFilters.delete(filterType);
+                searchButton.classList.remove("active");
+            } else {
+                activeBodyFilters.add(filterType);
+                searchButton.classList.add("active");
+            }
+            filterCars();
+        });
     });
+
+    // Custom Select Dropdown Toggle
+    if (brandSelectBox) {
+        brandSelectBox.addEventListener("click", (e) => {
+            brandSelect.classList.toggle("active");
+            e.stopPropagation(); // prevent document click from closing immediately
+        });
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", (e) => {
+        if (brandSelect && !brandSelect.contains(e.target)) {
+            brandSelect.classList.remove("active");
+        }
+    });
+    
+    // Stop propagation on dropdown content so clicking checkboxes doesn't close it
+    if(brandDropdown) {
+        brandDropdown.addEventListener("click", (e) => {
+            e.stopPropagation();
+        });
+    }
+
+    // Advanced Inputs
+    [minPriceInput, maxPriceInput, startDateInput, endDateInput].forEach(input => {
+        if (input) {
+            input.addEventListener("input", filterCars);
+        }
+    });
+
+    // Clear Filters Button
+    if (clearFiltersBtn) {
+        clearFiltersBtn.addEventListener("click", () => {
+            // Reset active sets
+            activeBodyFilters.clear();
+            activeBrandFilters.clear();
+            currentSearchTerm = "";
+            
+            // Reset inputs
+            if (searchInput) searchInput.value = "";
+            if (minPriceInput) minPriceInput.value = "";
+            if (maxPriceInput) maxPriceInput.value = "";
+            if (startDateInput) startDateInput.value = "";
+            if (endDateInput) endDateInput.value = "";
+            
+            // Reset UI elements
+            searchButtons.forEach(btn => btn.classList.remove("active"));
+            updateBrandSelectBoxText();
+            const checkboxes = brandDropdown.querySelectorAll("input[type='checkbox']");
+            checkboxes.forEach(cb => cb.checked = false);
+            
+            filterCars();
+        });
+    }
 });

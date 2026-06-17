@@ -43,6 +43,40 @@
             <button class="search-button" id="Pickup">Pickup</button>
             <button class="search-button" id="Van">Van</button>
          </div>
+
+         <!-- Advanced Filters -->
+         <div class="advanced-filters">
+            <div class="filter-group">
+               <label class="filter-label">Brand</label>
+               <div class="custom-select" id="brand-select">
+                  <div class="select-box">Select brands...</div>
+                  <div class="dropdown-content" id="brand-dropdown">
+                     <!-- Brands dynamically injected here -->
+                  </div>
+               </div>
+            </div>
+
+            <div class="filter-group">
+               <label class="filter-label">Price per Day (PLN)</label>
+               <div class="price-inputs">
+                  <input type="number" id="min-price" placeholder="Min" min="0">
+                  <span>-</span>
+                  <input type="number" id="max-price" placeholder="Max" min="0">
+               </div>
+            </div>
+
+            <div class="filter-group">
+               <label class="filter-label">Availability</label>
+               <div class="date-inputs">
+                  <input type="date" id="start-date">
+                  <span>-</span>
+                  <input type="date" id="end-date">
+               </div>
+            </div>
+            
+            <button class="btn-clear-filters" id="clear-filters">Clear All Filters</button>
+         </div>
+
          <div id="cars-container">
             <p id="loading-message">Loading...</p>
          </div>
