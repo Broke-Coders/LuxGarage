@@ -500,4 +500,6 @@ frontend_docs/
 **/__pycache__/
 **/*.py[cod]
 
+GEMINI.md
+
 
