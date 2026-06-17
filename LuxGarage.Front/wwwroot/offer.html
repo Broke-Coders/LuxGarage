@@ -583,40 +583,43 @@
                document.querySelector(".section-content p").textContent =
                   offer.description;
 
+               // Update Pickup / Drop-off Location
+               const locationInfo = document.querySelector(".location-info");
+               if (locationInfo) {
+                  // In a real app, this might come from offer.workplace or similar
+                  // For now keeping it consistent with gliwice as default if not provided
+               }
+
                // Update Vehicle Info Table
-               const infoTable = document.querySelector(
-                  ".offer-section:nth-of-type(3) .info-table",
-               );
+               const infoSections = document.querySelectorAll(".offer-section");
+               const infoTable = infoSections[2].querySelector(".info-table");
                infoTable.innerHTML = `
-                    <div class="info-row"><span>Class/category</span><span>${offer.bodyName}</span></div>
+                    <div class="info-row"><span>Class/category</span><span>${offer.bodyType}</span></div>
                     <div class="info-row"><span>Make</span><span>${offer.brand}</span></div>
                     <div class="info-row"><span>Model</span><span>${offer.model}</span></div>
-                    <div class="info-row"><span>Year</span><span>${offer.year}</span></div>
-                    <div class="info-row"><span>Availability</span><span>In Stock</span></div>
+                    <div class="info-row"><span>Color</span><span>${offer.color}</span></div>
+                    <div class="info-row"><span>Availability</span><span>${offer.status}</span></div>
                  `;
 
                // Update Performance Table
-               const perfTable = document.querySelector(
-                  ".offer-section:nth-of-type(4) .info-table",
-               );
+               const perfTable = infoSections[3].querySelector(".info-table");
                perfTable.innerHTML = `
                     <div class="info-row"><span>Engine</span><span>${offer.engine}</span></div>
                     <div class="info-row"><span>Power</span><span>${offer.horsepower} HP</span></div>
                     <div class="info-row"><span>0-100 km/h</span><span>${offer.zeroToHundred}</span></div>
+                    <div class="info-row"><span>Year</span><span>${offer.year}</span></div>
                  `;
 
                // Update Modal Summary
                document.getElementById("sum-brand").textContent = offer.brand;
                document.getElementById("sum-model").textContent = offer.model;
                document.getElementById("sum-engine").textContent = offer.engine;
-               document.getElementById("sum-seats").textContent =
-                  offer.brand === "Bentley" ||
-                  offer.model.includes("Urus") ||
-                  offer.model === "S580"
-                     ? "5"
-                     : "2";
-               document.getElementById("sum-perf").textContent =
-                  offer.zeroToHundred;
+               
+               // Logic for seat count based on vehicle type (approximation)
+               const suvOrSedan = ["SUV", "Sedan", "Wagon"].includes(offer.bodyType);
+               document.getElementById("sum-seats").textContent = suvOrSedan ? "5" : "2";
+               
+               document.getElementById("sum-perf").textContent = offer.zeroToHundred;
 
                // Load Images
                const images = await CarService.getImagesByVehicleId(vehicleId);
