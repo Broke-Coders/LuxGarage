@@ -1,0 +1,95 @@
+<div class="panel-header">
+    <h2 class="panel-title">Employee Account Requests</h2>
+    <p class="panel-subtitle">Review and manage pending employee accounts.</p>
+</div>
+
+<div class="admin-table-container">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Full Name</th>
+                <th>Workplace</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="pending-employees-list">
+            <!-- Loaded dynamically -->
+            <tr>
+                <td colspan="5" style="text-align: center; padding: 2rem;">Loading requests...</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .admin-table-container {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        margin-top: 1.5rem;
+    }
+
+    .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    .admin-table th, .admin-table td {
+        padding: 1.2rem 1.5rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .admin-table th {
+        background: #f9f9f9;
+        font-weight: 600;
+        color: #666;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+    }
+
+    .admin-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .status-badge {
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    .status-pending { background: #fff3cd; color: #856404; }
+    
+    .action-btns {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .btn-approve {
+        background: #28a745;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .btn-approve:hover { background: #218838; }
+
+    .btn-reject {
+        background: #dc3545;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .btn-reject:hover { background: #c82333; }
+</style>

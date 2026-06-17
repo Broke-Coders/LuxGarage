@@ -37,7 +37,7 @@ function parseJwt(token) {
 
 export const UserService = {
   /**
-   * Pobiera profil zalogowanego użytkownika
+   * Fetches the profile of the logged-in user
    * @returns {Promise<Object|null>}
    */
   async getMyProfile() {
@@ -45,7 +45,7 @@ export const UserService = {
     if (!token) return null;
 
     const payload = parseJwt(token);
-    // ClaimTypes.NameIdentifier mapuje się zazwyczaj na "nameid" lub "sub" w JWT
+    // ClaimTypes.NameIdentifier usually maps to "nameid" or "sub" in JWT
     const userId = payload?.nameid || payload?.sub;
 
     if (!userId) return null;
@@ -58,7 +58,7 @@ export const UserService = {
   },
 
   /**
-   * Aktualizuje profil zalogowanego użytkownika
+   * Updates the profile of the logged-in user
    * @param {Object} data 
    * @returns {Promise<Object>}
    */
@@ -81,5 +81,35 @@ export const UserService = {
     });
     const result = await handleResponse(response);
     return result?.data ?? result;
+  },
+
+  /**
+   * Fetches the list of employees waiting for approval (Admin only)
+   * @returns {Promise<Array>}
+   */
+  async getPendingEmployees() {
+    const response = await fetch(`${API_BASE_URL}/Employee/pending-employees`, {
+      headers: authHeaders(),
+    });
+    const result = await handleResponse(response);
+    return result?.data ?? [];
+  },
+
+  /**
+   * Changes the employee account status (Admin only)
+   * @param {number} employeeId 
+   * @param {number} status (1: Active, 2: Pending, 3: Disabled)
+   * @returns {Promise<void>}
+   */
+  async changeEmployeeStatus(employeeId, status) {
+    const response = await fetch(`${API_BASE_URL}/Employee/${employeeId}/status`, {
+      method: "PUT",
+      headers: {
+        ...authHeaders(),
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ status })
+    });
+    return await handleResponse(response);
   }
 };
