@@ -44,10 +44,9 @@ function displayCars(cars) {
                   <div class="car-content">
                      <div class="car-tags">
                         <span class="tag tag--origin">${car.bodyName}</span>
-                        <span class="tag tag--category">${car.horsepower} HP</span>
                         <span class="tag tag--price">${car.pricePerDay.toLocaleString()} PLN / day</span>
                      </div>
-                     <p class="car-title">${car.brandName} ${car.modelName} - <strong>${car.pricePerDay.toLocaleString()} PLN</strong></p>
+                     <p class="car-title">${car.brandName} ${car.modelName}</p>
                      <ul class="car-attributes">
                         <li class="car-attribute">
                            <ion-icon class="car-icon" name="speedometer-outline"></ion-icon>
