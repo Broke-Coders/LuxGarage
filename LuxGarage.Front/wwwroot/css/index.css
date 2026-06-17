@@ -185,6 +185,24 @@
    color: #47453e !important;
 }
 
+.category-row {
+   margin-bottom: 6.4rem;
+}
+
+.category-row:last-child {
+   margin-bottom: 0;
+}
+
+.category-title {
+   font-size: 2.4rem;
+   font-family: "Playfair", serif;
+   color: #47453e;
+   font-weight: 700;
+   margin-bottom: 2.4rem;
+   padding-left: 1rem;
+   border-left: 4px solid #8d8a7c;
+}
+
 .swiper-container-wrapper {
    position: relative;
    padding: 2rem 0;
@@ -286,6 +304,40 @@
    height: 1.8rem;
    color: #8d8a7c;
    opacity: 0.8;
+}
+
+.car-footer {
+   margin-top: auto;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding-top: 2rem;
+   border-top: 1px solid rgba(141, 138, 124, 0.1);
+}
+
+.car-price {
+   font-size: 1.6rem;
+   color: #47453e;
+}
+
+.car-price strong {
+   font-size: 2rem;
+   color: #333;
+}
+
+.btn-car-small {
+   padding: 1rem 2rem;
+   background-color: #47453e;
+   color: #ebe6ce;
+   text-decoration: none;
+   font-size: 1.4rem;
+   font-weight: 700;
+   border-radius: 6px;
+   transition: all 0.3s;
+}
+
+.btn-car-small:hover {
+   background-color: #5a574e;
 }
 
 .btn-car {
