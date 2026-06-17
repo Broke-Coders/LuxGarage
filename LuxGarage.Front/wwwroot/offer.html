@@ -695,10 +695,15 @@
                   let dates = [];
                   if (Array.isArray(datesResponse)) {
                      dates = datesResponse;
-                  } else if (datesResponse && Array.isArray(datesResponse.value)) {
-                     dates = datesResponse.value;
                   } else if (datesResponse && Array.isArray(datesResponse.data)) {
+                     // Unwrap ApiResponse.data
                      dates = datesResponse.data;
+                  } else if (datesResponse && Array.isArray(datesResponse.value)) {
+                     // Fallback for older OData/wrapper formats
+                     dates = datesResponse.value;
+                  } else if (datesResponse && datesResponse.data && Array.isArray(datesResponse.data.value)) {
+                      // Deeply wrapped
+                      dates = datesResponse.data.value;
                   }
 
                   bookedDates = dates.map(d => {
@@ -829,7 +834,8 @@
                   dayDiv.classList.add("past-day");
                }
 
-               if ((i === 15 || i === 22) && thisDayDate >= realToday) {
+               const isBooked = bookedDates.some(range => thisDayDate >= range.start && thisDayDate <= range.end);
+               if (isBooked && thisDayDate >= realToday) {
                   dayDiv.classList.add("unavailable-day");
                }
 
@@ -1148,10 +1154,17 @@
 
                const response = await RentalService.createRental(bookingData);
                
+               // Safely extract rental ID from ApiResponse wrapper
+               const rentalId = response.data?.id || response.id;
+               
+               if (!rentalId) {
+                   throw new Error("Failed to retrieve rental ID from server response.");
+               }
+               
                confirmBookingFinal.textContent = "Processing Payment...";
                
                // Process payment simulation
-               const paymentResponse = await PaymentService.processPayment(response.id, "MockCard");
+               const paymentResponse = await PaymentService.processPayment(rentalId, "MockCard");
                
                if (paymentResponse.success) {
                    document.getElementById("success-tx-id").textContent = paymentResponse.transactionId;
