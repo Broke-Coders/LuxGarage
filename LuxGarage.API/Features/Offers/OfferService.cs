@@ -29,6 +29,15 @@ public class OfferService
 
         query = ApplySorting(query, request);
 
+        if (!string.IsNullOrWhiteSpace(request.SearchTerm))
+        {
+            var search = request.SearchTerm.Trim().ToLower();
+            query = query.Where(o => 
+                o.Vehicle.Brand.ToLower().Contains(search) || 
+                o.Vehicle.Model.ToLower().Contains(search) ||
+                o.Title.ToLower().Contains(search));
+        }
+
         var offers = await query.ToListAsync();
         var listDtos = _mapper.Map<List<OfferListItemResponse>>(offers);
 
