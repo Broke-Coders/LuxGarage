@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel | LuxGarage</title>
+    <link rel="stylesheet" href="./css/general.css" />
+    <link rel="stylesheet" href="./css/dashboard.css" />
+    <link rel="stylesheet" href="./css/admin.css" />
+    <link rel="icon" href="./images/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  </head>
+
+  <body>
+    <div id="navbar-placeholder"></div>
+
+    <main class="screen-section dashboard-section">
+      <div class="container dashboard-container">
+
+        <div class="dashboard-header">
+          <div>
+            <h1 class="dashboard-title">Admin Panel</h1>
+            <p class="dashboard-subtitle">Manage employees, permissions and system settings.</p>
+          </div>
+        </div>
+
+        <div class="tab-nav">
+          <button class="tab-btn active" data-panel="panel-employees">
+            <ion-icon name="people-outline"></ion-icon> Employees
+          </button>
+          <!-- Future admin tabs can be added here -->
+        </div>
+
+        <div id="panel-employees" class="tab-panel active">
+          <div class="panel-header">
+            <div>
+              <h2 class="panel-title">Employee Account Requests</h2>
+              <p class="panel-subtitle">Review and manage pending employee account applications.</p>
+            </div>
+          </div>
+
+          <div id="admin-toast" class="admin-toast" aria-live="polite"></div>
+
+          <div class="table-wrapper">
+            <table class="vehicles-table">
+              <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>Full Name</th>
+                  <th>Workplace ID</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="pending-employees-list">
+                <tr class="table-loading-row">
+                  <td colspan="5">
+                    <div class="table-spinner">
+                      <div class="spinner"></div>
+                      <span>Loading requests…</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-empty" id="adminTableEmpty" style="display:none;">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            <p>No pending requests.</p>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <script type="module" src="./js/layout.js"></script>
+    <script type="module" src="./js/admin.js"></script>
+  </body>
+</html>
