@@ -11,6 +11,7 @@ using LuxGarage.API.Features.Users;
 using LuxGarage.API.Features.Vehicles;
 using LuxGarage.API.Features.Workplaces;
 using Microsoft.OpenApi;
+using LuxGarage.API.Features.Insurances;
 
 namespace LuxGarage.API.Extensions;
 
@@ -37,6 +38,7 @@ public static class ServiceExtensions
         services.AddScoped<DynamicPricingEngine>();
 
         services.AddScoped<AuthService>();
+        services.AddScoped<InsuranceService>();
         services.AddScoped<CustomerService>();
         services.AddScoped<EmployeeService>();
         services.AddScoped<WorkplaceService>();
