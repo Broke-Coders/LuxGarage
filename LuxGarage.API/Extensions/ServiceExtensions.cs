@@ -5,6 +5,7 @@ using LuxGarage.API.Models;
 using Microsoft.AspNetCore.Identity;
 using LuxGarage.API.Features.Auth;
 using LuxGarage.API.Features.Offers;
+using LuxGarage.API.Features.Payments;
 using LuxGarage.API.Features.Reports;
 using LuxGarage.API.Features.Rentals;
 using LuxGarage.API.Features.Users;
@@ -45,6 +46,7 @@ public static class ServiceExtensions
         services.AddScoped<OfferService>();
         services.AddScoped<RentalService>();
         services.AddScoped<ReportService>();
+        services.AddScoped<PaymentService>();
 
         return services;
     }

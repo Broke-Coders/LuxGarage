@@ -26,3 +26,9 @@ public class RentalResponse
     public decimal TotalPrice { get; set; }
     public string Status { get; set; } = string.Empty;
 }
+
+public class DateRangeResponse
+{
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
+}

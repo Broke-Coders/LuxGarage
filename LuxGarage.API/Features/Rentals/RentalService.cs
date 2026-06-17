@@ -89,7 +89,7 @@ public class RentalService
             EmployeeId = employeeId,
             StartingTime = request.StartDate,
             AppointedReturnTime = request.EndDate,
-            Status = RentalStatus.Pending, 
+            Status = RentalStatus.ReservedWaitingForPayment, 
             VehiclePriceAtBooking = currentPricePerDay, 
             TotalPrice = vehicleTotal + insuranceTotal,
             RentalInsurances = rentalInsurances
@@ -99,5 +99,49 @@ public class RentalService
         await _context.SaveChangesAsync();
 
         return _mapper.Map<RentalResponse>(rental);
+    }
+
+    public async Task<List<DateRangeResponse>> GetUnavailableDatesAsync(int vehicleId)
+    {
+        var rentals = await _context.Rentals
+            .Where(r => r.VehicleId == vehicleId && r.Status != RentalStatus.Cancelled)
+            .Select(r => new DateRangeResponse
+            {
+                StartDate = r.StartingTime,
+                EndDate = r.AppointedReturnTime
+            })
+            .ToListAsync();
+
+        return rentals;
+    }
+
+    public async Task<IEnumerable<RentalResponse>> GetAllRentalsAsync()
+    {
+        var rentals = await _context.Rentals
+            .Include(r => r.Customer)
+            .OrderByDescending(r => r.StartingTime)
+            .ToListAsync();
+            
+        return _mapper.Map<IEnumerable<RentalResponse>>(rentals);
+    }
+
+    public async Task<IEnumerable<RentalResponse>> GetMyRentalsAsync(int customerId)
+    {
+        var rentals = await _context.Rentals
+            .Include(r => r.Customer)
+            .Where(r => r.CustomerId == customerId)
+            .OrderByDescending(r => r.StartingTime)
+            .ToListAsync();
+            
+        return _mapper.Map<IEnumerable<RentalResponse>>(rentals);
+    }
+
+    public async Task<RentalResponse?> GetRentalByIdAsync(int id)
+    {
+        var rental = await _context.Rentals
+            .Include(r => r.Customer)
+            .FirstOrDefaultAsync(r => r.Id == id);
+            
+        return rental == null ? null : _mapper.Map<RentalResponse>(rental);
     }
 }
