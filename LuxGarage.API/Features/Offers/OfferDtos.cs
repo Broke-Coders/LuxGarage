@@ -2,6 +2,7 @@ namespace LuxGarage.API.Features.Offers;
 
 public class GetOffersRequest
 {
+    public string? SearchTerm { get; set; }
     public string? SortBy { get; set; }
     public bool Descending { get; set; }
 }

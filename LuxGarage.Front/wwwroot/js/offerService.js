@@ -19,11 +19,12 @@ export const OfferService = {
 
   /**
    * GET /api/offers — lista ofert z opcjonalnym sortowaniem
-   * @param {{ sortBy?: string, descending?: boolean }} params
+   * @param {{ searchTerm?: string, sortBy?: string, descending?: boolean }} params
    * @returns {Promise<OfferListItemResponse[]>}
    */
   async getAllOffers(params = {}) {
     const qs = new URLSearchParams();
+    if (params.searchTerm) qs.set("SearchTerm", params.searchTerm);
     if (params.sortBy)     qs.set("SortBy",     params.sortBy);
     if (params.descending) qs.set("Descending", params.descending);
 
