@@ -482,6 +482,14 @@
                      </button>
                   </div>
                </div>
+
+               <!-- STEP 4: SUCCESS -->
+               <div class="form-step" id="step-4" style="text-align: center; padding: 4rem 2rem;">
+                  <ion-icon name="checkmark-circle" style="font-size: 8rem; color: #28a745; margin-bottom: 2rem;"></ion-icon>
+                  <h3 style="font-size: 2.4rem; color: #47453e; margin-bottom: 1rem;">Booking & Payment Successful!</h3>
+                  <p style="font-size: 1.6rem; color: #666; margin-bottom: 3rem;">Your reservation has been confirmed. Transaction ID: <strong id="success-tx-id" style="color: #333;">...</strong></p>
+                  <a href="dashboard.html" class="btn--form" style="display: inline-block; text-decoration: none; padding: 1.2rem 3.2rem;">Go to Dashboard</a>
+               </div>
             </div>
          </div>
       </div>
@@ -495,6 +503,7 @@
          import { UserService } from "./js/userService.js";
          import { OfferService } from "./js/offerService.js";
          import { CarService } from "./js/carService.js";
+         import { PaymentService } from "./js/paymentService.js";
 
          const monthYearDisplay = document.getElementById("month-year-display");
          const selectorsOverlay = document.getElementById("selectors-overlay");
@@ -550,6 +559,7 @@
          let startDate = null;
          let endDate = null;
          let startTime = "12:00 PM";
+         let bookedDates = [];
 
          const months = [
             "January",
@@ -677,6 +687,34 @@
                   }
                }
 
+               // Load unavailable dates
+               try {
+                  const datesResponse = await RentalService.getUnavailableDates(vehicleId);
+                  
+                  // The API might return the array directly, or wrap it in an object like { value: [...] } or { data: [...] }
+                  let dates = [];
+                  if (Array.isArray(datesResponse)) {
+                     dates = datesResponse;
+                  } else if (datesResponse && Array.isArray(datesResponse.value)) {
+                     dates = datesResponse.value;
+                  } else if (datesResponse && Array.isArray(datesResponse.data)) {
+                     dates = datesResponse.data;
+                  }
+
+                  bookedDates = dates.map(d => {
+                     const start = new Date(d.startDate);
+                     const end = new Date(d.endDate);
+                     
+                     // Ensure time is stripped for calendar comparison
+                     start.setHours(0, 0, 0, 0);
+                     end.setHours(0, 0, 0, 0);
+                     
+                     return { start, end };
+                  });
+               } catch (e) {
+                  console.error("Could not fetch unavailable dates", e);
+               }
+
                renderCalendar();
                updateDisplay();
             } catch (error) {
@@ -690,10 +728,10 @@
             if (!start || !end) return true;
             let temp = new Date(start);
             while (temp <= end) {
-               // Demo unavailable logic: 15th and 22nd
-               if (temp.getDate() === 15 || temp.getDate() === 22) {
-                  return false;
-               }
+               // Check against real booked dates
+               const isBooked = bookedDates.some(range => temp >= range.start && temp <= range.end);
+               if (isBooked) return false;
+               
                temp.setDate(temp.getDate() + 1);
             }
             return true;
@@ -1106,11 +1144,25 @@
 
             try {
                confirmBookingFinal.disabled = true;
-               confirmBookingFinal.textContent = "Processing...";
+               confirmBookingFinal.textContent = "Creating booking...";
 
                const response = await RentalService.createRental(bookingData);
-               alert("Booking successful! ID: " + response.id);
-               window.location.href = "dashboard.html";
+               
+               confirmBookingFinal.textContent = "Processing Payment...";
+               
+               // Process payment simulation
+               const paymentResponse = await PaymentService.processPayment(response.id, "MockCard");
+               
+               if (paymentResponse.success) {
+                   document.getElementById("success-tx-id").textContent = paymentResponse.transactionId;
+                   currentStep = 4;
+                   updateStepUI();
+               } else {
+                   alert("Booking created, but payment failed: " + paymentResponse.message);
+                   confirmBookingFinal.disabled = false;
+                   confirmBookingFinal.textContent = "Try Payment Again";
+               }
+               
             } catch (error) {
                alert("Error: " + error.message);
                confirmBookingFinal.disabled = false;

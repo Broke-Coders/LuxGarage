@@ -43,5 +43,17 @@ export const RentalService = {
       headers: authHeaders(),
     });
     return handleResponse(response);
+  },
+
+  /**
+   * GET /api/rental/vehicle/{vehicleId}/unavailable-dates — gets unavailable dates
+   * @param {number} vehicleId
+   * @returns {Promise<Array>}
+   */
+  async getUnavailableDates(vehicleId) {
+    const response = await fetch(`${API_BASE_URL}/rental/vehicle/${vehicleId}/unavailable-dates`, {
+      headers: authHeaders(),
+    });
+    return handleResponse(response);
   }
 };
