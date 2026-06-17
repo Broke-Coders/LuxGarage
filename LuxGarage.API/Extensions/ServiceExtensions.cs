@@ -5,6 +5,7 @@ using LuxGarage.API.Models;
 using Microsoft.AspNetCore.Identity;
 using LuxGarage.API.Features.Auth;
 using LuxGarage.API.Features.Offers;
+using LuxGarage.API.Features.Reports;
 using LuxGarage.API.Features.Rentals;
 using LuxGarage.API.Features.Users;
 using LuxGarage.API.Features.Vehicles;
@@ -43,6 +44,7 @@ public static class ServiceExtensions
         services.AddScoped<VehicleService>();
         services.AddScoped<OfferService>();
         services.AddScoped<RentalService>();
+        services.AddScoped<ReportService>();
 
         return services;
     }
@@ -75,7 +77,7 @@ public static class ServiceExtensions
                 
                 ValidateIssuer = false, 
                 ValidateAudience = false,
-                ValidateLifetime = true, // Ważne: odrzuca przeterminowane tokeny
+                ValidateLifetime = true, 
                 
                 ClockSkew = TimeSpan.Zero 
             };
@@ -121,8 +123,8 @@ public static class ServiceExtensions
             {
                 [new OpenApiSecuritySchemeReference("bearer", document)] = []
             });
-                });
+        });
 
-                return services;
-            }
+        return services;
+    }
 }

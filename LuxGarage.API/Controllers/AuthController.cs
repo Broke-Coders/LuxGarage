@@ -1,4 +1,7 @@
+using System.Security.Claims;
+using LuxGarage.API.Data;
 using LuxGarage.API.Features.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -75,5 +78,24 @@ public class AuthController : ControllerBase
         {
             return BadRequest( new {Message = e.Message});
         } 
+    }
+
+    [HttpGet("validate")]
+    [Authorize] 
+    public async Task<IActionResult> Validate()
+    {
+        try {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userIdClaim == null || !int.TryParse(userIdClaim, out int userId))
+                return Unauthorized();
+
+            await _authService.Validate(userId);
+            return Ok();
+        }
+        catch (KeyNotFoundException e)
+        {
+            return Unauthorized( new {Message = e.Message});
+        }
     }
 }

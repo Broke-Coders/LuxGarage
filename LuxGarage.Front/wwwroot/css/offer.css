@@ -11,13 +11,117 @@ main.offer-page {
    color: #47453e;
    margin-bottom: 3.2rem;
 }
+
+.container-wide {
+   max-width: 130rem;
+   padding: 0 4.8rem;
+   margin: 0 auto;
+}
+
+/* Laptop / Smaller Desktop Optimization Override */
+@media (max-width: 1400px) {
+   main.offer-page {
+      padding-top: 8rem;
+   }
+
+   .offer-main-title {
+      font-size: 2.6rem;
+      margin-bottom: 2rem;
+   }
+
+   .container-wide {
+      padding: 0 2rem;
+   }
+
+   .offer-top-grid {
+      grid-template-columns: 1fr 36rem;
+      gap: 2.4rem;
+      margin-bottom: 3.2rem;
+   }
+
+   .main-image-container {
+      max-height: 48rem;
+   }
+
+   .calendar-card {
+      padding: 1.4rem;
+   }
+
+   .calendar-header h3 {
+      font-size: 1.2rem;
+   }
+
+   .calendar-header p {
+      font-size: 1.1rem;
+   }
+
+   .calendar-legend {
+      margin-bottom: 1rem;
+      padding-bottom: 0.8rem;
+      gap: 0.4rem 1.2rem;
+   }
+
+   .calendar-grid {
+      margin-bottom: 1.2rem;
+   }
+
+   .day {
+      height: 3.2rem;
+      font-size: 1.2rem;
+   }
+
+   .selection-summary {
+      padding: 0.8rem 1.2rem;
+      margin-bottom: 1.2rem;
+   }
+
+   .duration-text {
+      font-size: 1.3rem;
+   }
+
+   .summary-price {
+      font-size: 1.6rem;
+   }
+
+   .booking-times {
+      padding-top: 1.2rem;
+      margin-bottom: 1.2rem;
+   }
+
+   .time-btn {
+      padding: 0.8rem 0.2rem;
+      font-size: 1.1rem;
+   }
+
+   .total-price-container {
+      padding-top: 1.2rem;
+   }
+
+   .total-price-container p:first-child {
+      font-size: 1.3rem;
+   }
+
+   .total-price-value {
+      font-size: 1.8rem;
+   }
+
+   .taxes-note {
+      margin-bottom: 1.2rem;
+   }
+
+   .thumb {
+      flex: 0 0 calc((100% - (5 * 1.2rem)) / 6);
+      height: 7rem;
+   }
+}
+
 /**************************/
 /* TOP GRID LAYOUT*/
 /**************************/
 .offer-top-grid {
    display: grid;
-   grid-template-columns: 1.8fr 1.2fr;
-   gap: 4rem;
+   grid-template-columns: 1fr 42rem;
+   gap: 4.8rem;
    margin-bottom: 6.4rem;
 }
 
@@ -28,13 +132,19 @@ main.offer-page {
    position: relative;
    border-radius: 4px;
    overflow: hidden;
-   margin-bottom: 1.4rem;
-   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+   margin-bottom: 1.6rem;
+   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+   aspect-ratio: 16 / 9;
+   max-height: 52rem;
+   background-color: #eee;
 }
 
 .main-img {
    width: 100%;
+   height: 100%;
    display: block;
+   object-fit: cover;
+   transition: opacity 0.2s ease-in-out;
 }
 
 .nav-btn {
@@ -53,6 +163,7 @@ main.offer-page {
    cursor: pointer;
    font-size: 2.4rem;
    transition: background 0.3s;
+   z-index: 10;
 }
 
 .nav-btn:hover {
@@ -68,14 +179,21 @@ main.offer-page {
 }
 
 .thumbnail-gallery {
-   display: grid;
-   grid-template-columns: repeat(5, 1fr);
+   display: flex;
    gap: 1.2rem;
+   overflow-x: auto;
+   scrollbar-width: none;
+   -ms-overflow-style: none;
+   padding: 0.4rem;
+}
+
+.thumbnail-gallery::-webkit-scrollbar {
+   display: none;
 }
 
 .thumb {
-   width: 100%;
-   height: 8rem;
+   flex: 0 0 calc((100% - (5 * 1.2rem)) / 6);
+   height: 9rem;
    object-fit: cover;
    border-radius: 4px;
    cursor: pointer;
@@ -852,5 +970,71 @@ main.offer-page {
 .btn--form:disabled {
    background-color: #adb5bd;
    cursor: not-allowed;
+}
+
+/* READ-ONLY EXTRAS UNDER GALLERY */
+.offer-extras-readonly {
+   margin-top: 3.2rem;
+}
+
+.offer-extras-readonly h3 {
+   font-size: 1.8rem;
+   font-weight: 700;
+   color: #47453e;
+   margin-bottom: 2rem;
+   font-family: "Montserrat", sans-serif;
+}
+
+.extras-grid-readonly {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: 1.5rem;
+}
+
+.extra-card-readonly {
+   background-color: #fff;
+   border: 1px solid #ebe6ce;
+   padding: 2rem;
+   border-radius: 8px;
+   display: flex;
+   flex-direction: column;
+   gap: 0.8rem;
+   cursor: default;
+   box-shadow: 0 0.5rem 1.5rem rgba(71, 69, 62, 0.04);
+}
+
+.extra-card-readonly .extra-icon {
+   font-size: 2.4rem;
+   color: #8d8a7c;
+}
+
+.extra-card-readonly h4 {
+   font-size: 1.6rem;
+   color: #47453e;
+   margin: 0;
+}
+
+.extra-card-readonly p {
+   font-size: 1.3rem;
+   color: #666;
+   margin: 0;
+   line-height: 1.4;
+}
+
+.extra-card-readonly .extra-price {
+   font-weight: 700;
+   color: #47453e;
+   margin-top: auto;
+   font-size: 1.4rem;
+}
+
+@media (max-width: 1400px) {
+   .offer-extras-readonly {
+      margin-top: 2.4rem;
+   }
+
+   .extra-card-readonly {
+      padding: 1.5rem;
+   }
 }
 

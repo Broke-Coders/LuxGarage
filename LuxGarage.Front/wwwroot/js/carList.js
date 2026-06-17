@@ -1,4 +1,5 @@
 import { CarService } from "./carService.js";
+import { OfferService } from "./offerService.js";
 
 /**
  * @file carList.js
@@ -10,14 +11,14 @@ import { CarService } from "./carService.js";
  */
 const container = document.getElementById("cars-container");
 const searchButtons = document.querySelectorAll(".search-button");
+const searchInput = document.getElementById("car-search-input");
 
 /** 
  * Hardcoded fleet of 12 premium cars for demonstration purposes.
- * These follow the structure of VehicleListItemResponse but include realistic data.
  */
 const hardcodedCars = [
     {
-        id: 1,
+        id: 101, // Adjusted IDs to not overlap with typical DB IDs
         brandName: "Porsche",
         modelName: "911 GT3 RS",
         bodyName: "Coupe",
@@ -32,7 +33,7 @@ const hardcodedCars = [
         image: "./images/cars/niklas-bischop-KZayf7xRScI-unsplash.jpg"
     },
     {
-        id: 2,
+        id: 102,
         brandName: "Mercedes-AMG",
         modelName: "GT Black Series",
         bodyName: "Coupe",
@@ -47,7 +48,7 @@ const hardcodedCars = [
         image: "./images/cars/flavien-s_E1TRPiId0-unsplash.jpg"
     },
     {
-        id: 3,
+        id: 103,
         brandName: "BMW",
         modelName: "M3 Competition",
         bodyName: "Sedan",
@@ -62,7 +63,7 @@ const hardcodedCars = [
         image: "./images/cars/pexels-habib-hosseini-2613461.jpg"
     },
     {
-        id: 4,
+        id: 104,
         brandName: "BMW",
         modelName: "M4 CSL",
         bodyName: "Coupe",
@@ -77,7 +78,7 @@ const hardcodedCars = [
         image: "./images/cars/pexels-mohit-hambiria-92377455-36407338.jpg"
     },
     {
-        id: 5,
+        id: 105,
         brandName: "Brabus",
         modelName: "G900 Rocket Edition",
         bodyName: "SUV",
@@ -92,7 +93,7 @@ const hardcodedCars = [
         image: "./images/cars/dextar-vision-YYXRSgxFAxA-unsplash.jpg"
     },
     {
-        id: 6,
+        id: 106,
         brandName: "Koenigsegg",
         modelName: "Jesko Absolut",
         bodyName: "Hypercar",
@@ -107,7 +108,7 @@ const hardcodedCars = [
         image: "./images/cars/mclaren.jpg" 
     },
     {
-        id: 7,
+        id: 107,
         brandName: "Ferrari",
         modelName: "296 GTB",
         bodyName: "Coupe",
@@ -122,7 +123,7 @@ const hardcodedCars = [
         image: "./images/cars/488gtb.jpg"
     },
     {
-        id: 8,
+        id: 108,
         brandName: "Lamborghini",
         modelName: "Revuelto",
         bodyName: "Coupe",
@@ -137,7 +138,7 @@ const hardcodedCars = [
         image: "./images/cars/pexels-introspectivedsgn-4077271.jpg"
     },
     {
-        id: 9,
+        id: 109,
         brandName: "Audi",
         modelName: "RS6 Avant",
         bodyName: "Wagon",
@@ -152,7 +153,7 @@ const hardcodedCars = [
         image: "./images/cars/nsx.jpg" 
     },
     {
-        id: 10,
+        id: 110,
         brandName: "McLaren",
         modelName: "Artura",
         bodyName: "Coupe",
@@ -167,7 +168,7 @@ const hardcodedCars = [
         image: "./images/cars/mclaren.jpg"
     },
     {
-        id: 11,
+        id: 111,
         brandName: "Aston Martin",
         modelName: "DBS Volante",
         bodyName: "Cabriolet",
@@ -182,7 +183,7 @@ const hardcodedCars = [
         image: "./images/cars/flavien-s_E1TRPiId0-unsplash.jpg"
     },
     {
-        id: 12,
+        id: 112,
         brandName: "Rolls-Royce",
         modelName: "Cullinan",
         bodyName: "SUV",
@@ -200,6 +201,8 @@ const hardcodedCars = [
 
 /** @type {Set<string>} Active body type filters */
 const activeFilters = new Set();
+let allCars = [];
+let currentSearchTerm = "";
 
 /**
  * Displays a list of cars in the container element.
@@ -242,7 +245,7 @@ function displayCars(cars) {
                            <span>0-100: <strong>${car.zeroToHundred}</strong> / Body: <strong>${car.bodyName}</strong></span>
                         </li>
                      </ul>
-                     <a href="offer.html" class="btn-car">Rent Now</a>
+                     <a href="offer.html?id=${car.id}" class="btn-car">Rent Now</a>
                   </div>
                </div>`
         container.innerHTML += carCard;
@@ -250,21 +253,81 @@ function displayCars(cars) {
 }
 
 /**
- * Filters the hardcoded car list based on active filters.
+ * Filters the combined car list based on active filters and current search term.
  */
 function filterCars() {
-    if (activeFilters.size === 0) {
-        displayCars(hardcodedCars);
-        return;
+    let filtered = allCars;
+
+    // Apply search term filter (local filter for hardcoded cars and double check for API cars)
+    if (currentSearchTerm) {
+        const search = currentSearchTerm.toLowerCase();
+        filtered = filtered.filter(car => 
+            car.brandName.toLowerCase().includes(search) || 
+            car.modelName.toLowerCase().includes(search)
+        );
     }
 
-    const filtered = hardcodedCars.filter(car => activeFilters.has(car.bodyName));
+    // Apply body type filters
+    if (activeFilters.size > 0) {
+        filtered = filtered.filter(car => activeFilters.has(car.bodyName));
+    }
+
     displayCars(filtered);
 }
 
+async function loadCars(searchTerm = "") {
+    try {
+        currentSearchTerm = searchTerm;
+        const apiOffers = await OfferService.getAllOffers({ searchTerm });
+        const dynamicCars = apiOffers.map(offer => {
+            const isSedanOrSUV = offer.bodyName === "Sedan" || offer.bodyName === "SUV";
+            const isAWD = offer.brand === "Lamborghini" || offer.brand === "Bentley" || (offer.brand === "Mercedes-Benz" && offer.model === "S580");
+            
+            return {
+                id: offer.id,
+                brandName: offer.brand,
+                modelName: offer.model,
+                bodyName: offer.bodyName,
+                engine: offer.engine,
+                horsepower: offer.horsepower,
+                seats: isSedanOrSUV ? 5 : 2,
+                driveType: isAWD ? "AWD" : "RWD",
+                zeroToHundred: offer.zeroToHundred,
+                mileage: parseInt(offer.mileage),
+                licensePlate: "",
+                pricePerDay: offer.price,
+                image: `http://localhost:5054${offer.primaryImageUrl}`
+            };
+        });
+
+        allCars = [...dynamicCars, ...hardcodedCars];
+        filterCars();
+    } catch (error) {
+        console.error("Error loading cars from API:", error);
+        allCars = [...hardcodedCars];
+        filterCars();
+    }
+}
+
+// Debounce helper
+function debounce(func, timeout = 300) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+}
+
+const handleSearch = debounce((e) => {
+    loadCars(e.target.value);
+});
+
 document.addEventListener("DOMContentLoaded", () => {
-    // Initial display of all hardcoded cars
-    displayCars(hardcodedCars);
+    loadCars();
+    
+    if (searchInput) {
+        searchInput.addEventListener("input", handleSearch);
+    }
 });
 
 searchButtons.forEach(searchButton => {

@@ -27,7 +27,7 @@
    <body>
       <div id="navbar-placeholder"></div>
       <main class="offer-page">
-         <div class="container">
+         <div class="container-wide">
             <h1 class="offer-main-title">McLaren 650S Spider</h1>
 
             <div class="offer-top-grid">
@@ -47,31 +47,45 @@
                   </div>
 
                   <div class="thumbnail-gallery">
-                     <img
-                        src="./images/cars/mclaren.jpg"
-                        alt="Thumb 1"
-                        class="thumb active"
-                     />
-                     <img
-                        src="./images/cars/mclaren.jpg"
-                        alt="Thumb 2"
-                        class="thumb"
-                     />
-                     <img
-                        src="./images/cars/mclaren.jpg"
-                        alt="Thumb 3"
-                        class="thumb"
-                     />
-                     <img
-                        src="./images/cars/mclaren.jpg"
-                        alt="Thumb 4"
-                        class="thumb"
-                     />
-                     <img
-                        src="./images/cars/mclaren.jpg"
-                        alt="Thumb 5"
-                        class="thumb"
-                     />
+                     <!-- Thumbnails will be injected by JS -->
+                  </div>
+
+                  <div class="offer-extras-readonly">
+                     <h3>Enhance Your Experience</h3>
+                     <div class="extras-grid-readonly">
+                        <div class="extra-card-readonly">
+                           <div class="extra-icon">
+                              <ion-icon name="shield-outline"></ion-icon>
+                           </div>
+                           <h4>Basic Insurance</h4>
+                           <p>Standard coverage for minor scratches.</p>
+                           <span class="extra-price">Included</span>
+                        </div>
+                        <div class="extra-card-readonly">
+                           <div class="extra-icon">
+                              <ion-icon name="shield-checkmark-outline"></ion-icon>
+                           </div>
+                           <h4>Premium Shield</h4>
+                           <p>Full protection. Zero deductible.</p>
+                           <span class="extra-price">+250 PLN / day</span>
+                        </div>
+                        <div class="extra-card-readonly">
+                           <div class="extra-icon">
+                              <ion-icon name="person-add-outline"></ion-icon>
+                           </div>
+                           <h4>Additional Driver</h4>
+                           <p>Share the thrill with a friend.</p>
+                           <span class="extra-price">+150 PLN / day</span>
+                        </div>
+                        <div class="extra-card-readonly">
+                           <div class="extra-icon">
+                              <ion-icon name="sparkles-outline"></ion-icon>
+                           </div>
+                           <h4>Pro Cleaning</h4>
+                           <p>Return dirty, we'll handle the rest.</p>
+                           <span class="extra-price">+100 PLN / day</span>
+                        </div>
+                     </div>
                   </div>
                </div>
 
@@ -136,8 +150,12 @@
 
                      <div class="selection-summary" id="selection-summary">
                         <div class="summary-info">
-                           <p class="duration-text"><span id="summary-days">0</span> Days</p>
-                           <p class="range-text" id="summary-range">Select dates in calendar</p>
+                           <p class="duration-text">
+                              <span id="summary-days">0</span> Days
+                           </p>
+                           <p class="range-text" id="summary-range">
+                              Select dates in calendar
+                           </p>
                         </div>
                         <div class="summary-price">
                            <p id="summary-price-value">0.00 PLN</p>
@@ -162,9 +180,13 @@
 
                      <div class="total-price-container">
                         <p>Total Price</p>
-                        <p class="total-price-value" id="total-price-bottom">0.00 PLN</p>
+                        <p class="total-price-value" id="total-price-bottom">
+                           0.00 PLN
+                        </p>
                      </div>
-                     <p class="taxes-note">Taxes & fees calculated at checkout</p>
+                     <p class="taxes-note">
+                        Taxes & fees calculated at checkout
+                     </p>
 
                      <div id="availability-error" class="availability-error">
                         <ion-icon name="alert-circle-outline"></ion-icon>
@@ -175,7 +197,9 @@
                   </div>
                </aside>
             </div>
+         </div>
 
+         <div class="container">
             <section class="offer-section">
                <h2 class="section-title">Description</h2>
                <div class="section-content">
@@ -300,13 +324,29 @@
                <div class="form-step active" id="step-1">
                   <h3>Vehicle Summary</h3>
                   <div class="summary-grid">
-                     <div class="summary-item"><span>Brand:</span> <strong id="sum-brand">McLaren</strong></div>
-                     <div class="summary-item"><span>Model:</span> <strong id="sum-model">650S Spider</strong></div>
-                     <div class="summary-item"><span>Engine:</span> <strong id="sum-engine">3.8L V8 Twin-Turbo</strong></div>
-                     <div class="summary-item"><span>Seats:</span> <strong id="sum-seats">2</strong></div>
-                     <div class="summary-item"><span>0-100 km/h:</span> <strong id="sum-perf">3.0s</strong></div>
+                     <div class="summary-item">
+                        <span>Brand:</span>
+                        <strong id="sum-brand">McLaren</strong>
+                     </div>
+                     <div class="summary-item">
+                        <span>Model:</span>
+                        <strong id="sum-model">650S Spider</strong>
+                     </div>
+                     <div class="summary-item">
+                        <span>Engine:</span>
+                        <strong id="sum-engine">3.8L V8 Twin-Turbo</strong>
+                     </div>
+                     <div class="summary-item">
+                        <span>Seats:</span> <strong id="sum-seats">2</strong>
+                     </div>
+                     <div class="summary-item">
+                        <span>0-100 km/h:</span>
+                        <strong id="sum-perf">3.0s</strong>
+                     </div>
                   </div>
-                  <button class="btn--form next-step">Continue to Details</button>
+                  <button class="btn--form next-step">
+                     Continue to Details
+                  </button>
                </div>
 
                <!-- STEP 2: PRICING & CUSTOMER -->
@@ -316,36 +356,67 @@
                      <div class="form-grid">
                         <div class="form-group">
                            <label>First Name</label>
-                           <input type="text" id="cust-firstname" placeholder="John" required />
+                           <input
+                              type="text"
+                              id="cust-firstname"
+                              placeholder="John"
+                              required
+                           />
                         </div>
                         <div class="form-group">
                            <label>Last Name</label>
-                           <input type="text" id="cust-lastname" placeholder="Doe" required />
+                           <input
+                              type="text"
+                              id="cust-lastname"
+                              placeholder="Doe"
+                              required
+                           />
                         </div>
                      </div>
                      <div class="form-group">
                         <label>Email Address</label>
-                        <input type="email" id="cust-email" placeholder="john@example.com" required />
+                        <input
+                           type="email"
+                           id="cust-email"
+                           placeholder="john@example.com"
+                           required
+                        />
                      </div>
                      <div class="form-grid">
                         <div class="form-group">
                            <label>Phone Number</label>
-                           <input type="tel" id="cust-phone" placeholder="+48 123 456 789" required />
-                           <span class="error-msg" id="phone-error">Invalid phone format</span>
+                           <input
+                              type="tel"
+                              id="cust-phone"
+                              placeholder="+48 123 456 789"
+                              required
+                           />
+                           <span class="error-msg" id="phone-error"
+                              >Invalid phone format</span
+                           >
                         </div>
                         <div class="form-group">
                            <label>Driver License Number</label>
-                           <input type="text" id="cust-license" placeholder="ABC123456" required />
+                           <input
+                              type="text"
+                              id="cust-license"
+                              placeholder="ABC123456"
+                              required
+                           />
                         </div>
                      </div>
                      <div class="form-grid">
                         <div class="form-group">
                            <label>Selected Duration</label>
-                           <p class="info-display"><span id="display-duration">24</span> Hours</p>
+                           <p class="info-display">
+                              <span id="display-duration">24</span> Hours
+                           </p>
                         </div>
                         <div class="form-group">
                            <label>Base Price</label>
-                           <p class="price-display"><span id="display-base-price">1,200</span> PLN</p>
+                           <p class="price-display">
+                              <span id="display-base-price">1,200</span> PLN
+                           </p>
                         </div>
                      </div>
                   </div>
@@ -360,25 +431,33 @@
                   <h3>Enhance Your Experience</h3>
                   <div class="extras-grid">
                      <div class="extra-card" data-price="0" data-id="1">
-                        <div class="extra-icon"><ion-icon name="shield-outline"></ion-icon></div>
+                        <div class="extra-icon">
+                           <ion-icon name="shield-outline"></ion-icon>
+                        </div>
                         <h4>Basic Insurance</h4>
                         <p>Standard coverage for minor scratches.</p>
                         <span class="extra-price">Included</span>
                      </div>
                      <div class="extra-card" data-price="250" data-id="2">
-                        <div class="extra-icon"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
+                        <div class="extra-icon">
+                           <ion-icon name="shield-checkmark-outline"></ion-icon>
+                        </div>
                         <h4>Premium Shield</h4>
                         <p>Full protection. Zero deductible.</p>
                         <span class="extra-price">+250 PLN / day</span>
                      </div>
                      <div class="extra-card" data-price="150" data-id="3">
-                        <div class="extra-icon"><ion-icon name="person-add-outline"></ion-icon></div>
+                        <div class="extra-icon">
+                           <ion-icon name="person-add-outline"></ion-icon>
+                        </div>
                         <h4>Additional Driver</h4>
                         <p>Share the thrill with a friend.</p>
                         <span class="extra-price">+150 PLN / day</span>
                      </div>
                      <div class="extra-card" data-price="100" data-id="4">
-                        <div class="extra-icon"><ion-icon name="sparkles-outline"></ion-icon></div>
+                        <div class="extra-icon">
+                           <ion-icon name="sparkles-outline"></ion-icon>
+                        </div>
                         <h4>Pro Cleaning</h4>
                         <p>Return dirty, we'll handle the rest.</p>
                         <span class="extra-price">+100 PLN / day</span>
@@ -390,12 +469,17 @@
                         <span>Total Reservation Cost:</span>
                         <strong id="final-total-price">1,200 PLN</strong>
                      </div>
-                     <p class="total-note">Final price calculated including all taxes and selected extras.</p>
+                     <p class="total-note">
+                        Final price calculated including all taxes and selected
+                        extras.
+                     </p>
                   </div>
 
                   <div class="modal-btns">
                      <button class="btn-back prev-step">Back</button>
-                     <button class="btn--form" id="confirm-booking-final">Confirm Booking</button>
+                     <button class="btn--form" id="confirm-booking-final">
+                        Confirm Booking
+                     </button>
                   </div>
                </div>
             </div>
@@ -404,11 +488,13 @@
 
       <div id="footer-placeholder"></div>
 
-
       <script type="module">
+         import "./js/layout.js";
          import { RentalService } from "./js/rentalService.js";
          import { AuthService } from "./js/authService.js";
          import { UserService } from "./js/userService.js";
+         import { OfferService } from "./js/offerService.js";
+         import { CarService } from "./js/carService.js";
 
          const monthYearDisplay = document.getElementById("month-year-display");
          const selectorsOverlay = document.getElementById("selectors-overlay");
@@ -418,12 +504,19 @@
          const timeButtons = document.querySelectorAll(".time-btn");
          const summaryDays = document.getElementById("summary-days");
          const summaryRange = document.getElementById("summary-range");
-         const summaryPriceValue = document.getElementById("summary-price-value");
+         const summaryPriceValue = document.getElementById(
+            "summary-price-value",
+         );
          const totalPriceBottom = document.getElementById("total-price-bottom");
-         const prevBtn = document.querySelector(".cal-nav ion-icon[name='chevron-back-outline']");
-         const nextBtn = document.querySelector(".cal-nav ion-icon[name='chevron-forward-outline']");
+         const prevBtn = document.querySelector(
+            ".cal-nav ion-icon[name='chevron-back-outline']",
+         );
+         const nextBtn = document.querySelector(
+            ".cal-nav ion-icon[name='chevron-forward-outline']",
+         );
          const bookBtnSidebar = document.querySelector(".btn-book-sidebar");
-         const availabilityError = document.getElementById("availability-error");
+         const availabilityError =
+            document.getElementById("availability-error");
 
          // Modal elements
          const modal = document.getElementById("booking-modal");
@@ -436,7 +529,9 @@
          const finalPriceDisplay = document.getElementById("final-total-price");
          const displayDuration = document.getElementById("display-duration");
          const displayBasePrice = document.getElementById("display-base-price");
-         const confirmBookingFinal = document.getElementById("confirm-booking-final");
+         const confirmBookingFinal = document.getElementById(
+            "confirm-booking-final",
+         );
 
          // Customer fields
          const custFirstName = document.getElementById("cust-firstname");
@@ -447,22 +542,148 @@
          const phoneError = document.getElementById("phone-error");
 
          const urlParams = new URLSearchParams(window.location.search);
-         const vehicleId = parseInt(urlParams.get("id")) || 1;
-         
-         // Try to get vehicle details from page
-         const pageTitle = document.querySelector(".offer-main-title")?.textContent || "McLaren 650S Spider";
-         const brand = pageTitle.split(" ")[0];
-         const model = pageTitle.split(" ").slice(1).join(" ");
+         const offerId = parseInt(urlParams.get("id")) || 1;
 
+         let vehicleId = 1;
+         let pricePerDay = 0;
          let currentDate = new Date(2026, 5, 1);
          let startDate = null;
          let endDate = null;
          let startTime = "12:00 PM";
-         const pricePerDay = 1200;
 
-         // Update Summary in Modal Step 1
-         document.getElementById("sum-brand").textContent = brand;
-         document.getElementById("sum-model").textContent = model;
+         const months = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+         ];
+         const years = Array.from({ length: 6 }, (_, i) => 2026 + i);
+
+         async function initPage() {
+            try {
+               const offer = await OfferService.getOfferById(offerId);
+               if (!offer) throw new Error("Offer not found");
+
+               vehicleId = offer.vehicleId;
+               pricePerDay = offer.price;
+
+               // Update basic info
+               const fullTitle = offer.title;
+               document.title = `${offer.brand} ${offer.model} | LuxGarage Offer`;
+               document.querySelector(".offer-main-title").textContent =
+                  fullTitle;
+               document.querySelector(".section-content p").textContent =
+                  offer.description;
+
+               // Update Pickup / Drop-off Location
+               const locationInfo = document.querySelector(".location-info");
+               if (locationInfo) {
+                  // In a real app, this might come from offer.workplace or similar
+                  // For now keeping it consistent with gliwice as default if not provided
+               }
+
+               // Update Vehicle Info Table
+               const infoSections = document.querySelectorAll(".offer-section");
+               const infoTable = infoSections[2].querySelector(".info-table");
+               infoTable.innerHTML = `
+                    <div class="info-row"><span>Class/category</span><span>${offer.bodyType}</span></div>
+                    <div class="info-row"><span>Make</span><span>${offer.brand}</span></div>
+                    <div class="info-row"><span>Model</span><span>${offer.model}</span></div>
+                    <div class="info-row"><span>Color</span><span>${offer.color}</span></div>
+                    <div class="info-row"><span>Availability</span><span>${offer.status}</span></div>
+                 `;
+
+               // Update Performance Table
+               const perfTable = infoSections[3].querySelector(".info-table");
+               perfTable.innerHTML = `
+                    <div class="info-row"><span>Engine</span><span>${offer.engine}</span></div>
+                    <div class="info-row"><span>Power</span><span>${offer.horsepower} HP</span></div>
+                    <div class="info-row"><span>0-100 km/h</span><span>${offer.zeroToHundred}</span></div>
+                    <div class="info-row"><span>Year</span><span>${offer.year}</span></div>
+                 `;
+
+               // Update Modal Summary
+               document.getElementById("sum-brand").textContent = offer.brand;
+               document.getElementById("sum-model").textContent = offer.model;
+               document.getElementById("sum-engine").textContent = offer.engine;
+               
+               // Logic for seat count based on vehicle type (approximation)
+               const suvOrSedan = ["SUV", "Sedan", "Wagon"].includes(offer.bodyType);
+               document.getElementById("sum-seats").textContent = suvOrSedan ? "5" : "2";
+               
+               document.getElementById("sum-perf").textContent = offer.zeroToHundred;
+
+               // Load Images
+               const images = await CarService.getImagesByVehicleId(vehicleId);
+               const mainImg = document.querySelector(".main-img");
+               const thumbGallery =
+                  document.querySelector(".thumbnail-gallery");
+
+               if (images && images.length > 0) {
+                  let currentImgIdx = 0;
+                  mainImg.src = `http://localhost:5054${images[0].url}`;
+                  thumbGallery.innerHTML = "";
+
+                  const updateGallery = (index) => {
+                     currentImgIdx = index;
+                     mainImg.src = `http://localhost:5054${images[currentImgIdx].url}`;
+                     document.querySelectorAll(".thumb").forEach((t, i) => {
+                        if (i === currentImgIdx) {
+                           t.classList.add("active");
+                           t.scrollIntoView({
+                              behavior: "smooth",
+                              block: "nearest",
+                              inline: "center",
+                           });
+                        } else t.classList.remove("active");
+                     });
+                  };
+
+                  images.forEach((img, idx) => {
+                     const thumb = document.createElement("img");
+                     thumb.src = `http://localhost:5054${img.url}`;
+                     thumb.alt = `Thumb ${idx + 1}`;
+                     thumb.classList.add("thumb");
+                     if (idx === 0) thumb.classList.add("active");
+
+                     thumb.onclick = () => updateGallery(idx);
+                     thumbGallery.appendChild(thumb);
+                  });
+
+                  const prevBtn = document.querySelector(".nav-btn.prev");
+                  const nextBtn = document.querySelector(".nav-btn.next");
+
+                  if (prevBtn) {
+                     prevBtn.onclick = () => {
+                        let nextIdx = currentImgIdx - 1;
+                        if (nextIdx < 0) nextIdx = images.length - 1;
+                        updateGallery(nextIdx);
+                     };
+                  }
+                  if (nextBtn) {
+                     nextBtn.onclick = () => {
+                        let nextIdx = currentImgIdx + 1;
+                        if (nextIdx >= images.length) nextIdx = 0;
+                        updateGallery(nextIdx);
+                     };
+                  }
+               }
+
+               renderCalendar();
+               updateDisplay();
+            } catch (error) {
+               console.error("Error loading offer data:", error);
+               alert("Could not load offer data.");
+            }
+         }
 
          // Helper to check if a range is available
          function isRangeAvailable(start, end) {
@@ -478,13 +699,6 @@
             return true;
          }
 
-         const months = [
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-         ];
-
-         const years = Array.from({ length: 6 }, (_, i) => 2026 + i);
-
          function populateSelectors() {
             if (!monthList || !yearList) return;
             monthList.innerHTML = "";
@@ -492,7 +706,8 @@
                const item = document.createElement("div");
                item.classList.add("selector-item");
                item.textContent = month;
-               if (index === currentDate.getMonth()) item.classList.add("current");
+               if (index === currentDate.getMonth())
+                  item.classList.add("current");
                item.onclick = (e) => {
                   e.stopPropagation();
                   currentDate.setMonth(index);
@@ -507,7 +722,8 @@
                const item = document.createElement("div");
                item.classList.add("selector-item");
                item.textContent = year;
-               if (year === currentDate.getFullYear()) item.classList.add("current");
+               if (year === currentDate.getFullYear())
+                  item.classList.add("current");
                item.onclick = (e) => {
                   e.stopPropagation();
                   currentDate.setFullYear(year);
@@ -527,7 +743,11 @@
          }
 
          document.onclick = (e) => {
-            if (selectorsOverlay && !selectorsOverlay.contains(e.target) && e.target !== monthYearDisplay) {
+            if (
+               selectorsOverlay &&
+               !selectorsOverlay.contains(e.target) &&
+               e.target !== monthYearDisplay
+            ) {
                selectorsOverlay.classList.remove("active");
             }
          };
@@ -542,7 +762,9 @@
                monthYearDisplay.textContent = `${months[month]} ${year}`;
             }
 
-            const labels = Array.from(calendarGrid.querySelectorAll(".day-label"));
+            const labels = Array.from(
+               calendarGrid.querySelectorAll(".day-label"),
+            );
             calendarGrid.innerHTML = "";
             labels.forEach((label) => calendarGrid.appendChild(label));
 
@@ -576,14 +798,26 @@
                // Range Highlighting
                if (startDate && thisDayDate.getTime() === startDate.getTime()) {
                   dayDiv.classList.add("selected-start");
-               } else if (endDate && thisDayDate.getTime() === endDate.getTime()) {
+               } else if (
+                  endDate &&
+                  thisDayDate.getTime() === endDate.getTime()
+               ) {
                   dayDiv.classList.add("selected-end");
-               } else if (startDate && endDate && thisDayDate > startDate && thisDayDate < endDate) {
+               } else if (
+                  startDate &&
+                  endDate &&
+                  thisDayDate > startDate &&
+                  thisDayDate < endDate
+               ) {
                   dayDiv.classList.add("in-range");
                }
 
                dayDiv.onclick = () => {
-                  if (dayDiv.classList.contains("unavailable-day") || dayDiv.classList.contains("past-day")) return;
+                  if (
+                     dayDiv.classList.contains("unavailable-day") ||
+                     dayDiv.classList.contains("past-day")
+                  )
+                     return;
 
                   if (!startDate || (startDate && endDate)) {
                      startDate = thisDayDate;
@@ -597,7 +831,7 @@
                         endDate = thisDayDate;
                      }
                   }
-                  
+
                   updateDisplay();
                   renderCalendar();
                };
@@ -620,15 +854,15 @@
                const diffTime = Math.abs(endDate - startDate);
                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                summaryDays.textContent = diffDays;
-               
+
                const options = { month: "short", day: "numeric" };
                summaryRange.textContent = `${startDate.toLocaleDateString("en-US", options)} - ${endDate.toLocaleDateString("en-US", options)}, ${startDate.getFullYear()}`;
-               
+
                const totalPrice = diffDays * pricePerDay;
                const formattedPrice = `${totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} PLN`;
                summaryPriceValue.textContent = formattedPrice;
                totalPriceBottom.textContent = formattedPrice;
-               
+
                const available = isRangeAvailable(startDate, endDate);
                if (available) {
                   bookBtnSidebar.classList.add("ready");
@@ -686,8 +920,7 @@
          // Initial Active Time
          timeButtons[3].classList.add("active");
 
-         renderCalendar();
-         updateDisplay();
+         initPage();
 
          let currentStep = 1;
 
@@ -697,22 +930,27 @@
                return;
             }
             modal.style.display = "block";
-            
+
             // Sync summary to modal
             const diffTime = Math.abs(endDate - startDate);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            if(displayDuration) displayDuration.textContent = diffDays * 24;
-            if(displayBasePrice) displayBasePrice.textContent = (diffDays * pricePerDay).toLocaleString();
-            
+            if (displayDuration) displayDuration.textContent = diffDays * 24;
+            if (displayBasePrice)
+               displayBasePrice.textContent = (
+                  diffDays * pricePerDay
+               ).toLocaleString();
+
             // Pre-fill user data if logged in
             try {
                const profile = await UserService.getMyProfile();
                if (profile) {
-                  if (custFirstName) custFirstName.value = profile.firstName || "";
+                  if (custFirstName)
+                     custFirstName.value = profile.firstName || "";
                   if (custLastName) custLastName.value = profile.lastName || "";
                   if (custEmail) custEmail.value = profile.email || "";
                   if (custPhone) custPhone.value = profile.phoneNumber || "";
-                  if (custLicense) custLicense.value = profile.licenseNumber || "";
+                  if (custLicense)
+                     custLicense.value = profile.licenseNumber || "";
                } else {
                   // Fallback to just email from localStorage if profile fetch failed but user is logged in
                   const userEmail = localStorage.getItem("userEmail");
@@ -723,7 +961,7 @@
                const userEmail = localStorage.getItem("userEmail");
                if (userEmail && custEmail) custEmail.value = userEmail;
             }
-            
+
             updatePrice();
          };
 
@@ -743,21 +981,35 @@
             steps.forEach((s) => s.classList.remove("active"));
             stepperItems.forEach((s) => s.classList.remove("active"));
             const targetStep = document.getElementById(`step-${currentStep}`);
-            if(targetStep) targetStep.classList.add("active");
-            const targetStepper = document.querySelector(`.step[data-step="${currentStep}"]`);
-            if(targetStepper) targetStepper.classList.add("active");
+            if (targetStep) targetStep.classList.add("active");
+            const targetStepper = document.querySelector(
+               `.step[data-step="${currentStep}"]`,
+            );
+            if (targetStepper) targetStepper.classList.add("active");
          }
 
          function validateStep2() {
             let isValid = true;
-            if (!custFirstName.value) { custFirstName.style.borderColor = "red"; isValid = false; }
-            else { custFirstName.style.borderColor = ""; }
+            if (!custFirstName.value) {
+               custFirstName.style.borderColor = "red";
+               isValid = false;
+            } else {
+               custFirstName.style.borderColor = "";
+            }
 
-            if (!custLastName.value) { custLastName.style.borderColor = "red"; isValid = false; }
-            else { custLastName.style.borderColor = ""; }
+            if (!custLastName.value) {
+               custLastName.style.borderColor = "red";
+               isValid = false;
+            } else {
+               custLastName.style.borderColor = "";
+            }
 
-            if (!custEmail.value || !custEmail.value.includes("@")) { custEmail.style.borderColor = "red"; isValid = false; }
-            else { custEmail.style.borderColor = ""; }
+            if (!custEmail.value || !custEmail.value.includes("@")) {
+               custEmail.style.borderColor = "red";
+               isValid = false;
+            } else {
+               custEmail.style.borderColor = "";
+            }
 
             const phoneRegex = /^\+?[0-9\s-]{9,}$/;
             if (!phoneRegex.test(custPhone.value)) {
@@ -769,8 +1021,12 @@
                phoneError.style.display = "none";
             }
 
-            if (!custLicense.value) { custLicense.style.borderColor = "red"; isValid = false; }
-            else { custLicense.style.borderColor = ""; }
+            if (!custLicense.value) {
+               custLicense.style.borderColor = "red";
+               isValid = false;
+            } else {
+               custLicense.style.borderColor = "";
+            }
 
             return isValid;
          }
@@ -805,20 +1061,20 @@
             const diffTime = Math.abs(endDate - startDate);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             const baseTotal = diffDays * pricePerDay;
-            
+
             let extrasTotal = 0;
-            extraCards.forEach(card => {
-               if(card.classList.contains("active")) {
+            extraCards.forEach((card) => {
+               if (card.classList.contains("active")) {
                   extrasTotal += parseInt(card.dataset.price) * diffDays;
                }
             });
             const total = baseTotal + extrasTotal;
-            if(finalPriceDisplay) {
+            if (finalPriceDisplay) {
                finalPriceDisplay.textContent = `${total.toLocaleString()} PLN`;
             }
          }
 
-         extraCards.forEach(card => {
+         extraCards.forEach((card) => {
             card.onclick = () => {
                card.classList.toggle("active");
                updatePrice();
@@ -827,8 +1083,11 @@
 
          confirmBookingFinal.onclick = async () => {
             const insuranceIds = [];
-            extraCards.forEach(card => {
-               if (card.classList.contains("active") && card.dataset.id !== "1") {
+            extraCards.forEach((card) => {
+               if (
+                  card.classList.contains("active") &&
+                  card.dataset.id !== "1"
+               ) {
                   insuranceIds.push(parseInt(card.dataset.id));
                }
             });
@@ -842,13 +1101,13 @@
                licenseNumber: custLicense.value,
                startDate: startDate.toISOString(),
                endDate: endDate.toISOString(),
-               selectedInsuranceIds: insuranceIds
+               selectedInsuranceIds: insuranceIds,
             };
 
             try {
                confirmBookingFinal.disabled = true;
                confirmBookingFinal.textContent = "Processing...";
-               
+
                const response = await RentalService.createRental(bookingData);
                alert("Booking successful! ID: " + response.id);
                window.location.href = "dashboard.html";

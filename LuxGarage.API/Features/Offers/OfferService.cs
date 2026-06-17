@@ -29,6 +29,15 @@ public class OfferService
 
         query = ApplySorting(query, request);
 
+        if (!string.IsNullOrWhiteSpace(request.SearchTerm))
+        {
+            var search = request.SearchTerm.Trim().ToLower();
+            query = query.Where(o => 
+                o.Vehicle.Brand.ToLower().Contains(search) || 
+                o.Vehicle.Model.ToLower().Contains(search) ||
+                o.Title.ToLower().Contains(search));
+        }
+
         var offers = await query.ToListAsync();
         var listDtos = _mapper.Map<List<OfferListItemResponse>>(offers);
 
@@ -52,10 +61,20 @@ public class OfferService
         var offer = await _context.Offers
             .Include(o => o.Vehicle)
             .Include(o => o.Vehicle.Images)
+            .Include(o => o.Prices)
             .AsNoTracking()
             .FirstOrDefaultAsync(o => o.Id == offerId);
 
-        return offer is null ? null : _mapper.Map<OfferDetailsResponse>(offer);
+        if (offer is null) return null;
+
+        var dto = _mapper.Map<OfferDetailsResponse>(offer);
+        dto.Price = offer.Prices
+                .OrderByDescending(p => p.ValidFrom)
+                .Select(p => p.PricePerDay)
+                .FirstOrDefault();
+        dto.PrimaryImageUrl = $"/api/VehicleImages/vehicle/{dto.VehicleId}/primary";
+        
+        return dto;
     }
 
     /// <summary>

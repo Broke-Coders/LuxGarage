@@ -86,86 +86,212 @@ public static class DataExtensions
 
         if (!dbContext.Vehicles.Any())
         {
-            dbContext.Vehicles.AddRange(
-                new Vehicle
+            var vehicles = new List<Vehicle>
+            {
+                new Vehicle { Brand = "Ferrari", Model = "F8 Spider", Horsepower = 710, LicensePlate = "F8 SPIDER", EngineName = "3.9L V8 Twin-Turbo", Mileage = 1200, Year = 2023, SpeedToHundred = 2.9f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Cabriolet, Color = VehicleColor.Red },
+                new Vehicle { Brand = "Lamborghini", Model = "Huracan Evo Spyder", Horsepower = 640, LicensePlate = "EVO SPYDR", EngineName = "5.2L V10", Mileage = 2500, Year = 2022, SpeedToHundred = 3.1f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Cabriolet, Color = VehicleColor.Grey },
+                new Vehicle { Brand = "Ferrari", Model = "488 Spider", Horsepower = 661, LicensePlate = "488 SPIDR", EngineName = "3.9L V8 Twin-Turbo", Mileage = 8500, Year = 2019, SpeedToHundred = 3.0f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Cabriolet, Color = VehicleColor.Red },
+                new Vehicle { Brand = "Lamborghini", Model = "Urus SE", Horsepower = 789, LicensePlate = "URUS SE", EngineName = "4.0L V8 Twin-Turbo Hybrid", Mileage = 500, Year = 2024, SpeedToHundred = 3.4f, EngineType = EngineType.Hybrid, BodyType = VehicleBodyType.SUV, Color = VehicleColor.Black },
+                new Vehicle { Brand = "Lamborghini", Model = "Huracan Spyder", Horsepower = 602, LicensePlate = "HURACAN S", EngineName = "5.2L V10", Mileage = 12000, Year = 2018, SpeedToHundred = 3.4f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Cabriolet, Color = VehicleColor.White },
+                new Vehicle { Brand = "Ferrari", Model = "458 Coupe", Horsepower = 562, LicensePlate = "F458 IT", EngineName = "4.5L V8", Mileage = 15000, Year = 2015, SpeedToHundred = 3.4f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Coupe, Color = VehicleColor.Red },
+                new Vehicle { Brand = "Bentley", Model = "Flying Spur", Horsepower = 626, LicensePlate = "B FLYING", EngineName = "6.0L W12 Twin-Turbo", Mileage = 5000, Year = 2022, SpeedToHundred = 3.8f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Sedan, Color = VehicleColor.White },
+                new Vehicle { Brand = "Porsche", Model = "911 GT3", Horsepower = 502, LicensePlate = "P GT3 RS", EngineName = "4.0L Flat-6", Mileage = 2000, Year = 2023, SpeedToHundred = 3.2f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Coupe, Color = VehicleColor.Blue },
+                new Vehicle { Brand = "Mercedes-AMG", Model = "GT-C", Horsepower = 550, LicensePlate = "M GTC AM", EngineName = "4.0L V8 Biturbo", Mileage = 8000, Year = 2021, SpeedToHundred = 3.7f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Coupe, Color = VehicleColor.White },
+                new Vehicle { Brand = "Porsche", Model = "911 Carrera", Horsepower = 380, LicensePlate = "P 911 RED", EngineName = "3.0L Flat-6", Mileage = 12000, Year = 2020, SpeedToHundred = 4.2f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Coupe, Color = VehicleColor.Red },
+                new Vehicle { Brand = "Mercedes-Benz", Model = "S580", Horsepower = 496, LicensePlate = "M S580 BK", EngineName = "4.0L V8 Biturbo", Mileage = 3000, Year = 2023, SpeedToHundred = 4.4f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Sedan, Color = VehicleColor.Black },
+                new Vehicle { Brand = "BMW", Model = "M5 Competition", Horsepower = 625, LicensePlate = "WA 12345", EngineName = "4.4 V8", Mileage = 15000, Year = 2023, SpeedToHundred = 3.5f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Sedan, Color = VehicleColor.Black },
+                new Vehicle { Brand = "Audi", Model = "RS6 Avant", Horsepower = 600, LicensePlate = "KR 54321", EngineName = "V8", Mileage = 25000, Year = 2022, SpeedToHundred = 2.7f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Wagon, Color = VehicleColor.Grey },
+                new Vehicle { Brand = "Porsche", Model = "911 Carrera S", Horsepower = 450, LicensePlate = "GD 99999", EngineName = "3.0 flat six", Mileage = 5000, Year = 2024, SpeedToHundred = 3.3f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Coupe, Color = VehicleColor.Yellow, Status = VehicleStatus.Maintenance }
+            };
+
+            dbContext.Vehicles.AddRange(vehicles);
+            dbContext.SaveChanges();
+
+            // Image Seeding Logic
+            var sourceRoot = Path.Combine(app.Environment.ContentRootPath, "..", "LuxGarage.Front", "wwwroot", "images", "cars-gotham");
+            var targetRoot = Path.Combine(app.Environment.ContentRootPath, "..", "LuxGarage.Front", "wwwroot", "images", "cars");
+
+            var modelToFolder = new Dictionary<string, string>
+            {
+                { "F8 Spider", "FerrariF8Spider" },
+                { "Huracan Evo Spyder", "LamborghiniEvoSpider" },
+                { "488 Spider", "Ferrari488Spider" },
+                { "Urus SE", "LamborghihiUrusSE" },
+                { "Huracan Spyder", "LamborghiniHuracanSpider" },
+                { "458 Coupe", "Ferrari458Coupe" },
+                { "Flying Spur", "BentleyFlyingSpur" },
+                { "911 GT3", "PorsheGT3" },
+                { "GT-C", "MercederGT-c" },
+                { "911 Carrera", "Porshe911" },
+                { "S580", "MercedesBenzS580" }
+            };
+
+            foreach (var vehicle in vehicles)
+            {
+                if (modelToFolder.TryGetValue(vehicle.Model, out var folderName))
                 {
-                    Brand = "BMW",
-                    Model = "M5 Competition",
-                    Horsepower = 625,
-                    LicensePlate = "WA 12345",
-                    EngineName = "4.4 V8",
-                    Mileage = 15000,
-                    Year = 2023,
-                    SpeedToHundred = 3.5f,
-                    EngineType = EngineType.Gasoline,
-                    BodyType = VehicleBodyType.Sedan,
-                    Color = VehicleColor.Black,
-                    Status = VehicleStatus.Available
-                },
-                new Vehicle
-                {
-                    Brand = "Audi",
-                    Model = "RS6 Avant",
-                    Horsepower = 600,
-                    LicensePlate = "KR 54321",
-                    EngineName = "V8",
-                    Mileage = 25000,
-                    Year = 2022,
-                    SpeedToHundred = 2.7f,
-                    EngineType = EngineType.Gasoline,
-                    BodyType = VehicleBodyType.Wagon,
-                    Color = VehicleColor.Grey,
-                    Status = VehicleStatus.Available
-                },
-                new Vehicle
-                {
-                    Brand = "Porsche",
-                    Model = "911 Carrera S",
-                    Horsepower = 450,
-                    LicensePlate = "GD 99999",
-                    EngineName = "3.0 flat six",
-                    Mileage = 5000,
-                    Year = 2024,
-                    SpeedToHundred = 3.3f,
-                    EngineType = EngineType.Gasoline,
-                    BodyType = VehicleBodyType.Coupe,
-                    Color = VehicleColor.Yellow,
-                    Status = VehicleStatus.Maintenance
+                    var sourcePath = Path.Combine(sourceRoot, folderName);
+                    if (Directory.Exists(sourcePath))
+                    {
+                        var targetPath = Path.Combine(targetRoot, vehicle.Id.ToString());
+                        if (!Directory.Exists(targetPath)) Directory.CreateDirectory(targetPath);
+
+                        var files = Directory.GetFiles(sourcePath, "*.webp");
+                        for (int i = 0; i < files.Length; i++)
+                        {
+                            var fileName = Path.GetFileName(files[i]);
+                            File.Copy(files[i], Path.Combine(targetPath, fileName), true);
+
+                            dbContext.VehicleImages.Add(new VehicleImage
+                            {
+                                VehicleId = vehicle.Id,
+                                StorageKey = fileName,
+                                OriginalFileName = fileName,
+                                ContentType = "image/webp",
+                                IsPrimary = fileName == "1.webp",
+                                SortOrder = i
+                            });
+                        }
+                    }
                 }
-            );
+            }
             dbContext.SaveChanges();
         }
 
         if (!dbContext.Offers.Any())
         {
+            var f8 = dbContext.Vehicles.First(v => v.Model == "F8 Spider");
+            var evo = dbContext.Vehicles.First(v => v.Model == "Huracan Evo Spyder");
+            var f488 = dbContext.Vehicles.First(v => v.Model == "488 Spider");
+            var urus = dbContext.Vehicles.First(v => v.Model == "Urus SE");
+            var huracan = dbContext.Vehicles.First(v => v.Model == "Huracan Spyder");
+            var f458 = dbContext.Vehicles.First(v => v.Model == "458 Coupe");
+            var bentley = dbContext.Vehicles.First(v => v.Model == "Flying Spur");
+            var gt3 = dbContext.Vehicles.First(v => v.Model == "911 GT3");
+            var gtc = dbContext.Vehicles.First(v => v.Model == "GT-C");
+            var p911 = dbContext.Vehicles.First(v => v.Model == "911 Carrera");
+            var s580 = dbContext.Vehicles.First(v => v.Model == "S580");
             var bmw = dbContext.Vehicles.First(v => v.Brand == "BMW");
             var audi = dbContext.Vehicles.First(v => v.Brand == "Audi");
 
-            var offerBmw = new Offer
+            var offers = new List<Offer>
             {
-                VehicleId = bmw.Id,
-                Title = "Beast from Monachium - BMW M5",
-                Description = "Some descriptionSome descriptionSome descriptionSome description",
-                IsActive = true,
-                Prices = new List<OfferPrice>
+                new Offer
                 {
-                    new OfferPrice { PricePerDay = 1500.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) }
+                    VehicleId = f8.Id,
+                    Title = "Italian Masterpiece - Ferrari F8 Spider",
+                    Description = "The Ferrari F8 Spider delivers an incredible open-top driving experience paired with unmistakable Italian design. Powered by a twin-turbocharged 3.9L V8 engine, it produces exhilarating performance with a lightning-fast 7-speed dual-clutch transmission and rear-wheel drive. The retractable hard top opens in seconds, allowing you to enjoy the sound of the V8 at any speed. Finished with a sharp, aggressive exterior and a driver-focused interior, the F8 Spider offers the perfect balance of supercar performance, luxury, and everyday usability.",
+                    IsActive = true,
+                    Prices = new List<OfferPrice> { new OfferPrice { PricePerDay = 3500.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) } }
+                },
+                new Offer
+                {
+                    VehicleId = evo.Id,
+                    Title = "V10 Symphony - Lamborghini Huracan Evo Spyder",
+                    Description = "The Lamborghini Huracan Evo Spyder delivers an incredible open-top driving experience paired with unmistakable Sant'Agata design. Powered by a naturally aspirated 5.2L V10 engine, it produces exhilarating performance with a lightning-fast dual-clutch transmission and all-wheel drive. The power-operated soft top opens in seconds, allowing you to enjoy the sound of the V10 at any speed. Finished with a sharp, aggressive exterior and a driver-focused interior, the Evo Spyder offers the perfect balance of supercar performance, luxury, and everyday usability.",
+                    IsActive = true,
+                    Prices = new List<OfferPrice> { new OfferPrice { PricePerDay = 3800.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) } }
+                },
+                new Offer
+                {
+                    VehicleId = f488.Id,
+                    Title = "Turbocharged Legend - Ferrari 488 Spider",
+                    Description = "The Ferrari 488 Spider delivers an incredible open-top driving experience paired with unmistakable Italian design. Powered by a twin-turbocharged 3.9L V8 engine, it produces exhilarating performance with a lightning-fast 7-speed dual-clutch transmission and rear-wheel drive. The retractable hard top opens in seconds, allowing you to enjoy the sound of the V8 at any speed. Finished with a sharp, aggressive exterior and a driver-focused interior, the 488 Spider offers the perfect balance of supercar performance, luxury, and everyday usability.",
+                    IsActive = true,
+                    Prices = new List<OfferPrice> { new OfferPrice { PricePerDay = 3000.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) } }
+                },
+                new Offer
+                {
+                    VehicleId = urus.Id,
+                    Title = "The Ultimate SUV - Lamborghini Urus SE",
+                    Description = "The Lamborghini Urus SE delivers an incredible performance SUV experience paired with unmistakable Lamborghini design. Powered by a twin-turbocharged 4.0L V8 hybrid engine, it produces exhilarating performance with a lightning-fast 8-speed automatic transmission and all-wheel drive. The advanced hybrid system provides instant torque, allowing you to enjoy the power at any speed. Finished with a sharp, aggressive exterior and a driver-focused interior, the Urus SE offers the perfect balance of supercar performance, luxury, and everyday usability.",
+                    IsActive = true,
+                    Prices = new List<OfferPrice> { new OfferPrice { PricePerDay = 4000.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) } }
+                },
+                new Offer
+                {
+                    VehicleId = huracan.Id,
+                    Title = "Pure Emotion - Lamborghini Huracan Spyder",
+                    Description = "The Lamborghini Huracan Spyder delivers an incredible open-top driving experience paired with unmistakable Italian design. Powered by a naturally aspirated 5.2L V10 engine, it produces exhilarating performance with a lightning-fast dual-clutch transmission and all-wheel drive. The power-operated soft top opens in seconds, allowing you to enjoy the sound of the V10 at any speed. Finished with a sharp, aggressive exterior and a driver-focused interior, the Huracan Spyder offers the perfect balance of supercar performance, luxury, and everyday usability.",
+                    IsActive = true,
+                    Prices = new List<OfferPrice> { new OfferPrice { PricePerDay = 3200.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) } }
+                },
+                new Offer
+                {
+                    VehicleId = f458.Id,
+                    Title = "Naturally Aspirated Bliss - Ferrari 458 Coupe",
+                    Description = "The Ferrari 458 Coupe delivers an incredible driving experience paired with unmistakable Italian design. Powered by a naturally aspirated 4.5L V8 engine, it produces exhilarating performance with a lightning-fast 7-speed dual-clutch transmission and rear-wheel drive. The driver-focused cockpit ensures you are connected to the road at all times. Finished with a sharp, aggressive exterior and a driver-focused interior, the 458 Coupe offers the perfect balance of supercar performance, luxury, and everyday usability.",
+                    IsActive = true,
+                    Prices = new List<OfferPrice> { new OfferPrice { PricePerDay = 2800.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) } }
+                },
+                new Offer
+                {
+                    VehicleId = bentley.Id,
+                    Title = "Luxury Performance - Bentley Flying Spur",
+                    Description = "The Bentley Flying Spur delivers an incredible luxury sedan experience paired with unmistakable British design. Powered by a twin-turbocharged 6.0L W12 engine, it produces exhilarating performance with a smooth 8-speed dual-clutch transmission and all-wheel drive. The handcrafted interior provides ultimate comfort for all passengers. Finished with a sharp, aggressive exterior and a driver-focused interior, the Flying Spur offers the perfect balance of supercar performance, luxury, and everyday usability.",
+                    IsActive = true,
+                    Prices = new List<OfferPrice> { new OfferPrice { PricePerDay = 3000.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) } }
+                },
+                new Offer
+                {
+                    VehicleId = gt3.Id,
+                    Title = "Track Ready - Porsche 911 GT3",
+                    Description = "The Porsche 911 GT3 delivers an incredible track-focused driving experience paired with unmistakable German design. Powered by a naturally aspirated 4.0L flat-six engine, it produces exhilarating performance with a lightning-fast PDK transmission and rear-wheel drive. The advanced aerodynamics provide exceptional grip in every corner. Finished with a sharp, aggressive exterior and a driver-focused interior, the 911 GT3 offers the perfect balance of supercar performance, luxury, and everyday usability.",
+                    IsActive = true,
+                    Prices = new List<OfferPrice> { new OfferPrice { PricePerDay = 3200.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) } }
+                },
+                new Offer
+                {
+                    VehicleId = gtc.Id,
+                    Title = "German Precision - Mercedes-AMG GT-C",
+                    Description = "The Mercedes-AMG GT-C delivers an incredible grand touring experience paired with unmistakable German design. Powered by a twin-turbocharged 4.0L V8 engine, it produces exhilarating performance with a lightning-fast 7-speed dual-clutch transmission and rear-wheel drive. The wide-body design ensures maximum stability and presence on the road. Finished with a sharp, aggressive exterior and a driver-focused interior, the GT-C offers the perfect balance of supercar performance, luxury, and everyday usability.",
+                    IsActive = true,
+                    Prices = new List<OfferPrice> { new OfferPrice { PricePerDay = 2500.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) } }
+                },
+                new Offer
+                {
+                    VehicleId = p911.Id,
+                    Title = "Daily Supercar - Porsche 911 Carrera",
+                    Description = "The Porsche 911 Carrera delivers an incredible daily driving experience paired with unmistakable German design. Powered by a twin-turbocharged 3.0L flat-six engine, it produces exhilarating performance with a smooth 8-speed PDK transmission and rear-wheel drive. The iconic silhouette remains a timeless symbol of performance and luxury. Finished with a sharp, aggressive exterior and a driver-focused interior, the 911 Carrera offers the perfect balance of supercar performance, luxury, and everyday usability.",
+                    IsActive = true,
+                    Prices = new List<OfferPrice> { new OfferPrice { PricePerDay = 1800.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) } }
+                },
+                new Offer
+                {
+                    VehicleId = s580.Id,
+                    Title = "The Standard of Luxury - Mercedes-Benz S580",
+                    Description = "The Mercedes-Benz S580 delivers an incredible luxury sedan experience paired with unmistakable German design. Powered by a twin-turbocharged 4.0L V8 engine, it produces exhilarating performance with a smooth 9-speed automatic transmission and all-wheel drive. The cutting-edge technology and ultimate comfort make every journey special. Finished with a sharp, aggressive exterior and a driver-focused interior, the S580 offers the perfect balance of supercar performance, luxury, and everyday usability.",
+                    IsActive = true,
+                    Prices = new List<OfferPrice> { new OfferPrice { PricePerDay = 2200.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) } }
+                },
+                //////////////////////////////////////
+                new Offer
+                {
+                    VehicleId = bmw.Id,
+                    Title = "Beast from Monachium - BMW M5",
+                    Description = "Some descriptionSome descriptionSome descriptionSome description",
+                    IsActive = true,
+                    Prices = new List<OfferPrice>
+                    {
+                        new OfferPrice { PricePerDay = 1500.00m, ValidFrom = DateTime.UtcNow.AddMonths(-1) }
+                    }
+                },
+                new Offer
+                {
+                    VehicleId = audi.Id,
+                    Title = "Wow a car - Audi RS6",
+                    Description = "Some descriptionSome descriptionSome descriptionSome description",
+                    IsActive = true,
+                    Prices = new List<OfferPrice>
+                    {
+                        new OfferPrice { PricePerDay = 1200.00m, ValidFrom = DateTime.UtcNow.AddMonths(-2) }
+                    }
                 }
+                //////////////////////////////////////
+
             };
 
-            var offerAudi = new Offer
-            {
-                VehicleId = audi.Id,
-                Title = "Wow a car - Audi RS6",
-                Description = "Some descriptionSome descriptionSome descriptionSome description",
-                IsActive = true,
-                Prices = new List<OfferPrice>
-                {
-                    new OfferPrice { PricePerDay = 1200.00m, ValidFrom = DateTime.UtcNow.AddMonths(-2) }
-                }
-            };
-
-            dbContext.Offers.AddRange(offerBmw, offerAudi);
+            dbContext.Offers.AddRange(offers);
             dbContext.SaveChanges();
         }
 
