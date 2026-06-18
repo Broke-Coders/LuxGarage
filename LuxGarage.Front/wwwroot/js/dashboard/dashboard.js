@@ -2,6 +2,7 @@ import { AuthService }    from "../authService.js";
 import { bindModalClose } from "./utils/modal.js";
 import { initVehicles }   from "./vehicles.js";
 import { initOffers }     from "./offers.js";
+import { initRentals }    from "./rentals.js";
 
 (function guardRoute() {
   const role = AuthService.getRole();
@@ -12,6 +13,10 @@ import { initOffers }     from "./offers.js";
 
 async function loadComponent(placeholderId, url) {
   const res  = await fetch(url);
+  if (!res.ok) {
+    console.error(`Failed to load component: ${url}`);
+    return;
+  }
   const html = await res.text();
   document.getElementById(placeholderId).innerHTML = html;
 }
@@ -19,22 +24,24 @@ async function loadComponent(placeholderId, url) {
 async function init() {
   // Load all panels
   await Promise.all([
-    loadComponent("panel-vehicles",    "../components/dashboard/panel-vehicles.html"),
-    loadComponent("panel-offers",      "../components/dashboard/panel-offers.html"),
-    loadComponent("panel-rentals",     "../components/dashboard/panel-rentals.html"),
-    loadComponent("modals-placeholder","../components/dashboard/modals-vehicles.html"),
+    loadComponent("panel-vehicles",    "components/dashboard/panel-vehicles.html"),
+    loadComponent("panel-offers",      "components/dashboard/panel-offers.html"),
+    loadComponent("panel-rentals",     "components/dashboard/panel-rentals.html"),
+    loadComponent("modals-placeholder","components/dashboard/modals-vehicles.html"),
   ]);
 
     // Doładuj modale ofert do tego samego placeholdera
-  const extra = await fetch("./components/dashboard/modals-offers.html");
-  document.getElementById("modals-placeholder").innerHTML +=
-    await extra.text();
+  const extra = await fetch("components/dashboard/modals-offers.html");
+  if (extra.ok) {
+    document.getElementById("modals-placeholder").innerHTML += await extra.text();
+  }
 
   // Bind tabs and modals
   _bindTabs();
   bindModalClose();
   initVehicles();
   initOffers();
+  initRentals();
 }
 
 function _bindTabs() {

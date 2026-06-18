@@ -48,6 +48,18 @@ export const RentalService = {
   },
 
   /**
+   * GET /api/rental — pobiera wszystkie rezerwacje (dla admina/pracownika)
+   * @returns {Promise<Array>}
+   */
+  async getAllRentals() {
+    const response = await fetch(`${API_BASE_URL}/rental`, {
+      headers: authHeaders(),
+    });
+    const result = await handleResponse(response);
+    return result?.data ?? result ?? [];
+  },
+
+  /**
    * GET /api/rental/vehicle/{vehicleId}/unavailable-dates — gets unavailable dates
    * @param {number} vehicleId
    * @returns {Promise<Array>}
