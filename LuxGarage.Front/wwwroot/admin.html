@@ -27,7 +27,7 @@
         <div class="dashboard-header">
           <div>
             <h1 class="dashboard-title">Admin Panel</h1>
-            <p class="dashboard-subtitle">Manage employees, permissions and system settings.</p>
+            <p class="dashboard-subtitle">Manage employees, insurances and system settings.</p>
           </div>
         </div>
 
@@ -35,9 +35,12 @@
           <button class="tab-btn active" data-panel="panel-employees">
             <ion-icon name="people-outline"></ion-icon> Employees
           </button>
-          <!-- Future admin tabs can be added here -->
+          <button class="tab-btn" data-panel="panel-insurances">
+            <ion-icon name="shield-outline"></ion-icon> Insurances
+          </button>
         </div>
 
+        <!-- EMPLOYEES PANEL -->
         <div id="panel-employees" class="tab-panel active">
           <div class="panel-header">
             <div>
@@ -78,10 +81,165 @@
           </div>
         </div>
 
+        <!-- INSURANCES PANEL -->
+        <div id="panel-insurances" class="tab-panel">
+          <div class="panel-header">
+            <div>
+              <h2 class="panel-title">Insurance Options</h2>
+              <p class="panel-subtitle">Add, edit and remove insurance packages available during booking.</p>
+            </div>
+            <button class="btn-add-vehicle" id="btnAddInsurance">
+              <ion-icon name="add-outline"></ion-icon>
+              Add Insurance
+            </button>
+          </div>
+
+          <div id="insurance-toast" class="admin-toast" aria-live="polite"></div>
+
+          <div class="table-wrapper">
+            <table class="vehicles-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Price / Day</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="insurances-list">
+                <tr class="table-loading-row">
+                  <td colspan="5">
+                    <div class="table-spinner">
+                      <div class="spinner"></div>
+                      <span>Loading insurances…</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-empty" id="insurancesTableEmpty" style="display:none;">
+            <ion-icon name="shield-outline"></ion-icon>
+            <p>No insurance options found.</p>
+          </div>
+        </div>
+
       </div>
     </main>
 
+    <!-- INSURANCE MODALS -->
+    <div id="modalInsuranceAdd" class="modal-overlay">
+      <div class="modal-box modal-box--sm">
+        <div class="modal-head">
+          <h2>Add Insurance</h2>
+          <button class="modal-close" data-model="modalInsuranceAdd">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+        </div>
+        <form id="formInsuranceAdd" novalidate>
+          <div class="modal-form">
+            <div id="formInsuranceAddError" class="form-error" style="display:none;"></div>
+            <div class="form-group">
+              <label for="ins-add-name">Name <span class="req">*</span></label>
+              <input type="text" id="ins-add-name" placeholder="e.g. Basic, Premium, Full Cover" required />
+            </div>
+            <div class="form-group">
+              <label for="ins-add-price">Price per day (PLN) <span class="req">*</span></label>
+              <input type="number" id="ins-add-price" min="0" step="0.01" placeholder="e.g. 49.99" required />
+            </div>
+            <div class="form-group form-group--inline">
+              <label class="toggle-label" for="ins-add-active">
+                <input type="checkbox" class="toggle-input" id="ins-add-active" checked />
+                <span class="toggle-track"></span>
+                Active
+              </label>
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn-cancel" data-model="modalInsuranceAdd">Cancel</button>
+<button type="submit" class="btn-submit" id="btnInsuranceAddSubmit">
+  <span class="btn-text">Add Insurance</span>
+  <span class="btn-spinner" style="display:none;">
+    <span class="spinner spinner--sm"></span>
+  </span>
+</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="modalInsuranceEdit" class="modal-overlay">
+      <div class="modal-box modal-box--sm">
+        <div class="modal-head">
+          <h2>Edit Insurance</h2>
+          <button class="modal-close" data-model="modalInsuranceEdit">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+        </div>
+        <form id="formInsuranceEdit" novalidate>
+          <div class="modal-form">
+            <div id="formInsuranceEditError" class="form-error" style="display:none;"></div>
+            <input type="hidden" id="ins-edit-id" />
+            <div class="form-group">
+              <label for="ins-edit-name">Name <span class="req">*</span></label>
+              <input type="text" id="ins-edit-name" required />
+            </div>
+            <div class="form-group">
+              <label for="ins-edit-price">Price per day (PLN) <span class="req">*</span></label>
+              <input type="number" id="ins-edit-price" min="0" step="0.01" required />
+            </div>
+            <div class="form-group form-group--inline">
+              <label class="toggle-label" for="ins-edit-active">
+                <input type="checkbox" class="toggle-input" id="ins-edit-active" />
+                <span class="toggle-track"></span>
+                Active
+              </label>
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn-cancel" data-model="modalInsuranceEdit">Cancel</button>
+            <button type="submit" class="btn-submit" id="btnInsuranceEditSubmit">
+              <span class="btn-text">Save Changes</span>
+              <span class="btn-spinner" style="display:none;">
+                <span class="spinner spinner--sm"></span>
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="modalInsuranceDelete" class="modal-overlay">
+      <div class="modal-box modal-box--xs">
+        <div class="modal-head">
+          <h2>Delete Insurance</h2>
+          <button class="modal-close" data-model="modalInsuranceDelete">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+        </div>
+        <div class="modal-body-text">
+          <ion-icon name="warning-outline" class="icon-warning"></ion-icon>
+          <p>Are you sure you want to delete <strong id="ins-delete-name"></strong>?</p>
+          <p class="delete-note">This action cannot be undone. Insurances assigned to existing rentals cannot be deleted.</p>
+        </div>
+        <div id="formInsuranceDeleteError" class="form-error" style="display:none; margin: 0 2.8rem;"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" data-model="modalInsuranceDelete">Cancel</button>
+          <button type="button" class="btn-danger" id="btnInsuranceDeleteConfirm">
+            <span class="btn-text" style="display:flex;align-items:center;gap:0.8rem;">
+              <ion-icon name="trash-outline"></ion-icon> Delete
+            </span>
+            <span class="btn-spinner" style="display:none;">
+              <span class="spinner spinner--sm"></span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <script type="module" src="./js/layout.js"></script>
-    <script type="module" src="./js/admin.js"></script>
+    <script type="module" src="./js/admin/admin.js"></script>
   </body>
 </html>
