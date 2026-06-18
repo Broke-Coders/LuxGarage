@@ -1,10 +1,30 @@
 <div class="panel-header">
   <div>
     <h2 class="panel-title">Rental Management</h2>
-    <p class="panel-subtitle">View and manage active rentals.</p>
+    <p class="panel-subtitle">View and manage all customer rentals.</p>
   </div>
 </div>
-<div class="panel-placeholder">
-  <ion-icon name="construct-outline"></ion-icon>
-  <p>Coming soon</p>
+
+<div class="table-container">
+  <table class="dashboard-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Vehicle</th>
+        <th>Customer</th>
+        <th>Rental Period</th>
+        <th>Total Price</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="rentalsTableBody">
+      <!-- Injected via JS -->
+    </tbody>
+  </table>
+
+  <div id="rentalsTableEmpty" class="table-empty" style="display: none;">
+    <ion-icon name="search-outline"></ion-icon>
+    <p>No rentals found.</p>
+  </div>
 </div>

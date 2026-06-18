@@ -101,7 +101,7 @@ public static class DataExtensions
                 new Vehicle { Brand = "Mercedes-Benz", Model = "S580", Horsepower = 496, LicensePlate = "M S580 BK", EngineName = "4.0L V8 Biturbo", Mileage = 3000, Year = 2023, SpeedToHundred = 4.4f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Sedan, Color = VehicleColor.Black },
                 new Vehicle { Brand = "BMW", Model = "M5 Competition", Horsepower = 625, LicensePlate = "WA 12345", EngineName = "4.4 V8", Mileage = 15000, Year = 2023, SpeedToHundred = 3.5f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Sedan, Color = VehicleColor.Black },
                 new Vehicle { Brand = "Audi", Model = "RS6 Avant", Horsepower = 600, LicensePlate = "KR 54321", EngineName = "V8", Mileage = 25000, Year = 2022, SpeedToHundred = 2.7f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Wagon, Color = VehicleColor.Grey },
-                new Vehicle { Brand = "Porsche", Model = "911 Carrera S", Horsepower = 450, LicensePlate = "GD 99999", EngineName = "3.0 flat six", Mileage = 5000, Year = 2024, SpeedToHundred = 3.3f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Coupe, Color = VehicleColor.Yellow, Status = VehicleStatus.Maintenance }
+                new Vehicle { Brand = "Porsche", Model = "911 Carrera S", Horsepower = 450, LicensePlate = "GD 99999", EngineName = "3.0 flat six", Mileage = 5000, Year = 2024, SpeedToHundred = 3.3f, EngineType = EngineType.Gasoline, BodyType = VehicleBodyType.Coupe, Color = VehicleColor.Yellow }
             };
 
             dbContext.Vehicles.AddRange(vehicles);
