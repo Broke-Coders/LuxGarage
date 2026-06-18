@@ -1,5 +1,6 @@
-import { AuthService }  from "./authService.js";
-import { UserService }  from "./userService.js";
+import { AuthService }   from "../authService.js";
+import { UserService }   from "../userService.js";
+import { initInsurances } from "./insurances.js";
 
 // Route guard — only Admins allowed
 (function guardRoute() {
@@ -26,10 +27,6 @@ function bindTabs() {
 }
 
 // -- Toast notification --------------------------------------
-/**
- * @param {string} message
- * @param {"success"|"error"} type
- */
 function showToast(message, type = "success") {
   const toast = document.getElementById("admin-toast");
   if (!toast) return;
@@ -43,7 +40,7 @@ function showToast(message, type = "success") {
   }, 4000);
 }
 
-// -- Render ---------------------------------------------------
+// -- Render --------------------------------------------------
 function renderEmployees(employees, tbody) {
   const emptyEl = document.getElementById("adminTableEmpty");
 
@@ -75,11 +72,11 @@ function renderEmployees(employees, tbody) {
   `).join("");
 
   tbody.querySelectorAll(".btn-approve").forEach((btn) => {
-    btn.addEventListener("click", () => handleStatusChange(btn.dataset.id, 1, tbody)); // 1 = Active
+    btn.addEventListener("click", () => handleStatusChange(btn.dataset.id, 1, tbody));
   });
 
   tbody.querySelectorAll(".btn-reject").forEach((btn) => {
-    btn.addEventListener("click", () => handleStatusChange(btn.dataset.id, 3, tbody)); // 3 = Disabled/Rejected
+    btn.addEventListener("click", () => handleStatusChange(btn.dataset.id, 3, tbody));
   });
 }
 
@@ -87,7 +84,6 @@ function renderEmployees(employees, tbody) {
 async function handleStatusChange(id, status, tbody) {
   const action = status === 1 ? "approved" : "rejected";
 
-  // Optimistic UI — disable buttons in this row
   const row = tbody.querySelector(`tr[data-id="${id}"]`);
   if (row) {
     row.querySelectorAll("button").forEach((b) => (b.disabled = true));
@@ -95,12 +91,10 @@ async function handleStatusChange(id, status, tbody) {
 
   try {
     await UserService.changeEmployeeStatus(id, status);
-    // Remove the row smoothly
     if (row) {
       row.classList.add("row-fade-out");
       row.addEventListener("animationend", () => {
         row.remove();
-        // If no rows left, show empty state
         if (tbody.querySelectorAll("tr").length === 0) {
           const emptyEl = document.getElementById("adminTableEmpty");
           if (emptyEl) emptyEl.style.display = "block";
@@ -109,7 +103,6 @@ async function handleStatusChange(id, status, tbody) {
     }
     showToast(`Employee ${action} successfully.`, "success");
   } catch (error) {
-    // Re-enable buttons on failure
     if (row) {
       row.querySelectorAll("button").forEach((b) => (b.disabled = false));
     }
@@ -117,9 +110,10 @@ async function handleStatusChange(id, status, tbody) {
   }
 }
 
-// -- Init -----------------------------------------------------
+// -- Init ----------------------------------------------------
 async function initAdminPanel() {
   bindTabs();
+  initInsurances();
 
   const tbody = document.getElementById("pending-employees-list");
   if (!tbody) return;
