@@ -40,7 +40,14 @@ main.offer-page {
    }
 
    .main-image-container {
-      max-height: 48rem;
+         position: relative;
+   border-radius: 4px;
+   overflow: hidden;
+   margin-bottom: 1.6rem;
+   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+   aspect-ratio: 16 / 9;
+   /* max-height: 52rem;  ← USUŃ tę linię */
+   background-color: #eee;
    }
 
    .calendar-card {
@@ -558,10 +565,12 @@ main.offer-page {
    display: none;
    padding: 1.6rem;
    margin-top: 0.8rem;
+   pointer-events: none;
 }
 
 .selectors-overlay.active {
    display: block;
+   pointer-events: all;
 }
 
 .selector-grid {
