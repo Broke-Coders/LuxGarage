@@ -129,6 +129,27 @@
          const licenseInput = document.getElementById("acc-license");
 
          const rentalsList = document.getElementById("rentals-list");
+         const API_ORIGIN = "http://localhost:5054";
+
+         rentalsList.addEventListener("click", async (event) => {
+            const button = event.target.closest("[data-cancel-rental-id]");
+            if (!button) return;
+
+            const rentalId = Number(button.dataset.cancelRentalId);
+            const confirmed = confirm("Cancel this reservation?");
+            if (!confirmed) return;
+
+            try {
+               button.disabled = true;
+               button.textContent = "Cancelling...";
+               await RentalService.cancelRental(rentalId);
+               await loadRentals();
+            } catch (err) {
+               alert(`Could not cancel reservation: ${err.message}`);
+               button.disabled = false;
+               button.textContent = "Cancel reservation";
+            }
+         });
 
          // Tab Switching
          navLinks.forEach(link => {
@@ -182,24 +203,90 @@
                   return;
                }
 
-               rentalsList.innerHTML = rentals.map(rental => `
-                  <div class="rental-item">
-                     <div class="rental-header">
-                        <span class="rental-id">Reservation #${rental.id}</span>
-                        <span class="rental-status status-${rental.status.toLowerCase()}">${rental.status}</span>
-                     </div>
-                     <div class="rental-body">
-                        <div class="rental-info">
-                           <p><strong>Date:</strong> ${new Date(rental.startingTime).toLocaleDateString()} - ${new Date(rental.appointedReturnTime).toLocaleDateString()}</p>
-                           <p><strong>Total Price:</strong> ${rental.totalPrice.toLocaleString()} PLN</p>
-                        </div>
-                     </div>
-                  </div>
-               `).join("");
+               rentalsList.innerHTML = rentals.map(renderRentalCard).join("");
 
             } catch (err) {
                rentalsList.innerHTML = `<p class="error-msg">Error loading rentals: ${err.message}</p>`;
             }
+         }
+
+         function renderRentalCard(rental) {
+            const statusClass = normalizeStatusClass(rental.status);
+            const vehicleName = [rental.vehicleBrand, rental.vehicleModel]
+               .filter(Boolean)
+               .join(" ") || `Vehicle #${rental.vehicleId}`;
+            const imageUrl = rental.vehicleImageUrl
+               ? `${API_ORIGIN}${rental.vehicleImageUrl}`
+               : "./images/cars/488gtb.jpg";
+            const canCancel = canCancelRental(rental.status);
+
+            return `
+                  <div class="rental-item">
+                     <div class="rental-image-wrap">
+                        <img
+                           src="${imageUrl}"
+                           alt="${vehicleName}"
+                           class="rental-image"
+                           loading="lazy"
+                           onerror="this.src='./images/cars/488gtb.jpg'"
+                        />
+                     </div>
+                     <div class="rental-header">
+                        <span class="rental-id">Reservation #${rental.id}</span>
+                        <span class="rental-status status-${statusClass}">${formatStatus(rental.status)}</span>
+                     </div>
+                     <div class="rental-body">
+                        <div>
+                           <p class="rental-car-name">${vehicleName}</p>
+                           <p class="rental-car-meta">${rental.vehicleYear || ""}${rental.vehicleLicensePlate ? ` - ${rental.vehicleLicensePlate}` : ""}</p>
+                        </div>
+                        <div class="rental-info">
+                           <p><strong>Pickup:</strong> ${formatDate(rental.startingTime)}</p>
+                           <p><strong>Return:</strong> ${formatDate(rental.appointedReturnTime)}</p>
+                           <p><strong>Total Price:</strong> ${formatCurrency(rental.totalPrice)}</p>
+                        </div>
+                        ${canCancel ? `
+                           <div class="rental-actions">
+                              <button type="button" class="btn-cancel-rental" data-cancel-rental-id="${rental.id}">
+                                 Cancel reservation
+                              </button>
+                           </div>
+                        ` : ""}
+                     </div>
+                  </div>
+               `;
+         }
+
+         function formatDate(value) {
+            return new Date(value).toLocaleDateString("en-GB", {
+               day: "2-digit",
+               month: "short",
+               year: "numeric"
+            });
+         }
+
+         function formatCurrency(value) {
+            return Number(value ?? 0).toLocaleString("pl-PL", {
+               style: "currency",
+               currency: "PLN",
+               maximumFractionDigits: 0
+            });
+         }
+
+         function formatStatus(status) {
+            return String(status || "")
+               .replace(/([a-z])([A-Z])/g, "$1 $2")
+               .trim();
+         }
+
+         function normalizeStatusClass(status) {
+            return String(status || "")
+               .replace(/([a-z])([A-Z])/g, "$1-$2")
+               .toLowerCase();
+         }
+
+         function canCancelRental(status) {
+            return ["Pending", "ReservedWaitingForPayment"].includes(status);
          }
 
          profileForm.onsubmit = async (e) => {

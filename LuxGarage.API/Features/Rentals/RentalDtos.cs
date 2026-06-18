@@ -21,6 +21,11 @@ public class RentalResponse
     public int Id { get; set; }
     public int VehicleId { get; set; }
     public int CustomerId { get; set; }
+    public string VehicleBrand { get; set; } = string.Empty;
+    public string VehicleModel { get; set; } = string.Empty;
+    public string VehicleLicensePlate { get; set; } = string.Empty;
+    public int VehicleYear { get; set; }
+    public string VehicleImageUrl { get; set; } = string.Empty;
     public DateTime StartingTime { get; set; }
     public DateTime AppointedReturnTime { get; set; }
     public decimal TotalPrice { get; set; }
