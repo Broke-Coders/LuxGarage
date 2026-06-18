@@ -72,7 +72,7 @@ function renderEmployees(employees, tbody) {
   `).join("");
 
   tbody.querySelectorAll(".btn-approve").forEach((btn) => {
-    btn.addEventListener("click", () => handleStatusChange(btn.dataset.id, 1, tbody));
+    btn.addEventListener("click", () => handleStatusChange(btn.dataset.id, 2, tbody));
   });
 
   tbody.querySelectorAll(".btn-reject").forEach((btn) => {
