@@ -29,6 +29,7 @@ public class RentalService
             throw new InvalidOperationException("Car is not available in the selected date range.");
 
         var offer = await _context.Offers
+            .Include(o => o.Vehicle)
             .Include(o => o.Prices)
             .FirstOrDefaultAsync(o => o.VehicleId == request.VehicleId);
             
@@ -85,6 +86,7 @@ public class RentalService
         var rental = new Rental
         {
             VehicleId = request.VehicleId,
+            Vehicle = offer.Vehicle,
             Customer = customer, 
             EmployeeId = employeeId,
             StartingTime = request.StartDate,
@@ -119,6 +121,7 @@ public class RentalService
     {
         var rentals = await _context.Rentals
             .Include(r => r.Customer)
+            .Include(r => r.Vehicle)
             .OrderByDescending(r => r.StartingTime)
             .ToListAsync();
             
@@ -129,6 +132,7 @@ public class RentalService
     {
         var rentals = await _context.Rentals
             .Include(r => r.Customer)
+            .Include(r => r.Vehicle)
             .Where(r => r.CustomerId == customerId)
             .OrderByDescending(r => r.StartingTime)
             .ToListAsync();
@@ -140,8 +144,31 @@ public class RentalService
     {
         var rental = await _context.Rentals
             .Include(r => r.Customer)
+            .Include(r => r.Vehicle)
             .FirstOrDefaultAsync(r => r.Id == id);
             
         return rental == null ? null : _mapper.Map<RentalResponse>(rental);
+    }
+
+    public async Task<RentalResponse> CancelRentalAsync(int id, int userId, string? role)
+    {
+        var rental = await _context.Rentals
+            .Include(r => r.Vehicle)
+            .FirstOrDefaultAsync(r => r.Id == id);
+
+        if (rental is null)
+            throw new KeyNotFoundException($"Rental with ID {id} not found.");
+
+        var isStaff = role == UserRole.Employee.ToString() || role == UserRole.Admin.ToString();
+        if (!isStaff && rental.CustomerId != userId)
+            throw new UnauthorizedAccessException("You are not authorized to cancel this rental.");
+
+        if (rental.Status is RentalStatus.Cancelled or RentalStatus.Completed or RentalStatus.Active)
+            throw new InvalidOperationException("This rental cannot be cancelled.");
+
+        rental.Status = RentalStatus.Cancelled;
+        await _context.SaveChangesAsync();
+
+        return _mapper.Map<RentalResponse>(rental);
     }
 }

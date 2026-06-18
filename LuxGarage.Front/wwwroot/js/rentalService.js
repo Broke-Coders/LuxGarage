@@ -31,7 +31,8 @@ export const RentalService = {
       },
       body: JSON.stringify(data),
     });
-    return handleResponse(response);
+    const result = await handleResponse(response);
+    return result?.data ?? result;
   },
 
   /**
@@ -42,7 +43,8 @@ export const RentalService = {
     const response = await fetch(`${API_BASE_URL}/rental/my-rentals`, {
       headers: authHeaders(),
     });
-    return handleResponse(response);
+    const result = await handleResponse(response);
+    return result?.data ?? result ?? [];
   },
 
   /**
@@ -54,6 +56,21 @@ export const RentalService = {
     const response = await fetch(`${API_BASE_URL}/rental/vehicle/${vehicleId}/unavailable-dates`, {
       headers: authHeaders(),
     });
-    return handleResponse(response);
+    const result = await handleResponse(response);
+    return result?.data ?? result ?? [];
+  },
+
+  /**
+   * PUT /api/rental/{id}/cancel - cancels a pending reservation
+   * @param {number} rentalId
+   * @returns {Promise<Object>}
+   */
+  async cancelRental(rentalId) {
+    const response = await fetch(`${API_BASE_URL}/rental/${rentalId}/cancel`, {
+      method: "PUT",
+      headers: authHeaders(),
+    });
+    const result = await handleResponse(response);
+    return result?.data ?? result;
   }
 };
