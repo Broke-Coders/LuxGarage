@@ -31,7 +31,16 @@ public class VehicleServiceIntegrationTests : ServiceTestBase
     /// Property that provides a new instance of the VehicleService for each test, 
     /// ensuring it uses the correctly initialized context and mapper.
     /// </summary>
-    private VehicleService _service => new VehicleService(context, mapper);
+    private VehicleService _service
+    {
+        get
+        {
+            var mockEnv = new Mock<Microsoft.AspNetCore.Hosting.IWebHostEnvironment>();
+            mockEnv.Setup(m => m.ContentRootPath).Returns(AppContext.BaseDirectory);
+            var imageService = new VehicleImageService(context, mockEnv.Object);
+            return new VehicleService(context, mapper, imageService);
+        }
+    }
 
     /// <summary>
     /// Verifies that GetAllAsync returns all vehicles currently stored in the database.
@@ -110,6 +119,7 @@ public class VehicleServiceIntegrationTests : ServiceTestBase
             Brand = "BMW",
             Model = "TEST",
             LicensePlate = "TST",
+            EngineName = "Test Engine",
             Year = 2025,
             Horsepower = 100,
             Mileage = 1000,
@@ -140,6 +150,7 @@ public class VehicleServiceIntegrationTests : ServiceTestBase
             Brand = "BMW",
             Model = "TEST",
             LicensePlate = "TST",
+            EngineName = "Test Engine",
             Year = 2025,
             Horsepower = 100,
             Mileage = 1000,
@@ -156,6 +167,7 @@ public class VehicleServiceIntegrationTests : ServiceTestBase
             Brand = "BMW2",
             Model = "TEST2",
             LicensePlate = "TST",
+            EngineName = "Test Engine 2",
             Year = 2022,
             Horsepower = 110,
             Mileage = 2000,

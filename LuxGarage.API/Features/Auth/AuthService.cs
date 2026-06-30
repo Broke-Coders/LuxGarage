@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using LuxGarage.API.Data;
@@ -25,6 +26,36 @@ public class AuthService
 
     public async Task<RegisterResponse> RegisterAsync(RegisterRequest request)
     {
+        if (string.IsNullOrEmpty(request.Password))
+        {
+            throw new ArgumentException("Password cannot be empty.");
+        }
+
+        if (request.Password.Length < 8)
+        {
+            throw new ArgumentException("Password is too short.");
+        }
+
+        if (request.Password.Length > 24)
+        {
+            throw new ArgumentException("Password is too long.");
+        }
+
+        if (!request.Password.Any(char.IsUpper))
+        {
+            throw new ArgumentException("Missing an uppercase letter.");
+        }
+
+        if (!request.Password.Any(char.IsLower))
+        {
+            throw new ArgumentException("Missing a lowercase letter.");
+        }
+
+        if (!request.Password.Any(char.IsDigit))
+        {
+            throw new ArgumentException("Missing a digit.");
+        }
+
         var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
         if (existingUser != null)
             throw new InvalidOperationException($"User with email {request.Email} already exists.");

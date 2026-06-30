@@ -61,7 +61,9 @@ public class VehicleService
         if (exists)
             throw new InvalidOperationException("Vehicle with this license plate already exists.");
 
-        await using var transaction = await _context.Database.BeginTransactionAsync();
+        var transaction = _context.Database.CurrentTransaction == null
+            ? await _context.Database.BeginTransactionAsync()
+            : null;
 
         try
         {
@@ -94,13 +96,26 @@ public class VehicleService
                 });
             }
 
-            await transaction.CommitAsync();
+            if (transaction != null)
+            {
+                await transaction.CommitAsync();
+            }
             return _mapper.Map<VehicleResponse>(vehicle);
         }
         catch
         {
-            await transaction.RollbackAsync();
+            if (transaction != null)
+            {
+                await transaction.RollbackAsync();
+            }
             throw;
+        }
+        finally
+        {
+            if (transaction != null)
+            {
+                await transaction.DisposeAsync();
+            }
         }
     }
 
