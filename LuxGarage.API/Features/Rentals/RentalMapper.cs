@@ -13,6 +13,9 @@ public class RentalMapper : Profile
             .ForMember(dest => dest.VehicleLicensePlate, opt => opt.MapFrom(src => src.Vehicle.LicensePlate))
             .ForMember(dest => dest.VehicleYear, opt => opt.MapFrom(src => src.Vehicle.Year))
             .ForMember(dest => dest.VehicleImageUrl, opt => opt.MapFrom(src => $"/api/VehicleImages/vehicle/{src.VehicleId}/primary"))
-            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
+            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()))
+            .ForMember(dest => dest.CustomerEmail, opt => opt.MapFrom(src => src.Customer.Email))
+            .ForMember(dest => dest.CustomerFirstName, opt => opt.MapFrom(src => src.Customer.FirstName))
+            .ForMember(dest => dest.CustomerLastName, opt => opt.MapFrom(src => src.Customer.LastName));
     }
 }

@@ -146,18 +146,21 @@
   background: #fff;
 }
 
-.vehicles-table {
+.vehicles-table,
+.dashboard-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 1.4rem;
 }
 
-.vehicles-table thead {
+.vehicles-table thead,
+.dashboard-table thead {
   background-color: #47453e;
   color: #ebe6ce;
 }
 
-.vehicles-table th {
+.vehicles-table th,
+.dashboard-table th {
   padding: 1.4rem 1.8rem;
   text-align: left;
   font-weight: 600;
@@ -165,20 +168,24 @@
   white-space: nowrap;
 }
 
-.vehicles-table tbody tr {
+.vehicles-table tbody tr,
+.dashboard-table tbody tr {
   border-bottom: 1px solid #f0ece0;
   transition: background-color 0.15s;
 }
 
-.vehicles-table tbody tr:last-child {
+.vehicles-table tbody tr:last-child,
+.dashboard-table tbody tr:last-child {
   border-bottom: none;
 }
 
-.vehicles-table tbody tr:hover {
+.vehicles-table tbody tr:hover,
+.dashboard-table tbody tr:hover {
   background-color: #faf9f4;
 }
 
-.vehicles-table td {
+.vehicles-table td,
+.dashboard-table td {
   padding: 1.3rem 1.8rem;
   color: #47453e;
   vertical-align: middle;
@@ -209,6 +216,12 @@
 .status-maintenance { background: #fff3cd; color: #856404; }
 .status-outofservice{ background: #f8d7da; color: #721c24; }
 .status-retired     { background: #e2e0d8; color: #5a5850; }
+
+.status-pending                   { background: #fff3cd; color: #856404; }
+.status-reservedwaitingforpayment { background: #e2e3e5; color: #383d41; }
+.status-active                    { background: #d1ecf1; color: #0c5460; }
+.status-completed                 { background: #d4edda; color: #155724; }
+.status-cancelled                 { background: #f8d7da; color: #721c24; }
 
 /* Action buttons */
 .td-actions {
@@ -738,6 +751,68 @@
   white-space: nowrap;
 }
 
+.td-vehicle-info {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.td-vehicle-img {
+  width: 5.6rem;
+  height: 3.8rem;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #e0ddd0;
+}
+
+.td-vehicle-img-placeholder {
+  width: 5.6rem;
+  height: 3.8rem;
+  background-color: #faf9f4;
+  border: 1px solid #e0ddd0;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b0aa96;
+  font-size: 2rem;
+}
+
+.td-customer {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-weight: 600;
+  color: #47453e;
+}
+
+.td-customer ion-icon {
+  font-size: 2rem;
+  color: #8d8a7c;
+}
+
+.td-date-range {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.3rem;
+  color: #47453e;
+}
+
+.td-date-range ion-icon {
+  color: #8d8a7c;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.td-date-range span {
+  background: #f5f3ec;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-weight: 500;
+  border: 1px solid #e0ddd0;
+}
+
 /**************************/
 /*    FORM EXTRAS         */
 /**************************/
@@ -1056,4 +1131,35 @@
 .btn-icon--gallery:hover {
   background: #2980b9;
   color: #fff;
+}
+
+.btn-action-cancel {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+  color: #c0392b;
+  background: #fdf3f3;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-action-cancel:hover {
+  background: #c0392b;
+  color: #fff;
+  border-color: #c0392b;
+}
+
+.btn-action-cancel ion-icon {
+  font-size: 1.4rem;
+}
+
+.action-none {
+  color: #b0aa96;
+  font-size: 1.3rem;
 }

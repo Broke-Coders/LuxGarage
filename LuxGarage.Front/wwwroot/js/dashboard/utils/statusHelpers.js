@@ -4,6 +4,11 @@ export const STATUS_MAP = {
   3: { label: "Maintenance",     css: "maintenance" },
   4: { label: "Out of Service",  css: "outofservice" },
   5: { label: "Retired",         css: "retired" },
+  6: { label: "Pending",         css: "pending" },
+  7: { label: "Waiting for Payment", css: "reservedwaitingforpayment" },
+  8: { label: "Active",          css: "active" },
+  9: { label: "Completed",       css: "completed" },
+  10: { label: "Cancelled",      css: "cancelled" }
 };
 
 export function statusBadge(statusStr) {
