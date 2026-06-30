@@ -30,6 +30,10 @@ public class RentalResponse
     public DateTime AppointedReturnTime { get; set; }
     public decimal TotalPrice { get; set; }
     public string Status { get; set; } = string.Empty;
+
+    public string CustomerEmail { get; set; } = string.Empty;
+    public string CustomerFirstName { get; set; } = string.Empty;
+    public string CustomerLastName { get; set; } = string.Empty;
 }
 
 public class DateRangeResponse

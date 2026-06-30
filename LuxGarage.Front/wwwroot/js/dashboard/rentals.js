@@ -1,9 +1,27 @@
 import { RentalService } from "../rentalService.js";
 import { statusBadge }   from "./utils/statusHelpers.js";
 
+const API_ORIGIN = "http://localhost:5054";
 let allRentals = [];
 
 export function initRentals() {
+  const tableBody = document.getElementById("rentalsTableBody");
+  if (tableBody) {
+    tableBody.addEventListener("click", async (e) => {
+      const button = e.target.closest(".btn-action-cancel");
+      if (button) {
+        const rentalId = button.getAttribute("data-id");
+        if (confirm(`Are you sure you want to cancel rental #${rentalId}?`)) {
+          try {
+            await RentalService.cancelRental(rentalId);
+            loadRentals();
+          } catch (err) {
+            alert("Error cancelling rental: " + err.message);
+          }
+        }
+      }
+    });
+  }
   loadRentals();
 }
 
@@ -52,11 +70,28 @@ function _renderTable(rentals) {
       <tr>
         <td>#${r.id}</td>
         <td>
-          <strong>${r.vehicleBrand} ${r.vehicleModel}</strong>
-          <span class="td-sub">ID: ${r.vehicleId}</span>
+          <div class="td-vehicle-info">
+            ${r.vehicleImageUrl 
+              ? `<img src="${API_ORIGIN}${r.vehicleImageUrl}" class="offer-thumb" alt="${r.vehicleBrand} ${r.vehicleModel}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />` 
+              : ''
+            }
+            <div class="offer-thumb-placeholder" style="${r.vehicleImageUrl ? 'display: none;' : ''}">
+              <ion-icon name="car-outline"></ion-icon>
+            </div>
+            <div>
+              <strong>${r.vehicleBrand} ${r.vehicleModel}</strong>
+              <span class="td-sub">${r.vehicleLicensePlate || 'N/A'} (ID: ${r.vehicleId})</span>
+            </div>
+          </div>
         </td>
         <td>
-          <strong>Customer #${r.customerId}</strong>
+          <div class="td-customer">
+            <ion-icon name="person-circle-outline"></ion-icon>
+            <div>
+              <strong>${r.customerFirstName || r.customerLastName ? `${r.customerFirstName} ${r.customerLastName}` : `Customer #${r.customerId}`}</strong>
+              <span class="td-sub">${r.customerEmail || 'No email'}</span>
+            </div>
+          </div>
         </td>
         <td>
           <div class="td-date-range">
@@ -69,7 +104,13 @@ function _renderTable(rentals) {
         <td>${statusBadge(r.status)}</td>
         <td>
           <div class="td-actions">
-             <!-- Future actions like 'Complete' or 'Mark as Paid' can go here -->
+            ${(r.status === 'Pending' || r.status === 'ReservedWaitingForPayment') 
+              ? `<button class="btn-action-cancel" data-id="${r.id}">
+                   <ion-icon name="close-circle-outline"></ion-icon>
+                   Cancel
+                 </button>`
+              : '<span class="action-none">—</span>'
+            }
           </div>
         </td>
       </tr>`
