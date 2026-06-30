@@ -14,7 +14,8 @@ public class VehicleBuilder
     private decimal _horsepower = 510;
     private int _mileage = 15000;
     private int _year = 2022;
-    private int _maxSpeed = 250;
+    private float _speedToHundred = 3.9f;
+    private string _engineName = "V8 Turbo";
     private EngineType _engineType = EngineType.Gasoline;
     private VehicleBodyType _bodyType = VehicleBodyType.Coupe;
     private VehicleColor _color = VehicleColor.Blue;
@@ -56,9 +57,15 @@ public class VehicleBuilder
         return this;
     }
 
-    public VehicleBuilder WithMaxSpeed(int maxSpeed)
+    public VehicleBuilder WithSpeedToHundred(float speedToHundred)
     {
-        _maxSpeed = maxSpeed;
+        _speedToHundred = speedToHundred;
+        return this;
+    }
+
+    public VehicleBuilder WithEngineName(string engineName)
+    {
+        _engineName = engineName;
         return this;
     }
 
@@ -94,7 +101,8 @@ public class VehicleBuilder
         Horsepower = _horsepower,
         Mileage = _mileage,
         Year = _year,
-        maxSpeed = _maxSpeed,
+        SpeedToHundred = _speedToHundred,
+        EngineName = _engineName,
         EngineType = _engineType,
         BodyType = _bodyType,
         Color = _color,

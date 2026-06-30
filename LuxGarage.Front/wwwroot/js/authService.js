@@ -30,7 +30,7 @@ export const AuthService = {
 
       if (!response.ok) {
          const errorInfo = await response.json();
-         throw new Error(errorInfo.message || "Register error");
+         throw new Error(errorInfo.message || errorInfo.Message || "Register error");
       } 
 
       try {
