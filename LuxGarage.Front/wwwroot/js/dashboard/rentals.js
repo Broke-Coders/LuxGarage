@@ -1,6 +1,6 @@
 import { RentalService } from "../rentalService.js";
 import { statusBadge }   from "./utils/statusHelpers.js";
-import { showConfirm }   from "./utils/modal.js";
+import { showConfirm, showToast }   from "./utils/modal.js";
 
 const API_ORIGIN = "http://localhost:5054";
 let allRentals = [];
@@ -20,6 +20,7 @@ export function initRentals() {
         if (confirmed) {
           try {
             await RentalService.cancelRental(rentalId);
+            showToast(`Rental #${rentalId} cancelled successfully!`, "success");
             loadRentals();
           } catch (err) {
             alert("Error cancelling rental: " + err.message);

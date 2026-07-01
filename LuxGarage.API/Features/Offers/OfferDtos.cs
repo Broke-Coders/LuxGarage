@@ -38,6 +38,7 @@ public class OfferListItemResponse
     public string ZeroToHundred { get; set; } = null!;
     public string BodyName { get; set; } = null!;
     public string? PrimaryImageUrl { get; set; }
+    public bool IsActive { get; set; }
 }
 
 public class OfferDetailsResponse : OfferListItemResponse

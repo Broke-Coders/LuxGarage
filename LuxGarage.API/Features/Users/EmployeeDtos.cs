@@ -9,6 +9,7 @@ public class EmployeeResponse
     public required string Role { get; set; } 
     public int WorkplaceId { get; set; }
     public string? WorkplaceName { get; set; } 
+    public string? Status { get; set; }
 }
 
 public class UpdateEmployeeRequest

@@ -101,6 +101,24 @@ export const UserService = {
    * @param {number} status (1: Active, 2: Pending, 3: Disabled)
    * @returns {Promise<void>}
    */
+  /**
+   * Fetches the list of all employees (Admin only)
+   * @returns {Promise<Array>}
+   */
+  async getAllEmployees() {
+    const response = await fetch(`${API_BASE_URL}/Employee`, {
+      headers: authHeaders(),
+    });
+    const result = await handleResponse(response);
+    return result?.data ?? [];
+  },
+
+  /**
+   * Changes the employee account status (Admin only)
+   * @param {number} employeeId 
+   * @param {number} status (1: Pending, 2: Approved, 3: Rejected, 4: Suspended)
+   * @returns {Promise<void>}
+   */
   async changeEmployeeStatus(employeeId, status) {
     const response = await fetch(`${API_BASE_URL}/Employee/${employeeId}/status`, {
       method: "PUT",
