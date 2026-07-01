@@ -398,6 +398,12 @@ main.offer-page {
    cursor: default;
 }
 
+.day.today {
+   border: 1px solid #8d8a7c;
+   border-radius: 4px;
+   font-weight: 700;
+}
+
 .selection-summary {
    background-color: #ebe6ce;
    border: 1px solid #8d8a7c;

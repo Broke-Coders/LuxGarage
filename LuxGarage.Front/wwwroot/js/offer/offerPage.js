@@ -1,6 +1,7 @@
 import { OfferService } from "../offerService.js";
 import { CarService }   from "../carService.js";
 import { RentalService } from "../rentalService.js";
+import { InsuranceService } from "../insuranceService.js";
 
 const BASE_URL = "http://localhost:5054";
 
@@ -48,11 +49,68 @@ export async function initOfferPage(offerId, onReady) {
 
       await _initGallery(vehicleId);
       await _loadBookedDates(vehicleId);
+      await _loadReadonlyInsurances();
 
       if (onReady) onReady();
    } catch (error) {
       console.error("Error loading offer data:", error);
       alert("Could not load offer data.");
+   }
+}
+
+const INSURANCE_METADATA = {
+  "Basic Insurance": {
+    icon: "shield-outline",
+    desc: "Standard coverage for minor scratches."
+  },
+  "Premium Shield": {
+    icon: "shield-checkmark-outline",
+    desc: "Full protection. Zero deductible."
+  },
+  "Additional Driver": {
+    icon: "person-add-outline",
+    desc: "Share the thrill with a friend."
+  },
+  "Pro Cleaning": {
+    icon: "sparkles-outline",
+    desc: "Return dirty, we'll handle the rest."
+  }
+};
+
+async function _loadReadonlyInsurances() {
+   const container = document.getElementById("extras-readonly-container");
+   if (!container) return;
+
+   try {
+      const insurances = await InsuranceService.getAll();
+      const activeInsurances = insurances.filter(i => i.isActive);
+
+      if (activeInsurances.length === 0) {
+         container.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: #8d8a7c; font-size: 1.5rem;">No extra additions available.</p>`;
+         return;
+      }
+
+      container.innerHTML = activeInsurances.map((ins) => {
+         const metadata = INSURANCE_METADATA[ins.name] || {
+            icon: "shield-outline",
+            desc: "Optional addition for your rental."
+         };
+
+         const priceLabel = ins.pricePerDay === 0 ? "Included" : `+${ins.pricePerDay} PLN / day`;
+
+         return `
+            <div class="extra-card-readonly">
+               <div class="extra-icon">
+                  <ion-icon name="${metadata.icon}"></ion-icon>
+               </div>
+               <h4>${ins.name}</h4>
+               <p>${metadata.desc}</p>
+               <span class="extra-price">${priceLabel}</span>
+            </div>
+         `;
+      }).join("");
+   } catch (error) {
+      console.error("Error loading readonly insurances:", error);
    }
 }
 
