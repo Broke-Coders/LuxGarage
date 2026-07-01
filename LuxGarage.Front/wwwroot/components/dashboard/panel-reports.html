@@ -1,0 +1,59 @@
+<div class="panel-header">
+  <div>
+    <h2 class="panel-title">Reports Generator</h2>
+    <p class="panel-subtitle">Generate and download PDF reports based on rental data.</p>
+  </div>
+</div>
+
+<div class="table-wrapper" style="padding: 2.8rem;">
+  <form id="report-generator-form" style="max-width: 60rem; display: flex; flex-direction: column; gap: 2.4rem;">
+    
+    <div class="form-grid-2">
+      <div class="form-group">
+        <label for="report-date-from">Date From</label>
+        <input type="date" id="report-date-from" />
+      </div>
+      
+      <div class="form-group">
+        <label for="report-date-to">Date To</label>
+        <input type="date" id="report-date-to" />
+      </div>
+
+      <div class="form-group form-group--full">
+        <label for="report-vehicle">Vehicle</label>
+        <select id="report-vehicle">
+          <option value="">All Vehicles</option>
+          <!-- Injected via JS -->
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Report Content</label>
+      <div style="display: flex; gap: 2.4rem; flex-wrap: wrap; margin-top: 0.8rem;">
+        <label style="display: flex; align-items: center; gap: 0.8rem; cursor: pointer; font-weight: 500; font-size: 1.4rem;">
+          <input type="checkbox" id="report-content-customer" checked style="width: 1.8rem; height: 1.8rem; accent-color: #47453e; cursor: pointer;" />
+          Customer Details
+        </label>
+        <label style="display: flex; align-items: center; gap: 0.8rem; cursor: pointer; font-weight: 500; font-size: 1.4rem;">
+          <input type="checkbox" id="report-content-price" checked style="width: 1.8rem; height: 1.8rem; accent-color: #47453e; cursor: pointer;" />
+          Price / Revenue
+        </label>
+        <label style="display: flex; align-items: center; gap: 0.8rem; cursor: pointer; font-weight: 500; font-size: 1.4rem;">
+          <input type="checkbox" id="report-content-status" checked style="width: 1.8rem; height: 1.8rem; accent-color: #47453e; cursor: pointer;" />
+          Rental Status
+        </label>
+      </div>
+    </div>
+
+    <div style="border-top: 1px solid #f0ece0; padding-top: 2.4rem; margin-top: 0.8rem;">
+      <button type="button" class="btn-submit" id="btn-generate-report" style="width: max-content;">
+        <ion-icon name="download-outline" style="font-size: 1.8rem;"></ion-icon>
+        <span class="btn-text">Download PDF Report</span>
+        <span class="btn-spinner" style="display:none;">
+          <span class="spinner spinner--sm"></span>
+        </span>
+      </button>
+    </div>
+  </form>
+</div>
