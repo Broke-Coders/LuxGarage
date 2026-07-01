@@ -3,11 +3,13 @@ import { AuthService } from "./authService.js";
 document.addEventListener("DOMContentLoaded", async () => {
     async function loadComponent(placeholderId, url) {
         try {
+            const el = document.getElementById(placeholderId);
+            if (!el) return;
             const response = await fetch(url);
             if (!response.ok) throw new Error(`Failed to load ${url}`);
             
             const html = await response.text();
-            document.getElementById(placeholderId).innerHTML = html;
+            el.innerHTML = html;
         } catch (error) {
             console.error("Error loading component:", error);
         }

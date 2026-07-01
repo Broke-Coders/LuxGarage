@@ -1,6 +1,10 @@
+using System.Globalization;
 using LuxGarage.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+
+CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 
 builder.AddStoreDb();
 builder.Services.AddCorsPolicy();

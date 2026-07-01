@@ -10,7 +10,14 @@ async function handleResponse(response) {
   if (response.status === 204) return null;
   const json = await response.json().catch(() => ({}));
   if (!response.ok) {
-    throw new Error(json.Message || json.message || `Request failed (${response.status})`);
+    let errorMsg = json.Message || json.message;
+    if (json.errors) {
+      const details = Object.entries(json.errors)
+        .map(([field, msgs]) => `${field}: ${msgs.join(", ")}`)
+        .join(" | ");
+      errorMsg = `${errorMsg || "Validation failed"}: ${details}`;
+    }
+    throw new Error(errorMsg || `Request failed (${response.status})`);
   }
   return json;
 }

@@ -115,6 +115,7 @@
          import { AuthService } from "./js/authService.js";
          import { UserService } from "./js/userService.js";
          import { RentalService } from "./js/rentalService.js";
+         import { showConfirm } from "./js/dashboard/utils/modal.js";
 
          const profileForm = document.getElementById("profile-form");
          const saveStatus = document.getElementById("save-status");
@@ -136,7 +137,11 @@
             if (!button) return;
 
             const rentalId = Number(button.dataset.cancelRentalId);
-            const confirmed = confirm("Cancel this reservation?");
+            const confirmed = await showConfirm(
+               "Cancel Reservation",
+               `Are you sure you want to cancel reservation #${rentalId}?`,
+               true
+            );
             if (!confirmed) return;
 
             try {
