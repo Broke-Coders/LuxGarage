@@ -1,6 +1,7 @@
 import { RentalService }  from "../rentalService.js";
 import { UserService }    from "../userService.js";
 import { PaymentService } from "../paymentService.js";
+import { InsuranceService } from "../insuranceService.js";
 import { startDate, endDate, pricePerDayRef } from "./offerCalendar.js";
 import { vehicleId } from "./offerPage.js";
 
@@ -11,7 +12,6 @@ const steps               = document.querySelectorAll(".form-step");
 const stepperItems        = document.querySelectorAll(".step");
 const nextBtns            = document.querySelectorAll(".next-step");
 const prevBtns            = document.querySelectorAll(".prev-step");
-const extraCards          = document.querySelectorAll(".extra-card");
 const finalPriceDisplay   = document.getElementById("final-total-price");
 const displayDuration     = document.getElementById("display-duration");
 const displayBasePrice    = document.getElementById("display-base-price");
@@ -33,7 +33,6 @@ export function initBooking() {
    _bindOpenModal();
    _bindCloseModal();
    _bindStepNavigation();
-   _bindExtras();
    _bindConfirm();
 }
 
@@ -65,7 +64,7 @@ function _bindOpenModal() {
       if (displayBasePrice) displayBasePrice.textContent = (diffDays * pricePerDayRef.value).toLocaleString();
 
       await _prefillUserData();
-      _updatePrice();
+      await _loadDynamicInsurances();
    };
 }
 
@@ -119,10 +118,105 @@ function _validateStep2() {
 }
 
 // ── Extras & price ────────────────────────────────────────────────────────────
-function _bindExtras() {
-   extraCards.forEach((card) => {
-      card.onclick = () => { card.classList.toggle("active"); _updatePrice(); };
-   });
+const INSURANCE_METADATA = {
+  "Basic Insurance": {
+    icon: "shield-outline",
+    desc: "Standard coverage for minor scratches."
+  },
+  "Premium Shield": {
+    icon: "shield-checkmark-outline",
+    desc: "Full protection. Zero deductible."
+  },
+  "Additional Driver": {
+    icon: "person-add-outline",
+    desc: "Share the thrill with a friend."
+  },
+  "Pro Cleaning": {
+    icon: "sparkles-outline",
+    desc: "Return dirty, we'll handle the rest."
+  }
+};
+
+async function _loadDynamicInsurances() {
+   const container = document.getElementById("extras-grid-container");
+   if (!container) return;
+
+   container.innerHTML = `
+      <div style="width: 100%; text-align: center; padding: 2rem;">
+         <div class="spinner spinner--sm" style="margin: 0 auto 1rem;"></div>
+         <span style="font-size: 1.4rem; color: #8d8a7c;">Loading extras…</span>
+      </div>`;
+
+   try {
+      const insurances = await InsuranceService.getAll();
+      const activeInsurances = insurances.filter(i => i.isActive);
+
+      if (activeInsurances.length === 0) {
+         container.innerHTML = `<p style="width: 100%; text-align: center; color: #8d8a7c; font-size: 1.5rem;">No extra additions available.</p>`;
+         _initSliderButtons(0);
+         _updatePrice();
+         return;
+      }
+
+      container.innerHTML = activeInsurances.map((ins) => {
+         const metadata = INSURANCE_METADATA[ins.name] || {
+            icon: "shield-outline",
+            desc: "Optional addition for your rental."
+         };
+
+         const priceLabel = ins.pricePerDay === 0 ? "Included" : `+${ins.pricePerDay} PLN / day`;
+         const isActive = ins.pricePerDay === 0 ? "active" : "";
+
+         return `
+            <div class="extra-card ${isActive}" data-price="${ins.pricePerDay}" data-id="${ins.id}">
+               <div class="extra-icon">
+                  <ion-icon name="${metadata.icon}"></ion-icon>
+               </div>
+               <h4>${ins.name}</h4>
+               <p>${metadata.desc}</p>
+               <span class="extra-price">${priceLabel}</span>
+            </div>
+         `;
+      }).join("");
+
+      const cards = container.querySelectorAll(".extra-card");
+      cards.forEach((card) => {
+         card.onclick = () => {
+            card.classList.toggle("active");
+            _updatePrice();
+         };
+      });
+
+      _initSliderButtons(activeInsurances.length);
+      _updatePrice();
+
+   } catch (error) {
+      console.error("Error loading insurances:", error);
+      container.innerHTML = `<p style="width: 100%; text-align: center; color: #e74c3c; font-size: 1.4rem;">Failed to load extras: ${error.message}</p>`;
+   }
+}
+
+function _initSliderButtons(count) {
+   const prevBtn = document.getElementById("extras-slide-prev");
+   const nextBtn = document.getElementById("extras-slide-next");
+   const container = document.getElementById("extras-grid-container");
+   
+   if (!prevBtn || !nextBtn || !container) return;
+
+   if (count > 2) {
+      prevBtn.style.display = "flex";
+      nextBtn.style.display = "flex";
+
+      prevBtn.onclick = () => {
+         container.scrollBy({ left: -container.clientWidth / 2, behavior: "smooth" });
+      };
+      nextBtn.onclick = () => {
+         container.scrollBy({ left: container.clientWidth / 2, behavior: "smooth" });
+      };
+   } else {
+      prevBtn.style.display = "none";
+      nextBtn.style.display = "none";
+   }
 }
 
 function _updatePrice() {
@@ -131,8 +225,9 @@ function _updatePrice() {
    const base     = diffDays * pricePerDayRef.value;
 
    let extras = 0;
-   extraCards.forEach((c) => {
-      if (c.classList.contains("active")) extras += parseInt(c.dataset.price) * diffDays;
+   const cards = document.querySelectorAll(".extra-card");
+   cards.forEach((c) => {
+      if (c.classList.contains("active")) extras += parseFloat(c.dataset.price) * diffDays;
    });
 
    if (finalPriceDisplay) finalPriceDisplay.textContent = `${(base + extras).toLocaleString()} PLN`;
@@ -165,10 +260,9 @@ function _fallbackEmail() {
 function _bindConfirm() {
    confirmBookingFinal.onclick = async () => {
       const insuranceIds = [];
-      extraCards.forEach((c) => {
-         if (c.classList.contains("active") && c.dataset.id !== "1") {
-            insuranceIds.push(parseInt(c.dataset.id));
-         }
+      const activeCards = document.querySelectorAll(".extra-card.active");
+      activeCards.forEach((c) => {
+         insuranceIds.push(parseInt(c.dataset.id));
       });
 
       const bookingData = {
