@@ -1133,6 +1133,32 @@
   color: #fff;
 }
 
+.btn-action-accept {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+  color: #155724;
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-action-accept:hover {
+  background: #155724;
+  color: #fff;
+  border-color: #155724;
+}
+
+.btn-action-accept ion-icon {
+  font-size: 1.4rem;
+}
+
 .btn-action-cancel {
   display: flex;
   align-items: center;

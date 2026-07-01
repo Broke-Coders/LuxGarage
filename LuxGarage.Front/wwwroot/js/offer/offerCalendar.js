@@ -5,7 +5,8 @@ const MONTHS = [
    "January", "February", "March", "April", "May", "June",
    "July", "August", "September", "October", "November", "December",
 ];
-const YEARS = Array.from({ length: 6 }, (_, i) => 2026 + i);
+const currentYear = new Date().getFullYear();
+const YEARS = Array.from({ length: 6 }, (_, i) => currentYear + i);
 
 // DOM refs
 const monthYearDisplay = document.getElementById("month-year-display");
@@ -25,7 +26,8 @@ const prevBtn = document.querySelector(".cal-nav ion-icon[name='chevron-back-out
 const nextBtn = document.querySelector(".cal-nav ion-icon[name='chevron-forward-outline']");
 
 // State
-let currentDate = new Date(2026, 5, 1);
+let currentDate = new Date();
+currentDate.setDate(1);
 export let startDate      = null;
 export let endDate        = null;
 export let startTime      = "12:00 PM";

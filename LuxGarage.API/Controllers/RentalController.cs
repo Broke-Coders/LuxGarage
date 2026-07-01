@@ -173,4 +173,37 @@ public class RentalController : ControllerBase
             return StatusCode(500, ApiResponse<object>.Error(500, "An error occurred while cancelling the rental.", e.Message));
         }
     }
+
+    [HttpPut("{id:int}/accept")]
+    [Authorize(Roles = "Employee, Admin")]
+    public async Task<ActionResult<ApiResponse<RentalResponse>>> Accept(int id)
+    {
+        try
+        {
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var role = User.FindFirstValue(ClaimTypes.Role);
+
+            if (!int.TryParse(userIdString, out int userId))
+                return Unauthorized(ApiResponse<object>.Error(401, "Invalid token user ID."));
+
+            var rental = await _rentalService.AcceptRentalAsync(id, userId, role);
+            return Ok(ApiResponse<RentalResponse>.Ok(rental, "Rental accepted successfully."));
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(ApiResponse<object>.NotFound(e.Message));
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            return StatusCode(403, ApiResponse<object>.Error(403, e.Message));
+        }
+        catch (InvalidOperationException e)
+        {
+            return BadRequest(ApiResponse<object>.Error(400, e.Message));
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, ApiResponse<object>.Error(500, "An error occurred while accepting the rental.", e.Message));
+        }
+    }
 }
