@@ -3,6 +3,7 @@ import { bindModalClose } from "./utils/modal.js";
 import { initVehicles }   from "./vehicles.js";
 import { initOffers }     from "./offers.js";
 import { initRentals }    from "./rentals.js";
+import { initReports }    from "./reports.js";
 
 (function guardRoute() {
   const role = AuthService.getRole();
@@ -27,6 +28,7 @@ async function init() {
     loadComponent("panel-vehicles",    "components/dashboard/panel-vehicles.html"),
     loadComponent("panel-offers",      "components/dashboard/panel-offers.html"),
     loadComponent("panel-rentals",     "components/dashboard/panel-rentals.html"),
+    loadComponent("panel-reports",     "components/dashboard/panel-reports.html"),
     loadComponent("modals-placeholder","components/dashboard/modals-vehicles.html"),
   ]);
 
@@ -42,6 +44,7 @@ async function init() {
   initVehicles();
   initOffers();
   initRentals();
+  initReports();
 }
 
 function _bindTabs() {
