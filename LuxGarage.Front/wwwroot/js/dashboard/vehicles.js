@@ -1,6 +1,6 @@
 import { CarService }                        from "../carService.js";
 import { openModal, closeModal, setLoading,
-         showError, clearError }             from "./utils/modal.js";
+         showError, clearError, showConfirm } from "./utils/modal.js";
 import { statusBadge, statusValueFromLabel } from "./utils/statusHelpers.js";
 
 let allVehicles   = [];
@@ -440,7 +440,8 @@ async function _setPrimary(imageId) {
 }
 
 async function _deleteImage(imageId) {
-  if (!confirm("Delete this image?")) return;
+  const confirmed = await showConfirm("Delete Image", "Are you sure you want to delete this vehicle image?", true);
+  if (!confirmed) return;
   try {
     await CarService.deleteImage(imageId);
     await _loadGalleryImages();

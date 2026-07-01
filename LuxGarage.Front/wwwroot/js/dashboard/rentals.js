@@ -1,5 +1,6 @@
 import { RentalService } from "../rentalService.js";
 import { statusBadge }   from "./utils/statusHelpers.js";
+import { showConfirm }   from "./utils/modal.js";
 
 const API_ORIGIN = "http://localhost:5054";
 let allRentals = [];
@@ -11,7 +12,12 @@ export function initRentals() {
       const button = e.target.closest(".btn-action-cancel");
       if (button) {
         const rentalId = button.getAttribute("data-id");
-        if (confirm(`Are you sure you want to cancel rental #${rentalId}?`)) {
+        const confirmed = await showConfirm(
+          "Cancel Rental",
+          `Are you sure you want to cancel rental #${rentalId}?`,
+          true
+        );
+        if (confirmed) {
           try {
             await RentalService.cancelRental(rentalId);
             loadRentals();
