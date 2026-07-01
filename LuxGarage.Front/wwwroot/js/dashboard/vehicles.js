@@ -1,6 +1,6 @@
 import { CarService }                        from "../carService.js";
 import { openModal, closeModal, setLoading,
-         showError, clearError, showConfirm } from "./utils/modal.js";
+         showError, clearError, showConfirm, showToast } from "./utils/modal.js";
 import { statusBadge, statusValueFromLabel } from "./utils/statusHelpers.js";
 
 let allVehicles   = [];
@@ -157,15 +157,31 @@ function _bindAddModal() {
 
     try {
       const form = e.target;
+      
+      // Clean and validate inputs
+      let toHundredRaw = form.querySelector("#add-tohundred").value.trim().replace(',', '.');
+      let toHundredVal = parseFloat(toHundredRaw);
+      if (isNaN(toHundredVal)) {
+        throw new Error("Speed to 100 km/h must be a valid number.");
+      }
+      const roundedToHundred = (Math.round(toHundredVal * 10) / 10).toFixed(1);
+
+      let horsepowerRaw = form.querySelector("#add-hp").value.trim().replace(',', '.');
+      let horsepowerVal = parseFloat(horsepowerRaw);
+      if (isNaN(horsepowerVal)) {
+        throw new Error("Horsepower must be a valid number.");
+      }
+      const roundedHorsepower = Math.round(horsepowerVal);
+
       const formData = new FormData();
       formData.append("Brand",        form.querySelector("#add-brand").value.trim());
       formData.append("Model",        form.querySelector("#add-model").value.trim());
       formData.append("LicensePlate", form.querySelector("#add-plate").value.trim());
       formData.append("EngineName",   form.querySelector("#add-engine").value.trim());
       formData.append("Year",         form.querySelector("#add-year").value);
-      formData.append("Horsepower",   form.querySelector("#add-hp").value);
+      formData.append("Horsepower",   roundedHorsepower);
       formData.append("Mileage",      form.querySelector("#add-mileage").value);
-      formData.append("ToHundred",    form.querySelector("#add-tohundred").value);
+      formData.append("ToHundred",    roundedToHundred);
       formData.append("EngineType",   form.querySelector("#add-enginetype").value);
       formData.append("BodyType",     form.querySelector("#add-bodytype").value);
       formData.append("Color",        form.querySelector("#add-color").value);
@@ -174,6 +190,14 @@ function _bindAddModal() {
 
       await CarService.createCar(formData);
       closeModal("modalAdd");
+
+      // Reset form and clear image queue on success
+      form.reset();
+      addImageFiles = [];
+      const previewList = document.getElementById("addImagePreview");
+      if (previewList) previewList.innerHTML = "";
+
+      showToast("Vehicle added successfully!", "success");
       await loadVehicles();
     } catch (err) {
       showError("formAddError", err.message);
@@ -233,6 +257,7 @@ function _bindEditForm() {
     try {
       await CarService.updateCar(id, { Mileage: mileage, Status: status });
       closeModal("modalEdit");
+      showToast("Vehicle updated successfully!", "success");
       await loadVehicles();
     } catch (err) {
       showError("formEditError", err.message);
@@ -261,6 +286,7 @@ function _bindDeleteConfirm() {
       await CarService.deleteCar(pendingDeleteId);
       closeModal("modalDelete");
       pendingDeleteId = null;
+      showToast("Vehicle deleted successfully!", "success");
       await loadVehicles();
     } catch (err) {
       showError("formDeleteError", err.message);
@@ -433,6 +459,7 @@ function _initDragReorder(grid) {
 async function _setPrimary(imageId) {
   try {
     await CarService.setPrimaryImage(galleryVehicleId, imageId);
+    showToast("Primary image updated!", "success");
     await _loadGalleryImages();
   } catch (e) {
     showError("galleryUploadError", e.message);
@@ -444,6 +471,7 @@ async function _deleteImage(imageId) {
   if (!confirmed) return;
   try {
     await CarService.deleteImage(imageId);
+    showToast("Image deleted successfully!", "success");
     await _loadGalleryImages();
   } catch (e) {
     showError("galleryUploadError", e.message);
@@ -459,6 +487,7 @@ async function _saveOrder() {
     galleryDirty = false;
     document.getElementById("btnSaveOrder").style.display       = "none";
     document.getElementById("galleryReorderHint").style.display = "none";
+    showToast("Gallery order saved!", "success");
     await _loadGalleryImages();
   } catch (e) {
     showError("galleryUploadError", e.message);
@@ -477,6 +506,7 @@ async function _handleGalleryUpload(files) {
 
   try {
     await CarService.uploadImages(galleryVehicleId, validFiles);
+    showToast("Images uploaded successfully!", "success");
     await _loadGalleryImages();
   } catch (e) {
     showError("galleryUploadError", e.message);

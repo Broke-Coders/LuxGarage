@@ -44,8 +44,8 @@
         <div id="panel-employees" class="tab-panel active">
           <div class="panel-header">
             <div>
-              <h2 class="panel-title">Employee Account Requests</h2>
-              <p class="panel-subtitle">Review and manage pending employee account applications.</p>
+              <h2 class="panel-title">Employee Management</h2>
+              <p class="panel-subtitle">Review and manage employee accounts and applications.</p>
             </div>
           </div>
 
@@ -57,17 +57,17 @@
                 <tr>
                   <th>Email</th>
                   <th>Full Name</th>
-                  <th>Workplace ID</th>
+                  <th>Workplace</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
-              <tbody id="pending-employees-list">
+              <tbody id="employees-list">
                 <tr class="table-loading-row">
                   <td colspan="5">
                     <div class="table-spinner">
                       <div class="spinner"></div>
-                      <span>Loading requests…</span>
+                      <span>Loading employees…</span>
                     </div>
                   </td>
                 </tr>
@@ -76,8 +76,8 @@
           </div>
 
           <div class="table-empty" id="adminTableEmpty" style="display:none;">
-            <ion-icon name="checkmark-circle-outline"></ion-icon>
-            <p>No pending requests.</p>
+            <ion-icon name="people-outline"></ion-icon>
+            <p>No employees found.</p>
           </div>
         </div>
 

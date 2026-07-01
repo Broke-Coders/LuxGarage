@@ -41,6 +41,54 @@ function showToast(message, type = "success") {
 }
 
 // -- Render --------------------------------------------------
+function getStatusBadge(status) {
+  switch (status) {
+    case "Pending":
+      return `<span class="status-badge status-pending">Pending</span>`;
+    case "Approved":
+      return `<span class="status-badge status-active">Approved</span>`;
+    case "Rejected":
+      return `<span class="status-badge status-cancelled">Rejected</span>`;
+    case "Suspended":
+      return `<span class="status-badge status-outofservice">Suspended</span>`;
+    default:
+      return `<span class="status-badge status-retired">${status || "Unknown"}</span>`;
+  }
+}
+
+function getActionsHtml(emp) {
+  const status = emp.status;
+  if (status === "Pending") {
+    return `
+      <button class="btn-icon btn-icon--approve btn-status-change" data-id="${emp.id}" data-status="2" title="Approve">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </button>
+      <button class="btn-icon btn-icon--delete btn-status-change" data-id="${emp.id}" data-status="3" title="Reject">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    `;
+  } else if (status === "Approved") {
+    return `
+      <button class="btn-icon btn-icon--delete btn-status-change" data-id="${emp.id}" data-status="4" title="Suspend Account">
+        <ion-icon name="ban-outline"></ion-icon>
+      </button>
+    `;
+  } else if (status === "Suspended") {
+    return `
+      <button class="btn-icon btn-icon--approve btn-status-change" data-id="${emp.id}" data-status="2" title="Activate Account">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </button>
+    `;
+  } else if (status === "Rejected") {
+    return `
+      <button class="btn-icon btn-icon--approve btn-status-change" data-id="${emp.id}" data-status="2" title="Approve">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </button>
+    `;
+  }
+  return "";
+}
+
 function renderEmployees(employees, tbody) {
   const emptyEl = document.getElementById("adminTableEmpty");
 
@@ -56,70 +104,46 @@ function renderEmployees(employees, tbody) {
     <tr data-id="${emp.id}">
       <td>${emp.email}</td>
       <td>${emp.firstName} ${emp.lastName}</td>
-      <td>${emp.workplaceId ?? "N/A"}</td>
-      <td><span class="status-badge status-pending">Pending</span></td>
+      <td>${emp.workplaceName ?? "N/A"}</td>
+      <td>${getStatusBadge(emp.status)}</td>
       <td>
         <div class="td-actions">
-          <button class="btn-icon btn-icon--approve btn-approve" data-id="${emp.id}" title="Approve">
-            <ion-icon name="checkmark-outline"></ion-icon>
-          </button>
-          <button class="btn-icon btn-icon--delete btn-reject" data-id="${emp.id}" title="Reject">
-            <ion-icon name="close-outline"></ion-icon>
-          </button>
+          ${getActionsHtml(emp)}
         </div>
       </td>
     </tr>
   `).join("");
 
-  tbody.querySelectorAll(".btn-approve").forEach((btn) => {
-    btn.addEventListener("click", () => handleStatusChange(btn.dataset.id, 2, tbody));
-  });
-
-  tbody.querySelectorAll(".btn-reject").forEach((btn) => {
-    btn.addEventListener("click", () => handleStatusChange(btn.dataset.id, 3, tbody));
+  tbody.querySelectorAll(".btn-status-change").forEach((btn) => {
+    btn.addEventListener("click", () => handleStatusChange(btn.dataset.id, parseInt(btn.dataset.status)));
   });
 }
 
 // -- Status change ------------------------------------------
-async function handleStatusChange(id, status, tbody) {
-  const action = status === 1 ? "approved" : "rejected";
-
-  const row = tbody.querySelector(`tr[data-id="${id}"]`);
-  if (row) {
-    row.querySelectorAll("button").forEach((b) => (b.disabled = true));
-  }
+async function handleStatusChange(id, status) {
+  const statusLabels = {
+    2: "Approved",
+    3: "Rejected",
+    4: "Suspended"
+  };
+  const actionLabel = statusLabels[status] || "Updated";
 
   try {
     await UserService.changeEmployeeStatus(id, status);
-    if (row) {
-      row.classList.add("row-fade-out");
-      row.addEventListener("animationend", () => {
-        row.remove();
-        if (tbody.querySelectorAll("tr").length === 0) {
-          const emptyEl = document.getElementById("adminTableEmpty");
-          if (emptyEl) emptyEl.style.display = "block";
-        }
-      }, { once: true });
-    }
-    showToast(`Employee ${action} successfully.`, "success");
+    showToast(`Employee status changed to ${actionLabel}.`, "success");
+    await loadEmployees();
   } catch (error) {
-    if (row) {
-      row.querySelectorAll("button").forEach((b) => (b.disabled = false));
-    }
-    showToast(`Failed to ${action.replace("d", "")} employee: ${error.message}`, "error");
+    showToast(`Failed to update employee status: ${error.message}`, "error");
   }
 }
 
-// -- Init ----------------------------------------------------
-async function initAdminPanel() {
-  bindTabs();
-  initInsurances();
-
-  const tbody = document.getElementById("pending-employees-list");
+// -- Load employees list ------------------------------------
+async function loadEmployees() {
+  const tbody = document.getElementById("employees-list");
   if (!tbody) return;
 
   try {
-    const employees = await UserService.getPendingEmployees();
+    const employees = await UserService.getAllEmployees();
     renderEmployees(employees, tbody);
   } catch (error) {
     tbody.innerHTML = `
@@ -127,11 +151,18 @@ async function initAdminPanel() {
         <td colspan="5">
           <div class="table-empty">
             <ion-icon name="alert-circle-outline"></ion-icon>
-            <p>Failed to load requests: ${error.message}</p>
+            <p>Failed to load employees: ${error.message}</p>
           </div>
         </td>
       </tr>`;
   }
+}
+
+// -- Init ----------------------------------------------------
+async function initAdminPanel() {
+  bindTabs();
+  initInsurances();
+  await loadEmployees();
 }
 
 initAdminPanel();

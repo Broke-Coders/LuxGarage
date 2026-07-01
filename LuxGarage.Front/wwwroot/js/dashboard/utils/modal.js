@@ -106,3 +106,83 @@ export function showConfirm(title, message, isDanger = true) {
     });
   });
 }
+
+export function showToast(message, type = "success") {
+  let container = document.getElementById("toast-container");
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "toast-container";
+    container.style.position = "fixed";
+    container.style.bottom = "2.4rem";
+    container.style.right = "2.4rem";
+    container.style.zIndex = "9999";
+    container.style.display = "flex";
+    container.style.flexDirection = "column";
+    container.style.gap = "1rem";
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement("div");
+  toast.className = `custom-toast custom-toast--${type}`;
+  toast.style.display = "flex";
+  toast.style.alignItems = "center";
+  toast.style.gap = "1.2rem";
+  toast.style.padding = "1.4rem 2rem";
+  toast.style.borderRadius = "8px";
+  toast.style.background = "#fff";
+  toast.style.boxShadow = "0 10px 30px rgba(0,0,0,0.12)";
+  toast.style.fontFamily = "'Montserrat', sans-serif";
+  toast.style.fontSize = "1.4rem";
+  toast.style.minWidth = "28rem";
+  toast.style.maxWidth = "40rem";
+  toast.style.borderLeft = "4px solid #47453e";
+  toast.style.transform = "translateX(120%)";
+  toast.style.transition = "transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s";
+  toast.style.opacity = "0";
+
+  let iconName = "checkmark-circle-outline";
+  let iconColor = "#2ecc71";
+  let borderLeftColor = "#2ecc71";
+
+  if (type === "error") {
+    iconName = "alert-circle-outline";
+    iconColor = "#e74c3c";
+    borderLeftColor = "#e74c3c";
+  } else if (type === "warning") {
+    iconName = "warning-outline";
+    iconColor = "#f39c12";
+    borderLeftColor = "#f39c12";
+  } else if (type === "info") {
+    iconName = "information-circle-outline";
+    iconColor = "#3498db";
+    borderLeftColor = "#3498db";
+  }
+
+  toast.style.borderLeftColor = borderLeftColor;
+
+  toast.innerHTML = `
+    <ion-icon name="${iconName}" style="font-size: 2.2rem; color: ${iconColor}; flex-shrink: 0;"></ion-icon>
+    <div style="color: #47453e; font-weight: 500; flex-grow: 1; line-height: 1.4;">${message}</div>
+    <button style="background: none; border: none; cursor: pointer; color: #8d8a7c; font-size: 1.8rem; display: flex; align-items: center; padding: 0;" onclick="this.parentElement.remove()">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+  `;
+
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.transform = "translateX(0)";
+    toast.style.opacity = "1";
+  }, 10);
+
+  setTimeout(() => {
+    toast.style.transform = "translateX(120%)";
+    toast.style.opacity = "0";
+    setTimeout(() => {
+      toast.remove();
+      if (container.children.length === 0) {
+        container.remove();
+      }
+    }, 300);
+  }, 4000);
+}

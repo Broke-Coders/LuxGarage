@@ -115,7 +115,7 @@
          import { AuthService } from "./js/authService.js";
          import { UserService } from "./js/userService.js";
          import { RentalService } from "./js/rentalService.js";
-         import { showConfirm } from "./js/dashboard/utils/modal.js";
+         import { showConfirm, showToast } from "./js/dashboard/utils/modal.js";
 
          const profileForm = document.getElementById("profile-form");
          const saveStatus = document.getElementById("save-status");
@@ -148,6 +148,7 @@
                button.disabled = true;
                button.textContent = "Cancelling...";
                await RentalService.cancelRental(rentalId);
+               showToast(`Reservation #${rentalId} cancelled successfully!`, "success");
                await loadRentals();
             } catch (err) {
                alert(`Could not cancel reservation: ${err.message}`);

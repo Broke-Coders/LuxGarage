@@ -1,7 +1,7 @@
 import { OfferService }                      from "../offerService.js";
 import { CarService }                        from "../carService.js";
 import { openModal, closeModal, setLoading,
-         showError, clearError }             from "./utils/modal.js";
+         showError, clearError, showToast }  from "./utils/modal.js";
 
 const API_ORIGIN = "http://localhost:5054";
 
@@ -53,32 +53,39 @@ function _renderTable(offers) {
   tableEmpty.style.display = "none";
 
   tableBody.innerHTML = offers
-    .map((o) => `
-      <tr>
-        <td>#${o.id}</td>
-        <td class="td-offer-img">
-          ${o.primaryImageUrl
-            ? `<img src="${API_ORIGIN}${o.primaryImageUrl}" alt="${o.title}" class="offer-thumb" />`
-            : `<div class="offer-thumb-placeholder"><ion-icon name="car-outline"></ion-icon></div>`
-          }
-        </td>
-        <td>
-          <strong>${o.title}</strong>
-          <span class="td-sub">${o.brand} ${o.model}</span>
-        </td>
-        <td>${o.mileage}</td>
-        <td class="td-price">${Number(o.price).toLocaleString("pl-PL")} PLN<span class="td-sub">/ day</span></td>
-        <td>
-          <div class="td-actions">
-            <button class="btn-icon btn-icon--edit"   data-id="${o.id}" title="Edit">
-              <ion-icon name="create-outline"></ion-icon>
-            </button>
-            <button class="btn-icon btn-icon--delete" data-id="${o.id}" title="Delete">
-              <ion-icon name="trash-outline"></ion-icon>
-            </button>
-          </div>
-        </td>
-      </tr>`)
+    .map((o) => {
+      const statusBadge = o.isActive
+        ? `<span class="status-badge status-active">Active</span>`
+        : `<span class="status-badge status-cancelled">Inactive</span>`;
+
+      return `
+        <tr>
+          <td>#${o.id}</td>
+          <td class="td-offer-img">
+            ${o.primaryImageUrl
+              ? `<img src="${API_ORIGIN}${o.primaryImageUrl}" alt="${o.title}" class="offer-thumb" />`
+              : `<div class="offer-thumb-placeholder"><ion-icon name="car-outline"></ion-icon></div>`
+            }
+          </td>
+          <td>
+            <strong>${o.title}</strong>
+            <span class="td-sub">${o.brand} ${o.model}</span>
+          </td>
+          <td>${o.mileage}</td>
+          <td class="td-price">${Number(o.price).toLocaleString("pl-PL")} PLN<span class="td-sub">/ day</span></td>
+          <td>${statusBadge}</td>
+          <td>
+            <div class="td-actions">
+              <button class="btn-icon btn-icon--edit"   data-id="${o.id}" title="Edit">
+                <ion-icon name="create-outline"></ion-icon>
+              </button>
+              <button class="btn-icon btn-icon--delete" data-id="${o.id}" title="Delete">
+                <ion-icon name="trash-outline"></ion-icon>
+              </button>
+            </div>
+          </td>
+        </tr>`;
+    })
     .join("");
 
   tableBody.querySelectorAll(".btn-icon--edit").forEach((btn) =>
@@ -113,6 +120,7 @@ function _bindAddModal() {
         InitialPricePerDay:  parseFloat(form.querySelector("#addOfferPrice").value),
       });
       closeModal("modalAddOffer");
+      showToast("Offer created successfully!", "success");
       await loadOffers();
     } catch (err) {
       showError("formAddOfferError", err.message);
@@ -166,6 +174,7 @@ function _bindEditForm() {
         NewPricePerDay: parseFloat(document.getElementById("editOfferPrice").value) || null,
       });
       closeModal("modalEditOffer");
+      showToast("Offer updated successfully!", "success");
       await loadOffers();
     } catch (err) {
       showError("formEditOfferError", err.message);
@@ -194,6 +203,7 @@ function _bindDeleteConfirm() {
       await OfferService.deleteOffer(pendingDeleteId);
       closeModal("modalDeleteOffer");
       pendingDeleteId = null;
+      showToast("Offer deleted successfully!", "success");
       await loadOffers();
     } catch (err) {
       showError("formDeleteOfferError", err.message);
