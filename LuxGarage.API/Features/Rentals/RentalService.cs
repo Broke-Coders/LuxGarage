@@ -171,4 +171,26 @@ public class RentalService
 
         return _mapper.Map<RentalResponse>(rental);
     }
+
+    public async Task<RentalResponse> AcceptRentalAsync(int id, int userId, string? role)
+    {
+        var rental = await _context.Rentals
+            .Include(r => r.Vehicle)
+            .FirstOrDefaultAsync(r => r.Id == id);
+
+        if (rental is null)
+            throw new KeyNotFoundException($"Rental with ID {id} not found.");
+
+        var isStaff = role == UserRole.Employee.ToString() || role == UserRole.Admin.ToString();
+        if (!isStaff)
+            throw new UnauthorizedAccessException("You are not authorized to accept this rental.");
+
+        if (rental.Status is RentalStatus.Cancelled or RentalStatus.Completed or RentalStatus.Active)
+            throw new InvalidOperationException("This rental cannot be accepted in its current state.");
+
+        rental.Status = RentalStatus.Active;
+        await _context.SaveChangesAsync();
+
+        return _mapper.Map<RentalResponse>(rental);
+    }
 }

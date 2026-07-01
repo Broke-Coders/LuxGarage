@@ -9,9 +9,11 @@ export function initRentals() {
   const tableBody = document.getElementById("rentalsTableBody");
   if (tableBody) {
     tableBody.addEventListener("click", async (e) => {
-      const button = e.target.closest(".btn-action-cancel");
-      if (button) {
-        const rentalId = button.getAttribute("data-id");
+      const btnCancel = e.target.closest(".btn-action-cancel");
+      const btnAccept = e.target.closest(".btn-action-accept");
+      
+      if (btnCancel) {
+        const rentalId = btnCancel.getAttribute("data-id");
         const confirmed = await showConfirm(
           "Cancel Rental",
           `Are you sure you want to cancel rental #${rentalId}?`,
@@ -24,6 +26,24 @@ export function initRentals() {
             loadRentals();
           } catch (err) {
             alert("Error cancelling rental: " + err.message);
+          }
+        }
+      }
+
+      if (btnAccept) {
+        const rentalId = btnAccept.getAttribute("data-id");
+        const confirmed = await showConfirm(
+          "Accept Rental",
+          `Are you sure you want to accept rental #${rentalId}?`,
+          true
+        );
+        if (confirmed) {
+          try {
+            await RentalService.acceptRental(rentalId);
+            showToast(`Rental #${rentalId} accepted successfully!`, "success");
+            loadRentals();
+          } catch (err) {
+            alert("Error accepting rental: " + err.message);
           }
         }
       }
@@ -112,7 +132,11 @@ function _renderTable(rentals) {
         <td>
           <div class="td-actions">
             ${(r.status === 'Pending' || r.status === 'ReservedWaitingForPayment') 
-              ? `<button class="btn-action-cancel" data-id="${r.id}">
+              ? `<button class="btn-action-accept" data-id="${r.id}">
+                   <ion-icon name="checkmark-circle-outline"></ion-icon>
+                   Accept
+                 </button>
+                 <button class="btn-action-cancel" data-id="${r.id}">
                    <ion-icon name="close-circle-outline"></ion-icon>
                    Cancel
                  </button>`

@@ -84,5 +84,19 @@ export const RentalService = {
     });
     const result = await handleResponse(response);
     return result?.data ?? result;
+  },
+
+  /**
+   * PUT /api/rental/{id}/accept - accepts a pending reservation
+   * @param {number} rentalId
+   * @returns {Promise<Object>}
+   */
+  async acceptRental(rentalId) {
+    const response = await fetch(`${API_BASE_URL}/rental/${rentalId}/accept`, {
+      method: "PUT",
+      headers: authHeaders(),
+    });
+    const result = await handleResponse(response);
+    return result?.data ?? result;
   }
 };
