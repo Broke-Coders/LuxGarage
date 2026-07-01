@@ -429,39 +429,16 @@
                <!-- STEP 3: EXTRAS -->
                <div class="form-step" id="step-3">
                   <h3>Enhance Your Experience</h3>
-                  <div class="extras-grid">
-                     <div class="extra-card" data-price="0" data-id="1">
-                        <div class="extra-icon">
-                           <ion-icon name="shield-outline"></ion-icon>
-                        </div>
-                        <h4>Basic Insurance</h4>
-                        <p>Standard coverage for minor scratches.</p>
-                        <span class="extra-price">Included</span>
+                  <div class="extras-slider-wrapper">
+                     <button type="button" class="slider-btn slider-btn--prev" id="extras-slide-prev" style="display: none;">
+                        <ion-icon name="chevron-back-outline"></ion-icon>
+                     </button>
+                     <div class="extras-grid" id="extras-grid-container">
+                        <!-- Loaded dynamically from database -->
                      </div>
-                     <div class="extra-card" data-price="250" data-id="2">
-                        <div class="extra-icon">
-                           <ion-icon name="shield-checkmark-outline"></ion-icon>
-                        </div>
-                        <h4>Premium Shield</h4>
-                        <p>Full protection. Zero deductible.</p>
-                        <span class="extra-price">+250 PLN / day</span>
-                     </div>
-                     <div class="extra-card" data-price="150" data-id="3">
-                        <div class="extra-icon">
-                           <ion-icon name="person-add-outline"></ion-icon>
-                        </div>
-                        <h4>Additional Driver</h4>
-                        <p>Share the thrill with a friend.</p>
-                        <span class="extra-price">+150 PLN / day</span>
-                     </div>
-                     <div class="extra-card" data-price="100" data-id="4">
-                        <div class="extra-icon">
-                           <ion-icon name="sparkles-outline"></ion-icon>
-                        </div>
-                        <h4>Pro Cleaning</h4>
-                        <p>Return dirty, we'll handle the rest.</p>
-                        <span class="extra-price">+100 PLN / day</span>
-                     </div>
+                     <button type="button" class="slider-btn slider-btn--next" id="extras-slide-next" style="display: none;">
+                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                     </button>
                   </div>
 
                   <div class="total-reservation-card">
