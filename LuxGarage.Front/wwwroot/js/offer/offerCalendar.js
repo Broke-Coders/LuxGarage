@@ -27,7 +27,6 @@ const nextBtn = document.querySelector(".cal-nav ion-icon[name='chevron-forward-
 
 // State
 let currentDate = new Date();
-currentDate.setDate(1);
 export let startDate      = null;
 export let endDate        = null;
 export let startTime      = "12:00 PM";
@@ -36,6 +35,8 @@ export let pricePerDayRef = { value: 0 };
 // ── Public init ──────────────────────────────────────────────────────────────
 export function initCalendar(pricePerDay) {
    pricePerDayRef.value = pricePerDay;
+   currentDate = new Date();
+   currentDate.setDate(1);
    renderCalendar();
    updateDisplay();
    _bindNavigation();
@@ -80,6 +81,7 @@ export function renderCalendar() {
       d.textContent = i;
 
       if (date < today) d.classList.add("past-day");
+      if (date.getTime() === today.getTime()) d.classList.add("today");
 
       const isBooked = bookedDates.some((r) => date >= r.start && date <= r.end);
       if (isBooked && date >= today) d.classList.add("unavailable-day");
