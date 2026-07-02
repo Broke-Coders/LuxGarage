@@ -17,6 +17,7 @@ const minPriceInput = document.getElementById("min-price");
 const maxPriceInput = document.getElementById("max-price");
 const startDateInput = document.getElementById("start-date");
 const endDateInput = document.getElementById("end-date");
+const onlyAvailableCheckbox = document.getElementById("only-available");
 const clearFiltersBtn = document.getElementById("clear-filters");
 
 let allCars = [];
@@ -34,8 +35,14 @@ function displayCars(cars) {
     }
 
     cars.forEach(car => {
+        const isInactive = !car.isActive;
+        const inactiveClass = isInactive ? "car--inactive" : "";
+        const btnText = isInactive ? "Unavailable" : "Rent Now";
+        const btnClass = isInactive ? "btn-car btn-car--inactive" : "btn-car";
+        const btnAttr = isInactive ? "style='pointer-events: none; background-color: #8d8a7c;'" : "";
+        
         const carCard = `
-               <div class="car">
+               <div class="car ${inactiveClass}">
                   <img
                      src="${car.image}" 
                      class="car-img"
@@ -65,7 +72,7 @@ function displayCars(cars) {
                            <span>0-100 km/h: <strong>${car.zeroToHundred}</strong></span>
                         </li>
                      </ul>
-                     <a href="offer.html?id=${car.id}" class="btn-car">Rent Now</a>
+                     <a href="${isInactive ? '#' : `offer.html?id=${car.id}`}" class="${btnClass}" ${btnAttr}>${btnText}</a>
                   </div>
                </div>`
         container.innerHTML += carCard;
@@ -134,6 +141,11 @@ function filterCars() {
     const endD = endDateInput.value;
     if (startD && endD) {
         filtered = filtered.filter(car => isCarAvailable(car.vehicleId, startD, endD));
+    }
+
+    // 6. Active/Available Offers Filter
+    if (onlyAvailableCheckbox && onlyAvailableCheckbox.checked) {
+        filtered = filtered.filter(car => car.isActive);
     }
 
     displayCars(filtered);
@@ -212,7 +224,8 @@ async function loadData(searchTerm = "") {
                 mileage: parseInt(offer.mileage),
                 licensePlate: "",
                 pricePerDay: offer.price,
-                image: `http://localhost:5054${offer.primaryImageUrl}`
+                image: `http://localhost:5054${offer.primaryImageUrl}`,
+                isActive: offer.isActive !== false
             };
         });
 
@@ -291,6 +304,9 @@ document.addEventListener("DOMContentLoaded", () => {
             input.addEventListener("input", filterCars);
         }
     });
+    if (onlyAvailableCheckbox) {
+        onlyAvailableCheckbox.addEventListener("change", filterCars);
+    }
 
     // Clear Filters Button
     if (clearFiltersBtn) {
@@ -306,6 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (maxPriceInput) maxPriceInput.value = "";
             if (startDateInput) startDateInput.value = "";
             if (endDateInput) endDateInput.value = "";
+            if (onlyAvailableCheckbox) onlyAvailableCheckbox.checked = false;
             
             // Reset UI elements
             searchButtons.forEach(btn => btn.classList.remove("active"));

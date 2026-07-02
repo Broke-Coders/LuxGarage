@@ -360,3 +360,53 @@
       padding: 8rem 0;
    }
 }
+
+/* Inactive offer styles */
+.car.car--inactive {
+   opacity: 0.65;
+   filter: grayscale(30%);
+   background-color: #f7f7f7;
+   border: 1px dashed #ccc;
+}
+.car.car--inactive .btn-car--inactive {
+   background-color: #8d8a7c !important;
+   color: #fff !important;
+   cursor: not-allowed;
+   pointer-events: none;
+}
+
+/* Checkbox filter container styling */
+.filter-checkbox-container {
+   display: flex;
+   align-items: center;
+   gap: 0.8rem;
+   height: 4.4rem;
+   padding-bottom: 0.2rem;
+   cursor: pointer;
+   user-select: none;
+   min-width: max-content;
+}
+.filter-checkbox-container input[type="checkbox"] {
+   width: 1.8rem;
+   height: 1.8rem;
+   accent-color: #47453e;
+   cursor: pointer;
+}
+.filter-checkbox-container label {
+   font-size: 1.4rem;
+   font-weight: 600;
+   color: #333;
+   font-family: "Montserrat", sans-serif;
+   cursor: pointer;
+   white-space: nowrap;
+}
+
+.filter-group.filter-group--wide {
+   min-width: 38rem;
+}
+.filter-group.filter-group--medium {
+   min-width: 24rem;
+}
+.date-inputs input {
+   min-width: 14rem;
+}
