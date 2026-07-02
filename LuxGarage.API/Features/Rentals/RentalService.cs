@@ -33,7 +33,7 @@ public class RentalService
             .Include(o => o.Prices)
             .FirstOrDefaultAsync(o => o.VehicleId == request.VehicleId);
             
-        if (offer == null) throw new InvalidOperationException("No active offer for this vehicle.");
+        if (offer == null || !offer.IsActive) throw new InvalidOperationException("No active offer for this vehicle.");
         
         var currentPricePerDay = offer.Prices.FirstOrDefault(p => p.ValidTo == null)?.PricePerDay 
                                  ?? throw new InvalidOperationException("Price not defined.");

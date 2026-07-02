@@ -8,6 +8,7 @@ const BASE_URL = "http://localhost:5054";
 export let vehicleId   = 1;
 export let pricePerDay = 0;
 export let bookedDates = [];
+export let isActive    = true;
 
 export async function initOfferPage(offerId, onReady) {
    try {
@@ -16,6 +17,7 @@ export async function initOfferPage(offerId, onReady) {
 
       vehicleId   = offer.vehicleId;
       pricePerDay = offer.price;
+      isActive    = offer.isActive !== false;
 
       document.title = `${offer.brand} ${offer.model} | LuxGarage Offer`;
       document.querySelector(".offer-main-title").textContent = offer.title;

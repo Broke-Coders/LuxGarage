@@ -3,7 +3,7 @@ import { UserService }    from "../userService.js";
 import { PaymentService } from "../paymentService.js";
 import { InsuranceService } from "../insuranceService.js";
 import { startDate, endDate, pricePerDayRef } from "./offerCalendar.js";
-import { vehicleId } from "./offerPage.js";
+import { vehicleId, isActive } from "./offerPage.js";
 
 // DOM refs
 const modal               = document.getElementById("booking-modal");
@@ -52,6 +52,11 @@ function _resetModal() {
 // ── Open / close modal ────────────────────────────────────────────────────────
 function _bindOpenModal() {
    bookBtnSidebar.onclick = async () => {
+      if (!isActive) {
+         alert("This offer is inactive and cannot be booked.");
+         return;
+      }
+
       if (!startDate || !endDate) {
          alert("Please select a date range first.");
          return;

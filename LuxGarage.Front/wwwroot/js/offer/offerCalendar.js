@@ -1,5 +1,5 @@
 // js/offerCalendar.js
-import { bookedDates } from "./offerPage.js";
+import { bookedDates, isActive } from "./offerPage.js";
 
 const MONTHS = [
    "January", "February", "March", "April", "May", "June",
@@ -149,6 +149,23 @@ export function updateDisplay() {
       bookBtnSidebar.classList.remove("ready");
       bookBtnSidebar.disabled = false;
       availabilityError.classList.remove("active");
+   }
+
+   if (!isActive) {
+      bookBtnSidebar.classList.remove("ready");
+      bookBtnSidebar.disabled = true;
+      bookBtnSidebar.textContent = "Offer Inactive";
+      
+      const errorSpan = availabilityError.querySelector("span");
+      if (errorSpan) {
+         errorSpan.textContent = "This offer is currently inactive and cannot be booked.";
+      }
+      availabilityError.classList.add("active");
+   } else {
+      const errorSpan = availabilityError.querySelector("span");
+      if (errorSpan) {
+         errorSpan.textContent = "Selected range includes unavailable days.";
+      }
    }
 }
 
