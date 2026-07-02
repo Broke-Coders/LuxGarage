@@ -35,7 +35,7 @@ export function initRentals() {
         const confirmed = await showConfirm(
           "Accept Rental",
           `Are you sure you want to accept rental #${rentalId}?`,
-          true
+          false
         );
         if (confirmed) {
           try {
